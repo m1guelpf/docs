@@ -1,20 +1,20 @@
 import Doc from '~/components/layout/docs'
-
-import Now from '~/components/text/now'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import Link from '~/components/text/link'
 import { TerminalInput } from '~/components/text/terminal'
 
 export const meta = {
   title: 'DNS Management',
-  description: 'Managing your DNS records for domains used with Now',
+  description: `Managing your DNS records for domains used with ${PRODUCT_SHORT_V1_NAME}`,
   date: '15 Mar 2017',
   editUrl: 'pages/docs/v1/features/dns.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-Thanks to the `now dns` CLI command, managing existing DNS records with <Now color="#000" /> is simple.
+Thanks to the `now dns` CLI command, managing existing DNS records with <ProductShortV1Name /> is simple.
 
-> However, this only applies to domains you bought via <Now color="#000" /> or domains configured with our [global DNS service](/world).
+> However, this only applies to domains you bought via <ProductShortV1Name /> or domains configured with our [global DNS service](/world).
 
 In the examples shown below, the placeholder `zeit.rocks` represents a domain of your choice that was registered with `now domains` or `now alias`. Here are the main sub-commands you can use:
 
@@ -73,8 +73,8 @@ Creates a [CAA record](https://letsencrypt.org/docs/caa/) that allows issuing ce
 > In this case, you'll be in charge of certificate management for your domain.<br/>
 > Most probably, you'll need to use `CAA` records to:
 >
-> 1. use a custom certificate for your <Now color="#000" /> deployment with <Link href="/docs/features/certs#now-certs-replace">`now certs replace`</Link>
-> 2. run an app outside of <Now color="#000" /> with TLS for a subdomain
+> 1. use a custom certificate for your <ProductShortV1Name /> deployment with <Link href="/docs/features/certs#now-certs-replace">`now certs replace`</Link>
+> 2. run an app outside of <ProductShortV1Name /> with TLS for a subdomain
 
 ### now dns rm &lt;ID>
 

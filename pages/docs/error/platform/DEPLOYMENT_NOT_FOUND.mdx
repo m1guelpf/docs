@@ -1,12 +1,13 @@
 import Standard from '~/components/layout/standard'
 import Note from '~/components/text/note'
 import { InlineCode } from '~/components/text/code'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
   title: 'Deployment Not Found',
   description: 'The requested deployment was not found.',
   editUrl: 'pages/docs/error/platform/DEPLOYMENT_NOT_FOUND.mdx',
-  lastEdited: '2019-10-21T11:26:47.000Z'
+  lastEdited: '2020-04-15T01:59:48.000Z'
 }
 
 #### Platform Error
@@ -27,7 +28,7 @@ The deployment was not found in the platform infrastructure layer.
 
 - Make sure the link you accessed is correct.
 - If you were expecting a deployment to be assigned to a domain that you are accessing, please ensure that the domain is [assigned to a project](/docs/v2/custom-domains/#adding-a-domain) and there is a [production deployment](/docs/v2/custom-domains/#deploying-with-your-domain).
-- If the link is correct and you were not expecting this error; **[Contact Support](mailto:support@zeit.co)**.
+- If the link is correct and you were not expecting this error; **<EmailLink type="support">Contact Support</EmailLink>**.
 
 export default ({ children }) => <Standard meta={meta}>{children}</Standard>
 

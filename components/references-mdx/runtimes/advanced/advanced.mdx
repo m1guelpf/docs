@@ -4,6 +4,7 @@ import { InlineCode, Code } from '~/components/text/code'
 import Link from '~/components/text/link'
 import Note from '~/components/text/note'
 import Tag from '~/components/text/tag'
+import ProductName from '~/components/name/product-name'
 
 export const meta = {
   editUrl: 'pages/docs/runtimes/runtimes-mdx/advanced/advanced.mdx',
@@ -12,7 +13,7 @@ export const meta = {
 
 # Advanced Usage
 
-By default, no configuration is needed to deploy Serverless Functions to ZEIT Now.
+By default, no configuration is needed to deploy Serverless Functions to <ProductName />.
 
 For all officially supported languages (see below), the only requirement is creating a `api` directory and placing your Serverless Functions inside.
 
@@ -27,7 +28,7 @@ In order to customize the Memory or Maximum Execution Duration of your Serverles
 
 ## Community Runtimes
 
-If you would like to use a language that ZEIT Now does not support by default, you can use a Community Runtime by setting the [`functions` property](/docs/configuration#project/functions) in `now.json`:
+If you would like to use a language that <ProductName /> does not support by default, you can use a Community Runtime by setting the [`functions` property](/docs/configuration#project/functions) in `now.json`:
 
 ```json
 {
@@ -39,7 +40,7 @@ If you would like to use a language that ZEIT Now does not support by default, y
 }
 ```
 
-The following Community Runtimes are recommended by ZEIT Now:
+The following Community Runtimes are recommended by <ProductName />:
 
 | Runtime | Runtime Module | Docs                                     |
 | ------- | -------------- | ---------------------------------------- |
@@ -144,7 +145,7 @@ A Node.js Runtime entrypoint can contain one of the following to retain legacy s
 
 ### AWS Lambda API
 
-The Node.js Runtime provides a way to opt into the [AWS Lambda API](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html). This is useful if you have existing Serverless Functions you wish to deploy to ZEIT Now but do not want to change the API.
+The Node.js Runtime provides a way to opt into the [AWS Lambda API](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html). This is useful if you have existing Serverless Functions you wish to deploy to <ProductName /> but do not want to change the API.
 
 ```js
 exports.handler = async function(event, context, callback) {
@@ -219,7 +220,7 @@ app = Flask(__name__)
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
-    return Response("<h1>Flask on Now</h1><p>You visited: /%s</p>" % (path), mimetype="text/html")
+    return Response("<h1>Flask</h1><p>You visited: /%s</p>" % (path), mimetype="text/html")
 ```
 
 <Caption>
@@ -274,67 +275,9 @@ sanic==19.6.0
   <InlineCode>sanic</InlineCode> as a dependency.
 </Caption>
 
-## Advanced Ruby Usage
-
-In order to use this Runtime, no configuration is needed. You only need to create a file inside the `api` directory.
-
-**The entry point of this Runtime is a glob matching `.rb` or `.ru` (for [Rack](#advanced-usage/advanced-ruby-usage/rack-interface)) source files** with one of the following variables defined:
-
-- `Handler` proc that matches the `do |req, res|` signature.
-- `Handler` class that inherits from the `WEBrick::HTTPServlet::AbstractServlet` class.
-
-For more information on using this Runtime, [see the Ruby Runtime section](#official-runtimes/ruby).
-
-Alternatively, [a `.ru` Rack config file](#advanced-usage/advanced-ruby-usage/rack-interface) will serve the Ruby application it contains.
-
-### Rack Interface
-
-Many Ruby frameworks interface with [Rack](https://rack.github.io/) for forwarding HTTP requests to web applications written in Ruby. You can use Rack with frameworks such as Sinatra or Rails.
-
-Instead of defining a handler, write the application as usual, like this Sinatra application:
-
-```ruby
-require 'sinatra'
-
-get '/*' do
-    'Hello world'
-end
-```
-
-<Caption>
-  An example <InlineCode>Sinatra</InlineCode> application.
-</Caption>
-
-Inside `Gemfile` define:
-
-```ruby
-source "https://rubygems.org"
-
-gem "sinatra", "~> 2.0"
-gem "rack", "~> 2.0"
-```
-
-<Caption>
-  An example <InlineCode>Gemfile</InlineCode> file.
-</Caption>
-
-Add a Rack config file at `index.ru` to start the application:
-
-```ruby
-require './app'
-
-run Sinatra::Application
-```
-
-<Caption>
-  An example <InlineCode>index.ru</InlineCode> file.
-</Caption>
-
----
-
 ## Developing Your Own Runtime
 
-Extending the feature-set of a ZEIT Now deployment is as simple as creating a Runtime that takes a list of files and outputs either static files or dynamic [Serverless Functions](/docs/v2/serverless-functions/introduction/).
+Extending the feature-set of a <ProductName /> deployment is as simple as creating a Runtime that takes a list of files and outputs either static files or dynamic [Serverless Functions](/docs/v2/serverless-functions/introduction/).
 
 [A full API reference is available to help with creating Runtimes.](https://github.com/zeit/now/blob/master/DEVELOPING_A_RUNTIME.md)
 

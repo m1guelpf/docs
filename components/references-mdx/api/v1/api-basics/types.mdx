@@ -7,6 +7,8 @@ import {
 } from '~/components/api/table'
 import Link from '~/components/text/link'
 import { InlineCode } from '~/components/text/code'
+import OrgV1Name from '~/components/name/org-v1-name'
+import { ORG_NAME } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/api-basics/types.mdx',
@@ -37,7 +39,9 @@ Along the documentation we're going to use many different types of data. Here yo
     <BoldCell>String</BoldCell>
     <Cell>A string is a sequence of characters used to represent text.</Cell>
     <Cell>
-      <InlineCode>"ZEIT"</InlineCode>
+      <InlineCode>
+        "<OrgV1Name />"
+      </InlineCode>
     </Cell>
   </Row>
   <Row>
@@ -60,7 +64,7 @@ Along the documentation we're going to use many different types of data. Here yo
       A data structure with a list of values assigned to a unique key.
     </Cell>
     <Cell>
-      <InlineCode>{`{ "service": "ZEIT" }`}</InlineCode>
+      <InlineCode>{`{ "service": "${ORG_NAME}" }`}</InlineCode>
     </Cell>
   </Row>
   <Row>
@@ -69,7 +73,11 @@ Along the documentation we're going to use many different types of data. Here yo
       A data structure with only a list of values separated by a comma.
     </Cell>
     <Cell>
-      <InlineCode>["ZEIT", 1234, 12.34]</InlineCode>
+      <InlineCode>
+        ["
+        <OrgV1Name />
+        ", 1234, 12.34]
+      </InlineCode>
     </Cell>
   </Row>
   <Row>

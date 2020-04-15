@@ -4,20 +4,23 @@ import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
+import OrgV1Name from '~/components/name/org-v1-name'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
+import NameWrapper from '~/components/name/name-wrapper'
 
 export const meta = {
-  title: 'Now for GitHub',
-  description:
-    'Deploy each change in your GitHub repositories with Now to share and test with your colleagues. Instant share-able links to your work with each push. Automatically alias your changes to production.',
+  title: `${PRODUCT_SHORT_V1_NAME} for GitHub`,
+  description: `Deploy each change in your GitHub repositories with ${PRODUCT_SHORT_V1_NAME} to share and test with your colleagues. Instant share-able links to your work with each push. Automatically alias your changes to production.`,
   date: '25 June 2018',
   editUrl: 'pages/docs/v1/integrations/now-for-github.mdx',
   image: process.env.IMAGE_ASSETS_URL + '/docs/now-for-github/tw-card.png?v2',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-Now for GitHub is an app for GitHub users or organizations that automatically deploys and aliases changes to repositories with Now.
+​<ProductShortV1Name /> for GitHub is an app for GitHub users or organizations that automatically deploys and aliases changes to repositories with <ProductShortV1Name />.
 
-The Now for GitHub integration features:
+The <ProductShortV1Name /> for GitHub integration features:
 
 - Deploys every push in branches and pull requests to preview changes live
 - Aliases the most recent changes from the master branch
@@ -30,12 +33,13 @@ The Now for GitHub integration features:
 />
 
 <Caption>
-  Now for GitHub providing a deployment for a GitHub pull request.
+  <ProductShortV1Name /> for GitHub providing a deployment for a GitHub pull
+  request.
 </Caption>
 
 ## Connecting the App to Your Github Account or Organization
 
-Now for GitHub is directly connected with your ZEIT account and can be linked from within your [account](/account) or team settings. Within the settings page under the "General" tab, the first section will offer for you to install Now for GitHub if it is not already installed.
+​<ProductShortV1Name /> for GitHub is directly connected with your <OrgV1Name /> account and can be linked from within your [account](/account) or team settings. Within the settings page under the "General" tab, the first section will offer for you to install <ProductShortV1Name /> for GitHub if it is not already installed.
 
 <Image
   src={`${process.env.IMAGE_ASSETS_URL}/docs/now-for-github/github-connect.png`}
@@ -44,8 +48,8 @@ Now for GitHub is directly connected with your ZEIT account and can be linked fr
 />
 
 <Caption>
-  The Now for GitHub installation section within the account or team general
-  settings page.
+  The <ProductShortV1Name /> for GitHub installation section within the account
+  or team general settings page.
 </Caption>
 
 If you are a new user signing up, this process can also be started from within the onboarding stage.
@@ -57,10 +61,11 @@ If you are a new user signing up, this process can also be started from within t
 />
 
 <Caption>
-  The Now for GitHub installation section within the account or team onboarding.
+  The <ProductShortV1Name /> for GitHub installation section within the account
+  or team onboarding.
 </Caption>
 
-Clicking the "Install Now for GitHub" button will take you to GitHub where they will prompt you, if you have an account belonging to any organizations, which profile the installation should be installed with. You can pick either your GitHub account or any of the organizations you have access to.
+Clicking the "Install <ProductShortV1Name /> for GitHub" button will take you to GitHub where they will prompt you, if you have an account belonging to any organizations, which profile the installation should be installed with. You can pick either your GitHub account or any of the organizations you have access to.
 
 If you are not part of any organization, you will skip straight to the repository selection.
 
@@ -76,29 +81,29 @@ For organizations that you have limited permissions for, GitHub will ask you to 
 
 <Caption>The account or organization selection step on GitHub.</Caption>
 
-With an account or organization selected, GitHub will now ask for which repositories Now for GitHub should work with. In this step you are able to allow all repositories to be deployed or an optional set of repositories.
+With an account or organization selected, GitHub will now ask for which repositories <ProductShortV1Name /> for GitHub should work with. In this step you are able to allow all repositories to be deployed or an optional set of repositories.
 
-With the GitHub profile and repositories chosen for Now for GitHub to work with, the application will be ready to start using. The next step is to prepare the repository for Now to deploy.
+With the GitHub profile and repositories chosen for <ProductShortV1Name /> for GitHub to work with, the application will be ready to start using. The next step is to prepare the repository for <ProductShortV1Name /> to deploy.
 
 ## Usage
 
-Now for GitHub requires a `now.json` file to exist in the root of the repository to begin deploying that repository.
+​<ProductShortV1Name /> for GitHub requires a `now.json` file to exist in the root of the repository to begin deploying that repository.
 
-A `now.json` file is a way to configure the deployments Now will make using your code. To get started deploying from your repository, the `now.json` configuration does not need any specific setup, you will only need a valid JSON file. For example, you can use an empty object (`{}`) for the file to be valid and recognized by Now to start deploying.
+A `now.json` file is a way to configure the deployments <ProductShortV1Name /> will make using your code. To get started deploying from your repository, the `now.json` configuration does not need any specific setup, you will only need a valid JSON file. For example, you can use an empty object (`{}`) for the file to be valid and recognized by <ProductShortV1Name /> to start deploying.
 
-With the repository correctly configured, Now for GitHub will start deploying the app.
+With the repository correctly configured, <ProductShortV1Name /> for GitHub will start deploying the app.
 
 ## Default Behaviour
 
 ### A Deployment for Each Push
 
-Now for GitHub will **deploy every push by default**. This includes pushes to any branch that includes a `now.json` and any pull requests made from those branches. This allows those working within the repository to preview changes made before the changes are pushed to production.
+​<ProductShortV1Name /> for GitHub will **deploy every push by default**. This includes pushes to any branch that includes a `now.json` and any pull requests made from those branches. This allows those working within the repository to preview changes made before the changes are pushed to production.
 
 ### Aliasing the Default Branch
 
 If [an alias is set within the `now.json` file](/docs/features/aliases), pushes and merges to the [default branch](https://help.github.com/articles/setting-the-default-branch/) (commonly "master") will be aliased automatically and made live to those aliases with the latest deployment made with a push.
 
-For example, the following `now.json` configuration will make Now for GitHub alias the most recent push to `my-zeit-website.com` by default.
+For example, the following `now.json` configuration will make <ProductShortV1Name /> for GitHub alias the most recent push to `my-zeit-website.com` by default.
 
 ```json
 {
@@ -108,9 +113,9 @@ For example, the following `now.json` configuration will make Now for GitHub ali
 
 ## Configuration
 
-### Disabling Now for GitHub with `now.json`
+### Disabling <NameWrapper name={PRODUCT_SHORT_V1_NAME} /> for GitHub with `now.json`
 
-To disable Now for a GitHub repository, use the following configuration option in the `now.json` file:
+To disable <ProductShortV1Name /> for a GitHub repository, use the following configuration option in the `now.json` file:
 
 ```
 {
@@ -122,14 +127,14 @@ To disable Now for a GitHub repository, use the following configuration option i
 
 <Caption>
   This example is of an entire <InlineCode>now.json</InlineCode> file with the
-  noted configuration option to disable Now for GitHub.
+  noted configuration option to disable <ProductShortV1Name /> for GitHub.
 </Caption>
 
-Disabling Now for GitHub with this configuration option will prevent Now from [deploying any push](#a-deployment-for-each-push) or [aliasing the changes](#aliasing-the-default-branch) when merged to the default branch.
+Disabling <ProductShortV1Name /> for GitHub with this configuration option will prevent <ProductShortV1Name /> from [deploying any push](#a-deployment-for-each-push) or [aliasing the changes](#aliasing-the-default-branch) when merged to the default branch.
 
 ### Disabling Auto-Aliasing
 
-To stop Now from [automatically aliasing the default branch](#aliasing-the-default-branch) to any alias setup within the `now.json` file, use the following configuration option.
+To stop <ProductShortV1Name /> from [automatically aliasing the default branch](#aliasing-the-default-branch) to any alias setup within the `now.json` file, use the following configuration option.
 
 ```
 {
@@ -142,8 +147,9 @@ To stop Now from [automatically aliasing the default branch](#aliasing-the-defau
 
 <Caption>
   This example is of an entire <InlineCode>now.json</InlineCode> file with the
-  noted configuration option to disable auto-aliasing with Now for GitHub. The
-  file also includes an example setup alias.
+  noted configuration option to disable auto-aliasing with{' '}
+  <ProductShortV1Name /> for GitHub. The file also includes an example setup
+  alias.
 </Caption>
 
 ### Disable Commenting with Silent Mode
@@ -162,7 +168,7 @@ This is a per repo setting. You can enable it by adding the following configurat
 
 ### Disable Auto Job Cancellation
 
-To stop Now from canceling in-progress builds to prioritise building newer commits, use the following configuration option in [a `now.json` file](/docs/v1/features/configuration) for the repository that this behaviour should exist in.
+To stop <ProductShortV1Name /> from canceling in-progress builds to prioritise building newer commits, use the following configuration option in [a `now.json` file](/docs/v1/features/configuration) for the repository that this behaviour should exist in.
 
 ```
 {
@@ -175,7 +181,7 @@ To stop Now from canceling in-progress builds to prioritise building newer commi
 ## Included Environment Variables
 
 You may want to use different workflows and use different APIs based on Git information.<br/>
-In order to support that, Now will deploy your app with following built-in environment variables.
+In order to support that, <ProductShortV1Name /> will deploy your app with following built-in environment variables.
 
 ```
 {

@@ -2,18 +2,19 @@ import Standard from '~/components/layout/standard'
 import Link from '~/components/text/link'
 import Note from '~/components/text/note'
 import { InlineCode } from '~/components/text/code'
+import ProductV1Name from '~/components/name/product-v1-name'
+import { PRODUCT_V1_NAME } from '~/lib/constants'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
-  title: 'ZEIT Now Platform 1.0 Slots Notify Sub Failed',
+  title: `${PRODUCT_V1_NAME} Slots Notify Sub Failed`,
   description: 'An error occurred in the platform infrastructure layer.',
   editUrl: 'pages/docs/error/platform/V1_INTERNAL_SLOTS_NOTIFY_SUB_FAILED.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-15T02:03:00.000Z'
 }
 
-<br />
-
 <Note type="warning">
-  This error is from ZEIT Now platform version 1.0.{' '}
+  This error is from <ProductV1Name />.{' '}
   <Link href="https://zeit.co/guides/migrate-to-zeit-now">
     Upgrade to the latest platform version
   </Link>{' '}
@@ -22,7 +23,7 @@ export const meta = {
 
 #### Platform Error
 
-An error occurred in the ZEIT Now 1.0 platform infrastructure layer.
+An error occurred in the <ProductV1Name /> platform infrastructure layer.
 
 <br />
 
@@ -36,7 +37,7 @@ An error occurred in the ZEIT Now 1.0 platform infrastructure layer.
 
 #### Troubleshoot
 
-- **[Contact Support](mailto:support@zeit.co)** along with the ID on the error page from your deployment.
+- **<EmailLink type="support">Contact Support</EmailLink>** along with the ID on the error page from your deployment.
 
 export default ({ children }) => <Standard meta={meta}>{children}</Standard>
 

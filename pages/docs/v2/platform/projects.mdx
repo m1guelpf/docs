@@ -4,77 +4,188 @@ import Snippet from '~/components/snippet'
 import Link from '~/components/text/link'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
+import { Image } from '~/components/media'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
   title: 'Projects',
-  description: 'Setting up projects with a list of deployments on ZEIT Now.',
+  description: `Setting up projects with a list of deployments on ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/platform/projects.mdx',
-  lastEdited: '2019-11-27T13:47:09.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-A project is a logical structure that groups deployments and [custom domains](/docs/v2/custom-domains) inside of an account or team, based on the name of the project. This structure allows easier tracking and managing of deployments.
-
-The projects structure enables faster locating of [deployments logs](/docs/v2/platform/deployments/#logs-view), [source code](/docs/v2/platform/deployments/#source-view), and [custom domains](/docs/v2/custom-domains).
+To deploy on <ProductName />, you need to create a **Project**. A Project is a logical structure that groups [deployments](/docs/v2/platform/deployments) and [custom domains](/docs/v2/custom-domains). Each project can be associated to a [GitHub](/docs/v2/git-integrations/zeit-now-for-github), [GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), or [Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) repository.
 
 ## Creating a Project
 
-A project can be created either from the ZEIT account or team dashboard, by using [Now CLI](/download), or automatically when [deploying](/docs/v2/build-step).
+You can create a new project from the <OrgName /> Dashboard by clicking on [the New Project button](/new).
 
-### 1. From the Dashboard
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/new-project.png`}
+  width={1744 / 2}
+  height={516 / 2}
+  shadow
+/>
+<Caption>Creating a new project from the <OrgName /> Dashboard.</Caption>
 
-Simply visit [the ZEIT dashboard](/dashboard)(optionally selecting a team from the team picker), then click on the "Projects" link in the dashboard navigation.
+You can either [import from an existing Git repository](/docs/v2/git-integrations) or use one of our templates.
 
-Then, you can create a project by just giving it a name.
+## Project Settings
 
-### 2. With Now CLI
+To edit project settings, choose a project from the [dashboard](https://zeit.co/dashboard):
 
-You can create project by just typing the following command:
+<Image
+  src={`${process.env.ASSETS}/docs/common/select-project.png`}
+  width={1102 / 2}
+  height={410 / 2}
+  shadow
+/>
+<Caption>Selecting the project from the <OrgName /> Dashboard.</Caption>
 
-<Snippet dark text="now projects add <your-project-name>" />
-<Caption>Creating a project with <Link href="/now">Now CLI</Link>.</Caption>
+Then, select the **Settings** tab:
 
-<Note>
-  You need to download the latest version of Now CLI in order to run the above
-  command.
+<Image
+  src={`${process.env.ASSETS}/docs/common/select-settings.png`}
+  width={626 / 2}
+  height={340 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Selecting the <b>Settings</b> tab from the Project Overview page.</Caption>
+
+### Build & Development Settings and Root Directory
+
+You can edit build and development settings as well as the root directory settings. Check out [our Build Step documentation](/docs/v2/build-step) to learn more.
+
+### Environment Variables
+
+You can configure Environment Variables directly from Project Settings. Check out [the Environment Variables section of our Build Step documentation](/docs/v2/build-step#environment-variables) to learn more.
+
+### Logs and Source Access
+
+If you turn on **Logs and Source Access**, the following paths for your project will be publicly accessible. Even if this setting is disabled, you can still access these paths by logging in.
+
+- `/_src`: Displays the source code and build output.
+- `/_logs`: Displays the build logs.
+
+<Note type="warning">
+  Do not edit this setting if you don’t want your source code or logs to be
+  publicly accessible.
 </Note>
 
-### 3. Automatic Project Creation
+#### Ony applied starting from your next deployment
 
-This is simplest way to create a project as it does not require any action from the user. A project will automatically be created when making a deployment using the defined name.
+As with other project settings, the changes you make to this setting will only be applied starting from your **next deployment**.
 
-(To select a project for a deployment, check the following section)
+<Note>
+  When you toggle this setting, none of your existing deployments will be
+  affected. If you’d like to make the source code or logs private on your
+  existing deployments, the only option is to delete them.
+</Note>
 
-## Selecting an Existing Project for a Deployment
+### Custom Domains
 
-When [deploying an app](/docs/v2/build-step), you can select an existing project for it. To do this, either:
+You can add **custom domains** for each project. Check out [our Custom Domains documentation](/docs/v2/custom-domains) to learn more.
 
-### 1. Select the Project from Now CLI
+### Git Integration
 
-Use the `--name` option to mention the project name as follows:
+To edit your project’s Git Integration settings, select the **Git Integration** menu item from your project settings page.
 
-<Snippet dark text="now --name <your-project-name>" />
-<Caption>Deploying the current directory with Now CLI and <InlineCode>--name</InlineCode> option.</Caption>
+<Image
+  src={`${process.env.ASSETS}/docs/advanced/deploy-hooks/select-git.png`}
+  width={384 / 2}
+  height={352 / 2}
+  shadow
+/>
+<Caption>Selecting the <b>Git Integration</b> menu item from the project settings page.</Caption>
 
-### 2. Automatic Project Selection
+If you haven’t set up your Git Integration for [GitHub](/docs/v2/git-integrations/zeit-now-for-github), [GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), or [Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) yet, you can do so from here.
 
-If you didn't specify a project name explicitly via one of the above methods, we try to select a project automatically based on following rules:
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/git-integration-not-connected.png`}
+  width={1488 / 2}
+  height={656 / 2}
+  shadow
+/>
+<Caption>Setting up the Git Integration.</Caption>
 
-- If this is a [Git Integration](/docs/v2/git-integration/) deployment, we use the Git repo or project as the project name.
-- If this is a [Now CLI](/download) based deployment, we use the directory name of your app as the project name.
-- If this is a file or a set of files, we use the `files` project name.
+If you have already set up your Git Integration, you can specify which Git repository to connect your project to by entering the repository name.
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/git-integration-connected.png`}
+  width={1488 / 2}
+  height={656 / 2}
+  shadow
+/>
+<Caption>Specify the Git repository for your project.</Caption>
+
+If you’d like to disconnect your project from a Git repository, **empty the field** and save it.
+
+#### Disconnect Your Personal Account or Team
+
+If you’d like to disconnect your **personal account** or **team** from GitHub, GitLab, or Bitbucket, follow the directions here:
+
+- [Disconnect from GitHub](/docs/v2/git-integrations/zeit-now-for-github#disconnect-from-github)
+- [Disconnect from GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab#disconnect-from-gitlab)
+- [Disconnect from Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket#disconnect-from-bitbucket)
+
+### Deploy Hooks
+
+​<ProductName /> supports **deploy hooks**, which are unique URLs that accept HTTP POST requests and trigger deployments. Check out [our Deploy Hooks documentation](/docs/v2/more/deploy-hooks) to learn more.
 
 ## Deleting a Project
 
-You can remove a project and all of the deployments contained within it with the following [Now CLI](/download) command:
-
-<Snippet dark text="now projects rm <your-project-name>" />
-
-<Note type="warning" label="Note">
-  This will also delete the deployments from the project. If you have any
-  deployments that are assigned to a custom domain and do not want them to be
-  removed, make sure to deploy and assign them to the custom domain under a
-  different project first.
+<Note type="warning">
+  Deleting your project will also delete the deployments and domains within it.
+  If you have any deployments that are assigned to a custom domain and do not
+  want them to be removed, make sure to deploy and assign them to the custom
+  domain under a different project first.
 </Note>
+
+To delete a project, choose a project from the [dashboard](https://zeit.co/dashboard):
+
+<Image
+  src={`${process.env.ASSETS}/docs/common/select-project.png`}
+  width={1102 / 2}
+  height={410 / 2}
+  shadow
+/>
+<Caption>Selecting the project from the <OrgName /> Dashboard.</Caption>
+
+Then, select the **Settings** tab:
+
+<Image
+  src={`${process.env.ASSETS}/docs/common/select-settings.png`}
+  width={626 / 2}
+  height={340 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Selecting the <b>Settings</b> tab from the Project Overview page.</Caption>
+
+Next, select **Advanced** from the menu.
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/advanced-menu.png`}
+  width={362 / 2}
+  height={350 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Selecting the <b>Advanced</b> menu item from the Project Settings page.</Caption>
+
+You’ll see the **Delete Project** section. Confirm that you'd like to delete the project and click the **Delete** button.
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/delete-project.png`}
+  width={1562 / 2}
+  height={628 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>The <b>Delete Project</b> section.</Caption>
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 

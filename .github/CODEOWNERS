@@ -1,20 +1,18 @@
 # Learn how to add code owners here:
 # https://help.github.com/en/articles/about-code-owners
 
-*                                            @timothyis @msweeneydev @coetry
-pages/docs/v2/introduction.mdx               @joecohens @paulogdm @msweeneydev @timothyis @coetry
-pages/docs/v2/git-integration.mdx            @arunoda @timothyis @msweeneydev @coetry
-pages/docs/v2/build-step.mdx                 @leo @AndyBitz @TooTallNate @timothyis @msweeneydev @coetry
-pages/docs/v2/custom-domains.mdx             @anatrajkovska @javivelasco @mglagola @joecohens @timothyis @msweeneydev @coetry
-pages/docs/v2/serverless-functions/          @leo @AndyBitz @TooTallNate @timothyis @msweeneydev @coetry
-pages/docs/v2/network/                       @juancampa @hharnisc @dav-is @timothyis @msweeneydev @joecohens @coetry
-pages/docs/v2/platform/                      @leo @styfle @timothyis @msweeneydev @joecohens @coetry
-pages/docs/v2/advanced/now-for-github.mdx    @arunoda @timothyis @msweeneydev @coetry
-pages/docs/v2/advanced/now-for-gitlab.mdx    @arunoda @timothyis @msweeneydev @coetry
-pages/docs/v2/advanced/now-for-bitbucket.mdx @arunoda @timothyis @msweeneydev @coetry
-pages/docs/configuration                     @leo @styfle @AndyBitz @timothyis @msweeneydev @joecohens @coetry
-pages/docs/v2/advanced/deploy-hooks.mdx      @anatrajkovska @javivelasco @mglagola @timothyis @msweeneydev @joecohens @coetry
-pages/docs/v2/advanced/builders.mdx          @leo @AndyBitz @styfle @timothyis @msweeneydev @joecohens @coetry
-pages/docs/api/                              @anatrajkovska @arunoda @javivelasco @mglagola @timothyis @msweeneydev @coetry
-pages/docs/integrations/                     @arunoda @timothyis @msweeneydev @coetry
-pages/docs/error/                            @juancampa @dav-is @timothyis @msweeneydev @joecohens @coetry
+*                                            @chibicode
+pages/docs/v2/introduction.mdx               @joecohens @paulogdm @chibicode
+pages/docs/v2/build-step.mdx                 @leo @AndyBitz @TooTallNate @chibicode
+pages/docs/v2/custom-domains.mdx             @anatrajkovska @javivelasco @mglagola @joecohens @chibicode
+pages/docs/v2/serverless-functions/          @leo @AndyBitz @TooTallNate @chibicode
+pages/docs/v2/network/                       @juancampa @hharnisc @dav-is @joecohens @chibicode
+pages/docs/v2/platform/                      @leo @styfle @joecohens @chibicode
+pages/docs/v2/git-integrations/              @arunoda @chibicode
+pages/docs/configuration                     @leo @styfle @AndyBitz @joecohens @chibicode
+pages/docs/v2/advanced/deploy-hooks.mdx      @anatrajkovska @javivelasco @mglagola @joecohens @chibicode
+pages/docs/v2/advanced/builders.mdx          @leo @AndyBitz @styfle @joecohens @chibicode
+pages/docs/api/                              @anatrajkovska @arunoda @javivelasco @mglagola @chibicode
+pages/docs/integrations/                     @arunoda @chibicode
+pages/docs/error/                            @juancampa @dav-is @joecohens @chibicode
+pages/guides/                                @timothyis @msweeneydev @coetry

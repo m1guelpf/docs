@@ -1,5 +1,6 @@
 import Example from '~/components/example'
 import { Code } from '~/components/text/code'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/errors/domains.mdx',
@@ -171,7 +172,7 @@ The domain name can't be created. Most probably it couldn't be verified.
 
 ### Failed to Add Domain after Purchase
 
-We were able to purchase a domain for you but we had an error when trying to add it to your account. Please contact us on [zeit.chat](/chat) or via [support@zeit.com](mailto:support@zeit.co).
+We were able to purchase a domain for you but we had an error when trying to add it to your account. Please contact us on [zeit.chat](/chat) or via <EmailLink type="support" />.
 
 <Example>
   <Code lang="json">{`{

@@ -1,6 +1,7 @@
 import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   editUrl: 'pages/docs/now-cli/now-cli-mdx/commands/help.mdx',
@@ -9,14 +10,14 @@ export const meta = {
 
 ## Help
 
-The `now help` command generates a list of all available Now CLI [commands](#commands) and [options](#options) in the terminal. When combined with a second argument - a valid Now CLI [command](#commands) - it outputs more detailed information about that command.
+The `now help` command generates a list of all available <ProductShortName /> CLI [commands](#commands) and [options](#options) in the terminal. When combined with a second argument - a valid <ProductShortName /> CLI [command](#commands) - it outputs more detailed information about that command.
 
 ### Basic Usage
 
 <Snippet dark text="now help" />
-<Caption>Using the <InlineCode>now help</InlineCode> command to generate a list of Now CLI commands and options.</Caption>
+<Caption>Using the <InlineCode>now help</InlineCode> command to generate a list of <ProductShortName /> CLI commands and options.</Caption>
 
 ### Extended Usage
 
 <Snippet dark text="now help [command]" />
-<Caption>Using the <InlineCode>now help</InlineCode> command to generate detailed information about a specific Now CLI command.</Caption>
+<Caption>Using the <InlineCode>now help</InlineCode> command to generate detailed information about a specific <ProductShortName /> CLI command.</Caption>

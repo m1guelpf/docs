@@ -14,6 +14,8 @@ import {
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
 import Note from '~/components/text/note'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
+import CliV1Name from '~/components/name/cli-v1-name'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/endpoints/deployments.mdx',
@@ -43,7 +45,7 @@ Before you create the deployment, you need to [upload any required files](#endpo
       An object containing the deployment's environment variable names and
       values.{' '}
       <i>
-        Now Secret may be referenced by prefixing the value with{' '}
+        Secret may be referenced by prefixing the value with{' '}
         <InlineCode>@</InlineCode>
       </i>
       .
@@ -128,7 +130,8 @@ Before you create the deployment, you need to [upload any required files](#endpo
         local configuration
       </Link>{' '}
       property. Not all of these properties lead to changes in behavior on the
-      platform (some are designed to be used only by Now CLI).
+      platform (some are designed to be used only by <CliV1Name />
+      ).
     </Cell>
   </Row>
 </InputTable>

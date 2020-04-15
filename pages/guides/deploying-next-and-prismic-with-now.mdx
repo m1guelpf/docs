@@ -5,22 +5,29 @@ import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import CdnName from '~/components/name/cdn-name'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Create and Deploy a Next.js and Prismic App with ZEIT Now',
-  description:
-    'Create a Next.js and Prismic app that is deployed with ZEIT Now.',
+  title: `Create and Deploy a Next.js and Prismic App with ${PRODUCT_NAME}`,
+  description: `Create a Next.js and Prismic app that is deployed with ${PRODUCT_NAME}.`,
+  name: 'Next.js + Prismic',
+  type: 'app',
   published: '2019-06-26T14:46:50.000Z',
   authors: ['raulg'],
   url: '/guides/deploying-next-and-prismic-with-now',
   image: `https://zeit.co/docs/static/guides/deploying-next-prismic-with-now/deploying-next-prismic-with-now.png`,
   editUrl: 'pages/guides/deploying-next-and-prismic-with-now.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T00:08:22.000Z'
 }
 
-In this guide, you will create a [Next.js](https://nextjs.org/) blog site from scratch that will show you how to; source the content you have in a Prismic repository, create pages programmatically, handle dynamic routing, and deploy it with [Now](/docs/v2).
+In this guide, you will create a [Next.js](https://nextjs.org/) blog site from scratch that will show you how to; source the content you have in a Prismic repository, create pages programmatically, handle dynamic routing, and deploy it with [<ProductName />](/docs/v2).
 
-[Next.js](https://nextjs.org/) from [ZEIT](https://zeit.co) is a **production-ready framework** that helps you create fast React apps. [Prismic](https://prismic.io/) is a Headless Content Management System that **helps developers and content managers to work on websites and apps together**.
+[Next.js](https://nextjs.org/) from [<OrgName />](https://zeit.co) is a **production-ready framework** that helps you create fast React apps. [Prismic](https://prismic.io/) is a Headless Content Management System that **helps developers and content managers to work on websites and apps together**.
 
 <Image
   src={`${
@@ -46,7 +53,7 @@ This process clones the codebase and guides you through setting up the repositor
 Navigate to the folder you have created and inspect the files and folders that are included in this barebones project. You will find the following:
 
 - `/custom_types`, which details the data modeling for your Prismic repository, in this case the **blog_home** and **post** documents
-- `package.json`, which includes the Next.js and React dependencies, as well as scripts to [develop](/docs/v2/development/basics/) and [deploy](/docs/v2/deployments/basics/) for Now
+- `package.json`, which includes the Next.js and React dependencies, as well as scripts to [develop](/docs/v2/development/basics/) and [deploy](/docs/v2/deployments/basics/) for <ProductName />
 
 You can run your app with the `npm run dev` command, and check at `localhost:3000` that the app is running correctly.
 
@@ -195,7 +202,7 @@ export default Post
 
 ## Step 4: Build Client Side Navigation Links
 
-Now that the pages for your blog post documents are accessible, you can modify the index page so that the list of titles actually links to each of the posts. To do this, it's best to use the [`<Link>`](https://nextjs.org/docs#with-link) component, included with [Next.js](https://nextjs.org/), to provide client-side navigation without a page refresh.
+Now that the pages for your blog post documents are accessible, you can modify the index page so that the list of titles actually links to each of the posts. To do this, it's best to use the [`<Link>`](https://nextjs.org/docs/api-reference/next/link) component, included with [Next.js](https://nextjs.org/), to provide client-side navigation without a page refresh.
 
 The `<Link>` component requires **two main props for navigation**: `href`, which will be the path used to route to the page, and `as`, which will be the path as rendered in the browser. To aid in creating these two different paths, you can use the `linkResolver` and `hrefResolver` helper functions, defined within `prismic-configuration.js`.
 
@@ -257,13 +264,9 @@ const BlogHome = (props) => (
 
 You can now refresh your site at [`localhost:3000`](http://localhost:3000/) and test out the navigation for your blog. It's quite minimalistic, but you've built it from scratch.
 
-## Step 5: Deploying With Now
+## Step 5: Deploying With <NameWrapper name={PRODUCT_NAME} />
 
-So far, you have been using `npm run dev` to develop locally, but what good is a blog if you don't show it off to the world. It's time to deploy it to the Now platform and enjoy your serverless web app.
-
-You can run `npm run deploy` to launch the [Now CLI](/download) which will quickly setup and deploy your project online. Once it's done, you can check the generated url.
-
-Your minimalistic blog using Prismic and built with Next.js is now online on Now and **can be shared instantly** using the URL given by the Now CLI.
+<DeploySection meta={meta} />
 
 ## Bonus: Serverless Pre-Rendering
 
@@ -282,6 +285,6 @@ if (context.res) {
   <InlineCode>Post.getInitialProps</InlineCode> functions.
 </Caption>
 
-Deploy this new version to Now with `npm run deploy`. You minimal blog is now being served even faster thanks to the [Now Smart CDN](/smart-cdn). You can try adding or modifying content in your Prismic repository and it **will be served instantaneously** on your now public site.
+Deploy this new version to <ProductName /> with `npm run deploy`. You minimal blog is now being served even faster thanks to the [<CdnName />](/smart-cdn). You can try adding or modifying content in your Prismic repository and it **will be served instantaneously** on your now public site.
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>

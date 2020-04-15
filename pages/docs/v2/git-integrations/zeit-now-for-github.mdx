@@ -1,0 +1,98 @@
+import Doc from '~/components/layout/docs'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Collapse, { CollapseGroup } from '~/components/collapse'
+import GitHubDefaultBehaviour from '~/components/git-mdx/github/default-behaviour.mdx'
+import GitHubEnvironmentVariables from '~/components/git-mdx/github/environment-variables.mdx'
+import GitHubPermissions from '~/components/git-mdx/github/permissions.mdx'
+import GitHubWorkflowExtension from '~/components/git-mdx/github/extended-workflow.mdx'
+import GitHubDisconnecting from '~/components/git-mdx/github/disconnecting.mdx'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import NameWrapper from '~/components/name/name-wrapper'
+import GithubAppName from '~/components/name/github-app-name'
+
+export const meta = {
+  title: `${PRODUCT_NAME} for GitHub`,
+  description: `Deploy each change in your GitHub repositories with ${PRODUCT_NAME} to share and test with your colleagues. Instant share-able links to your work with each push. Automatically make your changes available from production domains.`,
+  editUrl: 'pages/docs/v2/git-integrations/zeit-now-for-github.mdx',
+  lastEdited: '2020-04-14T00:02:08.000Z'
+}
+
+The <ProductName /> for GitHub integration automatically deploys your GitHub projects with [<ProductName />](/), providing [Preview Deployment URLs](/docs/v2/platform/deployments#preview), and automatic [Custom Domain](/docs/v2/custom-domains) updates.
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/github-comment.png`}
+  width={1538 / 2.5}
+  height={660 / 2.5}
+  shadow
+  borderRadius
+/>
+<Caption><ProductName /> for GitHub deploying a pull request automatically.</Caption>
+
+### Connecting with GitHub
+
+Link your GitHub account with your personal account or team on <ProductName /> from your dashboard by clicking ["Import Project"](/import) followed by ["From Git Repository"](/import/git). Then, click "Install <GithubAppName /> for GitHub".
+
+<Image
+  src={`${process.env.ASSETS}/docs/common/github-from-existing-code.png`}
+  width={1170/2}
+  height={624/2}
+  shadow
+  borderRadius
+/>
+<Caption>The "You own the Repository" section with a prompt to install <ProductName /> for GitHub.</Caption>
+
+Once you have authorized the GitHub integration, you will be redirected back to the "Import Git Repository" page where you can import a project from an existing repository by clicking the "Import Project from GitHub" button.
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/github-connected.png`}
+  width={1190 / 2}
+  height={620 / 2}
+  shadow
+  borderRadius
+/>
+<Caption><ProductName /> for GitHub installed and ready to set up a project.</Caption>
+
+For more information on deploying projects, read [the <ProductName /> introduction documentation](/docs).
+
+### Change or Disconnect from your GitHub Repository
+
+If you’d like to:
+
+- Change the GitHub repository your project is connected to
+- Disconnect your project from your GitHub repository
+
+You can do so from [the "Git Integration" fieldset](/docs/v2/platform/projects#git-integration) on [Project Settings](/docs/v2/platform/projects#project-settings).
+
+### More Information About <NameWrapper name={PRODUCT_NAME} /> for GitHub
+
+For more information, such as a reference for default environment variables, expand the relevant details view below.
+
+<CollapseGroup hashToTitle={{ 'disconnect-from-github': 'Disconnect from GitHub'}}>
+  <Collapse title="Default Behaviour">
+    <GitHubDefaultBehaviour />
+  </Collapse>
+
+<Collapse title="Extending Your GitHub Workflow">
+  <GitHubWorkflowExtension />
+</Collapse>
+
+<Collapse title="System Environment Variables">
+  <GitHubEnvironmentVariables />
+</Collapse>
+
+<Collapse title="Required Permissions">
+  <GitHubPermissions />
+</Collapse>
+
+<Collapse title="Disconnect from GitHub">
+    <GitHubDisconnecting />
+  </Collapse>
+</CollapseGroup>
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
+}

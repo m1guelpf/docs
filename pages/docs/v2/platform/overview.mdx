@@ -1,47 +1,25 @@
 import Doc from '~/components/layout/docs'
 import Note from '~/components/text/note'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
   title: 'Platform Overview',
-  description: 'An overview of the Now Platform and the associated versioning.',
+  description: `An overview of the ${PRODUCT_NAME} Platform and the associated versioning.`,
   editUrl: 'pages/docs/v2/platform/overview.mdx',
-  lastEdited: '2019-10-30T09:43:23.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-The ZEIT Now Platform comprises our API, clients and routing layer. All the individual components are designed to work together in cohesion according to the _platform version_.
+## Table of Contents
 
-## Versioning
+You can learn more about the <ProductName /> Platform from the following pages:
 
-There exist two major platform versions of ZEIT Now:
-
-- **1.0** (**legacy**).
-- **2.0** (**default** as of **2018-11-08**).
-
-As of **2.0**, there is no longer a concept of deployment **types**. All deployments can combine static and dynamic serverless entrypoints.
-
-We recommend migrating to v2 for increased performance, security and new features by following our [upgrade guide](/guides/migrate-to-zeit-now/).
-
-<Note>
-  As of the 4th of January 2019, all new users will no longer be able to create
-  deployments on the Now 1.0 platform version.
-</Note>
-
-## Version Selection
-
-All individual accounts and teams are always automatically on the latest default version of the platform if created on or after 2018-10-29**.**
-
-If you already had an account, we recommend upgrading your default version to **latest**, this can be done in the Settings page from your account dashboard.
-
-### Team or Account Versioning
-
-In our web dashboard, head to Settings by clicking on your profile picture while logged-in.
-
-<Note>
-  please make sure to do this for each <b>context</b> you are interested in
-  selecting a version for (i.e.: individual and/or teams).
-</Note>
-
-If you created your account before 2018-10-29, you will be in the **1.0 legacy platform**. Otherwise, you'll always be on the **latest** (2.0 as of now). We recommend upgrading to v2 once you are confident you have [upgraded your projects](/guides/migrate-to-zeit-now/).
+- [Deployments](/docs/v2/platform/deployments)
+- [Projects](/docs/v2/platform/projects)
+- [Users and Teams](/docs/v2/platform/users-and-teams)
+- [Limits](/docs/v2/platform/limits)
+- [Glossary](/docs/v2/platform/glossary)
+- [Frequently Asked Questions](/docs/v2/platform/frequently-asked-questions)
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 

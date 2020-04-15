@@ -3,23 +3,27 @@ import Snippet from '~/components/snippet'
 import { InlineCode } from '~/components/text/code'
 import Caption from '~/components/text/caption'
 import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Gather Emails on Your Next.js Site with StaticKit and ZEIT Now',
-  description:
-    'Use StaticKit and Next.js to collect emails from a landing page deployed with ZEIT Now.',
+  title: `Gather Emails on Your Next.js Site with StaticKit and ${PRODUCT_NAME}`,
+  description: `Use StaticKit and Next.js to collect emails from a landing page deployed with ${PRODUCT_NAME}.`,
+  name: 'StaticKit + Next.js',
+  type: 'app',
   published: '2019-08-22T12:00:00.860Z',
   authors: ['msweeneydev'],
   url: '/guides/deploying-statickit-with-zeit-now',
   editUrl: 'pages/guides/deploying-statickit-with-zeit-now.mdx',
-  image:
-    'https://og-image.now.sh/**Deploy%20a%20StaticKit%20Project**%20%3Cbr%3E%20with%20ZEIT%20Now.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnow-black.svg&images=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iNDYwcHgiIGhlaWdodD0iNDYwcHgiIHZpZXdCb3g9IjAgMCA0NjAgNDYwIiB2%250D%250AZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxp%250D%250Abms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPGcgc3Ryb2tlPSJub25lIiBz%250D%250AdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI%2BCiAgICAgICAg%250D%250APGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAwLjAwMDAwMCwgMTAwLjAwMDAwMCkiIGZpbGw9IiMw%250D%250AMDAwMDAiIGZpbGwtcnVsZT0ibm9uemVybyI%2BCiAgICAgICAgICAgIDxwYXRoIGQ9Ik0wLDAgTDI2%250D%250AMCwwIEwyNjAsNzYuNzgxMjUgTDI2MCwyNjAgTDAsMjYwIEwwLDAgWiBNMzAsMzAgTDMwLDIzMCBM%250D%250AMjMwLDIzMCBMMjMwLDMwIEwzMCwzMCBaIj48L3BhdGg%2BCiAgICAgICAgICAgIDxwb2x5Z29uIHRy%250D%250AYW5zZm9ybT0idHJhbnNsYXRlKDEzMC4wMDAwMDAsIDEzMC4wMDAwMDApIHJvdGF0ZSgtNDUuMDAw%250D%250AMDAwKSB0cmFuc2xhdGUoLTEzMC4wMDAwMDAsIC0xMzAuMDAwMDAwKSAiIHBvaW50cz0iNzAgMTQ1%250D%250AIDE5MCAxNDUgMTkwIDExNSA3MCAxMTUiPjwvcG9seWdvbj4KICAgICAgICA8L2c%2BCiAgICA8L2c%2B%250D%250ACjwvc3ZnPgo%3D&heights=200&heights=300',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  image: `https://og-image.now.sh/**Deploy%20a%20StaticKit%20Project**%3Cbr%3Ewith%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=data%3Aimage%2Fsvg%2Bxml%2C%253Csvg+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27+width%3D%27124%27+height%3D%27175%27%253E%253Cg+fill%3D%27%252311151D%27+fill-rule%3D%27nonzero%27%253E%253Cpath+d%3D%27M20.889+113.2l87.555-93.89L88.379.598.824+94.489zM35.62+174.401l87.556-93.89L103.11+61.8l-87.555+93.89z%27%2F%253E%253C%2Fg%253E%253C%2Fsvg%253E`,
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-[StaticKit](https://statickit.com/) is a collection of dynamic components for static sites, enabling developers to build dynamic interfaces with ease.
+[StaticKit](https://statickit.com/) provides configurable backend services for front-end developers.
 
-In this guide, you will discover how to create a simple landing page to gather email addresses using [StaticKit](https://statickit.com/) and [Next.js](https://nextjs.org/).
+In this guide, you will discover how to create a simple [Next.js](https://nextjs.org/) landing page to gather email addresses using [StaticKit](https://statickit.com/). Before getting started, sign up for a free [StaticKit](https://statickit.com) account.
 
 ## Step 1: Set Up Your Next.js Project
 
@@ -28,152 +32,117 @@ Run the following command to create and enter into a [Next.js](https://nextjs.or
 <Snippet dark text="npm init next-app next-landing-page && cd next-landing-page" />
 <Caption>Bootstrapping a Next.js project with <InlineCode>create-next-app</InlineCode> and moving into the <InlineCode>/next-landing-page</InlineCode> directory.</Caption>
 
-Replace the contents of the `/pages/index.js` file with the following code.
+## Step 2: Install StaticKit
+
+Run the following command to install the StaticKit CLI and React helper library:
+
+<Snippet dark text="npm install -g @statickit/cli && npm install @statickit/react" />
+<Caption>Installing the StaticKit CLI and adding <InlineCode>@statickit/react</InlineCode> to the project.</Caption>
+
+Then, create a `/pages/_app.js` file with the following contents and replace `{your-site-id}` with the ID from your Site Settings in [StaticKit](https://statickit.com):
 
 ```jsx
-import React from 'react'
-import Head from 'next/head'
+import { StaticKitProvider } from '@statickit/react'
 
-const OptInForm = () => {
+function App({ Component, pageProps }) {
   return (
-    <form>
-      <p className="pb-3 font-bold text-gray-800 text-lg">
-        Sign up to be notified when we launch.
-      </p>
-      <div className="flex flex-wrap items-center">
-        <label htmlFor="email" className="hidden">
-          Email Address
-        </label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          className="flex-grow mr-3 mb-3 p-3 rounded-lg bg-gray-200 text-gray-700 text-lg border border-gray-200 focus:outline-none focus:border-gray-500 focus:bg-white"
-          placeholder="Your email address"
-          required
-        />
-        <button
-          type="submit"
-          className="mb-3 px-5 py-3 rounded-lg border border-purple-700 bg-purple-700 text-lg font-bold text-white"
-        >
-          Notify me
-        </button>
-      </div>
+    <StaticKitProvider site="{your-site-id}">
+      <Component {...pageProps} />
+    </StaticKitProvider>
+  )
+}
+
+export default App
+```
+
+<Caption>
+  An example <InlineCode>/pages/_app.js</InlineCode> file with the StaticKit
+  provider.
+</Caption>
+
+Finally, run the following command to create a `statickit.json` file (if it doesn't already exist):
+
+<Snippet dark text="statickit init" />
+<Caption>Initializing a StaticKit config file.</Caption>
+
+## Step 3: Configure Your StaticKit Function
+
+In your `statickit.json` file, add a function for handling the email opt-in. StaticKit currently integrates with [Mailchimp](https://statickit.com/docs/functions/mailchimp) and [ConvertKit](https://statickit.com/docs/functions/convertkit) for email marketing. Here's a function definition for adding a contact to Mailchimp:
+
+```json
+{
+  "functions": {
+    "addToMailchimp": {
+      "app": "mailchimp",
+      "type": "addOrUpdateListMember"
+    }
+  }
+}
+```
+
+<Caption>
+  A <InlineCode>statickit.json</InlineCode> file with a function for adding to
+  Mailchimp.
+</Caption>
+
+Then, deploy your changes to StaticKit. You'll be prompted with instructions on how to save your Mailchimp API key and audience:
+
+<Snippet dark text="statickit deploy -k <your-deploy-key>" /><Caption>
+  You can find your deploy key in your StaticKit settings.
+</Caption>
+
+## Step 4: Build Your Opt-In Form
+
+Here's an example of a simple `OptInForm` component that uses your StaticKit function:
+
+```jsx
+import React, { useState } from 'react'
+import { useStaticKit } from '@statickit/react'
+import { addToMailchimp } from '@statickit/functions'
+
+function OptInForm() {
+  const client = useStaticKit()
+  const [emailAddress, setEmailAddress] = useState('')
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const handleSubmit = async e => {
+    e.preventDefault
+    let { status } = await addToMailchimp(client, { emailAddress })
+    if (status === 'ok') setIsSubmitted(true)
+  }
+
+  if (isSubmitted) {
+    return <p>Thanks for signing up!</p>
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        onChange={e => setEmailAddress(e.target.value)}
+        value={emailAddress}
+        required
+      />
+      <button type="submit">Sign up</button>
     </form>
   )
 }
 
-const Home = () => (
-  <div>
-    <Head>
-      <title>Vaporware</title>
-      <link
-        href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
-        rel="stylesheet"
-      />
-    </Head>
-    <div className="mx-auto container px-8 py-16 sm:py-32 antialiased">
-      <div className="max-w-lg mx-auto">
-        <div className="flex flex-wrap items-center pb-4 text-5xl font-bold text-gray-800">
-          <h1 className="mr-3">Vaporware</h1>
-          <div className="mt-2 px-3 py-1 text-sm font-bold bg-orange-300 text-orange-800 rounded-full">
-            Coming Soon
-          </div>
-        </div>
-        <p className="pb-6 text-gray-700 text-lg">
-          Vaporware is a fictitious app that does not yet exist. This is where
-          you&rsquo;d make a compelling pitch for your new product.
-        </p>
-        <OptInForm />
-      </div>
-    </div>
-  </div>
-)
-
-export default Home
+export default OptInForm
 ```
 
 <Caption>
-  An example <InlineCode>/pages/index.js</InlineCode> file with two components.
+  An <InlineCode>OptInForm</InlineCode> React component that submits to
+  Mailchimp.
 </Caption>
 
-You may have noticed that the `<form>` tag is missing an `onSubmit` property, we will address that next.
+For a more advanced example (with validations and styling), check out the [`OptInForm`](https://github.com/statickit-projects/mailchimp-react/blob/master/components/OptInForm.tsx) component in the [Mailchimp React Example](https://github.com/statickit-projects/mailchimp-react) on GitHub.
 
-## Step 2: Creating the StaticKit Form
+## Step 5: Deploying with <NameWrapper name={PRODUCT_NAME} />
 
-From your [StaticKit Dashboard](https://app.statickit.com/), click **Add a site...** in the top navigation bar. Enter your site name and click the **Add site** button.
+<DeploySection meta={meta} />
 
-You will be returned to the StaticKit Dashboard where the site you just added will now be visible. Click on **Click here** to create a form.
-
-Click the **StaticKit** logo to return to the dashboard, you will find your site now has a form with an `ID`, make a note of this `ID` for later use.
-
-To provide your app with access to StaticKit components, run this command from the root of your project directory:
-
-<Snippet dark text="npm install @statickit/react" />
-<Caption>Adding the <InlineCode>@statickit/react</InlineCode> dependency to the project.</Caption>
-
-Next, import the `useForm` hook and bind the form `onSubmit` to [StaticKit](https://statickit.com/) in your `/pages/index.js` file. Be sure to replace `[YOUR FORM ID]` with your actual form `ID` from StaticKit you received earlier.
-
-```diff
-  import React from "react";
-  import Head from "next/head";
-+ import { useForm } from "@statickit/react";
-
-  const OptInForm = () => {
-+   const [state, submit] = useForm("[YOUR FORM ID]");
-
-+   if (state.succeeded) {
-+     return (
-+       <p className="pb-3 font-bold text-gray-800 text-lg">
-+         Thank you for signing up!
-+       </p>
-+     );
-+   }
-    return (
--     <form>
-+     <form onSubmit={submit}>
-        <p className="pb-3 font-bold text-gray-800 text-lg">
-          Sign up to be notified when we launch.
-        </p>
-```
-
-<Caption>
-  Updating the <InlineCode>/pages/index.js</InlineCode> file with an onSubmit
-  hook.
-</Caption>
-
-You now have a working landing page, the last step is to deploy it with [ZEIT Now](/now).
-
-## Step 3: Deploying with ZEIT Now
-
-If you have not yet installed Now, you can do so by [installing Now CLI](/download).
-
-You can now deploy your StaticKit + Next.js app with **a single command**:
-
-<Snippet dark text="now" />
-
-<Caption>
-  Deploying the app with the <InlineCode>now</InlineCode> command.
-</Caption>
-
-When your app has deployed, it will look like the example below:
-
-<Image
-  src={`${
-    process.env.ASSETS
-  }/guides/deploying-statickit-with-zeit-now/next-landing-page.png`}
-  width={1166/2}
-  height={740/2}
-  oversize
-  shadow
-/>
-<Caption>
-  The StaticKit + Next.js landing page created with this guide.
-</Caption>
-
-If you want to deploy your StaticKit + Next.js app from a Git repository, you can use either [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) to have your project automatically deployed on every push, and the [production domain](https://zeit.co/docs/v2/custom-domains/#adding-a-domain) updated on push to master.
-
-For more information, you can find the [source code](https://github.com/levelhq/statickit-examples/tree/master/next-landing-page) for this example on GitHub along with the [live example](https://next-landing-page.now-examples.now.sh/).
+For more information, you can find the [source code](https://github.com/statickit-projects/mailchimp-react) for this example on GitHub along with the [live example](https://mailchimp-react.statickit.now.sh/).
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

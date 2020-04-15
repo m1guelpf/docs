@@ -1,0 +1,83 @@
+import Doc from '~/components/layout/docs'
+import Card from '~/components/card'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Collapse, { CollapseGroup } from '~/components/collapse'
+import { IconCard } from '~/components/card'
+import { List } from '~/components/list'
+import BitbucketIcon from '~/components/icons/bitbucket'
+import GitLabIcon from '~/components/icons/gitlab'
+import GitHubIcon from '~/components/icons/github'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: 'Git Integrations',
+  description: `How to use the ${PRODUCT_NAME} Git Integrations for GitHub, GitLab, or Bitbucket to automatic deploy from your project's repository for each push and ship to production on merge to the main branch.`,
+  image: `${process.env.ASSETS}/docs/git-integrations/git-push.png`,
+  editUrl: 'pages/docs/v2/git-integrations/index.mdx',
+  lastEdited: '2020-04-14T00:02:08.000Z'
+}
+
+​​<ProductName /> provides integrations for your [GitHub](/docs/v2/git-integrations/zeit-now-for-github), [GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), and [Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) projects, allowing for **automatic deployments on every branch push** and merge to the default branch.
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/git-push.png`}
+  width={2080 / 3}
+  height={1440 / 3}
+/>
+
+The <ProductName /> Git Integrations provide the following benefits:
+
+- [Preview Deployments](/docs/v2/platform/deployments#preview) for every push.
+- [Production Deployments](/docs/v2/platform/deployments#production) for the most recent changes from the default branch.
+- Instant rollbacks when reverting changes assigned to a custom domain.
+
+The easiest way to use a Git Integration is to think of your **default branch as production**. Every time a pull/merge request is made to the default branch, <ProductName /> will **create a unique deployment**, allowing you to **view the changes in a preview environment before merging**.
+
+When merging to the default branch, a **Production Deployment** is made, making the latest changes available to assigned custom domains automatically.
+
+## Available Integrations
+
+Click any Git Integration from the list below to skip to its section:
+
+<List columnsDesktop={3} columnsTablet={3} columnsMobile={1}>
+  <IconCard
+    label="GitHub"
+    icon={<GitHubIcon />}
+    href="/docs/v2/git-integrations/zeit-now-for-github"
+    arrowed
+  />
+  <IconCard
+    label="GitLab"
+    icon={<GitLabIcon />}
+    href="/docs/v2/git-integrations/zeit-now-for-gitlab"
+    arrowed
+  />
+  <IconCard
+    label="Bitbucket"
+    icon={<BitbucketIcon />}
+    href="/docs/v2/git-integrations/zeit-now-for-bitbucket"
+    arrowed
+  />
+</List>
+
+## Quick Installation
+
+You can install any Git Integration directly from your dashboard by clicking ["Import Project"](/import) followed by ["From Git Repository"](/import/git). Then from the GitHub, GitLab, or Bitbucket tabs in the "You own the Repository" section, click the "Connect" or "Install" button.
+
+<Image
+  src={`${process.env.ASSETS}/docs/common/github-from-existing-code.png`}
+  width={1170/2}
+  height={624/2}
+  shadow
+  borderRadius
+/>
+<Caption>The "You own the Repository" section with a prompt to install <ProductName /> for GitHub.</Caption>
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
+}

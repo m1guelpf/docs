@@ -75,7 +75,7 @@ class HeaderFeedback extends Component {
     this.textAreaRef.value = ''
   }
 
-  onKeyPress = e => {
+  onKeyDown = e => {
     if (e.keyCode === 27) {
       this.setState({ focused: false })
     }
@@ -106,6 +106,9 @@ class HeaderFeedback extends Component {
                 ? this.props.devLocation || null
                 : window.location.toString(),
             note: this.textAreaRef ? this.textAreaRef.value : '',
+            label: window.location.pathname.includes('guides')
+              ? 'guides'
+              : 'docs',
             emotion: getEmoji(this.state.emoji),
             ua: `${this.props.uaPrefix || ''} + ${
               navigator.userAgent
@@ -138,7 +141,7 @@ class HeaderFeedback extends Component {
       }
 
       if (!prevState.focused) {
-        window.addEventListener('keypress', this.onKeyPress)
+        window.addEventListener('keydown', this.onKeyDown)
       }
 
       // If a value exists, add it back to the textarea when focused
@@ -162,7 +165,7 @@ class HeaderFeedback extends Component {
         this.setState({ success: false }) // eslint-disable-line react/no-did-update-set-state
       }
 
-      window.removeEventListener('keypress', this.onKeyPress)
+      window.removeEventListener('keydown', this.onKeyDown)
     }
 
     if (this.state.success && this.textAreaRef) {
@@ -193,7 +196,7 @@ class HeaderFeedback extends Component {
       this.clearSuccessTimer = null
     }
 
-    window.removeEventListener('keypress', this.onKeyPress)
+    window.removeEventListener('keydown', this.onKeyDown)
   }
 
   render() {
@@ -372,7 +375,8 @@ class HeaderFeedback extends Component {
                 .textarea-wrapper {
                   height: var(--closed-height);
                   width: var(--closed-width);
-                  transition: all 150ms ease-in-out;
+                  transition: all 150ms ease-in-out,
+                    border-radius 150ms step-start;
                 }
 
                 .geist-feedback-input.focused .textarea-wrapper {
@@ -387,6 +391,8 @@ class HeaderFeedback extends Component {
                   overflow: hidden;
                   position: relative;
                   z-index: 1000;
+                  transition: all 150ms ease-in-out,
+                    border-radius 150ms step-end;
                 }
 
                 .geist-feedback-input.focused .textarea-wrapper textarea {

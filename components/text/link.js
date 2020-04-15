@@ -188,10 +188,10 @@ const Link = props => {
     anchor ||
     (restProps.href && restProps.href.startsWith('#') && restProps.href !== '#')
   ) {
-    return <Anchor {...restProps} />
+    return <Anchor color {...restProps} />
   }
 
-  return <Internal {...restProps} />
+  return <Internal color {...restProps} />
 }
 
 Link.propTypes = {

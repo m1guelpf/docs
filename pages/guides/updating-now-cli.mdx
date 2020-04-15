@@ -2,27 +2,30 @@ import Guide from '~/components/layout/guide'
 import Snippet from '~/components/snippet'
 import { InlineCode } from '~/components/text/code'
 import Caption from '~/components/text/caption'
+import ProductShortName from '~/components/name/product-short-name'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME, PRODUCT_SHORT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'How to Update Now CLI',
-  description: 'Update Now CLI using a package manager.',
+  title: `How to Update ${PRODUCT_SHORT_NAME} CLI`,
+  description: `Update ${PRODUCT_SHORT_NAME} CLI using a package manager.`,
   published: '2019-03-20T03:00:00.860Z',
   authors: ['msweeneydev', 'timothy'],
   url: '/guides/updating-now-cli',
   editUrl: 'pages/guides/updating-now-cli.mdx',
-  lastEdited: '2019-08-23T14:21:42.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-When there is a new release of the [Now CLI](https://zeit.co/download#now-cli) available, you will see a message appear in your terminal output when running Now, letting you know that there is a newer version.
+When there is a new release of the [<ProductShortName /> CLI](https://zeit.co/download#now-cli) available, you will see a message appear in your terminal output when running <ProductName />, letting you know that there is a newer version.
 
-This guide will take you through your options for updating Now CLI using your preferred package manager.
+This guide will take you through your options for updating <ProductShortName /> CLI using your preferred package manager.
 
 ## Option 1: Updating via npm
 
 If you have installed our command-line interface via [npm](http://npmjs.org/), the easiest way to update it is by running the installation command yet again:
 
 <Snippet dark text="npm i -g now" />
-<Caption>Updating Now CLI using the <InlineCode>npm</InlineCode> command.</Caption>
+<Caption>Updating <ProductShortName /> CLI using the <InlineCode>npm</InlineCode> command.</Caption>
 
 In the case that permission errors are preventing you from installing, please read npm's [official guide](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally) about this problem.
 
@@ -31,7 +34,7 @@ In the case that permission errors are preventing you from installing, please re
 If you have installed our command-line interface via [Yarn](https://yarnpkg.com), the easiest way to update it is by running the installation command yet again:
 
 <Snippet dark text="yarn global add now" />
-<Caption>Updating Now CLI using the <InlineCode>yarn</InlineCode> command.</Caption>
+<Caption>Updating <ProductShortName /> CLI using the <InlineCode>yarn</InlineCode> command.</Caption>
 
 In the case that permission errors are preventing you from installing, please read npm's [official guide](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally) about this problem (Yarn depends on the same configuration).
 

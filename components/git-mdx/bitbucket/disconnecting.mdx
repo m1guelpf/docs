@@ -1,0 +1,41 @@
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import ProductName from '~/components/name/product-name'
+import BitbucketAppName from '~/components/name/bitbucket-app-name'
+
+To disconnect your personal account or team on <ProductName /> from Bitbucket, take the following steps:
+
+First, log into [Bitbucket](https://bitbucket.org/), click on your profile icon on the bottom left, and select **Bitbucket settings**.
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/bitbucket-settings.png`}
+  width={407 / 2}
+  height={451 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Bitbucket Settings.</Caption>
+
+Next, from **Access Management**, select **OAuth**.
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/bitbucket-oauth.png`}
+  width={449 / 2}
+  height={242 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>OAuth Settings.</Caption>
+
+Finally, from **OAuth integrated applications**, locate **<BitbucketAppName />** and click the **Revoke** link next to it.
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/uninstall-now-bitbucket.png`}
+  width={934 / 2}
+  height={374 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Revoking access.</Caption>
+
+After disconnecting, you can always reconnect your <ProductName /> account to a Bitbucket account again.

@@ -1,11 +1,13 @@
 import Standard from '~/components/layout/standard'
 import Link from '~/components/text/link'
+import OrgName from '~/components/name/org-name'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
   title: 'Directory Listing',
   description: 'what is the Directory Listing page and what does it do?',
   editUrl: 'pages/docs/directory-listing.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-15T00:52:04.000Z'
 }
 
 The Directory Listing page, which shows the contents within a directory, is served when a particular path is both a directory and does not have an index file within it.
@@ -14,7 +16,7 @@ The Directory Listing page, which shows the contents within a directory, is serv
 
 To prevent showing a Directory Listing page, add an index file, such as `index.html`, which will then show that file instead when accessing the directory's path.
 
-If you were expecting a file to be here, check your Build output from the Deployment Overview from your [ZEIT Dashboard](/dashboard).
+If you were expecting a file to be here, check your Build output from the Deployment Overview from your [<OrgName /> Dashboard](/dashboard).
 
 #### Custom 404
 
@@ -22,8 +24,8 @@ Using advanced configuration, you can also implement [a custom 404 page](/docs/c
 
 ### Troubleshoot
 
-- If you are seeing this page as a result of problems setting up your project, please [see our migration guide](/guides/migrate-to-zeit-now) for more help on how to work with ZEIT Now.
-- If you have tried everything above, please either leave feedback below or [contact support](mailto:support@zeit.co) with more information about your problem.
+- If you are seeing this page as a result of problems setting up your project, please [see our build step documentation](/docs/v2/build-step).
+- If you have tried everything above, please either leave feedback below or <EmailLink type="support">contact support</EmailLink> with more information about your problem.
 
 export default ({ children }) => <Standard meta={meta}>{children}</Standard>
 

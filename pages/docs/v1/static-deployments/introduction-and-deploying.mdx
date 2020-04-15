@@ -1,16 +1,17 @@
 import Doc from '~/components/layout/docs'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import { TerminalInput } from '~/components/text/terminal'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 
 export const meta = {
   title: 'Deploying Static Apps',
-  description: 'All about Static App deployments on Now',
+  description: `All about Static App deployments on ${PRODUCT_SHORT_V1_NAME}`,
   date: '09 March 2017',
   editUrl: 'pages/docs/v1/static-deployments/introduction-and-deploying.mdx',
-  lastEdited: '2019-08-06T15:31:27.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-<Now color="#000"/> comes with built-in support for static deployments. It considers all projects that don't have a `Dockerfile` that launches a server, nor a `package.json`, a static deployment.
+​<ProductShortV1Name /> comes with built-in support for static deployments. It considers all projects that don't have a `Dockerfile` that launches a server, nor a `package.json`, a static deployment.
 
 Deploying a static project is still as easy as running a single command:
 
@@ -26,16 +27,16 @@ If you want to specify a deployment as static, you can use the following configu
 
 ## Default Behavior
 
-- **Single File Rendering**: If a deployment only contains one file, Now will render that file instead of showing the directory listing, listing that file. This can be overwritten using [`renderSingle`](</docs/static-deployments/configuration#rendersingle-(boolean)>).
+- **Single File Rendering**: If a deployment only contains one file, <ProductShortV1Name /> will render that file instead of showing the directory listing, listing that file. This can be overwritten using [`renderSingle`](</docs/static-deployments/configuration#rendersingle-(boolean)>).
 - **Clean URLs**: Paths will have the `.html` extension stripped from them. This can be overwritten using [`cleanUrls`](</docs/static-deployments/configuration#cleanurls-(boolean|array)>).
 - **Default ETag Header**: Each file is served with a default ([weak](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag#Directives)) ETag header with the checksum of the file as the value. This can not be overwritten.
-- **Directory Listing**: For paths that aren't files but directories (not including a default `index.html` or a single file deployment), Now will render a listing of the files contained within that directory. This can be overwritten using [`directoryListing`](</docs/static-deployments/configuration#directorylisting-(boolean|array)>).
+- **Directory Listing**: For paths that aren't files but directories (not including a default `index.html` or a single file deployment), <ProductShortV1Name /> will render a listing of the files contained within that directory. This can be overwritten using [`directoryListing`](</docs/static-deployments/configuration#directorylisting-(boolean|array)>).
 - **Default CORS Header**: Each path is served with a `Access-Control-Allow-Origin` header with `*` as the value. This can be overwritten using [`headers`](</docs/static-deployments/configuration#headers-(array)>).
 
 ### Changing the default behavior
 
-Now is equipped with configuration options to change the default behavior listed above.
-These options help your to configure Now to run your app the way you want.
+​<ProductShortV1Name /> is equipped with configuration options to change the default behavior listed above.
+These options help your to configure <ProductShortV1Name /> to run your app the way you want.
 
 Those options are as follows:
 
@@ -59,16 +60,16 @@ Unlike [dynamic deployments](/docs/deployment-types/docker), static deployments 
 
 ## Developing in the Same Environment Locally
 
-Static deployments running on <Now color="#000"/> have the same rules as [serve-handler](https://github.com/zeit/serve-handler), which is available and open to download, fork, extend, and operate locally during development by importing the module itself into an [existing server](https://github.com/zeit/serve#api) or
+Static deployments running on <ProductShortV1Name /> have the same rules as [serve-handler](https://github.com/zeit/serve-handler), which is available and open to download, fork, extend, and operate locally during development by importing the module itself into an [existing server](https://github.com/zeit/serve#api) or
 using its [command line interface](https://github.com/zeit/serve).
 
-This gives the ability to preview how static apps will work, using `now.json` configuration or the same defaults, when deployed to <Now color="#000"/> without needing to deploy first, leaving no room for unexpected behavior.
+This gives the ability to preview how static apps will work, using `now.json` configuration or the same defaults, when deployed to <ProductShortV1Name /> without needing to deploy first, leaving no room for unexpected behavior.
 
 ## What to Read Next
 
 There a few steps after deploying a static app that are optional but very helpful.
 
-- [Configuring Static Deployments on Now](/docs/static-deployments/configuration)
-- [Creating a Build Step to Run on Now](/docs/static-deployments/builds/building-with-now)
+- [Configuring Static Deployments on <ProductShortV1Name />](/docs/static-deployments/configuration)
+- [Creating a Build Step to Run on <ProductShortV1Name />](/docs/static-deployments/builds/building-with-now)
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

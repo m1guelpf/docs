@@ -2,6 +2,7 @@ import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
 import Note from '~/components/text/note'
+import ProductName from '~/components/name/product-name'
 
 export const meta = {
   editUrl: 'pages/docs/now-cli/now-cli-mdx/commands/certs.mdx',
@@ -13,7 +14,7 @@ export const meta = {
 The `now certs` command is used to manage certificates for domains, providing functionality to list, issue, and remove them.
 
 <Note type="warning">
-  This command is intended for <b>advanced use only</b>. ZEIT Now manages
+  This command is intended for <b>advanced use only</b>. <ProductName /> manages
   certificates for domains automatically.
 </Note>
 
@@ -47,15 +48,6 @@ For more information on global options and their usage, refer to the [options se
 ### Unique Options
 
 These are options that only apply to the `now certs` command, therefore, more information is provided.
-
-#### Challenge Only
-
-The `--challenge-only` option can be used to only show the challenges needed to issue a certificate.
-
-##### Usage Example
-
-<Snippet dark text="now certs issue foo.com --challenge-only" />
-<Caption>Using the <InlineCode>now certs</InlineCode> command with the <InlineCode>--challenge-only</InlineCode> option.</Caption>
 
 #### Challenge Only
 

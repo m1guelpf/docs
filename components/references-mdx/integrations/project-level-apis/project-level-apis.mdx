@@ -1,6 +1,8 @@
 import ProjectBasedEnvVars from './project-based-env-vars.mdx'
 import UtilsInsideIntegrationUtils from './utils-inside-integration-utils.mdx'
 import UsingTheApiDirectly from './using-the-api-directly.mdx'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
 
 export const meta = {
   editUrl:
@@ -10,7 +12,7 @@ export const meta = {
 
 # Project Level APIs
 
-Deployments made with ZEIT Now are grouped into Projects. This means that each deployment is assigned a name and is grouped into a project with other deployments using that same name.
+Deployments made with <ProductName /> are grouped into Projects. This means that each deployment is assigned a name and is grouped into a project with other deployments using that same name.
 
 Users can deploy projects for any type of app. For example, there could be:
 
@@ -19,7 +21,7 @@ Users can deploy projects for any type of app. For example, there could be:
 - A project for an admin dashboard.
 - A project with all three in a monorepo.
 
-Using a ZEIT Integration, you can modify configuration for whole projects, for which we expose a set of API endpoints:
+Using a <OrgName /> Integration, you can modify configuration for whole projects, for which we expose a set of API endpoints:
 
 <ProjectBasedEnvVars />
 <UtilsInsideIntegrationUtils />

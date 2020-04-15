@@ -1,24 +1,74 @@
 import Doc from '~/components/layout/docs'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   title: 'Glossary',
-  description:
-    'A list of the terms used in context of ZEIT Now and what those terms mean or describe.',
+  description: `A list of the terms used in context of ${PRODUCT_NAME} and what those terms mean or describe.`,
   editUrl: 'pages/docs/v2/platform/glossary.mdx',
-  lastEdited: '2019-10-30T09:43:23.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
-
-These are the terms we encourage you to learn in order to deeply understand **Now**. However, every occurrence of one of these terms is also linked back to this very page, so that you can always jump right to the explanation if needed.
-
-## General Terms
 
 ### Deployment
 
-A collection of files that were uploaded to **Now**.
+A collection of files that were uploaded to **<ProductName />**.
+
+#### Preview Deployments
+
+Preview Deployments are the default type of deployment. They are made available by pushing to a git branch through a Git Integration, or by using the `now` command from <ProductShortName /> CLI.
+
+Learn more about [Preview Deployments from the Deployments Concept documentation](/docs/v2/platform/deployments#preview).
+
+#### Production Deployments
+
+Production Deployments are a promoted type of Deployment, made available by merging into a default branch through a Git Integration, or by using the `now --prod` command from <ProductShortName /> CLI
+
+Learn more about [Production Deployments from the Deployments Concept documentation](/docs/v2/platform/deployments#production).
+
+#### Build Step
+
+The Build Step is the process, before a deploymment is made publically available, in which a deployment's source files are constructed to be production-ready output.
+
+Read more about the Build Step in the [Build Step documentation](/docs/v2/build-step).
+
+#### Run Time
+
+Run Time is the process in the deployment lifecycle that the deployment's code is being executed, after successfully being built through during [the Build Step](#build-step).
+
+### Custom Domains
+
+A Custom Domain is a domain that has been added to a user or team for use with a project. Custom Domains are automatically updated when the project they are assigned to gains a new [Production Deployment](#production-deployments).
+
+#### Preview Deployments
+
+Preview Deployments are the default type of deployment. They are made available by pushing to a git branch through a Git Integration, or by using the `now` command from <ProductShortName /> CLI.
+
+Learn more about [Preview Deployments from the Deployments Concept documentation](/docs/v2/platform/deployments#preview).
+
+#### Production Deployments
+
+Production Deployments are a promoted type of Deployment, made available by merging into a default branch through a Git Integration, or by using the `now --prod` command from <ProductShortName /> CLI
+
+Learn more about [Production Deployments from the Deployments Concept documentation](/docs/v2/platform/deployments#production).
+
+#### Build Step
+
+The Build Step is the process, before a deploymment is made publically available, in which a deployment's source files are constructed to be production-ready output.
+
+Read more about the Build Step in the [Build Step documentation](/docs/v2/build-step).
+
+#### Run Time
+
+Run Time is the process in the deployment lifecycle that the deployment's code is being executed, after successfully being built through during [the Build Step](#build-step).
+
+### Custom Domains
+
+A Custom Domain is a domain that has been added to a user or team for use with a project. Custom Domains are automatically updated when the project they are assigned to gains a new [Production Deployment](#production-deployments).
 
 ### Source Files
 
-These are the files contained within your project before it is uploaded with ZEIT Now.
+These are the files contained within your project before it is uploaded with <ProductName />.
 
 ### Serverless Function
 
@@ -32,19 +82,11 @@ A file that is not executed, but instead served as-is to the program sending the
 
 A [structured group of deployments](/docs/v2/platform/projects), categorized by the deployment name.
 
-## Company & Product
+### Apex Domain
 
-### ZEIT
+An Apex Domain is a custom domain without an included subdomain. For example, "my-zeit-domain.com" is an Apex Domain, but "docs.my-zeit-domain.com" is not.
 
-The company behind the product **Now**.
-
-### Now
-
-The platform on which **Deployments** are created, served and managed.
-
-### Now CLI
-
-The command line interface client for **Now**.
+Apex Domains are sometimes referred to as "naked", "bare", "base", "root", or "zone apex" domains.
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 

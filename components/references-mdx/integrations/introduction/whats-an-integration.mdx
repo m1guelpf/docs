@@ -1,3 +1,5 @@
+import OrgName from '~/components/name/org-name'
+
 export const meta = {
   editUrl:
     'pages/docs/integrations/integrations-docs-mdx/introduction/whats-an-integration.mdx',
@@ -8,10 +10,10 @@ export const meta = {
 
 Before your start building your first Integration, the following is an explanation of what an Integration is built of:
 
-- A HTTP endpoint that receives a [ZEIT API](/docs/api) token, written in any language, called [a UIHook](/docs/integrations#understanding-uihooks).
+- A HTTP endpoint that receives a [<OrgName /> API](/docs/api) token, written in any language, called [a UIHook](/docs/integrations#understanding-uihooks).
 - It can store data such as user configuration and tokens in the [Metadata Store](#using-the-metadata-store).
 - It can return a string of HTML, using [ready-made components](#component-catalog), as the HTTP response to build UI elements.
-- It can provide an [interactive UI](#creating-user-interfaces) right inside the ZEIT Dashboard.
+- It can provide an [interactive UI](#creating-user-interfaces) right inside the <OrgName /> Dashboard.
 - It supports OAuth 2.
 
-With ZEIT Integrations you have opportunity to **dramatically simplify the process of using your product for your customers**.
+With <OrgName /> Integrations you have opportunity to **dramatically simplify the process of using your product for your customers**.

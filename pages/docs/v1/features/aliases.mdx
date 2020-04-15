@@ -1,9 +1,10 @@
 import Doc from '~/components/layout/docs'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import Link from '~/components/text/link'
 import { P } from '~/components/text'
 import { Image } from '~/components/media'
 import { InlineCode } from '~/components/text/code'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 import {
   TerminalInput,
   TerminalOutput,
@@ -12,21 +13,20 @@ import {
 
 export const meta = {
   title: 'Aliases and Domains',
-  description:
-    'All you need to know about assigning domains to your Now deployments',
+  description: `All you need to know about assigning domains to your ${PRODUCT_SHORT_V1_NAME} deployments`,
   date: '21 Feb 2017',
   editUrl: 'pages/docs/v1/features/aliases.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-This guide covers how to assign two types of domains to your <Now color="#000"/> deployments.
+This guide covers how to assign two types of domains to your <ProductShortV1Name /> deployments.
 
 1. Subdomains under `.now.sh` (for example <https://hello.now.sh>)
 2. Entirely custom domains (for example <https://your-company.com>)
 
 ## Aliasing Basics
 
-Whenever you deploy to <Now color="#000"/>, the URL you get in return looks something like:
+Whenever you deploy to <ProductShortV1Name />, the URL you get in return looks something like:
 
 <TerminalOutput>
   https://<b>get-started-basic</b>-<b>etjnigdrkz</b>.now.sh
@@ -41,7 +41,7 @@ We can split the above URL into few parts:
 
 These URLs are ideal for development and staging, but not ideal for end users.
 
-​<Now color="#000"/> aliases have two purposes:
+​<ProductShortV1Name /> aliases have two purposes:
 
 1. Giving your deployment a friendly and memorable name.
 2. Updating deployments with **zero downtime**.
@@ -119,9 +119,9 @@ The command is almost exactly the same:
   now alias https://get-started-basic-etjnigdrkz.now.sh your-company.com
 </TerminalInput>
 
-If `your-company.com` is available to buy, <Now color="#000"/> will allow you to buy it directly from the command line, which is the only step you need to do. <Now color="#000"/> will take care of all the domain configuration.
+If `your-company.com` is available to buy, <ProductShortV1Name /> will allow you to buy it directly from the command line, which is the only step you need to do. <ProductShortV1Name /> will take care of all the domain configuration.
 
-Otherwise, you need to [configure](/docs/getting-started/assign-a-domain-name) the domain name for <Now color="#000"/>. You can either use our [global DNS service](/world) or add an `ALIAS/CNAME` record on your existing DNS solution.
+Otherwise, you need to [configure](/docs/getting-started/assign-a-domain-name) the domain name for <ProductShortV1Name />. You can either use our [global DNS service](/world) or add an `ALIAS/CNAME` record on your existing DNS solution.
 
 Refer to this [guide](/docs/getting-started/assign-a-domain-name) for more information on domain configuration.
 

@@ -1,6 +1,7 @@
 import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   editUrl: 'pages/docs/now-cli/now-cli-mdx/options/options.mdx',
@@ -9,23 +10,23 @@ export const meta = {
 
 # Options
 
-This section contains information about the two types of options available to pass when using [Now CLI](/download) commands, [unique](#unique-options) and [global](#global-options).
+This section contains information about the two types of options available to pass when using [<ProductShortName /> CLI](/download) commands, [unique](#unique-options) and [global](#global-options).
 
 To understand which options can be used with a particular command, take a look at the specific command for more information.
 
 ## Unique Options
 
-Unique options relate only to a single Now CLI command and as such, are documented in full in the command section they relate to.
+Unique options relate only to a single <ProductShortName /> CLI command and as such, are documented in full in the command section they relate to.
 
 When using unique options, some of the shorthands may conflict with those of [global options](#global-options), this only occurs when the particular global option is not available for that command.
 
 ## Global Options
 
-Global options are commonly available to use with multiple Now CLI commands.
+Global options are commonly available to use with multiple <ProductShortName /> CLI commands.
 
 ### Debug
 
-The `--debug` option, shorthand `-d`, can be used to provide a more verbose output when running Now CLI commands.
+The `--debug` option, shorthand `-d`, can be used to provide a more verbose output when running <ProductShortName /> CLI commands.
 
 #### Usage Example
 
@@ -34,7 +35,7 @@ The `--debug` option, shorthand `-d`, can be used to provide a more verbose outp
 
 ### Force
 
-The `--force` option, shorthand `-f`, is used either to force a deployment where there have been no changes or the creation of a directory.
+The `--force` option, shorthand `-f`, is used either to force a deployment where there have been no changes or to forcibly replace an existing local directory.
 
 #### Usage Example
 
@@ -55,7 +56,7 @@ The `--global-config` option, shorthand `-Q`, can be used set the path to the gl
 
 ### Help
 
-The `--help` option, shorthand `-h`, can be used to display more information about [Now CLI](/downlaod) commands.
+The `--help` option, shorthand `-h`, can be used to display more information about [<ProductShortName /> CLI](/downlaod) commands.
 
 #### Usage Example
 
@@ -76,7 +77,7 @@ The `--local-config` option, shorthand `-A`, can be used set the path to a local
 
 ### Scope
 
-The `--scope` option, shorthand `-S`, can be used to execute [Now CLI](/download) commands from a different team or user account than is currently active.
+The `--scope` option, shorthand `-S`, can be used to execute [<ProductShortName /> CLI](/download) commands from a different team or user account than is currently active.
 
 #### Usage Example
 
@@ -85,7 +86,7 @@ The `--scope` option, shorthand `-S`, can be used to execute [Now CLI](/download
 
 ### Token
 
-The `--token` option, shorthand `-t`, can be used to execute [Now CLI](/download) commands with an [authorization token](/account/tokens).
+The `--token` option, shorthand `-t`, can be used to execute [<ProductShortName /> CLI](/download) commands with an [authorization token](/account/tokens).
 
 #### Usage Example
 

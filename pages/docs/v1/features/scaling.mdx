@@ -1,16 +1,19 @@
 import Doc from '~/components/layout/docs'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import { Image } from '~/components/media'
 import { TerminalInput } from '~/components/text/terminal'
+import ProductV1Name from '~/components/name/product-v1-name'
+import CliV1Name from '~/components/name/cli-v1-name'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 import Note from '~/components/text/note'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
   title: 'Global Scaling',
-  description:
-    'Scaling your deployments to be instances in multiple global locations with Now',
+  description: `Scaling your deployments to be instances in multiple global locations with ${PRODUCT_SHORT_V1_NAME}`,
   date: '01 Apr 2018',
   editUrl: 'pages/docs/v1/features/scaling.mdx',
-  lastEdited: '2019-08-16T15:05:32.000Z'
+  lastEdited: '2020-04-15T00:52:04.000Z'
 }
 
 In this feature guide, you will learn how to globally distribute
@@ -25,7 +28,7 @@ that all other parts of your system are optimized for this
 region as well.
 
 If you are using a database service, for example, **make sure that your data
-is available in the region that you would like to enable on <Now color="#000" />**.
+is available in the region that you would like to enable on <ProductShortV1Name />**.
 The same goes for all the APIs your deployment is consuming.
 
 Once you have ensured all of these services are running in your
@@ -34,7 +37,7 @@ scaling your deployment to this region.
 
 ### Understanding the Terminology
 
-When scaling deployments on <Now color="#000"/>, it is necessary
+When scaling deployments on <ProductShortV1Name />, it is necessary
 that you understand the meaning of the
 following terms (sorted by least granular to most granular):
 
@@ -48,25 +51,18 @@ following terms (sorted by least granular to most granular):
 
 After you have decided to enable your deployment in
 a certain part of the world, regions are the best way to
-tell Now where exactly it should scale
+tell <ProductShortV1Name /> where exactly it should scale
 your deployment to.
 
-Now provides a number of regions, each of which
+​<ProductShortV1Name /> provides a number of regions, each of which
 consists of one or more [data centers](#data-centers).
 
-Now 1.0 runs in two regions:
+​​<ProductV1Name /> runs in two regions:
 
 - `bru1` - Brussels, Belgium
 - `sfo1` - San Francisco, USA
 
 However, static content is cached in all edge regions. You can find the full list of regions in the [regions and providers documentation](https://zeit.co/docs/v2/network/regions-and-providers/).
-
-<Note>
-  Now 2.0 deployments have a larger range of regions for Serverless Functions to
-  Now 2.0 deployments have a larger range of regions to run Serverless
-  Functions. Executing code closer to your customers will improve their
-  experience by reducing latency.
-</Note>
 
 #### Data Centers
 
@@ -104,7 +100,7 @@ created if the following statements are true:
 
 Within each [data center](#datacenter), your deployment can consist
 of up to 10 instances. If you want to increase this limit,
-you can [contact us](mailto:support@zeit.co) for a special offer.
+you can <EmailLink type="support">contact us</EmailLink> for a special offer.
 
 ## Scaling While Deploying
 
@@ -115,8 +111,7 @@ For example: If you are currently somewhere in the USA, your deployment
 will be enabled in the [SFO region](https://sfo.now.sh) by default.
 
 In order to enable a new deployment in a different region, however, you can
-pass the `--regions` option to
-Now CLI:
+pass the `--regions` option to <CliV1Name />:
 
 <TerminalInput>now --regions bru</TerminalInput>
 
@@ -170,7 +165,7 @@ The above example will result in your deployment always
 having 4 [instances](#instances) running in
 the [data center](#datacenter) it was originally deployed to.
 
-In order to let <Now color="#000"/> scale the deployment
+In order to let <ProductShortV1Name /> scale the deployment
 within a range, pass another argument with the maximum
 number of instances:
 
@@ -181,7 +176,7 @@ always have **at least 4 instances** running,
 but **never exceed 7 instances**.
 
 To revert back to the default scaling rules and
-let <Now color="#000"/> scale your deployment automatically
+let <ProductShortV1Name /> scale your deployment automatically
 as requests come in, pass `auto`:
 
 <TerminalInput>{`now scale <deployment> auto`}</TerminalInput>

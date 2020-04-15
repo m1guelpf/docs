@@ -3,12 +3,13 @@ import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import { InlineCode } from '~/components/text/code'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
   title: 'Deployment Not Ready',
   description: 'The requested deployment is not ready and will be redirected.',
   editUrl: 'pages/docs/error/platform/DEPLOYMENT_NOT_READY_REDIRECTING.mdx',
-  lastEdited: '2019-09-23T15:41:06.000Z'
+  lastEdited: '2020-04-15T00:52:04.000Z'
 }
 
 #### Platform Error
@@ -28,7 +29,7 @@ The deployment has not made it through the deployment pipeline and the request w
 #### Troubleshoot
 
 - Please wait for a few seconds and refresh.
-- If the error does not resolve when refreshing, please **[contact support](mailto:support@zeit.co)** along with the ID on the error page from your deployment.
+- If the error does not resolve when refreshing, please **<EmailLink type="support">contact support</EmailLink>** along with the ID on the error page from your deployment.
 
 export default ({ children }) => <Standard meta={meta}>{children}</Standard>
 

@@ -1,88 +1,123 @@
 import Doc from '~/components/layout/docs'
 import Limits from '~/components/limits'
+import Note from '~/components/text/note'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
   title: 'Limits',
-  description:
-    'A list of limits and limitations that apply on the ZEIT Now platform.',
+  description: `A list of limits and limitations that apply on the ${PRODUCT_NAME} platform.`,
   editUrl: 'pages/docs/v2/platform/limits.mdx',
-  lastEdited: '2019-11-21T12:40:44.000Z'
+  lastEdited: '2020-04-15T04:12:15.000Z'
 }
 
-This page outlines all relevant limits and limitations present when using the ZEIT Now platform.
+This page outlines all relevant limits and limitations present when using the <ProductName /> platform.
 
-## Plans
+## General Limits
 
-This section highlights two areas relating to pricing plans, **Usage Allowances**, and **Plan Limits**.
+To prevent abuse of our platform, we apply the following limits to all accounts.
 
-### Usage Allowances
+<br />
 
-**Usage Allowances** are the maximum limits provided by each pricing plan. They specify a limit for the amount of resources available for use under that plan before deployments are blocked (Free plan) or [additional costs](/pricing) are incurred.
+|                                        | Hobby | Pro  | Enterprise |
+| -------------------------------------- | ----- | ---- | ---------- |
+| Deployments (per day)                  | 100   | 3000 | Custom     |
+| Serverless Functions per Deployment    | 12    | 24   | Custom     |
+| Serverless Functions per Month         | 160   | 640  | Custom     |
+| Serverless Function Duration (Seconds) | 10    | 60   | 900        |
+| Deployments created from CLI per week  | 25    | 25   | Custom     |
 
-| Limit                  | Free | Pro | Business | Enterprise |
-| ---------------------- | ---- | --- | -------- | ---------- |
-| Bandwidth (GB)         | 20   | 100 | 1000     | Custom     |
-| Build Time (Hours)     | 2    | 10  | 100      | Custom     |
-| Execution Time (Hours) | 20   | 100 | 1,000    | Custom     |
-| Team Seats             | 3    | 3   | 6        | Custom     |
-| Concurrent Builds      | 1    | 3   | 6        | Custom     |
-
-### Plan Limits
-
-**Plan Limits** are limitations that apply to specific plans that **cannot** be increased, the only way to do so is to upgrade to a higher tier pricing plan.
-
-| Limit                        | Free | Pro  | Business | Enterprise |
-| ---------------------------- | ---- | ---- | -------- | ---------- |
-| Deployments (per day)        | 100  | 3000 | 3000     | Custom     |
-| Deployment History           | 10   | -    | -        | -          |
-| Execution Duration (Seconds) | 10   | 60   | 600      | 900        |
+<Note>
+  Next.js Static Site Generation and Next.js Preview Serverless Functions are
+  excluded from the count for "Maximum Functions per Deployment".
+</Note>
 
 ## Logs
 
-Both log types – **build time** and **runtime** – are stored for **20 days only**. It is not possible to retrieve either of these log types beyond the age of 20 days.
+All log types - **Build Time**, **Edge Network**, and **Runtime** - have differing behavior when it comes to storing logs.
 
-For [Serverless Functions](/docs/v2/serverless-functions/introduction/), each log output is **limited to 4kb**. For log outputs greater than 4kb, only the last 4kb will be retained.
+During the [Build Step](/docs/v2/platform/glossary#build-step), all logs are stored and **persisted**.
+
+For [Edge Network requests](/docs/v2/network/regions-and-providers#automatic-edge-cdn), all logs are **not persisted**.
+
+For [Serverless Functions](/docs/v2/serverless-functions/introduction/), only logs from failed requests are **persisted**.
+
+All other logs are stored in memory only and are **not persisted** between page views. Each log output is **limited to 4kb**. For log outputs greater than 4kb per Serverless Function invocation, only the last 4kb will be retained.
 
 ## Environment Variables
 
-The total size of [environment variables](/docs/v2/serverless-functions/env-and-secrets/) is **limited to 4kb**.
+The total size of [Environment Variables](/docs/v2/build-step#environment-variables) is **limited to 4kb**.
 
 [Deployments](/docs/v2/platform/deployments) made with environment variables exceeding the 4kb limit will fail at the [build step](/docs/v2/build-step/).
 
 ## Domains
 
-The maximum amount of domains that can be applied to a single project, either from the ZEIT Dashboard or by using the `alias` key in a `now.json` file is **50**.
-
-It is not possible to add more than 50 domains to a project using the ZEIT Dashboard.
-
-[Deployments](/docs/v2/platform/deployments) made with more than 50 `alias` in a `now.json` file will fail at the [build step](/docs/v2/build-step/).
+The maximum amount of domains that can be applied to a single project is **50**. If your Project requires more than 50 domains, please <EmailLink type="sales">contact our enterprise team</EmailLink>.
 
 ## Files
 
-The maximum number of files that can be uploaded when making a [deployment](/docs/v2/platform/deployments) is **10,000**.
+The maximum number of files that can be uploaded when making a [deployment](/docs/v2/platform/deployments) is **10,000** for source files and **16,000** for build output files.
 
-Deployments made that contain more than 10,000 files will fail at the [build step](/docs/v2/build-step/).
+Deployments made that contain more files than the limit will fail at the [build step](/docs/v2/build-step/).
 
 ## HTTP/2 Push
 
-The ZEIT Now platform does not currently support HTTP/2 Push.
+The <ProductName /> platform does not currently support HTTP/2 Push.
+
+## WebSockets
+
+[Serverless Functions](/docs/v2/serverless-functions/introduction) do not support WebSockets.
+
+Instead of pushing data, you can intelligently fetch data on-demand. For example, the `zeit.co` dashboard delivers real-time updates using [SWR](https://swr.now.sh).
+
+If you need persistent connections to push data to the client, consider using third party pub/sub services. See the [Pusher Channels Guide](/guides/deploying-pusher-channels-with-zeit-now) for an example.
 
 ## SMTP
 
-For security reasons, the ZEIT Now platform blocks outgoing SMTP connections.
+For security reasons, the <ProductName /> platform blocks outgoing SMTP connections.
 
 As a result of this, we recommend using a third-party service to enable email functionality for [deployments](/docs/v2/platform/deployments).
+
+## Serverless Function Size
+
+The maximum size for a [Serverless Function](/docs/v2/serverless-functions/introduction) is **50 MB**.
+
+You can configure [functions](/docs/configuration#project/functions) with `includeFiles` and `excludeFiles` which may affect the function size, however the limit cannot be configured.
+
+## Serverless Function Memory
+
+The maximum memory size for a [Serverless Function](/docs/v2/serverless-functions/introduction) deployed on a personal account (Hobby plan) is **1024 MB**. For teams (Pro plan), it can be increased to up to **3008 MB**.
+
+You can use the [functions](/docs/configuration#project/functions) property to adjust the memory size for each Serverless Function.
 
 ## Serverless Function Concurrency
 
 The maximum number of concurrent executions for a [Serverless Function](/docs/v2/serverless-functions/introduction/) is `1000`.
 
-If you require a limit above `1000`, you should [contact our enterprise department](mailto:sales@zeit.co) to discuss custom limits available on an enterprise plan.
+If you require a limit above `1000`, you should <EmailLink type="sales">contact our enterprise team</EmailLink> to discuss custom limits available on an enterprise plan.
+
+## Serverless Function Payload Size Limit
+
+The maximum payload size for the request body or the response body of a [Serverless Function](/docs/v2/serverless-functions/introduction/) is **5MB**.
+
+If a Serverless Function receives a payload in excess of the limit it will return an error - **413: FUNCTION_PAYLOAD_TOO_LARGE**.
+
+## Serverless Function Regions
+
+It is possible to deploy [Serverless Functions](/docs/v2/serverless-functions/introduction/) to multiple regions, however this featured is limited to [paid plans](/pricing).
+
+When attempting to deploy Serverless Functions to multiple regions on the Hobby plan, the deployment will fail before entering the [build step](/docs/v2/build-step/).
+
+## Streaming Responses
+
+​<ProductName /> does not support streaming responses from Serverless Functions due to an upstream limitation from AWS.
 
 ## Reserved Variables
 
 The following environment variable names are [reserved](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#lambda-environment-variables) and therefore unavailable for use:
 
+- Names starting with `NOW_`
 - `AWS_REGION`
 - `AWS_DEFAULT_REGION`
 - `AWS_ACCESS_KEY_ID`

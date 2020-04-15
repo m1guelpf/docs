@@ -1,76 +1,93 @@
 import Doc from '~/components/layout/docs'
-import Snippet from '~/components/snippet'
-import Caption from '~/components/text/caption'
 import Card from '~/components/card'
+import Snippet from '~/components/snippet'
+import Link from '~/components/text/link'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Quickstarts, { Quickstart } from '~/components/quickstarts'
+import { UserContext } from '~/lib/user-context'
+import { IconCard } from '~/components/card'
+import { List } from '~/components/list'
+import BitbucketIcon from '~/components/icons/bitbucket'
+import GitLabIcon from '~/components/icons/gitlab'
+import GitHubIcon from '~/components/icons/github'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import OrgName from '~/components/name/org-name'
+
+import { quickstarts } from '~/lib/data/v2/quickstarts'
 
 export const meta = {
-  title: 'Introduction to ZEIT Now',
-  description:
-    'An introduction to the ZEIT Now platform and how to get started deploying any kind of application.',
+  title: `Introduction to ${PRODUCT_NAME}`,
+  description: `An introduction to the ${PRODUCT_NAME} platform and how to get started deploying any kind of application.`,
   editUrl: 'pages/docs/v2/introduction.mdx',
-  lastEdited: '2019-11-01T15:20:23.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-ZEIT Now is a cloud platform for **static sites** and **Serverless Functions**. It enables developers to host websites and web services that **deploy instantly**, **scale automatically**, and requires **no supervision**, all with **no configuration**.
+​<ProductName /> is a cloud platform for **static sites** and **Serverless Functions** that fits perfectly with your workflow. It enables developers to host **Jamstack** websites and web services that **deploy instantly**, **scale automatically**, and requires **no supervision**, all with **no configuration**.
 
-Getting started with Now takes just a few steps and lets you get up and running with your new project in less than a minute.
+## Deploy an Existing Project
 
-## Install Now CLI
+Once you have [signed up to <OrgName />](/signup), you can use our [Git Integrations](/docs/v2/git-integrations) with [GitHub](/docs/v2/git-integrations/zeit-now-for-github), [GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), or [Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) to deploy an existing project – then with a deployment for every push – by selecting a repository from your Git account.
 
-To deploy with ZEIT Now, you will need to install [Now CLI](/download), a frequently updated, and [open-source](https://github.com/zeit/now), command-line interface.
+Select a Git provider below to get started deploying your existing repositories and projects:
 
-You can get Now CLI from either npm or Yarn. Using npm, run the following command from your terminal:
+<List columnsDesktop={3} columnsTablet={3} columnsMobile={1}>
+  <IconCard
+    label="GitHub"
+    icon={<GitHubIcon />}
+    href="/import/git?tab=github"
+    plus
+  />
+  <IconCard
+    label="GitLab"
+    icon={<GitLabIcon />}
+    href="/import/git?tab=gitlab"
+    plus
+  />
+  <IconCard
+    label="Bitbucket"
+    icon={<BitbucketIcon />}
+    href="/import/git?tab=bitbucket"
+    plus
+  />
+</List>
 
-<Snippet
-  dark
-  text="npm i -g now"
-/>
-<Caption>Installing Now CLI with npm in the terminal.</Caption>
+Connect through the ["Import Project"](/import) page under the "From an existing project" section, and then from the same place, set up a project using your Git Integration.
 
-To verify that you have installed Now CLI, try running `now help` from your terminal.
+<Note>
+  For more information on setting up Git to deploy with <OrgName /> and what you
+  can do with it, see{' '}
+  <Link color href="/docs/v2/git-integrations">
+    the Git Integrations documentation
+  </Link>
+  .
+</Note>
 
-With Now CLI installed, you can now login using the following command:
+Alternatively, if you want to start fresh with a new project, use a Quickstart template from below. Additionally, you can use this method to start a new Git repository with any connected Git Integration.
 
-<Snippet
-  dark
-  text="now login"
-/>
-<Caption>Login with Now CLI from the terminal.</Caption>
+## Quickstarts
 
-## Creating a Project and Deploying
+Quickstarts let you get started quickly. The following quickstarts are paired with guides and a deploy button, based on the example found in the [<ProductName /> repository](https://github.com/zeit/now/tree/master/examples), to help you get going with your project as fast as possible.
 
-You can create a new Next.js application with the following command using either npm or Yarn:
-
-<Snippet
-  dark
-  text="npm init next-app my-next-project"
-/>
-<Caption>Creating a new Next.js project with npm.</Caption>
-
-When your Next.js app is created, all you have to do is move into the directory (with `cd my-next-project` in your terminal) and then deploy your app with a single command in your terminal:
-
-<Snippet
-  dark
-  text="now"
-/>
-<Caption>Deploying your new Next.js project with Now CLI.</Caption>
-
-Once deployed, you will get a preview URL that is assigned on each deployment to share the latest changes under the same address.
-
-The preview URL will look like the following: <https://my-next-project.now-examples.now.sh/>
+<Quickstarts>
+  {quickstarts.map(({ name, ...quickstart }) => (
+    <Quickstart key={name} quickstart={name} {...quickstart} />
+  ))}
+</Quickstarts>
 
 ## Related
 
 For more information on what to do next, we recommend the following articles:
 
-<Card title="Git Integration" href="/docs/v2/git-integration">
-  Learn more about how ZEIT Now integrates with Git to make your workflow
+<Card title="Git Integrations" href="/docs/v2/git-integrations">
+  Learn more about how <ProductName /> integrates with Git to make your workflow
   easier.
 </Card>
 
 <Card title="Using Custom Domains" href="/docs/v2/custom-domains">
   Once deployed, your projects can be assigned to a custom domain or specified
-  name or your choice to give it a primary place to see the latest version of
+  name of your choice to give it a primary place to see the latest version of
   your application.
 </Card>
 

@@ -3,16 +3,21 @@ import { InlineCode } from '~/components/text/code'
 import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
+import DeploySection from '~/components/guides/deploy-section'
+
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Deploying with Custom Serverless Next.js Routing',
-  description:
-    'Migrate from a Next.js app with a custom server to a serverless Next.js app using Now routes.',
+  title: `Deploying with Custom Serverless Next.js Routing`,
+  description: `Migrate from a Next.js app with a custom server to a serverless Next.js app using ${PRODUCT_NAME} routes.`,
   published: '2019-01-23T17:00:00.860Z',
   authors: ['timothy', 'timneutkens'],
+  name: 'Next.js',
+  type: 'app',
   url: '/guides/custom-next-js-server-to-routes',
   editUrl: 'pages/guides/custom-next-js-server-to-routes.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 Next.js offers developers [a built-in routing system](https://nextjs.org/docs/#routing) that allows you to link to other pages whilst also giving those pages a custom URL. When a user refreshes the custom URL, however, the browser will not be able to load the link because the page was previously routed client-side. To resolve this, we need to also handle routing server-side.
@@ -40,18 +45,18 @@ server.get('/products/:name', (req, res) => {
 <Caption>An example custom server route capture and render method.</Caption>
 
 <Note type="warning">
-  The custom server method will not work with the ZEIT Now 2.0 platform.
+  The custom server method will not work with the <ProductName /> platform.
 </Note>
 
 ### The New Routes Method
 
-With [Now](https://zeit.co/now) and the serverless approach, each [Next.js page](https://nextjs.org/docs#routing) is a separate entry point, making the sole custom server entry point a thing of the past for the good of performance and stability. Fortunately, **Now 2.0 offers a solution**, handling the configuration of routes for you.
+With [<ProductName />](https://zeit.co/now) and the serverless approach, each [Next.js page](https://nextjs.org/docs/basic-features/pages) is a separate entry point, making the sole custom server entry point a thing of the past for the good of performance and stability. Fortunately, **<ProductName /> offers a solution**, handling the configuration of routes for you.
 
-By making use of Next.js path segments with Now, [dynamic routing](https://nextjs.org/docs#routing) is achieved through the file structure. No longer are custom servers or additional configuration required, **simplifying the process of building your app significantly**.
+By making use of Next.js path segments with <ProductName />, [dynamic routing](https://nextjs.org/docs/routing/dynamic-routes) is achieved through the file structure. No longer are custom servers or additional configuration required, **simplifying the process of building your app significantly**.
 
 ## By Example
 
-If you are yet to set up routing for [your Next.js app](https://nextjs.org/docs/#setup), this brief example describes how to use Next.js routing with [Now](https://zeit.co/now) to support custom URLs.
+If you are yet to set up routing for [your Next.js app](https://nextjs.org/docs/#setup), this brief example describes how to use Next.js routing with [<ProductName />](https://zeit.co/now) to support custom URLs.
 
 ### Step 1: Defining Pages
 
@@ -111,17 +116,7 @@ Now, clicking the espresso product link will result in the URL path being `/prod
 
 ### Step 2: Deploying
 
-With the Next.js app setup complete, we can deploy our app [using ZEIT Now](/docs) with **a single command**.
-
-<Snippet dark text="now" />
-
-<Caption>
-  Deploying our app with the <InlineCode>now</InlineCode> command.
-</Caption>
-
-If you are using either [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket); pushing your code to your repository is all you need to do for Now to automatically deploy your app.
-
-Once you deploy, you will receive a deployment URL which contains this example with a few styling tweaks for ease on the eyes: <https://nextjs-routes.zeit.sh/>
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

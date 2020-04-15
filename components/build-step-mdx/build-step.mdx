@@ -1,0 +1,426 @@
+import Link from '~/components/text/link'
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Card from '~/components/card'
+import { InlineCode } from '~/components/text/code'
+import Strong from '~/components/text/strong'
+import { Image } from '~/components/media'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import ProductShortName from '~/components/name/product-short-name'
+import { SYSTEM_ENVS } from '~/lib/data/v2/system-env-variables'
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableRowCell,
+  TableHeadCell
+} from '~/components/table'
+
+When you trigger a deploy, <ProductName /> **builds** your project. For many frontend frameworks, <ProductName /> automatically configures the build settings, but you can also [customize](#customizing-build-settings) them. You can also use [environment variables](#environment-variables) to avoid hardcoding values.
+
+## Customizing Build Settings
+
+To customize the build settings for your project, choose a project from the [dashboard](https://zeit.co/dashboard):
+
+<Image
+  src={`${process.env.ASSETS}/docs/common/select-project.png`}
+  width={1102 / 2}
+  height={410 / 2}
+  shadow
+/>
+<Caption>Selecting the project from the <OrgName /> Dashboard.</Caption>
+
+Then, select the **Settings** tab:
+
+<Image
+  src={`${process.env.ASSETS}/docs/common/select-settings.png`}
+  width={626 / 2}
+  height={340 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Selecting the <b>Settings</b> tab from the Project Overview page.</Caption>
+
+You can then edit the build settings from the **Build & Development Settings**, **Root Directory**, and **Environment Variables** sections.
+
+### Build & Development Settings
+
+&#8203;<ProductName /> tries to automatically detect the frontend framework you’re using for your project and configure the project settings for you. If you’d like to override the settings or specify a different framework, you can do so from the **Build & Development Settings** section.
+
+#### Framework Preset
+
+<Image
+  src={`${process.env.ASSETS}/docs/build-step/framework-preset.png`}
+  width={1386 / 2}
+  height={162 / 2}
+  shadow
+/>
+<Caption>The Framework Preset setting.</Caption>
+
+&#8203;<ProductName /> detects the following frontend frameworks automatically and chooses the best default settings for you.
+
+<div>{props.frameworks}</div>
+
+If no framework is detected, "Other" will be selected for you.
+
+You can always choose a different framework preset or "Other" if you’d like.
+
+#### Build Command
+
+<Image
+  src={`${process.env.ASSETS}/docs/build-step/build-command.png`}
+  width={1386 / 2}
+  height={114 / 2}
+  shadow
+/>
+<Caption>The Build Command setting.</Caption>
+
+If <ProductName /> detects a framework, the Build Command will automatically be configured. Depending on a framework, the Build Command can refer to the project’s configuration file.
+
+For example, if you choose [Next.js](https://nextjs.org/), here’s what happens by default:
+
+- If `package.json` contains the `build` command in `scripts`, this command will be used to build the project.
+- If not, `next build` will be the Build Command.
+
+If you’d like to override the Build Command, you can turn on the **Override** toggle and specify the command.
+
+<Note>
+  If you update this setting, it will be applied starting with your next
+  deployment.
+</Note>
+
+**If build is not required**: Some projects do not require building. An example of this would be a website with basic HTML/CSS/JS/assets that can be deployed directly without building (For example, you might just have a single `index.html` file).
+
+In such cases, you should:
+
+- Specify "Other" as the framework preset, and
+- Override the Build Command and leave it empty. This will make <ProductName /> to skip the build step.
+
+#### Output Directory
+
+<Image
+  src={`${process.env.ASSETS}/docs/build-step/output-directory.png`}
+  width={1386 / 2}
+  height={114 / 2}
+  shadow
+/>
+<Caption>The Output Directory setting.</Caption>
+
+After building a project, most frameworks will output the result in a directory. Contents in this **output directory** will be the only things that will be statically served by <ProductName />.
+
+If <ProductName /> detects a framework, the output directory will automatically be configured.
+
+<Note>
+  If you update this setting, it will be applied starting with your next
+  deployment.
+</Note>
+
+In some cases, your project might not require building, and you might just want to serve the files in the root directory. If so, try the following:
+
+- Choose "Other" as the framework preset. If you do so, by default, the output directory will be set as `public` if it exists, or `.` (current directory) otherwise.
+- Therefore, as long as your project doesn’t have the `public` directory, it will serve the files in the root directory.
+- Alternatively, you can turn on the **Override** toggle and leave the field empty (in which case, the build step will be skipped).
+
+#### Development Command
+
+<Image
+  src={`${process.env.ASSETS}/docs/build-step/development-command.png`}
+  width={1386 / 2}
+  height={114 / 2}
+  shadow
+/>
+<Caption>The Development Command setting.</Caption>
+
+<Note>
+  This setting is relevant only if you’re using <InlineCode>now dev</InlineCode>{' '}
+  locally to develop your project. You should be using{' '}
+  <InlineCode>now dev</InlineCode> only if you need to use a <ProductName />{' '}
+  platform feature like{' '}
+  <Link href="/docs/v2/serverless-functions/introduction">
+    Serverless Functions
+  </Link>
+  . In other cases, you should use the development command your framework provides
+  (such as <InlineCode>next dev</InlineCode> for Next.js).
+</Note>
+
+The Development Command setting allows you to customize the behavior of <InlineCode>now dev</InlineCode>. If <ProductName /> detects a framework, the development command will automatically be configured.
+
+If you’d like to use a custom command for <InlineCode>now dev</InlineCode>, you can turn on the **Override** toggle. Please note the following:
+
+- If you specify a custom command, your command must pass the `$PORT` variable (which contains the port number) to your framework. For example, for [Next.js](https://nextjs.org/), you should use: `next dev --port $PORT`.
+- If the development command is not specified, `now dev` will fail. If you selected "Other" as the framework preset, the development command will be empty by default.
+- You must create a deployment and have your local project be linked to the project on <ProductName /> (using `now`). Otherwise, `now dev` won’t work correctly.
+
+### Root Directory
+
+<Image
+  src={`${process.env.ASSETS}/docs/build-step/root-directory.png`}
+  width={1242 / 2}
+  height={242 / 2}
+  shadow
+/>
+<Caption>The Root Directory setting.</Caption>
+
+In some projects, the top-level directory of the repository may not be the root directory of the app you’d like to build. For example, your repository might have a `frontend` directory, which contains a stand-alone [Next.js](https://nextjs.org/) app.
+
+In cases like this, you can specify the project root directory. If you do so, please note the following:
+
+- If you specify a root directory, then your app won’t be able to access files outside of that directory. You also cannot use `..` to move up a level.
+- This setting also applies to [<ProductShortName /> CLI](/download). Instead of running `now <directory-name>` to deploy, specify `<directory-name>` here so you can just run `now`.
+
+<Note>
+  If you update this setting, it will be applied starting with your next
+  deployment.
+</Note>
+
+## Environment Variables
+
+Environment Variables are accessible during both **Build Step** and **Runtime**, and can be configured for **Production**, **Preview**, and **Development** Environments individually.
+
+This allows you to include values that you don't want to share in your code or to change the behavior of your code depending on its Environment.
+
+To declare an Environment Variable for your deployment, head to the **General** page of your **Project Settings** and locate the **Environment Variables** section.
+
+<Image
+  src={`${process.env.ASSETS}/docs/build-step/env-vars-empty.png`}
+  width={1488 / 2}
+  height={824 / 2}
+  shadow
+/>
+<Caption>The Environment Variables settings.</Caption>
+
+First, choose between the following **Environments**:
+
+| Environment     | Description                                                                                                                                                                                     |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Production**  | When selected, the Environment Variable will be applied to your next Production Deployment. To create a Production Deployment, push a commit to the default branch or run `now --prod`.         |
+| **Preview**     | The Environment Variable is applied to your next Preview Deployment. Preview Deployments are created when you push to a branch (for example, `my-new-feature`) or run `now`.                    |
+| **Development** | The Environment Variable is for use when running your project locally, with `now dev` or your preferred development command. To download Development Environment Variables, run `now env pull`. |
+
+Enter the **Name** of the Environment Variable. For example, if you are using Node.js and you create an Environment Variable named `SENTRY_KEY`, it will be available under `process.env.SENTRY_KEY` in your code.
+
+Then, enter the **Value** of the Environment Variable. The value is automatically encrypted and stored as a _Secret_ in our system when you click **Add**.
+
+<Image
+  src={`${process.env.ASSETS}/docs/build-step/env-vars-user.png`}
+  width={1488 / 2}
+  height={632 / 2}
+  shadow
+/>
+<Caption>Adding an Environment Variable in the Project Settings.</Caption>
+
+Once added, the Environment Variable is applied to your subsequent deployment.
+It can then be consumed during **Build Step** by the framework of your choice, or by a Serverless Function at **Runtime**.
+
+<Note>
+  If any Environment Variables differ between Deployments,{' '}
+  <Link href="/docs/v2/platform/deployments#deduplication">deduplication</Link>{' '}
+  will always be bypassed. For example, this means that merging to the default
+  branch will no longer result in an instant deployment.
+</Note>
+
+### Development Environment Variables
+
+Environment Variables created for the Development Environment can be downloaded into a local development setup using the `now env pull` command provided by [<ProductShortName /> CLI](/download):
+
+<Snippet clipboard={false} dark text={`now env pull
+Downloading Development Environment Variables for project my-lovely-project
+✅ Created .env file [510ms]`} />
+<Caption>Downloading Development Environment Variables with `now env pull`.</Caption>
+
+Running the command will create a `.env` file in your project folder. The `.env` file can then be consumed by `now dev` or
+your preferred development command.
+
+Check out the [<ProductShortName /> CLI reference](/docs/now-cli#commands/env) to learn more about `now env` commands.
+
+### Integration Environment Variables
+
+[Integrations](/integrations) can automatically add Environment Variables to your Project Settings.
+In that case, the Integration Configuration that added it will be displayed:
+
+<Image
+  src={`${process.env.ASSETS}/docs/build-step/env-vars-integration.png`}
+  width={1488 / 2}
+  height={728 / 2}
+  shadow
+/>
+<Caption>Adding an Integration Environment Variable in the Project Settings.</Caption>
+
+<Note>
+  Support for Integration Environment Variables was added on April 10th, 2020.
+  Variables added before that date do not have the <Strong>Integration</Strong>{' '}
+  indication.
+</Note>
+
+### System Environment Variables
+
+&#8203;<ProductName /> provides a set of Environment Variables that are optionally populated by the System, such as the URL of the Deployment or the name of the Git branch deployed.
+
+To apply a System Environment Variable to your Deployment, enter its **Name**, leave the **Value** empty, and click **Add**.
+
+<Image
+  src={`${process.env.ASSETS}/docs/build-step/env-vars-system.png`}
+  width={1488 / 2}
+  height={632 / 2}
+  shadow
+/>
+<Caption>Adding a System Environment Variable in the Project Settings.</Caption>
+
+The following System Environment Variables are available:
+
+<Table>
+  <TableHead>
+    <TableRow>
+      <TableHeadCell className="head-cell">Name</TableHeadCell>
+      <TableHeadCell className="head-cell">Description</TableHeadCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    {SYSTEM_ENVS.map(systemEnv => (
+      <TableRow key={systemEnv.name}>
+        <TableRowCell>
+          <InlineCode>{systemEnv.name}</InlineCode>
+        </TableRowCell>
+        <TableRowCell>{systemEnv.description}</TableRowCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+
+### Reserved Environment Variables
+
+The <ProductName /> platform reserves the usage of some Environment Variable names by default. You can find a list of these names in the [limits documentation](/docs/v2/platform/limits/#reserved-variables).
+
+## Ignored Files and Folders
+
+By default, <ProductName /> ignores certain files and folders for security and performance reasons, preventing them from being uploaded during the deployment process.
+
+```bash
+.hg
+.git
+.gitmodules
+.svn
+.cache
+.next
+.now
+.npmignore
+.dockerignore
+.gitignore
+.*.swp
+.DS_Store
+.wafpicke-*
+.lock-wscript
+.env
+.env.*
+.venv
+npm-debug.log
+config.gypi
+node_modules
+__pycache__/
+venv/
+CVS
+```
+
+<Caption>
+  A complete list of files and folders ignored by <ProductName /> during the
+  deployment process.
+</Caption>
+
+<Note>
+  You do not need to add any of the above files and folders to your{' '}
+  <InlineCode>.nowignore</InlineCode> file.
+</Note>
+
+## Technical Details
+
+### Maximum Build Duration
+
+A build can last for a maximum of 30 minutes. If the build exceeds this time, the deployment will error.
+
+### Caching
+
+Each build step will cache files used to build the project, or files used in subsequent deployments, such as `node_modules`, `yarn.lock`, `package-lock.json`, which are cached by default.
+
+The caching mechanism for builds ensures that the next deployment will happen quicker by skipping downloading files that have already been used in a previous deployment.
+
+The maximum stored cache for builds is 500MB.
+
+If a deployment fails, a cache may still be established for successfully built files, but failed builds will not be cached.
+
+### Private npm Modules for Static Builds
+
+To install private npm modules, define `NPM_TOKEN` as a [build environment variable](/docs/configuration#project/build-env) in a `now.json` file.
+
+Alternatively, define `NPM_RC` as a [build environment variable](/docs/configuration#project/build-env) with the contents of `~/.npmrc`.
+
+### Prevent Installing Development Dependencies
+
+In some rare cases, you may wish to skip installing `devDependencies` defined in your `package.json` file and only install `dependencies`.
+
+This can be achieved by assigning `NPM_ONLY_PRODUCTION=1` as a [build environment variable](/docs/configuration#project/build-env).
+
+This is equivalent to `npm install --only=production` or `yarn install --production`.
+
+### Prevent Cache Usage
+
+If you need to ignore the cache for a deployment, you can do so by using the [`-f` flag for <ProductShortName /> CLI](/docs/now-cli/#commands/now/global-options). This prevents the cache from being used in the deployment and ensures a fresh install for all dependencies.
+
+### Framework Versioning
+
+Some frameworks do not use `package.json` to select a specific version to install during build time.
+
+By including [a `build.env` configuration property](/docs/configuration#project/build-env) in [a `now.json` file](/docs/configuration) at your project's root, you can define your framework's version with one of the following keys:
+
+| Framework | Build Env Key  |
+| --------- | -------------- |
+| Hugo      | `HUGO_VERSION` |
+| Zola      | `ZOLA_VERSION` |
+
+For example, defining the Hugo version in a `now.json` file would look like the following snippet:
+
+```json
+{
+  "build": {
+    "env": {
+      "HUGO_VERSION": "0.61.0"
+    }
+  }
+}
+```
+
+<Caption>
+  An example of defining a version for Hugo with a{' '}
+  <InlineCode>now.json</InlineCode> configuration.
+</Caption>
+
+<Note>
+  The value must match an existing GitHub Release with an attached asset. For
+  example, Hugo{' '}
+  <InlineCode>
+    <Link href="https://github.com/gohugoio/hugo/releases/tag/v0.42.0">
+      0.42.0
+    </Link>
+  </InlineCode>{' '}
+  does not exist but Hugo{' '}
+  <InlineCode>
+    <Link href="https://github.com/gohugoio/hugo/releases/tag/v0.42">0.42</Link>
+  </InlineCode>{' '}
+  does exist.
+</Note>
+
+## Related
+
+For more information on what to do next, we recommend the following articles:
+
+<Card title="Git Integration" href="/docs/v2/git-integrations">
+  Learn more about how <ProductName /> integrates with Git to make your workflow
+  easier.
+</Card>
+
+<Card title="Deploy Hooks" href="/docs/v2/advanced/deploy-hooks">
+  Use Deploy Hooks to trigger deployments to build content from outside{' '}
+  <OrgName />.
+</Card>

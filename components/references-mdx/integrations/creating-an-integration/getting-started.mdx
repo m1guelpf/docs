@@ -4,6 +4,8 @@ import CreateAnIntegration from './create-an-integration.mdx'
 import TestingTheIntegration from './testing-the-integration.mdx'
 import IntegrationInstallation from './integration-installation.mdx'
 import DeployToProduction from './deploy-to-production.mdx'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
 
 export const meta = {
   editUrl:
@@ -13,11 +15,11 @@ export const meta = {
 
 # Creating An Integration
 
-A ZEIT Integration is delivered to the user through a [UIHook](#understanding-uihooks).
+A <OrgName /> Integration is delivered to the user through a [UIHook](#understanding-uihooks).
 
 A UIHook is an HTTP POST endpoint that returns a HTML string, composed of custom [ready-made](#component-catalog), or user-made, components, as the response.
 
-The following is a walkthrough for how to make an Integration, comprising of a UIHook. This example uses the Node.js wrapper for the UIHook which is optimized for [Now 2.0](/docs/v2/platform/overview/#versioning) deployments.
+The following is a walkthrough for how to make an Integration, comprising of a UIHook. This example uses the Node.js wrapper for the UIHook which is optimized for [<ProductName />](/docs/v2/platform/overview/#versioning) deployments.
 
 <ProjectSetup />
 <CreateAUiHook />

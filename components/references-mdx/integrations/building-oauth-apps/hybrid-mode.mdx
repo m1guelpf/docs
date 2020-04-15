@@ -1,5 +1,6 @@
 import { Code, InlineCode } from '~/components/text/code'
 import Note from '~/components/text/note'
+import OrgName from '~/components/name/org-name'
 
 export const meta = {
   editUrl:
@@ -9,7 +10,7 @@ export const meta = {
 
 ## Hybrid Mode
 
-Sometimes, your Integration will use a [UIHook](/docs/integrations#understanding-uihooks) but also need to access the ZEIT API in a background worker.
+Sometimes, your Integration will use a [UIHook](/docs/integrations#understanding-uihooks) but also need to access the <OrgName /> API in a background worker.
 
 In this situation you **cannot use the UIHook's token** since it is only valid for the execution period of the UIHook.
 
@@ -28,11 +29,11 @@ The **Redirect URL** supports the following query parameters:
 - `teamId` - The `teamId` of the installation
 - `configurationId` - The `id` of the related configuration
 - `code` - OAuth authorization code (you can [exchange](/docs/api#endpoints/oauth2/exchanging-code-for-an-access-token) an `accessToken` using this)
-- `next` - The installation URL of your Integration in the ZEIT Dashboard
+- `next` - The installation URL of your Integration in the <OrgName /> Dashboard
 
 <Note>
   You can redirect the user to the <InlineCode>next</InlineCode> URL after
   obtaining the <InlineCode>accessToken</InlineCode>.
 </Note>
 
-Now you can use UIHook's to display reports and receive inputs from the user. You can also use the obtained `accessToken` to access the ZEIT API from anywhere, at anytime.
+Now you can use UIHook's to display reports and receive inputs from the user. You can also use the obtained `accessToken` to access the <OrgName /> API from anywhere, at anytime.

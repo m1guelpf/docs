@@ -4,6 +4,7 @@ import UsingMetadata from './using-metadata.mdx'
 import ConnectWithGithub from './connect-with-github.mdx'
 import RecentDeployments from './recent-deployments.mdx'
 import MoreExamples from './more-examples.mdx'
+import OrgName from '~/components/name/org-name'
 
 export const meta = {
   editUrl:
@@ -13,16 +14,16 @@ export const meta = {
 
 # Examples
 
-With the previous [Creating an Integration](#creating-an-integrations) section, you should now have a clearer idea of how to create an Integration. In this section, you will find a few more examples and see what more you can do with the ZEIT Integrations.
+With the previous [Creating an Integration](#creating-an-integrations) section, you should now have a clearer idea of how to create an Integration. In this section, you will find a few more examples and see what more you can do with the <OrgName /> Integrations.
 
 All of these examples contains a README file showing how to run them locally, however most of them uses the following process:
 
-- Create an Integration using the ZEIT Dashboard
+- Create an Integration using the <OrgName /> Dashboard
 - Set the UIHook URL to <http://localhost:5005>
 - Add a configuration for the Integration
 - Install your project's dependencies with `npm install`
 - Run the Integration's UIHook locally with `now dev --listen 5005`
-- Access a configuration for the Integrations from the ZEIT Dashboard
+- Access a configuration for the Integrations from the <OrgName /> Dashboard
 - Then you see your UIHook in action.
 
 <Counter />

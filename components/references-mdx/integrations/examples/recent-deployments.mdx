@@ -1,5 +1,6 @@
 import Caption from '~/components/text/caption'
 import { Image } from '~/components/media'
+import OrgName from '~/components/name/org-name'
 
 export const meta = {
   editUrl:
@@ -9,8 +10,8 @@ export const meta = {
 
 ## Recent Deployments
 
-This Integration displays a list of recent deployments from your ZEIT account or related project.
-It fetches deployment data from the ZEIT API using the `zeitClient` utility.
+This Integration displays a list of recent deployments from your <OrgName /> account or related project.
+It fetches deployment data from the <OrgName /> API using the `zeitClient` utility.
 
 Take a look at the [code on GitHub](https://github.com/zeit/integrations/tree/master/recent-deployments).
 
@@ -19,4 +20,4 @@ Take a look at the [code on GitHub](https://github.com/zeit/integrations/tree/ma
   width={1792/2}
   height={998/2}
 />
-<Caption>An example Integration accessing the ZEIT API and render them.</Caption>
+<Caption>An example Integration accessing the <OrgName /> API and render them.</Caption>

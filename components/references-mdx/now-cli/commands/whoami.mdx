@@ -2,6 +2,7 @@ import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
 import Note from '~/components/text/note'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   editUrl: 'pages/docs/now-cli/now-cli-mdx/commands/whoami.mdx',
@@ -10,7 +11,7 @@ export const meta = {
 
 ## Whoami
 
-The `now whoami` command is used to show the username of the user currently logged into [Now CLI](/download).
+The `now whoami` command is used to show the username of the user currently logged into [<ProductShortName /> CLI](/download).
 
 <Note type="warning">
   This command is for <b>advanced use only</b>. You can see the name of the
@@ -20,7 +21,7 @@ The `now whoami` command is used to show the username of the user currently logg
 ### Basic Usage
 
 <Snippet dark text="now whoami" />
-<Caption>Using the <InlineCode>now whoami</InlineCode> command to view the username of the user currently logged into Now CLI.</Caption>
+<Caption>Using the <InlineCode>now whoami</InlineCode> command to view the username of the user currently logged into <ProductShortName /> CLI.</Caption>
 
 ### Global Options
 

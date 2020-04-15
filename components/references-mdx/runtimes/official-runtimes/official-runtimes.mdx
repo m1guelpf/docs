@@ -5,6 +5,8 @@ import Example from '~/components/example'
 import Link from '~/components/text/link'
 import Note from '~/components/text/note'
 import Tag from '~/components/text/tag'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
 
 export const meta = {
   editUrl:
@@ -20,7 +22,7 @@ Runtimes are modules that transform your source code into [Serverless Functions]
   In most cases, advanced Runtimes usage with configuration is not necessary.
   See{' '}
   <Link href="/docs/v2/introduction">
-    the ZEIT Now Introduction documentation
+    the <ProductName /> Introduction documentation
   </Link>{' '}
   or the{' '}
   <Link href="/docs/v2/serverless-functions/introduction">
@@ -29,7 +31,7 @@ Runtimes are modules that transform your source code into [Serverless Functions]
   for more information.
 </Note>
 
-Listed below are all official Runtimes from ZEIT.
+Listed below are all official Runtimes from <OrgName />.
 
 | Runtime                               | Description                                                                                                                                  |
 | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -74,7 +76,9 @@ If you need more advanced behavior, such as a custom build step or private npm m
 
 ### Node.js Version
 
-The default Node.js version used is **10.x** but can be changed to **12.x** by defining an `engines` property in a `package.json` file like in the example below:
+New deployments automatically select the latest LTS Node.js version available on <ProductName /> at that point in time.
+
+In order to select a different version, add a `package.json` file with an `engines` field, like so:
 
 ```json
 {
@@ -89,14 +93,17 @@ The default Node.js version used is **10.x** but can be changed to **12.x** by d
   <InlineCode>package.json</InlineCode> file.
 </Caption>
 
-When defining an `engines` property, there are two different values that can be supplied, **10.x** - the default if the property is not defined - or **12.x**.
+When defining an `engines` property, the following Node.js versions can be selected:
 
-The `.x` portion of the `engines` value is required by our upstream providers and cannot be changed.
+- **10.x**
+- **12.x** (The default if the property is not defined)
+
+In order to find out which Node.js version your deployment is using, run `node -v` inside it or log the output of `process.version`.
 
 <Note type="warning">
-  The only options that can be passed are <InlineCode>10.x</InlineCode> or{' '}
-  <InlineCode>12.x</InlineCode>, passing any other value will cause your build
-  to fail.
+  Our upstream providers do not support passing a specific version like{' '}
+  <InlineCode>12.14.0</InlineCode>. Only major values like{' '}
+  <InlineCode>12.x</InlineCode> will work.
 </Note>
 
 ### Node.js Dependencies
@@ -126,10 +133,10 @@ export default function(req: NowRequest, res: NowResponse) {
   the <InlineCode>@now/node</InlineCode> module for the helper methods.
 </Caption>
 
-The `NowRequest` and `NowResponse` imports in the above example are types that we provide for [the Request and Response objects](#official-runtimes/node-js/node-js-request-and-response-objects), including the helper methods with ZEIT Now. These types can be installed from npm with the following command:
+The `NowRequest` and `NowResponse` imports in the above example are types that we provide for [the Request and Response objects](#official-runtimes/node-js/node-js-request-and-response-objects), including the helper methods with <ProductName />. These types can be installed from npm with the following command:
 
 <Snippet dark text="npm install @now/node --save-dev" />
-<Caption>Installing <InlineCode>@now/node</InlineCode> for types when using Node.js on ZEIT Now.</Caption>
+<Caption>Installing <InlineCode>@now/node</InlineCode> for types when using Node.js on <ProductName />.</Caption>
 
 You can also use a `tsconfig.json` file at the root of your project to configure the TypeScript compiler. Most options are supported aside from ["Path Mappings"](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping) and ["Project References"](https://www.typescriptlang.org/docs/handbook/project-references.html).
 
@@ -139,7 +146,7 @@ Each request to a Node.js Serverless Function gives access to Request and Respon
 
 #### Node.js Helpers
 
-ZEIT Now additionally provides helper methods inside of the Request and Response objects passed to Node.js Serverless Functions. These methods are:
+&#8203;<ProductName /> additionally provides helper methods inside of the Request and Response objects passed to Node.js Serverless Functions. These methods are:
 
 | method             | description                                                                                                                                                                                    | object   |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
@@ -176,15 +183,15 @@ module.exports = (req, res) => {
 </Caption>
 
 <Note>
-  If needed, you can opt-out of Now providing <InlineCode>helpers</InlineCode>{' '}
-  using{' '}
+  If needed, you can opt-out of <ProductName /> providing{' '}
+  <InlineCode>helpers</InlineCode> using{' '}
   <Link href="#advanced-usage/advanced-node-js-usage/disabling-helpers-for-node-js">
     advanced configuration
   </Link>
   .
 </Note>
 
-#### `req.body`
+#### Request Body
 
 We populate the `req.body` property with a parsed version of the content sent with the request when possible.
 
@@ -206,7 +213,7 @@ With the `req.body` helper, you can build applications without extra dependencie
 
 <Tag>Status: Alpha</Tag>
 
-The Go Runtime is used by Now to compile Go Serverless Functions that expose a single HTTP handler, from a `.go` file within an `/api` directory at your project's root.
+The Go Runtime is used by <ProductName /> to compile Go Serverless Functions that expose a single HTTP handler, from a `.go` file within an `/api` directory at your project's root.
 
 For example, define an `index.go` file inside an `/api` directory as follows:
 
@@ -219,7 +226,7 @@ import (
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprintf(w, "<h1>Hello from Go on Now!</h1>")
+  fmt.Fprintf(w, "<h1>Hello from Go!</h1>")
 }
 ```
 
@@ -241,11 +248,32 @@ For advanced usage, such as using private packages with your Go projects, see th
 
 ### Go Version
 
-Go version 1.x is used for Go projects deployed with ZEIT Now.
+Go version 1.x is used for Go projects deployed with <ProductName />.
 
 ### Go Dependencies
 
 The Go Runtime will automatically detect a `go.mod` file to install dependencies at the root of a project.
+
+### Go Build Configuration
+
+You can provide custom build flags by using the `GO_BUILD_FLAGS` [build environment variable](/docs/v2/build-step#environment-variables).
+
+```json
+{
+  "build": {
+    "env": {
+      "GO_BUILD_FLAGS": "-ldflags '-s -w'"
+    }
+  }
+}
+```
+
+<Caption>
+  An example <InlineCode>-ldflags</InlineCode> flag with{' '}
+  <InlineCode>-s -w</InlineCode>. This will remove debug information from the
+  output file. This is the default value when no{' '}
+  <InlineCode>GO_BUILD_FLAGS</InlineCode> are provided.
+</Caption>
 
 ---
 
@@ -253,7 +281,7 @@ The Go Runtime will automatically detect a `go.mod` file to install dependencies
 
 <Tag>Status: Beta</Tag>
 
-The Python Runtime is used by Now to compile Python Serverless Functions, that defines a singlular HTTP `handler` variable, inheritting from the `BaseHTTPRequestHandler` class, from a `.py` file within an `/api` directory at your project's root.
+The Python Runtime is used by <ProductName /> to compile Python Serverless Functions, that defines a singular HTTP `handler` variable, inheritting from the `BaseHTTPRequestHandler` class, from a `.py` file within an `/api` directory at your project's root.
 
 For example, define an `index.py` file inside a `/api` directory as follows:
 
@@ -267,7 +295,7 @@ class handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type','text/plain')
         self.end_headers()
-        message = cow.Cowacter().milk('Hello from Python from a ZEIT Now Serverless Function!')
+        message = cow.Cowacter().milk('Hello from Python from a Serverless Function!')
         self.wfile.write(message.encode())
         return
 ```
@@ -292,7 +320,7 @@ For advanced usage, such as using WSGI or ASGI for your Python projects, see the
 
 ### Python Version
 
-Python projects deployed with ZEIT Now use Python version 3.6.
+Python projects deployed with <ProductName /> use Python version 3.6.
 
 ### Python Dependencies
 
@@ -304,7 +332,7 @@ You can install dependencies for your Python projects by defining them in a `req
 
 <Tag>Status: Alpha</Tag>
 
-The Ruby Runtime is used by Now to compile Ruby Serverless Functions that define a singlular HTTP handler from `.rb` files within an `/api` directory at your project's root.
+The Ruby Runtime is used by <ProductName /> to compile Ruby Serverless Functions that define a singular HTTP handler from `.rb` files within an `/api` directory at your project's root.
 
 Ruby files must have one of the following variables defined:
 
@@ -317,9 +345,11 @@ For example, define a `index.rb` file inside a `/api` directory as follows:
 require 'cowsay'
 
 Handler = Proc.new do |req, res|
-    res.status = 200
-    res['Content-Type'] = 'text/plain'
-    res.body = Cowsay.say('hello world', 'cow')
+  name = req.query['name'] || 'World'
+
+  res.status = 200
+  res['Content-Type'] = 'text/plain'
+  res.body = Cowsay.say("Hello #{name}", 'cow')
 end
 ```
 
@@ -338,14 +368,32 @@ gem "cowsay", "~> 0.3.0"
 
 <Caption>
   An example <InlineCode>Gemfile</InlineCode> file that defines{' '}
-  <InlineCode>cowpy</InlineCode> as a dependency.
+  <InlineCode>cowsay</InlineCode> as a dependency.
 </Caption>
 
 For advanced usage, such as using a Rack Interface for your Ruby projects, see the [Advanced Ruby Usage section](#advanced-usage/advanced-ruby-usage).
 
 ### Ruby Version
 
-Ruby 2.5.5 is used.
+New deployments use Ruby 2.7.x as the default version.
+
+You can specify the version of Ruby by defining `ruby` in a `Gemfile`, like so:
+
+```
+source "https://rubygems.org"
+ruby "~> 2.7.x"
+```
+
+When defining a Ruby version, the following Ruby versions can be selected:
+
+- 2.7.x (default)
+- 2.5.x
+
+<Note>
+  If the patch part of the version is defined, like{' '}
+  <InlineCode>2.5.5</InlineCode> it will be ignored and assume the latest{' '}
+  <InlineCode>2.5.x</InlineCode>.
+</Note>
 
 ### Ruby Dependencies
 

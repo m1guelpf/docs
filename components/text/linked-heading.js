@@ -26,12 +26,14 @@ export default props => {
   if (null == id) {
     if (typeof children === 'object' && !Array.isArray(children)) {
       // if the child is a component, convert it to its children
-      text = children.props.children
+      text = children.props.name || children.props.children
     } else if (Array.isArray(children)) {
       // If there are sub components, convert them to text
       text = children
         .map(child => {
-          return typeof child === 'object' ? child.props.children : child
+          return typeof child === 'object'
+            ? child.props.name || child.props.children
+            : child
         })
         .join('')
     }

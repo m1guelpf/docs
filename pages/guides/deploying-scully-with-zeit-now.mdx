@@ -1,0 +1,58 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import Link from '~/components/text/link'
+import { Image } from '~/components/media'
+import { InlineCode } from '~/components/text/code'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Deploy Scully with ${PRODUCT_NAME}`,
+  description: `Create a Scully app and deploy it live with ${PRODUCT_NAME}.`,
+  published: '2020-01-13T12:00:00.860Z',
+  authors: ['msweeneydev'],
+  url: '/guides/deploying-scully-with-zeit-now',
+  name: 'Scully',
+  type: 'app',
+  example: 'scully',
+  demo: 'https://scully.now-examples.now.sh',
+  editUrl: 'pages/guides/deploying-scully-with-zeit-now.mdx',
+  lastEdited: '2020-04-14T00:02:08.000Z'
+}
+
+[Scully](https://github.com/scullyio/scully/blob/master/README.md) is the best way to build the fastest Angular apps. Scully is a static site generator for Angular projects looking to embrace the Jamstack.
+
+## Step 1: Set Up Your Scully Project
+
+Set up an Angular app with [`npx`](https://www.npmjs.com/package/npx) and move into the project directory, selecting Angular routing and the CSS framework of your choice:
+
+<Snippet dark text="npx -p @angular/cli@next ng new my-scully-project && cd my-scully-project" />
+<Caption>Initializing an Angular app with <Link href="https://www.npmjs.com/package/npx">npx</Link> and moving into the project directory.</Caption>
+
+Add the `@scully/init` package to the project:
+
+<Snippet dark text="ng add @scullyio/init" />
+<Caption>Adding the <InlineCode>@scully/init</InlineCode> package to the project.</Caption>
+
+Next, use the `ng generate` command to initialize the blog module:
+
+<Snippet dark text="ng generate @scullyio/init:blog" />
+<Caption>Initializing the Scully blog module.</Caption>
+
+Then, use the `ng generate` command to initialize the post module:
+
+<Snippet dark text="ng generate @scullyio/init:post" />
+<Caption>Initializing the Scully post module.</Caption>
+
+## Step 2: Deploying Your Scully App with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

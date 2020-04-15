@@ -5,22 +5,27 @@ import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import ProductShortName from '~/components/name/product-short-name'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Create and Deploy a MongoDB-Powered Node.js API with ZEIT Now',
-  description:
-    'Create a serverless Node.js API with data powered by MongoDB then deploy it as a serverless app with ZEIT Now.',
+  title: `Create and Deploy a MongoDB-Powered Node.js API with ${PRODUCT_NAME}`,
+  description: `Create a serverless Node.js API with data powered by MongoDB then deploy it as a serverless app with ${PRODUCT_NAME}.`,
   published: '2019-05-24T17:53:20.489Z',
   authors: ['timothy'],
   url: '/guides/deploying-a-mongodb-powered-api-with-node-and-now',
   image: `${
     process.env.ASSETS
   }/guides/deploying-a-mongodb-powered-api-with-node-and-now/card.png`,
+  name: 'MongoDB',
+  type: 'API',
   editUrl: 'pages/guides/deploying-a-mongodb-powered-api-with-node-and-now.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  lastEdited: '2020-04-14T06:26:07.000Z'
 }
 
-In this guide, we will walk you through creating and [deploying](/docs/v2/deployments/basics/) a [Node.js](https://nodejs.org/) API powered by [MongoDB](https://www.mongodb.com/), on [ZEIT Now](/now).
+In this guide, we will walk you through creating and [deploying](/docs/v2/deployments/basics/) a [Node.js](https://nodejs.org/) API powered by [MongoDB](https://www.mongodb.com/), on [<ProductName />](/).
 
 <Image
   src={`${
@@ -35,7 +40,7 @@ In this guide, we will walk you through creating and [deploying](/docs/v2/deploy
 
 To start this example, you will need to have [setup a MongoDB Atlas account and database](https://docs.atlas.mongodb.com/getting-started/).
 
-Make sure that the cluster has [whitelisted connections](https://docs.atlas.mongodb.com/getting-started/#whitelist-your-connection-ip-address) from anywhere, since Now does not support static IP addresses.
+Make sure that the cluster has [whitelisted connections](https://docs.atlas.mongodb.com/getting-started/#whitelist-your-connection-ip-address) from anywhere, since <ProductName /> does not support static IP addresses.
 
 Get started by creating a project directory and `cd` into it:
 
@@ -77,7 +82,7 @@ You can get the connection string by clicking "Connect" on the Cluster Overview 
 />
 <Caption>Getting the connection string from the MongoDB Atlas connection modal.</Caption>
 
-To use your MongoDB connection string without hard-coding it in your project, you can add your connection string to the project as a [Now Secret](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) using the [Now CLI](/download#now-cli) to keep them secure:
+To use your MongoDB connection string without hard-coding it in your project, you can add your connection string to the project as a [Secret](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) using the [<ProductShortName /> CLI](/download#now-cli) to keep them secure:
 
 <Snippet dark text="now secrets add my-mongodb-uri mongodb+srv://<user>:<password>@my-cluster-uf345.mongodb.net/<database-name>?retryWrites=true" />
 <Caption>
@@ -89,7 +94,7 @@ To use your MongoDB connection string without hard-coding it in your project, yo
   string.
 </Note>
 
-Finally, set up [the `now.json` configuration file](/docs/configuration) that instructs Now to make available the [Secret](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) you defined:
+Finally, set up [the `now.json` configuration file](/docs/configuration) that instructs <ProductName /> to make available the [Secret](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) you defined:
 
 ```json
 {
@@ -109,10 +114,9 @@ Finally, set up [the `now.json` configuration file](/docs/configuration) that in
   for development and deployment.
 </Caption>
 
-The above file tells Now the following:
+The above file tells <ProductName /> the following:
 
 - The name of the project is "my-mongodb-api"
-- The platform version the project uses is [Now 2.0](/docs/v2/platform/overview/#versioning)
 - An [Environment Variable](/docs/v2/deployments/environment-variables-and-secrets/), `env`, should be accessible in the app with the value of the secret you added in the first step
 
 <Note>
@@ -149,7 +153,7 @@ const MongoClient = require('mongodb').MongoClient
 let cachedDb = null
 
 // A function for connecting to MongoDB,
-// taking a single paramater of the connection string
+// taking a single parameter of the connection string
 async function connectToDatabase(uri) {
   // If the database connection is cached,
   // use it instead of creating a new connection
@@ -204,7 +208,7 @@ module.exports = async (req, res) => {
 
 Now that you have your MongoDB database, an API endpoint, and configuration all done, you can start to [develop your API, and apps, locally](/docs/v2/development/basics).
 
-Using Now CLI, you can start a development process from your terminal that mimics your production environment using the configuration you provided in your `now.json` file.
+Using <ProductShortName /> CLI, you can start a development process from your terminal that mimics your production environment using the configuration you provided in your `now.json` file.
 
 To start developing, create a `.env` file containing the `MONGODB_URI` environment variable and the connection string you want to use locally:
 
@@ -218,53 +222,22 @@ MONGODB_URI=mongodb+srv://<user>:<password>@my-cluster-uf345.mongodb.net/<databa
   local development.
 </Caption>
 
-This file allows the Now development process to use the environment variable with a value, since you are using a Now Secret in production which isn't accessible outside of the secure deployment environment.
+This file allows the <ProductName /> development process to use the environment variable with a value, since you are using a Secret in production which isn't accessible outside of the secure deployment environment.
 
-Next, run the Now CLI development command from the terminal:
+Next, run the <ProductShortName /> CLI development command from the terminal:
 
 <Snippet dark text="now dev" />
-<Caption>Starting Now CLI's dev process from the terminal.</Caption>
+<Caption>Starting <ProductShortName /> CLI's dev process from the terminal.</Caption>
 
-After starting the development process, Now CLI will provide you with a localhost address for where your app is running. This is commonly <http://localhost:3000> unless the port is taken.
+After starting the development process, <ProductShortName /> CLI will provide you with a localhost address for where your app is running. This is commonly <http://localhost:3000> unless the port is taken.
 
 Using the default port, you can find your new API endpoint at <http://localhost:3000/api/users.js>.
 
 ## Step 4: Deploying
 
-The next and final step is to deploy your app with a single command.
-
-To deploy your MongoDB API, use the following [Now CLI](/download) command from your terminal:
-
-<Snippet dark text="now" />
-<Caption>Deploying with Now CLI in one command.</Caption>
-
-To use your domain for [production deployments](/docs/v2/custom-domains#deploying-with-your-domain), [add a custom domain](https://zeit.co/docs/v2/custom-domains/#adding-a-domain) to your project.
-
-Now, deploy your project to a production environment using the following command:
-
-<Snippet dark text="now --prod" />
-<Caption>Deploying to production with Now.</Caption>
-
-<Note>
-  For optimal performance,{' '}
-  <Link href="/docs/configuration#project/regions">
-    deploy your API to the closest region, or regions
-  </Link>
-  , of where your MongoDB cluster is located in. You can see the regions Now supports
-  in the <Link href="/docs/v2/platform/regions-and-providers">
-    Regions and Providers documentation
-  </Link>.
-</Note>
-
-When complete, Now CLI will provide you with the URL your project has been deployed to. In the case above, the production domain was set to `my-mongodb-api.now.sh`.
+<DeploySection meta={meta} />
 
 You can view the deployment from this guide, using the API path, here: <https://my-mongodb-api.now.sh/api/users.js>
-
-## Deploying Automatically with Git
-
-Instead of deploying manually through your terminal, you can also get **automatic deployments with each git push** when you use [Now for GitHub](/github), [Now for GitLab](/gitlab), or [Now for Bitbucket](/bitbucket).
-
-Push to any branch, pull, or merge request and get a fresh deployment to review. Merging into the default branch results in an automatic update of the production domain. No extra work needed.
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

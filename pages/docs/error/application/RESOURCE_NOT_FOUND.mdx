@@ -1,12 +1,13 @@
 import Standard from '~/components/layout/standard'
 import Note from '~/components/text/note'
 import { InlineCode } from '~/components/text/code'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
   title: 'Resource Not Found',
   description: 'The requested file or Serverless Function was not found.',
   editUrl: 'pages/docs/error/application/RESOURCE_NOT_FOUND.mdx',
-  lastEdited: '2019-10-07T13:34:36.000Z'
+  lastEdited: '2020-04-15T01:59:48.000Z'
 }
 
 #### Application Error
@@ -27,7 +28,7 @@ The requested file or Serverless Function was not found in the application.
 
 - Make sure the link you accessed is correct.
 - Check the output of your deployment.
-- If you believe the link is correct and you were not expecting this error; **[Contact Support](mailto:support@zeit.co)** along with the ID on the error page from your deployment.
+- If you believe the link is correct and you were not expecting this error; **<EmailLink type="support">Contact Support</EmailLink>** along with the ID on the error page from your deployment.
 
 export default ({ children }) => <Standard meta={meta}>{children}</Standard>
 

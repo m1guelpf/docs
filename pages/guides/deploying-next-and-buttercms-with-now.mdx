@@ -5,12 +5,14 @@ import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title:
-    'Create a Next.js and Buttercms App That Builds and Deploys with ZEIT Now',
-  description:
-    'Deploy your Next.js and ButterCMS app with ZEIT Now in a serverless environment.',
+  title: `Create a Next.js and ButterCMS App That Builds and Deploys with ${PRODUCT_NAME}`,
+  description: `Deploy your Next.js and ButterCMS app with ${PRODUCT_NAME} in a serverless environment.`,
   published: '2019-06-21T16:51:04.000Z',
   authors: ['msweeneydev'],
   url: '/guides/deploying-next-and-buttercms-with-now',
@@ -18,12 +20,14 @@ export const meta = {
     process.env.ASSETS
   }/guides/deploying-next-buttercms-with-now/deploying-next-buttercms-with-now.png`,
   editUrl: 'pages/guides/deploying-next-and-buttercms-with-now.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  name: 'Next.js + ButterCMS',
+  type: 'app',
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-In this guide, you will discover how to create a [Next.js](https://nextjs.org/) app that displays links to posts from the [ZEIT blog](/blog) by utilizing the [ButterCMS](https://buttercms.com/) content management system, before deploying **with a single command** to [ZEIT Now](/docs/v2).
+In this guide, you will discover how to create a [Next.js](https://nextjs.org/) app that displays links to posts from the [<OrgName /> blog](/blog) by utilizing the [ButterCMS](https://buttercms.com/) content management system, before deploying **with a single command** to [<ProductName />](/docs/v2).
 
-[Next.js](https://nextjs.org/) from [ZEIT](https://zeit.co) is a **production-ready framework** that helps you create fast React apps. [ButterCMS](https://buttercms.com/) is a drop-in headless CMS with zero headaches that allows you to **never worry about hosting, upgrades, uptime, security or performance** whilst storing all your content in one place.
+[Next.js](https://nextjs.org/) from [<OrgName />](https://zeit.co) is a **production-ready framework** that helps you create fast React apps. [ButterCMS](https://buttercms.com/) is a drop-in headless CMS with zero headaches that allows you to **never worry about hosting, upgrades, uptime, security or performance** whilst storing all your content in one place.
 
 By following this guide, you will create a clone of the [example app](https://nextjs-buttercms.now-examples.now.sh/), a starting point to get you up and running with your own Next.js + ButterCMS app in minutes.
 
@@ -284,11 +288,11 @@ BUTTER_API_TOKEN=your-api-token
   ButterCMS project.
 </Caption>
 
-Lastly, to make your API key available for [cloud deployment](/docs/v2/deployments/basics/), create a [Now Secret](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) with the command below:
+Lastly, to make your API key available for [cloud deployment](/docs/v2/deployments/basics/), create a [Secret](/docs/now-cli#commands/secrets) with the command below:
 
 <Snippet dark text="now secrets add BUTTER_API_TOKEN your-space-id" />
 <Caption>
-  Adding the <InlineCode>BUTTER_API_TOKEN</InlineCode> secret to your project using <Link href="/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets">Now Secrets</Link>.
+  Adding the <InlineCode>BUTTER_API_TOKEN</InlineCode> secret to your project using <Link href="/docs/now-cli#commands/secrets">Secrets</Link>.
 </Caption>
 
 With those steps out the way you are now able to run your app. You can develop your app locally using the following command:
@@ -300,14 +304,7 @@ With those steps out the way you are now able to run your app. You can develop y
 
 ## Step 4: Deploying the App
 
-With your app ready, it is time to deploy it using **a single command**:
-
-<Snippet dark text="now" />
-<Caption>
-  Using the <InlineCode>now</InlineCode> command to deploy your project to Now.
-</Caption>
-
-You will see a short build step in your terminal followed by the news that your project has been [deployed](https://zeit.co/docs/v2/deployments/basics/), it should look similar to the [example app](https://nextjs-buttercms.now-examples.now.sh/).
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

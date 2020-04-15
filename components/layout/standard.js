@@ -4,7 +4,6 @@ import { withRouter } from 'next/router'
 import { MDXProvider } from '@mdx-js/tag'
 
 import Head from '~/components/layout/head'
-import Layout from '~/components/layout/layout'
 import Main from '~/components/layout/main'
 import Heading from '~/components/text/linked-heading'
 import Content from '~/components/layout/content'
@@ -13,6 +12,7 @@ import components from '~/lib/mdx-components'
 import { H1 } from '~/components/text'
 import HR from '~/components/text/hr'
 import { FooterFeedback } from '~/components/feedback-input'
+import { PRODUCT_NAME, ORG_NAME } from '~/lib/constants'
 
 const DocH1 = ({ children }) => (
   <>
@@ -33,18 +33,17 @@ class withStandard extends React.Component {
   render() {
     const {
       meta = {
-        title: 'Now Documentation',
-        description:
-          'The knowledge base and documentation for how to use ZEIT Now and how it works.'
+        title: `${PRODUCT_NAME} Documentation`,
+        description: `The knowledge base and documentation for how to use ${PRODUCT_NAME} and how it works.`
       }
     } = this.props
 
     return (
       <MDXProvider components={components}>
-        <Layout dynamicSearch={false}>
+        <>
           <Head
             titlePrefix=""
-            titleSuffix=" - ZEIT Documentation"
+            titleSuffix={` - ${ORG_NAME} Documentation`}
             title={`${meta.title}`}
             description={meta.description}
             image={meta.image}
@@ -76,7 +75,7 @@ class withStandard extends React.Component {
               />
             </Content>
           </Main>
-        </Layout>
+        </>
       </MDXProvider>
     )
   }

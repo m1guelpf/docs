@@ -1,0 +1,161 @@
+import { Code } from '~/components/text/code'
+import { HelpLink } from '~/components/text/link'
+import Caption from '~/components/text/caption'
+import Endpoint from '~/components/api/endpoint'
+import Request from '~/components/api/request'
+import OrgName from '~/components/name/org-name'
+
+export const meta = {
+  editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/webhooks.mdx',
+  lastEdited: '2019-12-10T22:32:39.987Z'
+}
+
+## Webhooks
+
+Webhooks allow you to subscribe to certain events on <OrgName /> by providing a destination URL.
+
+We send a `POST` request to that URL with an event `payload` every time an event associated with the webhook happens.
+
+Each URL can register up to 5 webhooks for a given team or user account.
+
+### List all Webhooks
+
+<Endpoint method="GET" url="/v1/integrations/webhooks" />
+
+Retrieves a list of all webhooks that are defined for the authorized account.
+
+### Create a Webhook
+
+<Endpoint method="POST" url="/v1/integrations/webhooks" />
+
+Creates a new webhook subscription.
+
+#### Request Parameters
+
+| Key        | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                                                                                     |
+| ---------- | ---------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------- |
+| **name**   | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The name of the webhook.                                                                        |
+| **url**    | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The url where you will receive events.                                                          |
+| **events** | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | A comma separated list of events to subscribe to. Otherwise it will be subscribe to all events. |
+
+#### Response Parameters
+
+| Key           | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                               |
+| ------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------- |
+| **id**        | <HelpLink href="#api-basics/types">ID</HelpLink>           | The unique identifier of the webhook. Always prefixed with `hook_`.       |
+| **url**       | <HelpLink href="#api-basics/types">String</HelpLink>       | The URL to call when an event for the webhook is triggered.               |
+| **name**      | <HelpLink href="#api-basics/types">String</HelpLink>       | The name of the webhook.                                                  |
+| **events**    | <HelpLink href="#api-basics/types">List</HelpLink>         | The list of events the webhook is subcribed to.                           |
+| **ownerId**   | <HelpLink href="#api-basics/types">ID</HelpLink>           | The identifier of the team or user whose events will trigger the webhook. |
+| **createdAt** | <HelpLink href="#api-basics/types">Date</HelpLink>         | A timestamp that tells you when the webhook was created.                  |
+
+##### Example Request
+
+<Request
+  method="POST"
+  url="https://api.zeit.co/v1/integrations/webhooks"
+  headers={{
+    'Content-Type': 'application/json'
+  }}
+  auth
+  body={{
+    name: 'My first webhook',
+    url: 'https://my-webhook-handler.com/zeit'
+  }}
+/>
+
+##### Example Response
+
+<Code lang="json">{`{
+  "id": "hook_XCG7t7AIHuO2SBA8667zNUiM",
+  "url": "https://my-webhook-handler.com/zeit",
+  "name": "My first webhook",
+  "ownerId": "kr1PsOIzqEL5Xg6M4VZcZosf",
+  "createdAt": 1558531915505,
+  "events": []
+}`}</Code>
+
+### Delete a Webhook
+
+<Endpoint method="DELETE" url="/v1/integrations/webhooks/:id" />
+
+Deletes the webhook with the provided `id`.
+
+### Webhook Events
+
+The webhook URL receives a HTTP POST request with a JSON payload for each event. All the events has the following format:
+
+<Code lang="json">{`{
+  "type": <event-type>,
+  "createdAt": <javascript-timestamp>,
+  "payload": <payload for the event>,
+  "teamId": <teamId>,
+  "userId": <userId>
+}`}</Code>
+
+### Event Payloads
+
+Here's a list of supported event types and their payload.
+
+#### deployment
+
+Occurs whenever a deployment is created.
+
+| Key                 | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                                                    |
+| ------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| **deploymentId**    | <HelpLink href="#api-basics/types">ID</HelpLink>           | The ID of the deployment.                                                                      |
+| **project**         | <HelpLink href="#api-basics/types">String</HelpLink>       | The project name of the deployment.                                                            |
+| **url**             | <HelpLink href="#api-basics/types">String</HelpLink>       | The URL of the deployment.                                                                     |
+| **plan**            | <HelpLink href="#api-basics/types">String</HelpLink>       | The plan type of the deployment. The value can be "hobby", "pro", "business", or "enterprise". |
+| **regions**         | <HelpLink href="#api-basics/types">List</HelpLink>         | An array of the supported regions for the deployment.                                          |
+| **deployment.meta** | <HelpLink href="#api-basics/types">Map</HelpLink>          | A Map of deployment metadata.                                                                  |
+
+#### deployment-ready
+
+Occurs whenever a deployment is ready.
+
+| Key                 | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                                                    |
+| ------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| **deploymentId**    | <HelpLink href="#api-basics/types">ID</HelpLink>           | The ID of the deployment.                                                                      |
+| **project**         | <HelpLink href="#api-basics/types">String</HelpLink>       | The project name of the deployment.                                                            |
+| **url**             | <HelpLink href="#api-basics/types">String</HelpLink>       | The URL of the deployment.                                                                     |
+| **plan**            | <HelpLink href="#api-basics/types">String</HelpLink>       | The plan type of the deployment. The value can be "hobby", "pro", "business", or "enterprise". |
+| **regions**         | <HelpLink href="#api-basics/types">List</HelpLink>         | An array of the supported regions for the deployment.                                          |
+| **deployment.meta** | <HelpLink href="#api-basics/types">Map</HelpLink>          | A Map of deployment metadata.                                                                  |
+
+### Securing Webhooks
+
+Once your server is configured to receive payloads, it will listen for any payload sent to the endpoint you configured. By knowing the URL of your webhook, anybody can send you requests. It is therefore recommend to check whether the requests are coming from <OrgName /> or not.
+
+The recommended method to check is to use the `x-zeit-signature` security header you receive with each request. The value of this header corresponds to the `sha1` of the payload body using your [client secret](/docs/api#endpoints/oauth2).
+
+For example, you can validate a webhook message as follows:
+
+```js
+const crypto = require('crypto');
+const { send } = require('micro');
+
+module.exports = (req, res) => {
+  const payload = await json(req);
+
+  if (!verifySignature(req, payload)) {
+    return send(res, 403, {
+      code: `invalid_signature`,
+      error: `signature didn't match`
+    });
+  }
+
+  // Process the payload
+};
+
+function verifySignature(req, payload) {
+  const signature = crypto.createHmac('sha1', process.env.OAUTH2_SECRET)
+    .update(payload)
+    .digest('hex');
+  return signature === req.headers['x-zeit-signature'];
+}
+```
+
+<Caption>Example on how to validate a webhook message.</Caption>
+
+You can compute the signature using a HMAC hexdigest from the secret token of OAuth2 and request body, then compare it with the value of the `x-zeit-signature` header to validate the payload.

@@ -4,6 +4,9 @@ import { Code, InlineCode } from '~/components/text/code'
 import { P } from '~/components/text'
 import Link from '~/components/text/link'
 import Note from '~/components/text/note'
+import { PRODUCT_SHORT_NAME } from '~/lib/constants'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   editUrl: 'pages/docs/now-cli/now-cli-mdx/introduction/introduction.mdx',
@@ -12,13 +15,15 @@ export const meta = {
 
 # Introduction
 
-## Now CLI Reference
+## <NameWrapper name={PRODUCT_SHORT_NAME} /> CLI Reference
 
-[Now CLI](/download) provides a set of commands that allow you to deploy and manage your projects. This page contains a complete list of all Now CLI commands available, alongside their optional parameters for additional behavior.
+[<ProductShortName /> CLI](/download) provides a set of commands that allow you to deploy and manage your projects. This page contains a complete list of all <ProductShortName /> CLI commands available, alongside their optional parameters for additional behavior.
+
+To download and install <ProductShortName /> CLI, [follow the instructions here](/download).
 
 All commands and options are listed in the following categories:
 
-| Category              | Description                              |
-| --------------------- | ---------------------------------------- |
-| [Commands](#commands) | A list of commands from Now CLI.         |
-| [Options](#options)   | Additional options for Now CLI commands. |
+| Category              | Description                                               |
+| --------------------- | --------------------------------------------------------- |
+| [Commands](#commands) | A list of commands from <ProductShortName /> CLI.         |
+| [Options](#options)   | Additional options for <ProductShortName /> CLI commands. |

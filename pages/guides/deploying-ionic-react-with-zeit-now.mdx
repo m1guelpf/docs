@@ -3,40 +3,38 @@ import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import Link from '~/components/text/link'
 import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Deploy Ionic with ZEIT Now',
-  description: 'Create an Ionic React app and deploy it live with ZEIT Now.',
+  title: `Deploy Ionic React with ${PRODUCT_NAME}`,
+  description: `Create an Ionic React app and deploy it live with ${PRODUCT_NAME}.`,
   published: '2019-11-11T12:00:00.860Z',
   authors: ['msweeneydev'],
   url: '/guides/deploying-ionic-react-with-zeit-now',
   example: 'ionic-react',
   demo: 'https://ionic-react.now-examples.now.sh',
-  image:
-    'https://og-image.now.sh/**Deploy%20Ionic%20Apps**%20%3Cbr%2F%3E%20with%20ZEIT%20Now.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fcdn.svgporn.com%2Flogos%2Fionic.svg',
+  image: `https://og-image.now.sh/**Deploy%20Ionic%20Apps**%20%3Cbr%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fcdn.svgporn.com%2Flogos%2Fionic.svg`,
   editUrl: 'pages/guides/deploying-ionic-react-with-zeit-now.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  name: 'Ionic',
+  type: 'app',
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-[Ionic](https://ionicframework.com/) is the app development platform for developers that allows you to develop for mobile and desktop with the same codebase.
+[Ionic Framework](https://ionicframework.com/docs/intro) is an open source UI toolkit for building performant, high-quality mobile and desktop apps using web technologies (HTML, CSS, and JavaScript).
 
 ## Step 1: Set Up Your Ionic React Project
 
-Set up an Ionic React app with [`npx`](https://www.npmjs.com/package/npx) and move into the project directory, choosing the **blank** option when presented:
+Set up an Ionic React app with [`npx`](https://www.npmjs.com/package/npx) and move into the project directory.
 
-<Snippet dark text="npx ionic start ionic-react --type react && cd ionic-react" />
+<Snippet dark text="npx ionic start [project-name] conference --type react && cd [project-name]" />
 <Caption>Initializing an Ionic app with <Link href="https://www.npmjs.com/package/npx">npx</Link> and moving into the project directory.</Caption>
 
-## Step 2: Deploying Your Ionic React App with ZEIT Now
+## Step 2: Deploying Your Ionic React App with <NameWrapper name={PRODUCT_NAME} />
 
-With an Ionic app set up, it is ready to deploy live with [Now](/docs/v2).
-
-Using [Now CLI](/download), deploy your app with **a single command**:
-
-<Snippet dark text="now" />
-<Caption>Deploying your Ionic app with Now CLI.</Caption>
-
-If you want to deploy your Ionic app when you push to a Git repository, you can use either [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) to have your project automatically deployed on every push, and the [production domain](https://zeit.co/docs/v2/custom-domains/#adding-a-domain) updated on push to master.
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

@@ -7,24 +7,29 @@ import Note from '~/components/text/note'
 import Link from '~/components/text/link'
 import Card from '~/components/card'
 import { Code } from '~/components/code'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
-  title: 'Deploy a SendGrid-Powered Contact Form with ZEIT Now',
-  description:
-    'Create a SendGrid-Powered Next.js and Node.js Contact Form and deploy it with ZEIT Now.',
+  title: `Deploy a SendGrid-Powered Contact Form with ${PRODUCT_NAME}`,
+  description: `Create a SendGrid-Powered Next.js and Node.js Contact Form and deploy it with ${PRODUCT_NAME}.`,
+  name: 'Next.js + Sendgrid',
+  type: 'app',
   published: '2019-10-10T17:00:00.000Z',
   authors: ['msweeneydev'],
   url: '/guides/deploying-nextjs-nodejs-and-sendgrid-with-zeit-now',
-  image:
-    'https://og-image.now.sh/**Deploy%20a%20Next.js%20and%20SendGrid%20App**%20%3Cbr%2F%3E%20with%20ZEIT%20Now.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fseeklogo.com%2Fimages%2FN%2Fnext-js-logo-7929BCD36F-seeklogo.com.png&images=https%3A%2F%2Fsendgrid.com%2Fwp-content%2Fthemes%2Fsgdotcom%2Fpages%2Fresource%2Fbrand%2F2016%2FSendGrid-Logomark.png&widths=250&widths=auto&widths=300&heights=250&heights=auto&heights=300',
+  image: `https://og-image.now.sh/**Deploy%20a%20Next.js%20and%20SendGrid%20App**%20%3Cbr%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fseeklogo.com%2Fimages%2FN%2Fnext-js-logo-7929BCD36F-seeklogo.com.png&images=https%3A%2F%2Fsendgrid.com%2Fwp-content%2Fthemes%2Fsgdotcom%2Fpages%2Fresource%2Fbrand%2F2016%2FSendGrid-Logomark.png&widths=250&widths=auto&widths=300&heights=250&heights=auto&heights=300`,
   editUrl:
     'pages/guides/deploying-nextjs-nodejs-and-sendgrid-with-zeit-now.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  lastEdited: '2020-04-14T06:26:07.000Z'
 }
 
 [SendGrid](https://sendgrid.com/) is a cloud-based SMTP provider that allows you to send email without having to maintain email servers.
 
-This guide walks you through creating a [Next.js app](https://nextjs-sendgrid-nodejs.now-examples.now.sh/) with a contact form powered by [SendGrid](https://sendgrid.com/), and how to deploy it with ZEIT Now.
+This guide walks you through creating a [Next.js app](https://nextjs-sendgrid-nodejs.now-examples.now.sh/) with a contact form powered by [SendGrid](https://sendgrid.com/), and how to deploy it with <ProductName />.
 
 ## Step 1: Creating a SendGrid API Key
 
@@ -164,7 +169,7 @@ export default () => {
   Adding a <InlineCode>/pages/index.js</InlineCode> file to the project.
 </Caption>
 
-Add development and build scripts to the `package.json` file. These allow you to run your app with a development server and tell ZEIT Now how to build your project for deployment:
+Add development and build scripts to the `package.json` file. These allow you to run your app with a development server and tell <ProductName /> how to build your project for deployment:
 
 ```json
 {
@@ -264,14 +269,14 @@ module.exports = {
   <InlineCode>npm run dev</InlineCode>.
 </Note>
 
-Create a [Now Secret](/docs/v2/serverless-functions/env-and-secrets/) to securely store the SendGrid API key, this will be used when deploying the app with ZEIT Now.
+Create a [Secret](/docs/now-cli#commands/secrets) to securely store the SendGrid API key, this will be used when deploying the app with <ProductName />.
 
-<Snippet dark text="now secrets add SENDGRID_API_KEY [your-sendgrid-api-key]" />
+<Snippet dark text="now secrets add sendgrid_api_key [your-sendgrid-api-key]" />
 <Caption>
-  Adding the access key as a <strong>Now Secret</strong>.
+  Adding the access key as a <strong>Secret</strong>.
 </Caption>
 
-Lastly, to make the [Now Secret](https://zeit.co/docs/v2/serverless-functions/env-and-secrets/) available to the Serverless Function when deployed, create a `now.json` file:
+Lastly, to make the [Secret](/docs/now-cli#commands/secrets) available to the Serverless Function when deployed, create a `now.json` file:
 
 ```json
 {
@@ -285,23 +290,12 @@ Lastly, to make the [Now Secret](https://zeit.co/docs/v2/serverless-functions/en
 
 <Caption>
   An example <InlineCode>now.json</InlineCode> file that makes a{' '}
-  <strong>Now Secret</strong> available to the app.
+  <strong>Secret</strong> available to the app.
 </Caption>
 
-## Step 4: Deploying the App with ZEIT Now
+## Step 4: Deploying the App with <NameWrapper name={PRODUCT_NAME} />
 
-With the project complete, you are ready to deploy it with [ZEIT Now](/now).
-
-If you have not yet installed Now, you can do so by [installing Now CLI](/download).
-
-You can now deploy the project with **a single command**:
-
-<Snippet dark text="now" />
-<Caption>
-  Deploying the project with the <InlineCode>now</InlineCode> command.
-</Caption>
-
-To deploy your Next.js, Node.js, and SendGrid project from a Git repository, you can use either [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) to have your project automatically deployed on every push, and the [production domain](https://zeit.co/docs/v2/custom-domains/#adding-a-domain) updated on push to master.
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

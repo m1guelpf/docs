@@ -3,19 +3,24 @@ import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import Link from '~/components/text/link'
 import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Deploy Stencil with ZEIT Now',
-  description: 'Create a Stencil app and deploy it live with ZEIT Now.',
+  title: `Deploy Stencil with ${PRODUCT_NAME}`,
+  description: `Create a Stencil app and deploy it live with ${PRODUCT_NAME}.`,
+  name: 'Stencil',
+  type: 'app',
   published: '2019-11-06T12:00:00.860Z',
   authors: ['msweeneydev'],
   url: '/guides/deploying-stencil-with-zeit-now',
   example: 'stencil',
   demo: 'https://stencil.now-examples.now.sh',
-  image:
-    'https://og-image.now.sh/**Deploy%20Stencil%20Apps**%20%3Cbr%2F%3E%20with%20ZEIT%20Now.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAclBMVEX%2F%2F%2F8AAACTk5PBwcEiIiL6%2Bvrq6up0dHTz8%2FNjY2NNTU04ODjFxcXf39%2FT09MfHx%2BKioqenp6ysrLNzc24uLh%2Ff39qamrl5eWsrKwICAibm5sxMTE%2FPz9dXV3a2toZGRlWVlZGRkYrKys7Ozt3d3eEhIQ8LwBQAAAD4UlEQVR4nO2dW1YqURBDQWjFB4Ig4gMUUOc%2FxTuA%2BivuNmSt7BkkX5WunK7R6C8ZPhZTiPHTnyr5bwynMcZGLa7JkbPkVq2tyS1nyZ1aW5MbzpJ7tbYmS86SxaAW1%2BOJs2R8rRbXYwVaMleL6%2FEAWvKoFtfjEbRkohbXYwtaslKL6zEDLXlXi%2BsxvHGW%2FKrFNfngLLlRa2tyx1lyUGtr8sJZslNra7LhLJmaTvRXnCXjmVpcj1fQkq1aXI9n0BLTiX4NWvKgFtfjE7TEdKK%2FBi1x%2FUYPTvRLtbgmU84S14l%2Bx1myV2trsucsOaq1NQHXFie1tibg2sJ1os%2FaokCuLT7V4nqQa4u1WlwPcm3xrBbXg1xbvKrF9SDXFldqcT2GBWfJj1pcE3Bt4VpEAtcWrkUkcG3xodbWBFxbfJlO9OTawnSiJ9cWpkWkCWiJ6URPri1MJ3pybWE60ZNrC9Mi0uyLs8T1aQH42uJFra0JuLY4qLU1AdcW32ptTcC1hevTgqwtCuTawrSIRIYc0yLSaMJhuskJIYQQQgiXy3x5ZcuSiQzXYEMah%2FlwNwMb0jhMO2G4V%2Bs6A6idAPYpcO6ZD3fgv25wFsyHO%2FDrKw%2FTTiC%2FvuIw7YR3taxzYAYTsjSOwzyqJEvjOExhgyyN4zCPKudqWefAPKq0DjnMo8qEnEJCTiUhp%2BAccqYJOQUm5PyqZZ1DQk4hIaeQkFNIyCkk5BSgkKOWdQ4JOYWEnEJCTiEhp5BNTiWbnAITcsgePU5CTiEhp5CQU0jIKWSTU0jIKSTkFBJyCgk5hYScSkJOISGnwIQc8moBTkJOISGnkJBTYK56JeQUEnIKCTmVhJzCQa3rDKC62tr5GajpH0NDCCGEEMLlAv7kb6LW1oRcAph6Qi4BTP%2FuTi4BTC%2BwkjcATO81kTcATO81kW8XTO81zcAlgOm9pgG86uV6rwn84u36d3ew1vNm%2BvX1h7PE9V4TedXL9O%2Fu5A%2FvmYoJDjnRr9TiepATvWnIITssTI8eh5zomYoJDnnVa68W1wTssBzV2pqAE71ryAHv9LoepQXv9LqGHPL%2FQqYhJyesCuSdXtNNDtlKNw05W9AS05AzAy1hevQ4w4KzxDTkkEdpXUMOWMHeqbU1ASf6k1pbE%2FCPodBjYRyyYmIacsif6ZheYCXfma7V4nqQFRPTkEN%2BkH5Vi%2BtBTvTvanE9hhNniWnIGR05S5gDfjx7zpKDWlsT8M8xriEHLI27hhxwonfd5JAVE9OQQ1ZMTEMOOdGbhhxyojcNOWTFxDTkjMDSuGnIISsmG7W2JmBp3DXk%2FI6nEF8X9ibnH2mNa2xGXo7jAAAAAElFTkSuQmCC',
+  image: `https://og-image.now.sh/**Deploy%20Stencil%20Apps**%20%3Cbr%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAclBMVEX%2F%2F%2F8AAACTk5PBwcEiIiL6%2Bvrq6up0dHTz8%2FNjY2NNTU04ODjFxcXf39%2FT09MfHx%2BKioqenp6ysrLNzc24uLh%2Ff39qamrl5eWsrKwICAibm5sxMTE%2FPz9dXV3a2toZGRlWVlZGRkYrKys7Ozt3d3eEhIQ8LwBQAAAD4UlEQVR4nO2dW1YqURBDQWjFB4Ig4gMUUOc%2FxTuA%2BivuNmSt7BkkX5WunK7R6C8ZPhZTiPHTnyr5bwynMcZGLa7JkbPkVq2tyS1nyZ1aW5MbzpJ7tbYmS86SxaAW1%2BOJs2R8rRbXYwVaMleL6%2FEAWvKoFtfjEbRkohbXYwtaslKL6zEDLXlXi%2BsxvHGW%2FKrFNfngLLlRa2tyx1lyUGtr8sJZslNra7LhLJmaTvRXnCXjmVpcj1fQkq1aXI9n0BLTiX4NWvKgFtfjE7TEdKK%2FBi1x%2FUYPTvRLtbgmU84S14l%2Bx1myV2trsucsOaq1NQHXFie1tibg2sJ1os%2FaokCuLT7V4nqQa4u1WlwPcm3xrBbXg1xbvKrF9SDXFldqcT2GBWfJj1pcE3Bt4VpEAtcWrkUkcG3xodbWBFxbfJlO9OTawnSiJ9cWpkWkCWiJ6URPri1MJ3pybWE60ZNrC9Mi0uyLs8T1aQH42uJFra0JuLY4qLU1AdcW32ptTcC1hevTgqwtCuTawrSIRIYc0yLSaMJhuskJIYQQQgiXy3x5ZcuSiQzXYEMah%2FlwNwMb0jhMO2G4V%2Bs6A6idAPYpcO6ZD3fgv25wFsyHO%2FDrKw%2FTTiC%2FvuIw7YR3taxzYAYTsjSOwzyqJEvjOExhgyyN4zCPKudqWefAPKq0DjnMo8qEnEJCTiUhp%2BAccqYJOQUm5PyqZZ1DQk4hIaeQkFNIyCkk5BSgkKOWdQ4JOYWEnEJCTiEhp5BNTiWbnAITcsgePU5CTiEhp5CQU0jIKWSTU0jIKSTkFBJyCgk5hYScSkJOISGnwIQc8moBTkJOISGnkJBTYK56JeQUEnIKCTmVhJzCQa3rDKC62tr5GajpH0NDCCGEEMLlAv7kb6LW1oRcAph6Qi4BTP%2FuTi4BTC%2BwkjcATO81kTcATO81kW8XTO81zcAlgOm9pgG86uV6rwn84u36d3ew1vNm%2BvX1h7PE9V4TedXL9O%2Fu5A%2FvmYoJDjnRr9TiepATvWnIITssTI8eh5zomYoJDnnVa68W1wTssBzV2pqAE71ryAHv9LoepQXv9LqGHPL%2FQqYhJyesCuSdXtNNDtlKNw05W9AS05AzAy1hevQ4w4KzxDTkkEdpXUMOWMHeqbU1ASf6k1pbE%2FCPodBjYRyyYmIacsif6ZheYCXfma7V4nqQFRPTkEN%2BkH5Vi%2BtBTvTvanE9hhNniWnIGR05S5gDfjx7zpKDWlsT8M8xriEHLI27hhxwonfd5JAVE9OQQ1ZMTEMOOdGbhhxyojcNOWTFxDTkjMDSuGnIISsmG7W2JmBp3DXk%2FI6nEF8X9ibnH2mNa2xGXo7jAAAAAElFTkSuQmCC`,
   editUrl: 'pages/guides/deploying-stencil-with-zeit-now.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 [Stencil](https://stenciljs.com/) is a toolchain for building reusable, scalable Design Systems. Generate small, blazing fast, and 100% standards based Web Components that run in every browser.
@@ -27,16 +32,9 @@ Set up a Stencil app with [`npm`](https://www.npmjs.com/) and move into the proj
 <Snippet dark text="npm init stencil && cd my-stencil-project" />
 <Caption>Initializing a Stencil app with <Link href="https://www.npmjs.com/">npm</Link> and moving into the project directory.</Caption>
 
-## Step 2: Deploying Your Stencil App with ZEIT Now
+## Step 2: Deploying Your Stencil App with <NameWrapper name={PRODUCT_NAME} />
 
-With a Stencil app set up, it is ready to deploy live with [Now](/docs/v2).
-
-Using [Now CLI](/download), deploy your app with **a single command**:
-
-<Snippet dark text="now" />
-<Caption>Deploying your Stencil app with Now CLI.</Caption>
-
-If you want to deploy your Stencil app when you push to a Git repository, you can use either [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) to have your project automatically deployed on every push, and the [production domain](https://zeit.co/docs/v2/custom-domains/#adding-a-domain) updated on push to master.
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

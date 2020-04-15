@@ -18,14 +18,13 @@ Get the build logs of a deployment by deployment ID and build ID.
 
 #### Request Parameters
 
-| Key           | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                                                                                                                                                                         |
-| ------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **name**      | <HelpLink href="#api-basics/types">String</HelpLink>       | Deployment build ID.                                                                                                                                                                                                |
-| **limit**     | <HelpLink href="#api-basics/types">Number</HelpLink>       | Maximum number of events to return. Provide `-1` to return all available logs.                                                                                                                                      |
-| **types**     | <HelpLink href="#api-basics/types">List</HelpLink>         | The type of log; either: `request`, `response`, `command` or `stdout`.                                                                                                                                              |
-| **since**     | <HelpLink href="#api-basics/types">Number</HelpLink>       | Timestamp for when build logs should be pulled from.                                                                                                                                                                |
-| **until**     | <HelpLink href="#api-basics/types">Number</HelpLink>       | Timestamp for when the build logs should be pulled up until.                                                                                                                                                        |
-| **direction** | <HelpLink href="#api-basics/types">Enum</HelpLink>         | Direction in which logs would be returned. Either `backward` or `forward`.                                                                                                                                          |
+| Key           | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                                                                                                                                                                          |
+| ------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **name**      | <HelpLink href="#api-basics/types">String</HelpLink>       | Deployment build ID.                                                                                                                                                                                                 |
+| **limit**     | <HelpLink href="#api-basics/types">Number</HelpLink>       | Maximum number of events to return. Provide `-1` to return all available logs.                                                                                                                                       |
+| **since**     | <HelpLink href="#api-basics/types">Number</HelpLink>       | Timestamp for when build logs should be pulled from.                                                                                                                                                                 |
+| **until**     | <HelpLink href="#api-basics/types">Number</HelpLink>       | Timestamp for when the build logs should be pulled up until.                                                                                                                                                         |
+| **direction** | <HelpLink href="#api-basics/types">Enum</HelpLink>         | Direction in which logs would be returned. Either `backward` or `forward`.                                                                                                                                           |
 | **follow**    | <HelpLink href="#api-basics/types">Number</HelpLink>       | When `follow` is set to `1`, the API will return an HTTP stream similar to [Serverless Function Logs](#endpoints/logs/stream-serverless-function-logs), which allows you to see realtime feedback on build progress. |
 
 #### Response Parameters
@@ -47,17 +46,6 @@ These are the keys of the `payload` key of the logs.
 | **text**         | <HelpLink href="#api-basics/types">String</HelpLink>       | The log content as a string.                                                 |
 | **id**           | <HelpLink href="#api-basics/types">ID</HelpLink>           | The unique identifier of the log.                                            |
 | **date**         | <HelpLink href="#api-basics/types">Date</HelpLink>         | The date when the log was created.                                           |
-
-#### Types
-
-These are the possible types of logs and what they mean.
-
-| Type         | Description                                           |
-| ------------ | ----------------------------------------------------- |
-| **request**  | The log is an HTTP request.                           |
-| **response** | The log is an HTTP response.                          |
-| **command**  | The log is a terminal command, e.g. `npm start`.      |
-| **stdout**   | The log is anything the application wrote to console. |
 
 ##### Example Request
 

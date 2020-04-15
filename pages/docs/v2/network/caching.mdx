@@ -1,16 +1,19 @@
 import Doc from '~/components/layout/docs'
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
+import { PRODUCT_NAME } from '~/lib/constants'
+import CdnName from '~/components/name/cdn-name'
 
 export const meta = {
   title: 'Caching',
-  description:
-    'A guide for how ZEIT Now caches and how to control that caching.',
+  description: `A guide for how ${PRODUCT_NAME} caches and how to control that caching.`,
   editUrl: 'pages/docs/v2/network/caching.mdx',
-  lastEdited: '2019-10-22T21:51:28.000Z'
+  lastEdited: '2020-04-14T00:08:22.000Z'
 }
 
-Our [Smart CDN](/smart-cdn) caches your content at the edge in order to serve data to your users as fast as possible.
+The [<CdnName />](/smart-cdn) caches your content at the edge in order to serve data to your users as fast as possible.
+
+**Static caching is automatic for all deployments.** This means that no changes need to be made to headers. You get the best performance possible out of the box with zero configuration required.
 
 ## Cacheable Responses
 
@@ -41,7 +44,7 @@ In order for our CDN to cache the response of a Serverless Function, you need to
 
 Where `N` is the number of seconds the response should be cached. The response must also be cacheable as detailed above.
 
-You can read more about the suggested way to define the `Cache-Control` header [here](/docs/v2/network/caching/).
+You can read more about the suggested way to define the `Cache-Control` header [here](/docs/v2/network/headers/#cache-control-header).
 
 ## Stale-While-Revalidate
 
@@ -67,13 +70,13 @@ Cache-Control: s-maxage=1, stale-while-revalidate
 
 This tells our CDN to serve from cache and update in the background at most 1 per second.
 
-When the CDN receives a request with `Pragma: no-cache` (such as when the browser devtools are open), it will revalidate any stale resource synchronously, instead of in the background.
+When the CDN receives a request with `Pragma: no-cache` (such as when the browser devtools are open), it will bypass the client cache, but will not bypass the CDN cache.
 
 ## Cache Invalidation
 
 Every deployment has a unique key used for caching based on the deployment url created at build time. This means that users will never see content from a previous deployment and there's normally no need to invalidate it.
 
-If you ever need to invalidate the CDN cache, you can always re-deploy.
+The cache is **automatically purged** upon a new deployment being created. If you ever need to invalidate the CDN cache, you can always re-deploy.
 
 ## X-Now-Cache
 

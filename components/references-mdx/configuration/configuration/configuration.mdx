@@ -3,6 +3,8 @@ import { Code, InlineCode } from '~/components/text/code'
 import { P } from '~/components/text'
 import Link from '~/components/text/link'
 import Note from '~/components/text/note'
+import ProductName from '~/components/name/product-name'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   editUrl:
@@ -14,11 +16,22 @@ export const meta = {
 
 ## name
 
+<Note type="alert">
+  The <InlineCode>name</InlineCode> property has been deprecated in favor of{' '}
+  <Link href="/docs/now-cli#commands/now/project-linking">Project Linking</Link>
+  , which allows you to link a <ProductName /> Project to your local codebase when
+  you run <InlineCode>now</InlineCode>.
+</Note>
+
 **Type**: `String`.
 
 **Valid values**: string name for the deployment.
 
-**Limit**: A maximum length of 52 characters
+**Limits**:
+
+- A maximum length of 52 characters
+- Only lower case alphanumeric characters or hyphens are allowed
+- Cannot begin or end with a hyphen, or contain multiple consecutive hyphens
 
 The prefix for all new deployment instances. The CLI usually generates this field automatically based on the name of the directory. But if you'd like to define it explicitly, this is the way to go.
 
@@ -34,7 +47,7 @@ The defined name is also used to organize the deployment into [a project](/docs/
 
 **Valid values**: `1`, `2`.
 
-Specifies the [Now Platform version](/docs/v2/platform/overview#versioning) the deployment should use and is known to work with. We strongly recommend setting a `version` when working on production systems or using source control (e.g. [Git](https://git-scm.com)).
+Specifies the [<ProductName /> Platform version](/docs/v2/platform/overview#versioning) the deployment should use and is known to work with. We strongly recommend setting a `version` when working on production systems or using source control (e.g. [Git](https://git-scm.com)).
 
 <Code lang="json">{`{
   "version": 2
@@ -44,13 +57,13 @@ Specifies the [Now Platform version](/docs/v2/platform/overview#versioning) the 
 
 **Type**: `Array` or `String`.
 
-**Valid values**: [domain names](/docs/v2/custom-domains) (optionally including subdomains) added to the account, or a string for a suffixed URL using `.now.sh` or a [Custom Deployment Suffix](/docs/v2/platform/add-ons/#custom-deployment-suffix).
+**Valid values**: [domain names](/docs/v2/custom-domains) (optionally including subdomains) added to the account, or a string for a suffixed URL using `.now.sh` or a Custom Deployment Suffix ([available on the Enterprise plan](/pricing)).
 
-**Limit**: A maximum of 64 aliases in the array
+**Limit**: A maximum of 64 aliases in the array.
 
-The alias or aliases are applied automatically using [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) when merging or pushing to the default branch.
+The alias or aliases are applied automatically using [<ProductName /> for GitHub](/docs/v2/git-integrations/zeit-now-for-github), [<ProductName /> for GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), or [<ProductName /> for Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) when merging or pushing to the default branch.
 
-You can deploy to the defined aliases using [Now CLI](/download) by setting the [production deployment environment target](/docs/v2/custom-domains#deploying-with-your-domain).
+You can deploy to the defined aliases using [<ProductShortName /> CLI](/download) by setting the [production deployment environment target](/docs/v2/custom-domains#deploying-with-your-domain).
 
 <Code lang="json">{`{
   "alias": ["my-domain.com", "my-alias"]
@@ -71,9 +84,9 @@ You can deploy to the defined aliases using [Now CLI](/download) by setting the 
 
 **Valid values**: For teams, either an ID or slug. For users, either a email address, username, or ID.
 
-This property determines the scope ([user or team](/docs/v2/platform/users-and-teams/)) under which the project will be deployed by [Now CLI](/download).
+This property determines the scope ([user or team](/docs/v2/platform/users-and-teams/)) under which the project will be deployed by [<ProductShortName /> CLI](/download).
 
-Furthermore, it also affects any other actions that the user takes within the directory that contains this configuration (e.g. listing [secrets](/docs/v2/serverless-functions/env-and-secrets/) using `now secrets ls`).
+Furthermore, it also affects any other actions that the user takes within the directory that contains this configuration (e.g. listing [Environment Variables](/docs/v2/build-step#environment-variables) using `now secrets ls`).
 
 <Code lang="json">{`{
   "scope": "my-team"
@@ -81,7 +94,7 @@ Furthermore, it also affects any other actions that the user takes within the di
 
 <Note>
   Deployments made via{' '}
-  <Link href="/docs/v2/git-integration">Git Integration</Link> will{' '}
+  <Link href="/docs/v2/git-integrations">Git Integration</Link> will{' '}
   <b>ignore</b> the <InlineCode>scope</InlineCode> property because the
   repository is already connected to a{' '}
   <Link href="/docs/v2/platform/projects">project</Link>.
@@ -101,11 +114,7 @@ Environment variables passed to the invoked [Serverless Functions](/docs/v2/serv
     Serverless Functions
   </Link>{' '}
   and <InlineCode>SECRET</InlineCode> resolved from the{' '}
-  <InlineCode>my-secret-name</InlineCode>{' '}
-  <Link href="/docs/v2/serverless-functions/env-and-secrets">
-    secret
-  </Link>{' '}
-  dynamically.
+  <InlineCode>my-secret-name</InlineCode> Secret dynamically.
 </P>
 <Code lang="json">{`{
   "env": {
@@ -120,7 +129,7 @@ Environment variables passed to the invoked [Serverless Functions](/docs/v2/serv
 
 **Valid values:** environment keys and values.
 
-[Environment variables](/docs/v2/build-step/#using-environment-variables-and-secrets) passed to the [Build](/docs/v2/build-step) processes.
+[Environment variables](/docs/v2/build-step#environment-variables) passed to the [Build](/docs/v2/build-step) processes.
 
 <P>
   The following example will pass the <InlineCode>MY_KEY</InlineCode> static
@@ -128,7 +137,7 @@ Environment variables passed to the invoked [Serverless Functions](/docs/v2/serv
   <Link href="/docs/v2/build-step">Builds</Link> and
   <InlineCode>SECRET</InlineCode> resolved from the <InlineCode>
     my-secret-name
-  </InlineCode> <Link href="/docs/v2/build-step/#using-environment-variables-and-secrets">
+  </InlineCode> <Link href="/docs/v2/build-step#environment-variables">
     secret
   </Link> dynamically.
 </P>
@@ -162,9 +171,8 @@ Environment variables passed to the invoked [Serverless Functions](/docs/v2/serv
 - `config` (`Object`): Optionally, an object including arbitrary metadata to be passed to the Builder.
 
 <P>
-  The following will include all HTML files as-is (to be served statically), and{' '}
-  <Link href="/docs/v2/advanced/runtimes">Build</Link> all Python files and JS
-  files into{' '}
+  The following will include all HTML files as-is (to be served statically), and
+  build all Python files and JS files into{' '}
   <Link href="/docs/v2/serverless-functions/introduction/">
     Serverless Functions
   </Link>
@@ -205,7 +213,7 @@ A [glob](https://github.com/isaacs/node-glob#glob-primer) pattern that matches t
 
 **Description:**
 
-By default, no configuration is needed to deploy Serverless Functions to ZEIT Now.
+By default, no configuration is needed to deploy Serverless Functions to <ProductName />.
 
 For all [officially supported runtimes](/docs/v2/serverless-functions/supported-languages/), the only requirement is to create an `api` directory at the root of your project directory, placing your Serverless Functions inside.
 
@@ -220,7 +228,7 @@ For all [officially supported runtimes](/docs/v2/serverless-functions/supported-
 When deployed, each Serverless Function receives the following properties:
 
 - **Memory:** 1024 MB (1 GB)
-- **Maximum Execution Duration:** 10s (Free), 60s (Pro), 600s (Business), or 900s (Enterprise)
+- **Maximum Execution Duration:** 10s (Hobby), 60s (Pro), or 900s (Enterprise)
 
 To configure them, you can add the `functions` property like so:
 
@@ -254,15 +262,6 @@ For more information on Runtimes, see the documentation:
 </Card>
 
 ## routes
-
-<Note type="alert">
-  The <InlineCode>routes</InlineCode> property has been deprecated in favor of{' '}
-  <Link href="/docs/configuration#project/redirects">redirects</Link>,{' '}
-  <Link href="/docs/configuration#project/rewrites">rewrites</Link>,{' '}
-  <Link href="/docs/configuration#project/headers">headers</Link>,{' '}
-  <Link href="/docs/configuration#project/cleanurls">cleanUrls</Link>, and{' '}
-  <Link href="/docs/configuration#project/trailingslash">trailingSlash</Link>.
-</Note>
 
 **Type:** `Array` of route `Object`.
 
@@ -308,7 +307,7 @@ For more information on routes, see the documentation:
 
 **Valid values:** a list of valid [region identifiers](/docs/v2/platform/regions-and-providers).
 
-By setting and modifying this value, you can decide the deployment **regions** of the [Serverless Functions](/docs/v2/serverless-functions/introduction/) that get created as a result of the [build steps](/docs/v2/build-step). By default, the closest region to the geographical location of the deployment is used, or if using a Now for Git integration, SFO is used by default.
+By setting and modifying this value, you can decide the deployment **regions** of the [Serverless Functions](/docs/v2/serverless-functions/introduction/) that get created as a result of the [build steps](/docs/v2/build-step). By default, the closest region to the geographical location of the deployment is used, or if using a <ProductName /> for Git Integration, SFO is used by default.
 
 This value does not impact static files or edge caches, since deployments always have a [CDN layer](/docs/v2/network/caching/) in front.
 
@@ -331,7 +330,7 @@ The special value `all` can be used to target all available regions.
 
 **Default Value**: `false`.
 
-When set to `true`, both the [source view](/docs/v2/platform/deployments/#source-view) and [logs view](/docs/v2/platform/deployments/#logs-view) will be publicly accessible (when the user is authenticated with ZEIT).
+When set to `true`, both the [source view](/docs/v2/platform/deployments/#source-view) and [logs view](/docs/v2/platform/deployments/#logs-view) will be publicly accessible.
 
 <Code lang="json">{`{
   "public": true
@@ -343,9 +342,11 @@ When set to `true`, both the [source view](/docs/v2/platform/deployments/#source
 
 **Default Value**: `false`.
 
-When set to `true`, all HTML files will have their `.html` extension removed. When visiting a path that ends with `.html`, a 308 response will redirect the client to the extensionless path.
+When set to `true`, all HTML files and Serverless Functions will have their extension removed. When visiting a path that ends with the extension, a 308 response will redirect the client to the extensionless path.
 
-For example, a file named `about.html` will be served when visiting the `/about` path. Visiting `/about.html` will redirect to `/about`.
+For example, a static file named `about.html` will be served when visiting the `/about` path. Visiting `/about.html` will redirect to `/about`.
+
+Similarly, a Serverless Function named `api/user.go` will be served when visiting `/api/user`. Visiting `/api/user.go` will redirect to `/api/user`.
 
 <Code lang="json">{`{
   "cleanUrls": true
@@ -355,23 +356,50 @@ For example, a file named `about.html` will be served when visiting the `/about`
 
 **Type**: `Boolean`.
 
-**Default Value**: `null`.
+**Default Value**: `undefined`.
 
-When set to `true`, visiting a path that does not end with a forward slash will respond with a 308 status code and redirect to the path with a trailing slash.
+### false
 
-When set to `false`, visiting a path that ends with a forward slash will respond with a 308 status code and redirect to the path without the trailing slash.
+When `trailingSlash: false`, visiting a path that ends with a forward slash will respond with a 308 status code and redirect to the path without the trailing slash.
 
-For example, when `trailingSlash: false` the `/about/` path will redirect to `/about`.
+For example, the `/about/` path will redirect to `/about`.
 
 <Code lang="json">{`{
   "trailingSlash": false
 }`}</Code>
+
+### true
+
+When `trailingSlash: true`, visiting a path that does not end with a forward slash will respond with a 308 status code and redirect to the path with a trailing slash.
+
+For example, the `/about` path will redirect to `/about/`.
+
+However, paths with a file extension will not redirect to a trailing slash.
+
+For example, the `/about/styles.css` path will not redirect, but the `/about/styles` path will redirect to `/about/styles/`.
+
+<Code lang="json">{`{
+  "trailingSlash": true
+}`}</Code>
+
+### undefined
+
+When `trailingSlash: undefined`, visiting a path with or without a trailing slash will not redirect.
+
+For example, both `/about` and `/about/` will serve the same content without redirecting.
+
+This is not recommended because it could lead to search engines indexing two different pages with duplicate content.
 
 ## redirects
 
 **Type:** `Array` of redirect `Object`.
 
 **Valid values:** a list of redirect definitions.
+
+**Limits**:
+
+- A maximum of 1,024 redirects in the array.
+- A maximum of string length of 4,096 for the `source` and `destination` values.
 
 **Redirect object definition:**
 
@@ -389,7 +417,7 @@ For example, when `trailingSlash: false` the `/about/` path will redirect to `/a
 <Code lang="json">{`{
   "redirects": [
     { "source": "/me", "destination": "/profile.html" },
-    { "source": "/user", "destination": "/api/user", "statusCode": 308 },
+    { "source": "/user", "destination": "/api/user", "statusCode": 307 },
     { "source": "/view-source", "destination": "https://github.com/zeit/now" }
   ]
 }`}</Code>
@@ -399,6 +427,11 @@ For example, when `trailingSlash: false` the `/about/` path will redirect to `/a
 **Type:** `Array` of rewrite `Object`.
 
 **Valid values:** a list of rewrite definitions.
+
+**Limits**:
+
+- A maximum of 1,024 rewrites in the array.
+- A maximum of string length of 4,096 for the `source` and `destination` values.
 
 **Rewrite object definition:**
 
@@ -416,7 +449,7 @@ For example, when `trailingSlash: false` the `/about/` path will redirect to `/a
   "rewrites": [
     { "source": "/about", "destination": "/about-our-company.html" },
     { "source": "/resize/:width/:height", "destination": "/api/sharp" },
-    { "source": "/user/:id", "destination": "/api/user?uid=:id" },
+    { "source": "/user/:id", "destination": "/api/user" },
     { "source": "/proxy/(.*)", "destination": "https://example.com/$1" }
   ]
 }`}</Code>
@@ -426,6 +459,11 @@ For example, when `trailingSlash: false` the `/about/` path will redirect to `/a
 **Type:** `Array` of header `Object`.
 
 **Valid values:** a list of header definitions.
+
+**Limits**:
+
+- A maximum of 1,024 headers in the array.
+- A maximum of string length of 4,096 for the `source`, `key`, and `value` values.
 
 **Header object definition:**
 

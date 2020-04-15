@@ -1,0 +1,13 @@
+{
+  "cdnName": "ZEIT Smart CDN",
+  "productName": "ZEIT Now",
+  "orgName": "ZEIT",
+  "productShortName": "Now",
+  "productV1Name": "ZEIT Now 1.0",
+  "orgV1Name": "ZEIT",
+  "productShortV1Name": "Now",
+  "cliV1Name": "Now CLI",
+  "githubAppName": "Now",
+  "gitlabAppName": "Now",
+  "bitbucketAppName": "ZEIT Now"
+}

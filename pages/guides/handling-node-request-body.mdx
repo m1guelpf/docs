@@ -5,19 +5,21 @@ import { Code, InlineCode } from '~/components/text/code'
 import Note from '~/components/text/note'
 import Request from '~/components/api/request'
 import Link from '~/components/text/link'
+import ProductShortName from '~/components/name/product-short-name'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Handling Node.js Request Bodies with ZEIT Now',
-  description:
-    'Parse Node.js request bodies for use inside Serverless Functions deployed with ZEIT Now.',
+  title: `Handling Node.js Request Bodies with ${PRODUCT_NAME}`,
+  description: `Parse Node.js request bodies for use inside Serverless Functions deployed with ${PRODUCT_NAME}.`,
   published: '2019-05-10T09:03:14.819Z',
   authors: ['msweeneydev'],
   url: '/guides/handling-node-request-body',
   editUrl: 'pages/guides/handling-node-request-body.mdx',
-  lastEdited: '2019-11-09T00:06:30.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-In this guide, we will show you how to parse a [Node.js request body](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/), for use inside a [Serverless Function](/docs/v2/serverless-functions/introduction/) deployed to [Now](/now), without requiring a framework such as Express.
+In this guide, we will show you how to parse a [Node.js request body](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/), for use inside a [Serverless Function](/docs/v2/serverless-functions/introduction/) deployed to [<ProductName />](/), without requiring a framework such as Express.
 
 This guide assumes the request is sent with a [`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type) of [`application/json`](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/JSON). However, many more content types can be parsed if required.
 
@@ -44,7 +46,7 @@ module.exports = async (req, res) => {
   An example of how to parse a request body using{' '}
   <Link href="https://nodejs.org/dist/latest-v12.x/docs/api/">Node.js</Link>{' '}
   with a{' '}
-  <Link href="/docs/v2/deployments/official-runtimes/node-js-now-node/#helpers">
+  <Link href="/docs/runtimes#official-runtimes/node-js/node-js-request-and-response-objects/node-js-helpers">
     Helper property
   </Link>
   .
@@ -52,15 +54,15 @@ module.exports = async (req, res) => {
 
 This function takes a POST request, parses the body, and uses data from the body in the response.
 
-The key part here is line 2. [Now](/now) adds a number of Express like [helper properties](/docs/v2/deployments/official-runtimes/node-js-now-node/#helpers) to make wording with Node.js even easier.
+The key part here is line 2. [<ProductName />](/) adds a number of Express like [helper properties](/docs/runtimes#official-runtimes/node-js/node-js-request-and-response-objects/node-js-helpers) to make wording with Node.js even easier.
 
 <Note>
   You can read more about{' '}
-  <Link href="/docs/v2/deployments/official-runtimes/node-js-now-node/#helpers">
+  <Link href="/docs/runtimes#official-runtimes/node-js/node-js-request-and-response-objects/node-js-helpers">
     helper properties
   </Link>{' '}
   either in the <Link href="/blog/now-node-helpers">blog post</Link> or in the{' '}
-  <Link href="/docs/v2/deployments/official-runtimes/node-js-now-node/#helpers">
+  <Link href="/docs/runtimes#official-runtimes/node-js/node-js-request-and-response-objects/node-js-helpers">
     documentation
   </Link>
   .
@@ -70,7 +72,7 @@ With the `req.body` helper, the incoming `request` is parsed automatically, remo
 
 ## Step 2: Deploying the Function
 
-Deploying your function to [Now](/now) can be done with **a single command**:
+Deploying your function to [<ProductName />](/) can be done with **a single command**:
 
 <Snippet dark text="now" />
 <Caption>
@@ -99,7 +101,7 @@ To verify that the JSON is being parsed correctly, make a POST request to your n
 
 <Note>
   You should change the URL to match the one for your deployment given to you in
-  the Now CLI.
+  the <ProductShortName /> CLI.
 </Note>
 
 You will receive a response similar to the following:
@@ -109,7 +111,7 @@ You will receive a response similar to the following:
     An example response from making a POST request.
 </Caption>
 
-Congratulations, now you know how to parse request bodies with [Now](/now) in Node.js!
+Congratulations, now you know how to parse request bodies with [<ProductName />](/) in Node.js!
 
 ## Bonus: Understanding Why this Works
 
@@ -117,7 +119,7 @@ When [Node.js](https://nodejs.org/docs/latest-v8.x/api/) receives a request, the
 
 To get the data from the stream, you need to listen to its `data` and `end` events. To do this requires a few lines of code which you would much rather not have to repeat.
 
-By using [helper properties](/docs/v2/deployments/official-runtimes/node-js-now-node/#helpers), the `request` is already parsed for you, allowing you to access the data immediately.
+By using [helper properties](/docs/runtimes#official-runtimes/node-js/node-js-request-and-response-objects/node-js-helpers), the `request` is already parsed for you, allowing you to access the data immediately.
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

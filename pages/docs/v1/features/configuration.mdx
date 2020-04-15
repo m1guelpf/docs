@@ -1,22 +1,23 @@
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import Doc from '~/components/layout/docs'
+import CliV1Name from '~/components/name/cli-v1-name'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Configuring Now',
-  description:
-    'Configuring Now so that your deployments are exactly as you need them',
+  title: `Configuring ${PRODUCT_SHORT_V1_NAME}`,
+  description: `Configuring ${PRODUCT_SHORT_V1_NAME} so that your deployments are exactly as you need them`,
   date: '22 Feb 2017',
   editUrl: 'pages/docs/v1/features/configuration.mdx',
-  lastEdited: '2019-08-02T17:34:08.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-This guide explains how to use these methods to configure and customize the default behavior of Now CLI.
+This guide explains how to use these methods to configure and customize the default behavior of <CliV1Name />.
 
 In addition to the options available in the command line interface (like `--name` for setting the name of the deployment), we also support saving certain parameters into a config file, `now.json`.
 
 ## Local Configuration
 
-This describes the set of configuration rules that are applied per project. The configuration file always lives in the root directory of the project (except when a custom path is specified using the `--local-config` flag in Now CLI).
+This describes the set of configuration rules that are applied per project. The configuration file always lives in the root directory of the project (except when a custom path is specified using the `--local-config` flag in <CliV1Name />).
 
 ## Configuration
 
@@ -40,11 +41,11 @@ All of the properties mentioned below can be used inside the `now.json` file:
 
 #### `version` (number)
 
-Specifies the [Now Platform version](/docs/v2/platform/overview#versioning) the deployment should use and is known to work with. We strongly recommend setting a `version` when working on production systems or using source control (e.g. [Git](https://git-scm.com)).
+Specifies the [<ProductShortV1Name /> Platform version](/docs/v2/platform/overview#versioning) the deployment should use and is known to work with. We strongly recommend setting a `version` when working on production systems or using source control (e.g. [Git](https://git-scm.com)).
 
-The default version for Now deployments is [version 2](/docs/v1-upgrade).
+The default version for <ProductShortV1Name /> deployments is [version 2](/docs/v1-upgrade).
 
-To explicitly use [version 1 of Now](/blog/now-2), use the following configuration in a `now.json` file.
+To explicitly use [version 1 of <ProductShortV1Name />](/blog/now-2), use the following configuration in a `now.json` file.
 
 ```
 "version": 1
@@ -107,7 +108,7 @@ our [SFO1](https://sfo.now.sh) datacenter:
 }
 ```
 
-You can also instruct Now to automatically
+You can also instruct <ProductShortV1Name /> to automatically
 pick the maximum number of instances.
 
 The following will instruct your deployment
@@ -182,7 +183,7 @@ By default, all new deployments will come with the [latest stable version](https
 
 If you need a specific Node.js version we allow you to define the version (semver syntax) of [Node.js](https://nodejs.org/en/) you want to run on the server:
 
-For an example, this is how to use the latest version of Node.js 6 inside <Now color="#000" />.
+For an example, this is how to use the latest version of Node.js 6 inside <ProductShortV1Name />.
 
 ```
 "engines": {
@@ -201,7 +202,7 @@ local deployment configuration file and adapt its behavior accordingly.
 
 #### `api` (string)
 
-The URL of the Now API which Now CLI should interact with.
+The URL of the <ProductShortV1Name /> API which <CliV1Name /> should interact with.
 
 By default, it's pointing to `https://api.zeit.co`, which always points to
 the right location depending on where you're connecting from (Anycast).
@@ -210,19 +211,19 @@ This property takes precedence over `sh.api` in `config.json`.
 
 ## Global Configuration
 
-This describes the set of configuration rules that apply to Now CLI.
+This describes the set of configuration rules that apply to <CliV1Name />.
 
 By default, they live in a directory named `.now` in your
 home directory. Within it, you can find two files (which you
 can learn more about below). If you need to specify a different location of the directory, you can use
-the `--global-config` flag in Now CLI, which takes in a
+the `--global-config` flag in <CliV1Name />, which takes in a
 custom path to a directory containing the two files.
 
 ### config.json
 
 This file can be (if needed) modified manually. It doesn't contain any authentication
 information, but rather only cached account data and configuration rules that
-can apply to Now CLI.
+can apply to <CliV1Name />.
 
 #### `updateChannel` (string)
 
@@ -230,7 +231,7 @@ For our software, we provide two update channels ("stable" and "canary"). This p
 lets you pick either one in order to enjoy a different pace of updates.
 
 Read more [here](/blog/canary) about why these channels exist and what
-they're being used for. As an example, this will make Now CLI receive
+they're being used for. As an example, this will make <CliV1Name /> receive
 canary updates:
 
 ```
@@ -239,7 +240,7 @@ canary updates:
 
 #### `sh.api` (string)
 
-The URL of the Now API which Now CLI should interact with.
+The URL of the <ProductShortV1Name /> API which <CliV1Name /> should interact with.
 
 By default, it's pointing to `https://api.zeit.co`, which always points to
 the right location depending on where you're connecting from (Anycast).
@@ -250,7 +251,7 @@ property needs to be set under the `sh` provider scope inside the global config 
 ### auth.json
 
 This file should not be touched manually. It contains the authentication information
-for all of your providers accessed through a Now client.
+for all of your providers accessed through a <ProductShortV1Name /> client.
 
 In the case that you're uploading your global configuration setup to a potentially
 insecure destination, we highly recommend ensuring that this file won't be uploaded,

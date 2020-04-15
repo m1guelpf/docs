@@ -3,20 +3,26 @@ import Snippet from '~/components/snippet'
 import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
+import OrgName from '~/components/name/org-name'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME, ORG_NAME, PRODUCT_SHORT_NAME } from '~/lib/constants'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductShortName from '~/components/name/product-short-name'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
-  title: 'Transferring Domains to ZEIT Now',
-  description: 'How to transfer your domain to ZEIT Now.',
+  title: `Transferring Domains to ${PRODUCT_NAME}`,
+  description: `How to transfer your domain to ${PRODUCT_NAME}.`,
   published: '2019-10-11T17:00:00.860Z',
   authors: ['msweeneydev'],
   url: '/guides/transferring-domains-to-zeit-now',
   editUrl: 'pages/guides/transferring-domains-to-zeit-now.mdx',
-  lastEdited: '2019-11-06T15:33:04.000Z'
+  lastEdited: '2020-04-15T01:44:57.000Z'
 }
 
-With ZEIT Now, you can [assign a custom domain](/docs/v2/custom-domains#adding-a-domain) to any of your projects. If you want to transfer your domain in from an external registrar to ZEIT, you can do that painlessly without worrying about domain and DNS configuration.
+With <ProductName />, you can [assign a custom domain](/docs/v2/custom-domains#adding-a-domain) to any of your projects. If you want to transfer your domain in from an external registrar to <OrgName />, you can do that painlessly without worrying about domain and DNS configuration.
 
-This guide will walk you through how to transfer your domain to ZEIT in a few steps.
+This guide will walk you through how to transfer your domain to <OrgName /> in a few steps.
 
 ## Step 1: Unlock Your Domain
 
@@ -41,25 +47,25 @@ After unlocking, **request an authorization code**. The code will be sent to the
 
 ## Step 2: Transfer In Your Domain
 
-When transferring a domain, you will have two options to choose from. Either using the [ZEIT Dashboard](https://zeit.co/dashboard/domains) or [Now CLI](/download).
+When transferring a domain, you will have two options to choose from. Either using the [<OrgName /> Dashboard](https://zeit.co/dashboard/domains) or [<ProductShortName /> CLI](/download).
 
-### Option 1: Using ZEIT Dashboard
+### Option 1: Using <NameWrapper name={ORG_NAME} /> Dashboard
 
-Using the [ZEIT Dashboard](https://zeit.co/dashboard/domains), you can perform a domain transfer by entering the domain you want to transfer in, and the respective authorization code from the domain registrar via the UI like so:
+Using the [<OrgName /> Dashboard](https://zeit.co/dashboard/domains), you can perform a domain transfer by entering the domain you want to transfer in, and the respective authorization code from the domain registrar via the UI like so:
 
 <Image
   src={`https://assets.zeit.co/image/upload/front/blog/announcing-transfer-in-for-domains/dashboard.png`}
   width={2206/2}
   height={1518/2}
 />
-<Caption>Transferring in a Domain via the ZEIT Dashboard.</Caption>
+<Caption>Transferring in a Domain via the <OrgName /> Dashboard.</Caption>
 
-### Option 2: Using Now CLI
+### Option 2: Using <NameWrapper name={PRODUCT_SHORT_NAME} /> CLI
 
-With [Now CLI](/download), you can run the following command from your terminal.
+With [<ProductShortName /> CLI](/download), you can run the following command from your terminal.
 
 <Snippet dark text="now domains transfer-in [your-domain]" />
-<Caption>Transferring in a Domain via Now CLI.</Caption>
+<Caption>Transferring in a Domain via <ProductShortName /> CLI.</Caption>
 
 You will be requested to provide an authorization code from your registrar after running this command. Once you get the authorization code from your registrar, paste it into the prompt and the transfer will begin.
 
@@ -72,26 +78,26 @@ You will be requested to provide an authorization code from your registrar after
 
 ## DNS Transfer
 
-After activating a domain `transfer-in`, you will be informed that the DNS settings for your domain will not be transferred along with the domain. Instead, you will need to download a zone file from your registrar and upload it to ZEIT.
+After activating a domain `transfer-in`, you will be informed that the DNS settings for your domain will not be transferred along with the domain. Instead, you will need to download a zone file from your registrar and upload it to <OrgName />.
 
-You can import the zone file to ZEIT DNS by running the following command:
+You can import the zone file to <OrgName /> DNS by running the following command:
 
 <Snippet dark text="now dns import [your-domain] [zonefile]" />
-<Caption>Importing a DNS zone file with Now CLI.</Caption>
+<Caption>Importing a DNS zone file with <ProductShortName /> CLI.</Caption>
 
 <Note>
   If you do not apply a custom zone file, transferring in a domain automatically
-  applies the default ZEIT DNS settings.
+  applies the default <OrgName /> DNS settings.
 </Note>
 
 ## Deploying with the Domain
 
-You can deploy your app with [ZEIT Now](/docs/v2/introduction) once the domain has been successfully added to your account.
+You can deploy your app with [<ProductName />](/docs/v2/introduction) once the domain has been successfully added to your account.
 
-By setting a production domain from your projects' **Domains** dashboard, you will be able to use the following command with [Now CLI](/download):
+By setting a production domain from your projects' **Domains** dashboard, you will be able to use the following command with [<ProductShortName /> CLI](/download):
 
 <Snippet dark text="now --prod" />
-<Caption>Deploying with a production domain using Now CLI.</Caption>
+<Caption>Deploying with a production domain using <ProductShortName /> CLI.</Caption>
 
 This command will deploy your project and make it accessible at the production domain that you have setup.
 
@@ -99,11 +105,11 @@ For more information on production domains, you can read the [custom domains doc
 
 ## Transferring Out
 
-If you are looking to transfer your domain away from ZEIT Now, you can do so by [emailing support](mailto:support@zeit.co?subject=Domain%20Transfer%20Out) at support@zeit.co with details of the domain you wish to transfer.
+If you are looking to transfer your domain away from <ProductName />, you can do so by <EmailLink type="support" subject="Domain Transfer Out">emailing support</EmailLink> with details of the domain you wish to transfer.
 
 <Note type="warning">
   Before requesting a domain transfer, make sure that the domain has been
-  registered with ZEIT for at least 60 days.
+  registered with <OrgName /> for at least 60 days.
 </Note>
 
 Once your request has been verified by support, you will be provided with an authorization code. Please consult your new providers' documentation for information on how to use the authorization code and the likely speed of the transfer.

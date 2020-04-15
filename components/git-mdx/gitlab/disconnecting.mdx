@@ -1,0 +1,21 @@
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import ProductName from '~/components/name/product-name'
+import GitlabAppName from '~/components/name/gitlab-app-name'
+
+To disconnect your personal account or team on <ProductName /> from GitLab, take the following steps:
+
+First, [click here](https://gitlab.com/profile/applications) to go to the Applications Settings page on GitLab.
+
+Then, scroll to the bottom of the page and locate **<GitlabAppName /> + GitLab** and click the **Revoke** button next to it.
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/uninstall-now-gitlab.png`}
+  width={1294 / 2}
+  height={276 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Revoking access.</Caption>
+
+After disconnecting, you can always reconnect your <ProductName /> account to a GitLab account again.

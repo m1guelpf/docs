@@ -4,27 +4,31 @@ import { InlineCode } from '~/components/text/code'
 import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import Link from '~/components/text/link'
+import OrgName from '~/components/name/org-name'
+import ProductName from '~/components/name/product-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import { PRODUCT_NAME } from '~/lib/constants'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
-  title: 'Setup a Namecheap Domain with ZEIT Now',
-  description:
-    'Use your Namecheap registered domain for your ZEIT Now deployments.',
+  title: `Setup a Namecheap Domain with ${PRODUCT_NAME}`,
+  description: `Use your Namecheap registered domain for your ${PRODUCT_NAME} deployments.`,
   published: '2019-02-15T17:00:00.860Z',
   authors: ['unicodeveloper'],
   url: '/guides/setup-namecheap-domain-now',
   editUrl: 'pages/guides/setup-namecheap-domain-now.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-In this guide, we will cover how to use your Namecheap registered domain as a production domain for your ZEIT Now deployments.
+In this guide, we will cover how to use your Namecheap registered domain as a production domain for your <ProductName /> deployments.
 
 ## Step 1: Adding and Verifying Your Domain
 
-First, you need to add your Namecheap registered domain to your ZEIT account. To get started, use the [Now CLI](/docs/v2/getting-started/installation#now-cli):
+First, you need to add your Namecheap registered domain to your <OrgName /> account. To get started, use the [<ProductShortName /> CLI](/docs/v2/getting-started/installation#now-cli):
 
 <Snippet dark text="now domains add <domain>" />
 
-The command above adds the domain to your ZEIT account. Once it has been added, the [Now CLI](/docs/v2/getting-started/installation#now-cli) outputs some information needed to verify ownership of the domain.
+The command above adds the domain to your <OrgName /> account. Once it has been added, the [<ProductShortName /> CLI](/docs/v2/getting-started/installation#now-cli) outputs some information needed to verify ownership of the domain.
 
 There are two options available for domain verification:
 
@@ -39,11 +43,11 @@ The [**Verify with TXT record**](#txt-record-verification) ensures a smooth [zer
   height={1182/2.5}
   oversize
 />
-<Caption style={{marginTop: '-64px'}}>Adding a domain with Now CLI.</Caption>
+<Caption style={{marginTop: '-64px'}}>Adding a domain with <ProductShortName /> CLI.</Caption>
 
 ### Nameservers Verification
 
-If you want to opt for verifying your domains with Nameservers, you must use the nameservers listed when you added a domain via the Now CLI. The upside to verifying with Nameservers is that you are verifying and pointing to Now at once.
+If you want to opt for verifying your domains with Nameservers, you must use the nameservers listed when you added a domain via the <ProductShortName /> CLI. The upside to verifying with Nameservers is that you are verifying and pointing to <ProductName /> at once.
 
 Use the following command to list the set of nameservers needed for verification:
 
@@ -55,7 +59,7 @@ Use the following command to list the set of nameservers needed for verification
   height={1648/2.5}
   oversize
 />
-<Caption style={{marginTop: '-64px'}}>Inspect a domain with Now CLI.</Caption>
+<Caption style={{marginTop: '-64px'}}>Inspect a domain with <ProductShortName /> CLI.</Caption>
 
 Now, head over to [namecheap.com](https://www.namecheap.com), log in and click on **Domain List**.
 
@@ -67,7 +71,7 @@ Now, head over to [namecheap.com](https://www.namecheap.com), log in and click o
 />
 <Caption style={{marginTop: '-64px'}}>Namecheap Domains List Page.</Caption>
 
-Next, click on the **Manage** button on the domain you want to migrate to Now as indicated by the arrow in the image above.
+Next, click on the **Manage** button on the domain you want to migrate to <ProductName /> as indicated by the arrow in the image above.
 
 In the page you are directed to, scroll down to the **NAMESERVERS** section, click on the dropdown form and select **CustomDNS** as shown in the illustration below:
 
@@ -81,17 +85,17 @@ In the page you are directed to, scroll down to the **NAMESERVERS** section, cli
 
 Add the intended nameservers gotten from running the inspect command to the **Custom DNS** form in the order they are given and save the configuration.
 
-Once Namecheap is done propagating the newly changed DNS for your domain, then your domain is ready to be verified. ZEIT automatically checks the domain for verification. However, if you are keen on manually verifying it, then run the following command:
+Once Namecheap is done propagating the newly changed DNS for your domain, then your domain is ready to be verified. <OrgName /> automatically checks the domain for verification. However, if you are keen on manually verifying it, then run the following command:
 
 <Snippet dark text="now domains verify <domain>" />
 
 ### TXT Record Verification
 
-This option is great if you intend to verify your domain, but not point to Now yet!
+This option is great if you intend to verify your domain, but not point to <ProductName /> yet!
 
 In your Namecheap **Domain List** dashboard, on the domain you want to migrate, click on the **Advanced DNS** tab. Now, scroll down to the **Host Records** section, and click on the **Add New Record** button.
 
-Select `TXT Record` as the record type, add `_now` as the host, and the value you were given for the record when adding your domain. You can fetch the value again using the `now domains inspect <domain>` via the [Now CLI](/docs/v2/getting-started/installation#now-cli).
+Select `TXT Record` as the record type, add `_now` as the host, and the value you were given for the record when adding your domain. You can fetch the value again using the `now domains inspect <domain>` via the [<ProductShortName /> CLI](/docs/v2/getting-started/installation#now-cli).
 
 <Image
   src={`${process.env.ASSETS}/guides/setup-namecheap-domain-now/txtrecord.png`}
@@ -101,17 +105,17 @@ Select `TXT Record` as the record type, add `_now` as the host, and the value yo
 />
 <Caption style={{marginTop: '-64px'}}> Adding a TXT record with Namecheap's domain Advanced DNS settings. </Caption>
 
-Your domain will be verified after adding the TXT record. Once ZEIT verifies your domain, you'll automatically receive an email. You can also manually use the command below to force a domain verification:
+Your domain will be verified after adding the TXT record. Once <OrgName /> verifies your domain, you'll automatically receive an email. You can also manually use the command below to force a domain verification:
 
 <Snippet dark text="now domains verify <domain>" />
 
-## Step 2: Configuring your Domain on Now
+## Step 2: Configuring your Domain on <NameWrapper name={PRODUCT_NAME} />
 
-Once your domain has been verified on Now, you can configure your domain with DNS records and add it as a production domain for deployments.
+Once your domain has been verified on <ProductName />, you can configure your domain with DNS records and add it as a production domain for deployments.
 
 ### Adding DNS Records
 
-Now provides an easy to use command that allows you to add DNS records from the CLI. In this example, you can configure your domain with a set of Gmail MX records via the `now dns add` command:
+​<ProductName /> provides an easy to use command that allows you to add DNS records from the CLI. In this example, you can configure your domain with a set of Gmail MX records via the `now dns add` command:
 
 ```
 now dns add <domain> @ MX ASPMX.L.GOOGLE.COM 1
@@ -125,22 +129,22 @@ Learn more about using the [`now dns`](/docs/now-cli#commands/dns) command.
 
 ### Adding a Domain to Deployments
 
-ZEIT Now is dedicated to making deployment easy. If you have not yet deployed an app, take a look at the [Deployment Basics](/docs/v2/deployments/basics) documentation or at some other [guides](/guides) or [examples](/examples) to get started.
+​<ProductName /> is dedicated to making deployment easy. If you have not yet deployed an app, take a look at the [Deployment Basics](/docs/v2/deployments/basics) documentation or at some other [guides](/guides) or [examples](/examples) to get started.
 
-Adding your production domain to a project can be done from the [ZEIT Dashboard](/dashboard) by selecting the project's **Domains** tab and entering it there, you can find more information on this in the [custom domains documentation](/docs/v2/custom-domains/#adding-a-domain).
+Adding your production domain to a project can be done from the [<OrgName /> Dashboard](/dashboard) by selecting the project's **Domains** tab and entering it there, you can find more information on this in the [custom domains documentation](/docs/v2/custom-domains/#adding-a-domain).
 
 You can then deploy to your production domain with **a single command**:
 
 <Snippet dark text="now --prod" />
 <Caption>Deploying a project to a production domain.</Caption>
 
-We highly recommend using either the [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) apps which will allow your app to be deployed to your production on push to your GitHub repository, GitLab project, or Bitbucket repository.
+We highly recommend using either the [<ProductName /> for GitHub](/docs/v2/git-integrations/zeit-now-for-github), [<ProductName /> for GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), or [<ProductName /> for Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) apps which will allow your app to be deployed to your production on push to your GitHub repository, GitLab project, or Bitbucket repository.
 
-## Step 3: Pointing to Now
+## Step 3: Pointing to <NameWrapper name={PRODUCT_NAME} />
 
 If you already verified your domain with nameservers, then this step is done.
 
-The final step of migrating your domain to Now is to point your domain to ZEIT DNS with the intended nameservers set. Using `now domains inspect <domain>`, you can always find the intended nameservers to use with your domain.
+The final step of migrating your domain to <ProductName /> is to point your domain to <OrgName /> DNS with the intended nameservers set. Using `now domains inspect <domain>`, you can always find the intended nameservers to use with your domain.
 
 Once Namecheap's propagation of the updated nameservers is complete, your domain will automatically point to the [app you deployed](#adding-a-domain-to-deployments) before.
 

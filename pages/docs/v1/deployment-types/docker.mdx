@@ -1,12 +1,13 @@
 import Doc from '~/components/layout/docs'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 
 export const meta = {
   title: 'Deploying Docker Apps',
-  description: 'Docker apps with Now and all about the deployments',
+  description: `Docker apps with ${PRODUCT_SHORT_V1_NAME} and all about the deployments`,
   date: '09 March 2017',
   editUrl: 'pages/docs/v1/deployment-types/docker.mdx',
-  lastEdited: '2019-08-06T15:31:27.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 If your project contains a `Dockerfile` file, it will always be treated as a [Docker](https://www.docker.com/) deployment.
@@ -17,7 +18,7 @@ In this document, you'll learn the exact specifications and behavior of Docker d
 
 ## Built in the Cloud
 
-<Now color="#000" />'s Dockerfile support represents a significant departure from traditional virtualization solution offered by mainstream cloud providers. Here's why:
+​<ProductShortV1Name />'s Dockerfile support represents a significant departure from traditional virtualization solution offered by mainstream cloud providers. Here's why:
 
 The biggest departure is immediately obvious to the user. The entire deployment consisted of a single command. You spend no time with complicated, slow and proprietary (locked-in) workflows.
 
@@ -25,13 +26,13 @@ The underlying reason this process is so fast and simple is that you spend no ti
 
 To illustrate this point, pulling, extracting and building the container above took me 3 minutes on a cutting-edge MacBook. Pushing the resulting **200mb** image from an office connection in San Francisco, California to Google® Cloud took another 3 minutes.
 
-In the equivalent amount of time, I would be able to push and build the same image to <Now color="#000"/> **18 times**. The time that's not spent building is spent on iterating on your product and sharing it with the world.
+In the equivalent amount of time, I would be able to push and build the same image to <ProductShortV1Name /> **18 times**. The time that's not spent building is spent on iterating on your product and sharing it with the world.
 
 Over the next few months, we'll be rolling out significant enhancements to deepen this vision. While your laptop is constrained by a fixed number of cores, memory, CPU time and bandwidth, the cloud can give you an exponential advantage to you and your business.
 
 ## Accelerating Builds
 
-By default, <Now color="#000"/> will build an image of your project by itself. If you want to speed up this process, you can publish a pre-built image on the public [Docker Hub](https://hub.docker.com/). At the moment, we don't support private images. However, it's on our roadmap!
+By default, <ProductShortV1Name /> will build an image of your project by itself. If you want to speed up this process, you can publish a pre-built image on the public [Docker Hub](https://hub.docker.com/). At the moment, we don't support private images. However, it's on our roadmap!
 
 You can select an image by specifying it inside `Dockerfile`:
 
@@ -47,7 +48,7 @@ There are no limitations inside Docker deployments when it comes to the file sys
 
 ## Port Selection
 
-<Now color="#000" /> deployment instances always listen on port `443` (HTTPS) of their given URL. Your server code can expose an HTTP service on **any port** of your choice (not multiple ones). <Now color="#000" /> will then route requests received on port `443` to your HTTP service port and its response will then be returned by the deployment instance.
+​<ProductShortV1Name /> deployment instances always listen on port `443` (HTTPS) of their given URL. Your server code can expose an HTTP service on **any port** of your choice (not multiple ones). <ProductShortV1Name /> will then route requests received on port `443` to your HTTP service port and its response will then be returned by the deployment instance.
 
 The port that listens for incoming HTTP traffic needs to be defined either in the `Dockerfile` that's being used inside the deployment, or the `Dockerfile` it's "inheriting" from.
 

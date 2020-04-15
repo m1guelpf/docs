@@ -18,6 +18,25 @@ class EntryIndex extends Component {
       section: section.slug,
       entry: entry.slug
     })
+
+    if (entry.subEntries) {
+      entry.subEntries.map(subEntry => {
+        const { href, as } = getHref({
+          category: category.slug,
+          section: section.slug,
+          entry: entry.slug,
+          subEntry: subEntry.slug
+        })
+
+        this.props.setInitiallyActive({
+          href: as || href,
+          category: category.slug,
+          section: section.slug,
+          entry: entry.slug,
+          subEntry: subEntry.slug
+        })
+      })
+    }
   }
 
   componentDidUpdate(prevProps) {

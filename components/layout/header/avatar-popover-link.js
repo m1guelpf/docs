@@ -1,168 +1,172 @@
-import React from 'react'
+import { memo, useCallback, useState } from 'react'
+import Link from 'next/link'
+import Router, { useRouter } from 'next/router'
+import cn from 'classnames'
 import PropTypes from 'prop-types'
 
+// Components
+import Popover from '~/components/popover'
 import Avatar from '~/components/avatar'
-import * as PopOver from '~/components/popover'
-import PopOverLink from '~/components/popover/popover-link'
+import * as PopOver from '~/components/popover/popover-menu'
 import PlusIcon from '~/components/icons/plus'
+// import MoonSunIcon from '../moon-sun'
+// import Badge from '../../geist/badge'
+// import LocalStorage from '../local-storage'
 
-export default class AvatarPopOverLink extends React.Component {
-  static contextTypes = {
-    darkBg: PropTypes.bool
-  }
+// Helpers
+// import { DarkBgContext } from '../../lib/with-dark-mode'
+// import { toggleDarkMode } from '../../lib/dark-mode'
 
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
+const AvatarPopOverLink = ({ user, disableDarkMode, onLogout }) => {
+  const [loggingOut, setLoggingOut] = useState(false)
 
-  render() {
-    const section = this.props.pathname
-      .split('/')
-      .slice(0, 2)
-      .join('/')
-    const { user, sticky } = this.props
+  const { pathname } = useRouter()
 
-    if (!user) return null
+  const onPopOverOpen = useCallback(() => {
+    Router.prefetch('/account')
+    Router.prefetch('/dashboard')
 
-    const top = this.props.top || 43
-    const avatarSize = this.props.avatarSize || 30
+    // in case user logs out, we prefetch
+    // the page they get redirected to
+    Router.prefetch('/login')
+  }, [])
 
-    return (
-      <span className="avatar">
-        <PopOverLink
-          noIcon
-          hideOnClick
-          fixed={sticky}
-          offsetTop={17}
-          offsetLeft={-168}
-          top={sticky ? '20px' : top}
-          inline={false}
-          ref={ref => (this.popover = ref)}
-          to={
-            <div className="avatar-menu">
-              <PopOver.Menu tipOffset={173}>
-                <PopOver.Item
-                  key="0"
-                  active={this.props.pathname === '/dashboard'}
-                >
-                  <a href="/dashboard">Dashboard</a>
-                </PopOver.Item>
-                <PopOver.Item
-                  className
-                  key="1"
-                  active={this.props.pathname === '/teams/settings'}
-                  icon={<PlusIcon />}
-                >
-                  <a href="/teams/create">New Team</a>
-                </PopOver.Item>
-                <PopOver.Item key="2">
-                  <a href="/account">Settings</a>
-                </PopOver.Item>
-                <PopOver.Item key="4">
-                  <a
-                    className={`logout ${
-                      this.state.loggingOut ? 'disabled' : ''
-                    }`}
-                    onClick={() => {
-                      this.setState({ loggingOut: true })
-                      this.props.onLogout && this.props.onLogout()
-                    }}
-                  >
-                    {this.state.loggingOut ? 'Logging out...' : 'Logout'}
-                  </a>
-                </PopOver.Item>
-              </PopOver.Menu>
-            </div>
-          }
-        >
-          <a
-            href="/account"
-            onClick={e => {
-              if (!e.metaKey) e.preventDefault()
-            }}
-            className={
-              'avatar-link ' + ('/account' === section ? 'active' : '')
-            }
+  if (!user) return null
+
+  return (
+    <>
+      {/* <DarkBgContext.Consumer>
+        {darkBg => ( */}
+      <Popover
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        trigger={
+          <Avatar
+            uid={user.uid}
+            title={user.username || user.email}
+            size={30}
+            hash={user.avatar}
+          />
+        }
+        onOpen={onPopOverOpen}
+      >
+        <PopOver.Menu tipOffset={173} width={200}>
+          <PopOver.Item hover active={pathname === '/dashboard'}>
+            <Link href="/dashboard">
+              <a>Dashboard</a>
+            </Link>
+          </PopOver.Item>
+
+          <PopOver.Divider />
+
+          <PopOver.Item
+            hover
+            active={pathname === '/teams/create'}
+            icon={<PlusIcon size={18} />}
           >
-            <Avatar
-              uid={this.props.user.uid}
-              title={this.props.user.username || this.props.user.email}
-              size={avatarSize}
-              hash={this.props.user.avatar}
-            />
-          </a>
-        </PopOverLink>
-        <style jsx>{`
-          .avatar-menu :global(.item > a.active),
-          .avatar-menu :global(.item > a:hover) {
-            background: var(--accents-1);
-          }
-          .avatar-menu :global(.item) {
-            width: 200px;
-          }
+            <Link href="/teams/create">
+              <a>New Team</a>
+            </Link>
+          </PopOver.Item>
 
-          .avatar-menu :global(.item:first-child) {
-            padding-top: 8px;
-            padding-bottom: 16px;
-          }
+          <PopOver.Item hover active={pathname === '/account'}>
+            <Link href="/account">
+              <a>Settings</a>
+            </Link>
+          </PopOver.Item>
 
-          .avatar-menu :global(.item:first-child > a) {
-            padding-top: 8px;
-          }
+          {/* 
 
-          .avatar-menu :global(.item:not(:first-child)) {
-            border-top: 1px solid var(--accents-2);
-            padding-top: 16px;
-            padding-bottom: 16px;
-          }
+              TODO: To uncomment, we need to enable darkmode in the docs.
+              
+              <PopOver.Divider />
 
-          .avatar-menu :global(.item:nth-child(3)) {
-            border: none;
-            padding-top: 0;
-          }
-          .avatar-menu :global(.item:nth-child(3) .icon) {
-            height: 35px;
-          }
+              {
+                <>
+                  <LocalStorage name="zeit-dark-mode" defaultValue={darkBg}>
+                    {(value, setValue) => (
+                      <PopOver.Item
+                        hover
+                        icon={<MoonSunIcon dark={value} />}
+                        disabled={disableDarkMode}
+                      >
+                        <a
+                          className={cn('dark-mode', {
+                            disabled: disableDarkMode
+                          })}
+                          onClick={() => {
+                            if (!disableDarkMode) {
+                              toggleDarkMode(value, setValue)
+                            }
+                          }}
+                        >
+                          {value && !disableDarkMode ? (
+                            'Light Mode'
+                          ) : (
+                            <>
+                              <span className="dark-switch">Dark Mode</span>
+                              <Badge uppercase type="lite">
+                                Beta
+                              </Badge>
+                            </>
+                          )}
+                        </a>
+                      </PopOver.Item>
+                    )}
+                  </LocalStorage>
+                </>
+              } */}
 
-          .avatar-menu :global(.item:last-child > a) {
-            padding-bottom: 8px;
-          }
+          <PopOver.Divider />
 
-          .avatar-menu :global(.menu) {
-            padding-bottom: 0;
-          }
+          <PopOver.Item hover>
+            <a
+              className={cn('logout', {
+                disabled: loggingOut
+              })}
+              onClick={() => {
+                setLoggingOut(true)
+                onLogout()
+              }}
+            >
+              {loggingOut ? 'Logging out...' : 'Logout'}
+            </a>
+          </PopOver.Item>
+        </PopOver.Menu>
+      </Popover>
+      {/* )}
+      </DarkBgContext.Consumer> */}
 
-          .logout,
-          .dark-mode {
-            cursor: pointer;
-          }
-          span.settings {
-            font-size: 12px;
-          }
+      <style jsx>{`
+        .dark-mode,
+        .logout {
+          cursor: pointer;
+        }
 
-          .dark-mode:hover :global(.badge) {
-            color: #000;
-            transition: 0.2s ease;
-          }
+        .dark-mode.disabled {
+          cursor: not-allowed;
+        }
 
-          .dark-switch {
-            margin-right: 5px;
-          }
-
-          .username-wrapper {
-            white-space: nowrap;
-            width: 100px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-
-          .disabled {
-            opacity: 0.5;
-            pointer-events: none;
-          }
-        `}</style>
-      </span>
-    )
-  }
+        .dark-switch {
+          margin-right: var(--geist-gap-quarter);
+        }
+      `}</style>
+    </>
+  )
 }
+
+AvatarPopOverLink.displayName = 'AvatarPopOverLink'
+
+AvatarPopOverLink.propTypes = {
+  user: PropTypes.object,
+  disableDarkMode: PropTypes.bool,
+  onLogout: PropTypes.func
+}
+
+export default memo(AvatarPopOverLink)

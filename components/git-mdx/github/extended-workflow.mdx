@@ -1,0 +1,17 @@
+import Caption from '~/components/text/caption'
+import { Image } from '~/components/media'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import { PRODUCT_NAME } from '~/lib/constants'
+import ProductShortName from '~/components/name/product-short-name'
+
+&#8203;<ProductName /> for GitHub uses the deployment API to bring you an extended user interface both in GitHub, when showing deployments, and Slack, if you have notifications setup using the [Slack GitHub app](https://slack.github.com).
+
+You will see all of your deployments, production or preview, from within GitHub in its own page. See this page for the <OrgName /> documentation as an example: <https://github.com/zeit/docs/deployments>
+
+Due to using GitHub's Deployments API, you will also be able to integrate with other services through [GitHub's checks](https://help.github.com/en/articles/about-status-checks). <ProductShortName /> will provide the deployment URL to the checks that require it, for example; to a testing suite such as [Checkly](https://checklyhq.com/docs/cicd/github/).
+
+#### Configuring <NameWrapper name={PRODUCT_NAME} /> for GitHub
+
+To configure the <ProductName /> for GitHub integration, see [the configuration reference for Git Integrations](/docs/configuration#git-integrations).

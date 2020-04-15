@@ -8,7 +8,6 @@ public/sitemap.xml
 node_modules
 deploy-server/node_modules
 package-lock.json
-yarn.lock
 
 # logs
 *.log
@@ -17,3 +16,5 @@ yarn.lock
 .DS_Store
 .idea
 .vscode
+
+.now

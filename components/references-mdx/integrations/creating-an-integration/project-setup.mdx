@@ -3,6 +3,9 @@ import { TerminalInput } from '~/components/text/terminal'
 import { InlineCode } from '~/components/text/code'
 import Caption from '~/components/text/caption'
 import Link from '~/components/text/link'
+import { PRODUCT_SHORT_NAME } from '~/lib/constants'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   editUrl:
@@ -12,25 +15,26 @@ export const meta = {
 
 ## Step 1: Project Setup
 
-### Install Node.js and Now CLI
+### Install Node.js and <NameWrapper name={PRODUCT_SHORT_NAME} /> CLI
 
 <Note>
   If you already have the latest stable versions of Node.js and{' '}
-  <Link href="/now">Now CLI</Link>. You can{' '}
-  <Link href="#creating-an-integration/step-1-project-setup/add-a-package-json-file">
-    skip this step
+  <Link href="/now">
+    <ProductShortName /> CLI
   </Link>
-  .
+  . You can <Link href="#creating-an-integration/step-1-project-setup/add-a-package-json-file">
+    skip this step
+  </Link>.
 </Note>
 
 Firstly, download and install [Node.js](https://nodejs.org/en/).
 
-Next, install Now CLI with a package manager.
+Next, install <ProductShortName /> CLI with a package manager.
 
-To install Now CLI with [npm](https://www.npmjs.com/), use the following from the terminal:
+To install <ProductShortName /> CLI with [npm](https://www.npmjs.com/), use the following from the terminal:
 
 <TerminalInput>npm i -g now</TerminalInput>
-<Caption>Installing Now CLI with npm.</Caption>
+<Caption>Installing <ProductShortName /> CLI with npm.</Caption>
 
 ### Add a package.json File
 

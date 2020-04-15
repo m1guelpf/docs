@@ -5,22 +5,29 @@ import { InlineCode } from '~/components/text/code'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
 import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Create a Hugo Website and Deploy It with ZEIT Now',
-  description: 'Create a Hugo website and deploy it live with ZEIT Now.',
+  title: `Create a Hugo Website and Deploy It with ${PRODUCT_NAME}`,
+  description: `Create a Hugo website and deploy it live with ${PRODUCT_NAME}.`,
   published: '2019-02-20T03:00:00.860Z',
   authors: ['unicodeveloper'],
   url: '/guides/deploying-hugo-with-now',
   example: 'hugo',
   demo: 'https://hugo.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploying%20Hugo%20Sites**%20%3Cbr%20%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fimg.stackshare.io%2Fservice%2F1158%2Fhugo-icon.png&widths=250&widths=300&heights=250&heights=300`,
   editUrl: 'pages/guides/deploying-hugo-with-now.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  name: 'Hugo',
+  type: 'site',
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 [Hugo](https://gohugo.io) is a very popular framework for creating static websites. It's fast and flexible.
 
-In this guide, we will walk you through setting up a Hugo website and deploying it with [ZEIT Now](/now).
+In this guide, we will walk you through setting up a Hugo website and deploying it with [<ProductName />](/).
 
 ## Step 1: Setting Up Your Hugo Project
 
@@ -63,7 +70,7 @@ You can add some content to the Hugo project by running the following command:
 Once you are done running the command, edit the `my-first-post.md` file (within the `contents/posts` directories) and add the following content below the generated metadata:
 
 ```markdown
-## Deploying Hugo with ZEIT Now
+## Deploying Hugo
 ```
 
 You can now see your project running locally with the following command:
@@ -74,42 +81,32 @@ You can now see your project running locally with the following command:
 <Note>
   Before deploying, ensure the <InlineCode>draft</InlineCode> value in your{' '}
   <InlineCode>my-first-post.md</InlineCode> file is set to{' '}
-  <InlineCode>false</InlineCode>. If it remains as <InlineCode>true</InlineCode>
-  , the content of your posts won't show up in production.
+  <InlineCode>false</InlineCode>. If it remains as <InlineCode>true</InlineCode>,
+  the content of your posts won't show up in production.
 </Note>
 
-## Step 2: Deploying Your Hugo Website with ZEIT Now
+## Step 2: Deploying Your Hugo Website with <NameWrapper name={PRODUCT_NAME} />
 
-With your Hugo application set up, it is ready to deploy with [Now](/docs/v2).
+<DeploySection meta={meta} />
 
-First, create a `package.json` in the project directory with the following content:
+## Optional: Defining a Hugo Version
+
+If you want to use a specific version of Hugo, you can create a `now.json` file containing a`HUGO_VERSION` [build environment variable](/docs/v2/build-step#providing-environment-variables).
 
 ```json
 {
-  "scripts": {
-    "build": "hugo"
+  "build": {
+    "env": {
+      "HUGO_VERSION": "0.61.0"
+    }
   }
 }
 ```
 
 <Caption>
-  A <InlineCode>package.json</InlineCode> configuration file with install and
-  build scripts.
+  An optional <InlineCode>now.json</InlineCode> configuration file that selects
+  Hugo version 0.61.0 for the build step.
 </Caption>
-
-With the build scripts added, you can now deploy your Hugo project.
-
-If you have not yet installed Now, you can do so by [installing Now CLI](/download).
-
-With Now installed, you can deploy from your terminal with **a single command**:
-
-<Snippet dark text="now" />
-
-<Caption>
-  Deploying the app with the <InlineCode>now</InlineCode> command.
-</Caption>
-
-If you want to deploy your Hugo project when you push to a Git repository, you can use either [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) to have your project automatically deployed on every push, and the [production domain](https://zeit.co/docs/v2/custom-domains/#adding-a-domain) updated on push to master.
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

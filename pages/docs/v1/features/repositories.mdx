@@ -1,15 +1,16 @@
 import Doc from '~/components/layout/docs'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import Link from '~/components/text/link'
 import { TerminalInput } from '~/components/text/terminal'
 import { Image } from '~/components/media'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 
 export const meta = {
   title: 'Deploying Git Repositories',
-  description: 'Targeting and deploying a Git repository with Now',
+  description: `Targeting and deploying a Git repository with ${PRODUCT_SHORT_V1_NAME}`,
   date: '12 Mar 2017',
   editUrl: 'pages/docs/v1/features/repositories.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 If you're developing a project that requires local changes before it can be deployed (like a regular application), running just now is the right way to move your code into the cloud.
@@ -18,13 +19,13 @@ However, if you'd like to provide a pre-built application or tool which only nee
 
 <TerminalInput>{'now <username>/<repository>'}</TerminalInput>
 
-When running this command for a certain [Git](https://git-scm.com/) repository of your choice (make sure to replace `<username>` and `<repository>`), the repository will be looked up on [GitHub](https://github.com/), [GitLab](https://about.gitlab.com/), and [Bitbucket](https://bitbucket.org/). When found, <Now color="#000" /> will automatically clone it, set any custom properties you've defined and deploy it.
+When running this command for a certain [Git](https://git-scm.com/) repository of your choice (make sure to replace `<username>` and `<repository>`), the repository will be looked up on [GitHub](https://github.com/), [GitLab](https://about.gitlab.com/), and [Bitbucket](https://bitbucket.org/). When found, <ProductShortV1Name /> will automatically clone it, set any custom properties you've defined and deploy it.
 
 From there on, it will work just like any other deployment: You'll get a unique URL once the files have started uploading, your deployment will be initialized and then started up as usual.
 
 ## Configuring Such a Deployment
 
-Thanks to the process I've explained earlier, configuring the deployment of a Git repository is just as easy as doing the same for one that's not being handled automatically by <Now color="#000" /> in the hidden.
+Thanks to the process I've explained earlier, configuring the deployment of a Git repository is just as easy as doing the same for one that's not being handled automatically by <ProductShortV1Name /> in the hidden.
 
 If you want, you can either use `now.json` or the `now` property inside `package.json` within your repository for customizing the deployments. But please note that these settings can't be interfered with by the user. They're fixed.
 
@@ -42,7 +43,7 @@ This will deploy the [now-examples/slackin](https://github.com/now-examples/slac
 
 That's it!
 
-Once <Now color="#000" /> fetches the repository, you'll see just what you're used to: A link to the deployment, the repository will be deployed and the logs will be printed out. Once the repo has finished uploading, you'll see the invitation page:
+Once <ProductShortV1Name /> fetches the repository, you'll see just what you're used to: A link to the deployment, the repository will be deployed and the logs will be printed out. Once the repo has finished uploading, you'll see the invitation page:
 
 <Image
   src={`${process.env.IMAGE_ASSETS_URL}/docs/git-repositories/slackin.png`}
@@ -66,11 +67,11 @@ And it works just as easy for commits. Just append the SHA:
   now rauchg/slackin<b>#e0f09a5</b>
 </TerminalInput>
 
-By default, <Now color="#000" /> will select the master branch. However, as you can see, it only requires a single statement to change this!
+By default, <ProductShortV1Name /> will select the master branch. However, as you can see, it only requires a single statement to change this!
 
 ## Using URLs
 
-All of the things mentioned above can also be achieved by simply telling <Now color="#000" /> the URL of the repository which you'd like to deploy (also supports GitLab and Bitbucket):
+All of the things mentioned above can also be achieved by simply telling <ProductShortV1Name /> the URL of the repository which you'd like to deploy (also supports GitLab and Bitbucket):
 
 <TerminalInput>
   now <b>https://github.com/rauchg/slackin</b>

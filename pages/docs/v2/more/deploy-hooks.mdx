@@ -4,53 +4,69 @@ import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import { Code } from '~/components/text/code'
 import Link from '~/components/text/link'
+import ProductName from '~/components/name/product-name'
 
 export const meta = {
   title: 'Deploy Hooks',
   description:
     'Deploy Hooks allow you to create URLs that accept HTTP POST requests to trigger deployments. Each URL correspond to a branch of a GitHub or GitLab repository linked to the project.',
   editUrl: 'pages/docs/v2/more/deploy-hooks.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-Deploy Hooks allow you to create URLs that accept HTTP POST requests in order to trigger deployments, to re-run the [Build Step](/docs/v2/build-step), from outside ZEIT. These URLs are uniquely linked to your project, repository, and branch, so there is no need to use any authentication mechanism or provide any payload to the POST request.
+Deploy Hooks allow you to create URLs that accept HTTP POST requests in order to trigger deployments and re-run the [Build Step](/docs/v2/build-step). These URLs are uniquely linked to your project, repository, and branch, so there is no need to use any authentication mechanism or provide any payload to the POST request.
 
-This feature allows you to integrate ZEIT Now deployments with other systems getting:
+This feature allows you to integrate <ProductName /> deployments with other systems. For example, you can set up:
 
 - Automatic deployments by hooking into content changes in Headless CMSs.
-- Scheduled deployments by configuring Cron Jobs to trigger the deploy hook.
-- Forced deployments by using a terminal or any other system.
+- Scheduled deployments by configuring third-party cron job services to trigger the Deploy Hook.
+- Forced deployments from the command line.
 
 ## Creating a Deploy Hook
 
-To create a Deploy Hook, the first thing you need to do is to install [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket). This allows you to link a ZEIT project to a new or existing Git repository.
+To create a Deploy Hook for your project, make sure your project is linked to a Git repository using our [Git Integrations](/docs/v2/git-integrations).
 
 <Image
-  src={`${process.env.ASSETS}/docs/advanced/deploy-hooks/create-new-project.png`}
-  width={1716/2.5}
-  height={1342/2.5}
+  src={`${process.env.ASSETS}/docs/common/github-from-existing-code.png`}
+  width={1170/2}
+  height={624/2}
+  shadow
+  borderRadius
 />
-<Caption>Creating a project on ZEIT through GitHub at <Link href="https://zeit.co/new">zeit.co/new</Link>.</Caption>
+<Caption>Importing a project using our Git Integrations.</Caption>
 
-Once your project is connected, go to settings and you will see a section called "Deploy Hooks". Here, write a name for your Deploy Hook and select the branch that will be deployed when the generated URL is requested.
+Once your project is connected, navigate to its "Settings" page and then select the **Git Integration** menu item.
 
 <Image
-  src={`${process.env.ASSETS}/docs/advanced/deploy-hooks/settings-view.png`}
-  width={1716/2.5}
-  height={1412/2.5}
+  src={`${process.env.ASSETS}/docs/advanced/deploy-hooks/select-git.png`}
+  width={384 / 2}
+  height={352 / 2}
+  shadow
 />
-<Caption>Creating a new Deploy Hook presents a URL that you can copy and supply anywhere.</Caption>
+<Caption>Selecting the <b>Git Integration</b> menu item from the Project Settings page.</Caption>
+
+In the "Deploy Hooks" section, choose a name for your Deploy Hook and select the branch that will be deployed when the generated URL is requested.
+
+<Image
+  src={`${process.env.ASSETS}/docs/advanced/deploy-hooks/deploy-hooks.png`}
+  width={1462/2}
+  height={448/2}
+  shadow
+  borderRadius
+/>
+<Caption>Creating a new Deploy Hook.</Caption>
 
 <Note>
   We suggest you use a name that easily identifies the Deploy Hook so you will
-  be able to see when it triggers a deployment.
+  be able to understand when it triggers a deployment. We also suggest creating
+  only one Deploy Hook per branch unless you’re using multiple data sources.
 </Note>
 
-Once you have selected a branch and chosen a name from the "Deploy Hook" setting section and submitted the form, you will see a URL along with two buttons to copy the URL and another one to remove it.
+After submitting the form, you will see a URL that you can copy and use.
 
 ## Triggering a Deploy Hook
 
-To trigger a Deploy Hook, send a POST request to the provided URL. Use the following example's command from your terminal with your own Deploy Hook to test.
+To trigger a Deploy Hook, send a POST request to the provided URL. Here's an example request and response you can use for testing:
 
 #### Example Request
 
@@ -73,9 +89,13 @@ To trigger a Deploy Hook, send a POST request to the provided URL. Use the follo
   already identifies your linked project.
 </Note>
 
-Posting the request triggers an event in your dashboard to show that there has been a deployment.
+After sending a POST request, you can see that it triggered a deployment on your project dashboard.
 
-Due to Deploy Hooks triggering deployments for the same version of your project, requesting multiple subsequent deployments will result in a cancellation of queued jobs to reduce build times for the latest content.
+## Technical Details
+
+- Triggering a Deploy Hook will not rebuild an existing deployment. Instead, it will create a new deployment using the latest source code available on the specified branch.
+- Currently, no build cache is used when triggering a Deploy Hook.
+- If you send multiple requests to deploy the same version of your project, previous deployments for the same Deploy Hook will be canceled to reduce build times.
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 

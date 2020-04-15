@@ -5,28 +5,31 @@ import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import Card from '~/components/card'
 import Note from '~/components/text/note'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
   title: 'Supported Languages for Serverless Functions',
-  description: 'Learn how to deploy Serverless Functions with ZEIT Now.',
+  description: `Learn how to deploy Serverless Functions with ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/serverless-functions/supported-languages.mdx',
-  lastEdited: '2019-12-04T20:07:25.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-Within the `/api` directory of your projects, ZEIT Now will automatically recognize the languages listed on this page, through their file extensions, and serve them as Serverless Function.
+Within the `/api` directory of your projects, <ProductName /> will automatically recognize the languages listed on this page, through their file extensions, and serve them as Serverless Function.
 
 ## Supported Languages:
 
 - [Node.js](#node.js)
 - [Go](#go)
 - [Python](#python)
+- [Ruby](#ruby)
 
 ## Node.js
 
 **File Extensions**: `.js`, `.ts`<br />
-**Default Runtime Version**: 10.x (or [defined](#defined-node.js-version))
+**Default Version**: 12.x (or [defined](/docs/runtimes#official-runtimes/node-js/node-js-version))
 
-Node.js files through a JavaScript file or a TypeScript file within the `api` directory, containing a default exported function, will be served as a Serverless Function.
+Node.js files through a JavaScript file or a [TypeScript](#using-typescript) file within the `api` directory, containing a default exported function, will be served as Serverless Functions.
 
 For example, the following would live in `api/hello.js`:
 
@@ -50,11 +53,11 @@ Example deployment: <https://node-api.now-examples.now.sh/api/hello?name=reader>
 />
 <Caption>The Serverless Function with the <InlineCode>name</InlineCode> query parameter using Node.js to change the name.</Caption>
 
-### Node.js TypeScript support:
+### Using TypeScript
 
-Deploying a Node.js function with the `.ts` extension will automatically be recognized as a TypeScript file and compiled to a Serverless Function.
+Deploying a Node.js function with the `.ts` extension will automatically be recognized as a [TypeScript](https://www.typescriptlang.org/) file and compiled to a Serverless Function.
 
-As an example; a file called `hello.ts` in the `api` directory, and importing types for the ZEIT Now platform Request and Response objects from the `@now/node` module:
+As an example; a file called `hello.ts` in the `api` directory, and importing types for the <ProductName /> platform Request and Response objects from the `@now/node` module:
 
 ```ts
 import { NowRequest, NowResponse } from '@now/node'
@@ -77,174 +80,20 @@ You can install the `@now/node` module for type definitions through npm:
 <Snippet dark text="npm i -D @now/node" />
 <Caption>Installing the <InlineCode>@now/node</InlineCode> module for Type definitions of <InlineCode>NowRequest</InlineCode> and <InlineCode>NowResponse</InlineCode></Caption>
 
-You can also define a `tsconfig.json` to configure the ZEIT Now TypeScript compiler:
+You can also define a `tsconfig.json` to configure the <ProductName /> TypeScript compiler.
 
-```json
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "esnext",
-    "sourceMap": true,
-    "strict": true
-  }
-}
-```
+### Advanced Node.js Usage
 
-<Caption>
-  An example <InlineCode>tsconfig.json</InlineCode> file.
-</Caption>
-
-### Node.js Request and Response Objects
-
-For each request of a Node.js Serverless Function, two objects, request and response, are passed to it. These objects are the standard HTTP [request](https://nodejs.org/api/http.html#http_event_request) and [response](https://nodejs.org/api/http.html#http_class_http_serverresponse) objects given and used by Node.js, but they include extended helpers provided by ZEIT Now:
-
-#### Node.js Helpers
-
-<br />
-
-| method             | description                                                                                                                                                                                    | object   |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `req.query`        | An object containing the request's [query string](https://en.wikipedia.org/wiki/Query_string), or `{}` if the request does not have a query string.                                            | request  |
-| `req.cookies`      | An object containing the cookies sent by the request, or `{}` if the request contains no cookies.                                                                                              | request  |
-| `req.body`         | An object containing the body sent by the request, or `null` if no body is sent.                                                                                                               | request  |
-| `res.status(code)` | A function to set the status code sent with the response where `code` must be a valid [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). Returns `res` for chaining. | response |
-| `res.send(body)`   | A function to set the content of the response where `body` can be a `string`, an `object` or a `Buffer`.                                                                                       | response |
-| `res.json(obj)`    | A function to send a JSON response where `obj` is the JSON object to send.                                                                                                                     | response |
-
-The following example showcases the use of `req.query`, `req.cookies` and `req.body` helpers:
-
-```js
-module.exports = (req, res) => {
-  let who = 'anonymous'
-
-  if (req.body && req.body.who) {
-    who = req.body.who
-  } else if (req.query.who) {
-    who = req.query.who
-  } else if (req.cookies.who) {
-    who = req.cookies.who
-  }
-
-  res.status(200).send(`Hello ${who}!`)
-}
-```
-
-<Caption>
-  Example Node.js function using the <InlineCode>req.query</InlineCode>,{' '}
-  <InlineCode>req.cookies</InlineCode> and <InlineCode>req.body</InlineCode>{' '}
-  helpers. It returns greetings for the user specified using{' '}
-  <InlineCode>req.send()</InlineCode>.
-</Caption>
-
-##### `req.body`
-
-We populate the `req.body` property on the request object with a parsed version of the content sent with the request when it is possible.
-
-We follow a set of rules on the `Content-type` header sent by the request to do so:
-
-| `Content-Type` header               | Value of `req.body`                                                                     |
-| ----------------------------------- | --------------------------------------------------------------------------------------- |
-| No header                           | `undefined`                                                                             |
-| `application/json`                  | An object representing the parsed JSON sent by the request.                             |
-| `application/x-www-form-urlencoded` | An object representing the parsed data sent by with the request.                        |
-| `text/plain`                        | A string containing the text sent by the request.                                       |
-| `application/octet-stream`          | A [Buffer](https://nodejs.org/api/buffer.html) containing the data sent by the request. |
-
-With the `req.body` helper, you can build applications without extra dependencies or having to [parse the content of the request manually](https://nodejs.org/ja/docs/guides/anatomy-of-an-http-transaction/#request-body). The following example inspects `req.body`, if it is 'ping', it will return 'pong'.
-
-```js
-module.exports = (req, res) => {
-  if (typeof req.body !== 'string') {
-    return res.status(400).text('Invalid request')
-  }
-
-  if (req.body !== 'ping') {
-    return res.status(400).text('The value expected is `ping`')
-  }
-
-  res.status(200).send('pong')
-}
-```
-
-<Caption>
-  An example Node.js function using the <InlineCode>req.body</InlineCode> helper
-  that returns <InlineCode>pong</InlineCode> when you send{' '}
-  <InlineCode>ping</InlineCode>.
-</Caption>
-
-### Node.js Async Support
-
-ZEIT Now supports asynchronous functions out-of-the-box.
-
-In this example, we use the package `asciify-image` to create [ascii art](https://en.wikipedia.org/wiki/ASCII_art) from a person's avatar on GitHub. First, we need to install the package:
-
-```
-npm i --save asciify-image
-```
-
-In our code, we export an asynchronous function and we take advantage of the [helpers](#node.js-helpers).
-
-```js
-const asciify = require('asciify-image')
-
-module.exports = async (req, res) => {
-  if (!req.query.username) {
-    return res.status(400).send('username is missing from query parameters')
-  }
-
-  const avatarUrl = `https://github.com/${req.query.username}.png`
-
-  const opts = { fit: 'box', width: 40, height: 40 }
-  const asciified = await asciify(avatarUrl, opts)
-
-  return res.status(200).send(asciified)
-}
-```
-
-<Caption>An example showcasing the use of an asynchronous function.</Caption>
-
-### Node.js Dependency Installation
-
-The installation of dependencies behaves as follows:
-
-- If a `package-lock.json` is present, `npm install` is used
-- Otherwise, `yarn` is used.
-
-### Defined Node.js Version
-
-The default Node.js version used is **10.x** but can be changed to **12.x** by defining an `engines` property in a `package.json` file like in the example below:
-
-```json
-{
-  "engines": {
-    "node": "12.x"
-  }
-}
-```
-
-<Caption>
-  Defining the <InlineCode>engines</InlineCode> property in a{' '}
-  <InlineCode>package.json</InlineCode> file.
-</Caption>
-
-When defining an `engines` property, there are two different values that can be supplied, **10.x** - the default if the property is not defined - or **12.x**.
-
-The `.x` portion of the `engines` value is required by our upstream providers and cannot be changed.
-
-<Note type="warning">
-  The only options that can be passed are <InlineCode>10.x</InlineCode> or{' '}
-  <InlineCode>12.x</InlineCode>, passing any other value will cause your build
-  to fail.
-</Note>
+For more advanced usage of Node.js on the <ProductName /> platform, including [information about the request and response objects](/docs/runtimes#official-runtimes/node-js/node-js-request-and-response-objects), [extended helpers](/docs/runtimes#official-runtimes/node-js/node-js-request-and-response-objects) for Node.js on <ProductName />, [private npm packages](/docs/runtimes#advanced-usage/advanced-node-js-usage/private-npm-modules-for-node-js), or [advanced configuration](/docs/runtimes#advanced-usage/advanced-node-js-usage), see [the Node.js runtime documentation](/docs/runtimes#official-runtimes/node-js).
 
 ---
 
 ## Go
 
 **File Extension**: `.go`<br />
-**Default Runtime Version**: Go 1.x
+**Default Version**: Go 1.x
 
-Go files in the `api` directory that export a function matching the `net/http` Go API will be served as a Serverless Function.
+Go files in the `api` directory that export a function matching the `net/http` Go API will be served as Serverless Functions.
 
 For example, the following would live in `api/date.go`:
 
@@ -271,58 +120,18 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 When deployed, the example function above will be served as a Serverless Function, returning the latest date. See it live with the following link: <https://go-api.now-examples.now.sh/api/date>
 
-### Private Packages for Go
+### Advanced Go Usage
 
-To install private packages with `go get`, define `GIT_CREDENTIALS` as a [build environment variable](/docs/v2/build-step).
-
-All major Git providers are supported including GitHub, GitLab, Bitbucket, as well as a self-hosted Git server.
-
-With GitHub, you will need to [create a personal token](https://github.com/settings/tokens) with permission to access your private repository.
-
-```json
-{
-  "build": {
-    "env": {
-      "GIT_CREDENTIALS": "https://username:token@github.com"
-    }
-  }
-}
-```
-
-<Caption>
-  An example build environment variable using a GitHub personal token for
-  Private Go Packages.
-</Caption>
-
-### Go Build Configuration
-
-You can provide custom build flags by using the `GO_BUILD_FLAGS` [build environment variable](/docs/v2/build-step/#using-environment-variables-and-secrets).
-
-```json
-{
-  "build": {
-    "env": {
-      "GO_BUILD_FLAGS": "-ldflags '-s -w'"
-    }
-  }
-}
-```
-
-<Caption>
-  An example <InlineCode>-ldflags</InlineCode> flag with{' '}
-  <InlineCode>-s -w</InlineCode>. This will remove debug information from the
-  output file. This is the default value when no{' '}
-  <InlineCode>GO_BUILD_FLAGS</InlineCode> are provided.
-</Caption>
+For more advanced usage of Go on the <ProductName /> platform, including [dependencies](/docs/runtimes#official-runtimes/go/go-dependencies), [build configuration](/docs/runtimes#official-runtimes/go/go-build-configuration), [private dependencies](/docs/runtimes#advanced-usage/advanced-go-usage), or [advanced configuration](/docs/runtimes#advanced-usage/advanced-go-usage), see [the Go runtime documentation](/docs/runtimes#official-runtimes/go).
 
 ---
 
 ## Python
 
 **File Extension**: `.py`<br />
-**Default Runtime Version**: Python 3.6
+**Default Version**: Python 3.6
 
-Python files within the `api` directory, containing an handler variable that inherits from the `BaseHTTPRequestHandler` class or an `app` variable that exposes a WSGI or ASGI application, will be served as a Serverless Function.
+Python files within the `api` directory, containing an handler variable that inherits from the `BaseHTTPRequestHandler` class or an `app` variable that exposes a WSGI or ASGI application, will be served as Serverless Functions.
 
 For example, the following would live in `api/date.py`:
 
@@ -344,9 +153,36 @@ class handler(BaseHTTPRequestHandler):
 
 When deployed, the example function above will be served as a Serverless Function, returning the current date and time. See it live with the following link: <https://python-api.now-examples.now.sh/api/date>
 
-### Python Dependencies
+### Advanced Python Usage
 
-ZEIT Now supports installing dependencies for Python defined in the `requirements.txt` file or a `Pipfile.lock` file at the root of the project.
+For more advanced usage of Python on the <ProductName /> platform, including [dependencies](/docs/runtimes#official-runtimes/python/python-dependencies), [WSGI applications](/docs/runtimes#advanced-usage/advanced-python-usage/web-server-gateway-interface), [ASGI applications](/docs/runtimes#advanced-usage/advanced-python-usage/asynchronous-server-gateway-interface), or [advanced configuration](/docs/runtimes#advanced-usage/advanced-python-usage), see [the Python runtime documentation](/docs/runtimes#official-runtimes/python).
+
+---
+
+## Ruby
+
+**File Extension**: `.rb`<br />
+**Default Version**: Ruby 2.5.x
+
+Ruby files that define a singular HTTP handler, within the `api` directory, will be served as Serverless Functions.
+
+For example, the following would live in `api/date.rb`:
+
+```rb
+Handler = Proc.new do |req, res|
+  res.status = 200
+  res['Content-Type'] = 'text/plain'
+  res.body = "Current Time: #{Time.new}"
+end
+```
+
+<Caption>An example Ruby function that returns the current date.</Caption>
+
+When deployed, the example function above will be served as a Serverless Function, returning the current date and time. See it live with the following link: <https://ruby-date.now.sh/api/date>
+
+### Advanced Ruby Usage
+
+For more advanced usage of Ruby on the <ProductName /> platform, including [dependencies](/docs/runtimes#official-runtimes/ruby/ruby-dependencies), or [Rack interfaces](/docs/runtimes#advanced-usage/advanced-ruby-usage/rack-interface), see [the Ruby runtime documentation](/docs/runtimes#official-runtimes/ruby).
 
 ---
 
@@ -358,12 +194,12 @@ For more information on what to do next, we recommend the following articles:
   title="Serverless Functions"
   href="/docs/v2/serverless-functions/introduction"
 >
-  For more information on how to get started with Serverless Functions on ZEIT
-  Now and how you can develop them further, read the Serverless Functions
-  introduction.
+  For more information on how to get started with Serverless Functions on{' '}
+  <ProductName /> and how you can develop them further, read the Serverless
+  Functions introduction.
 </Card>
 
-<Card title="Introduction to ZEIT Now" href="/docs/v2/introduction">
+<Card title="Introduction to <ProductName />" href="/docs/v2/introduction">
   You've got your Serverless Function ready to go, now learn how to deploy it
   with a single-command and a first-class frontend with no extra configuration.
 </Card>

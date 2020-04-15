@@ -5,28 +5,32 @@ import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import { Image } from '~/components/media'
 import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Deploying React Forms Using Formspree with ZEIT Now',
-  description:
-    'Create and deploy a React form with the help of Formspree and ZEIT Now.',
+  title: `Deploying React Forms Using Formspree with ${PRODUCT_NAME}`,
+  description: `Create and deploy a React form with the help of Formspree and ${PRODUCT_NAME}.`,
   published: '2019-09-12T12:00:00.860Z',
   authors: ['msweeneydev'],
+  name: 'React + Formspree',
+  type: 'app',
   url: '/guides/deploying-react-forms-using-formspree-with-zeit-now',
-  image:
-    'https://og-image.now.sh/**Deploying%20React%20and%20Formspree%20Forms**%20%3Cbr%20%2F%3E%20with%20ZEIT%20Now.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fformspree-icon.msweeneydev.now.sh%2Fformspree.svg&widths=250&widths=250&heights=200&heights=250',
+  image: `https://og-image.now.sh/**Deploying%20React%20and%20Formspree%20Forms**%20%3Cbr%20%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fformspree-icon.msweeneydev.now.sh%2Fformspree.svg&widths=250&widths=250&heights=200&heights=250`,
   editUrl:
     'pages/guides/deploying-react-forms-using-formspree-with-zeit-now.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 [Formspree](https://formspree.io/) is a form backend that sends submissions via email which can connect to several third-party services such as Google Sheets, MailChimp, Slack, and more. Formspree also provides spam mitigation and filtering, file upload, automatic responses, and other tools to help you manage your forms.
 
-In this guide, you will discover how to create a "contact us" form using [React](https://reactjs.org/), similar to the [example app](https://react-formspree.now-examples.now.sh/), handle the form submission with [Formspree](https://formspree.io/) and deploy it with ZEIT Now.
+In this guide, you will discover how to create a "contact us" form using [React](https://reactjs.org/), similar to the [example app](https://react-formspree.now-examples.now.sh/), handle the form submission with [Formspree](https://formspree.io/) and deploy it with <ProductName />.
 
 ## Step 1: Creating a New Formspree form
 
-Get started integrating Formspree with ZEIT Now by using the [Create a Form with ZEIT Now page](https://formspree.io/create/zeit). Add the email you would like to receive form submissions at and create your form.
+Get started integrating Formspree with <ProductName /> by using the [Create a Form with <ProductName /> page](https://formspree.io/create/zeit). Add the email you would like to receive form submissions at and create your form.
 
 <Image
   src={`${
@@ -37,7 +41,7 @@ Get started integrating Formspree with ZEIT Now by using the [Create a Form with
   oversize
   shadow
 />
-<Caption>The <b>Create a Form with ZEIT Now</b> page on Formspree.</Caption>
+<Caption>The <b>Create a Form with <ProductName /></b> page on Formspree.</Caption>
 
 Formspree will first ask you to provide a password, then you will be redirected to an integration page where you can get your form URL.
 
@@ -224,16 +228,9 @@ export default function App() {
   .
 </Note>
 
-## Step 3: Deploy With ZEIT Now
+## Step 3: Deploy With <NameWrapper name={PRODUCT_NAME} />
 
-You can choose whether you want to deploy directly from the command line with [Now CLI](/download), or from a Git repository by installing either the [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) integrations.
-
-To deploy your project using [Now CLI](/download), all it takes is **a single command**:
-
-<Snippet dark text="now" />
-<Caption>Deploying your project with the <InlineCode>now</InlineCode> command.</Caption>
-
-That’s it! Your form is now live and deployed to a publicly accessible url immediately. If you have used the styles provided, it will look similar to the [example app](https://react-formspree.now-examples.now.sh).
+<DeploySection meta={meta} />
 
 Form submissions received from either your localhost or production environments will be emailed, and show up in your form submissions list. If you want to restrict where the form can be embedded, set your production URL in the authorized domains setting in Formspree.
 

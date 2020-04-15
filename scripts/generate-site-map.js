@@ -2,6 +2,7 @@
 const fs = require('fs')
 const path = require('path')
 const prettier = require('prettier')
+const productNames = require('../lib/name-constants.json')
 
 const DOMAIN = 'https://zeit.co'
 const SITE_PATHS = [
@@ -68,7 +69,25 @@ function xmlUrlNode(pagePath) {
   let lastmod
 
   if (match && typeof match[1] === 'string') {
-    meta = eval('(' + match[1] + ')')
+    meta = eval(
+      '(' +
+        match[1]
+          .replace(/\${PRODUCT_NAME}/g, productNames.productName)
+          .replace(/\${ORG_NAME}/g, productNames.orgName)
+          .replace(/\${CDN_NAME}/g, productNames.cdnName)
+          .replace(/\${PRODUCT_SHORT_NAME}/g, productNames.productShortName)
+          .replace(/\${PRODUCT_V1_NAME}/g, productNames.productV1Name)
+          .replace(/\${ORG_V1_NAME}/g, productNames.orgV1Name)
+          .replace(
+            /\${PRODUCT_SHORT_V1_NAME}/g,
+            productNames.productShortV1Name
+          )
+          .replace(/\${CLI_V1_NAME}/g, productNames.cliV1Name)
+          .replace(/\${GITHUB_APP_NAME}/g, productNames.githubAppName)
+          .replace(/\${GITLAB_APP_NAME}/g, productNames.gitlabAppName)
+          .replace(/\${BITBUCKET_APP_NAME}/g, productNames.bitbucketAppName) +
+        ')'
+    )
 
     if (meta.lastEdited) {
       lastmod = meta.lastEdited
@@ -111,7 +130,15 @@ function generateSiteMap() {
         const { node, meta } = xmlUrlNode(pagePath)
 
         if (meta) {
-          guidesMeta.push(meta)
+          guidesMeta.push(
+            // If meta.image (URL) contains a space, replace with '%20'
+            meta.image
+              ? {
+                  ...meta,
+                  image: meta.image.replace(' ', '%20')
+                }
+              : meta
+          )
         }
 
         return node

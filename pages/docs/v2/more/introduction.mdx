@@ -1,0 +1,34 @@
+import Doc from '~/components/layout/docs'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import { Code } from '~/components/text/code'
+import Card from '~/components/card'
+import Link from '~/components/text/link'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: 'More Features',
+  description: `More features from ${PRODUCT_NAME} to extend your usage.`,
+  editUrl: 'pages/docs/v2/more/introduction.mdx',
+  lastEdited: '2020-04-14T00:02:08.000Z'
+}
+
+The following is a list of documentation on more features for <ProductName />.
+
+These features allow you integrate your deployments closer with <ProductName /> and extend the functionality provided by the platform.
+
+<Card title="Deploy Button" href="/docs/v2/more/deploy-button">
+  Use a Deploy Button to allow others to deploy your Git repositories.
+</Card>
+
+<Card title="Deploy Hooks" href="/docs/v2/more/deploy-hooks">
+  Learn how to trigger deployments from external sources using a Deploy Hook.
+</Card>
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
+}

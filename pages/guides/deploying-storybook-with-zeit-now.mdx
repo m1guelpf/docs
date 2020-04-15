@@ -3,26 +3,28 @@ import Snippet from '~/components/snippet'
 import { InlineCode } from '~/components/text/code'
 import Caption from '~/components/text/caption'
 import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title:
-    'Create a Svelte Component Library Using Storybook and Deploy It with ZEIT Now',
-  description:
-    'Create a Svelte Component Library using Storybook and deploy it with ZEIT Now.',
+  title: `Create a Svelte Component Library Using Storybook and Deploy It with ${PRODUCT_NAME}`,
+  description: `Create a Svelte Component Library using Storybook and deploy it with ${PRODUCT_NAME}.`,
+  name: 'Storybook',
+  type: 'component library',
   published: '2019-08-21T12:00:00.860Z',
   authors: ['msweeneydev'],
   url: '/guides/deploying-storybook-with-zeit-now',
-  example: 'storybook',
   demo: 'https://storybook.now-examples.now.sh',
   editUrl: 'pages/guides/deploying-storybook-with-zeit-now.mdx',
-  image:
-    'https://og-image.now.sh/**Deploy%20a%20Storybook%20Library**%20%3Cbr%3E%20with%20ZEIT%20Now.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnow-black.svg&images=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1100804485616566273%2FsOct-Txm_400x400.png',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  image: `https://og-image.now.sh/**Deploy%20a%20Storybook%20Library**%20%3Cbr%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1100804485616566273%2FsOct-Txm_400x400.png`,
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 [Storybook](https://storybook.js.org/) is an open source tool for developing JavaScript UI components in isolation. [Svelte](https://svelte.dev/) is a component framework that allows you to write highly-efficient, imperative code, that surgically updates the DOM to maintain performance.
 
-In this guide, you will discover how to set up a Svelte Storybook component library with [Storybook CLI](https://github.com/storybookjs/storybook/tree/master/lib/cli) and how to deploy it with [ZEIT Now](/now).
+In this guide, you will discover how to set up a Svelte Storybook component library with [Storybook CLI](https://github.com/storybookjs/storybook/tree/master/lib/cli) and how to deploy it with [<ProductName />](/).
 
 ## Step 1: Set Up Your Storybook Project
 
@@ -58,23 +60,11 @@ With the development dependencies added, extend your `package.json` file by addi
   scripts to the <InlineCode>package.json</InlineCode> file.
 </Caption>
 
-By adding these scripts you are able to start a development server from inside your project directory with `npm storybook`. You are also able to deploy the Storybook component library with [ZEIT Now](/now) with no additional configuration.
+By adding these scripts you are able to start a development server from inside your project directory with `npm storybook`. You are also able to deploy the Storybook component library with [<ProductName />](/) with no additional configuration.
 
-## Step 2: Deploying with ZEIT Now
+## Step 2: Deploying with <NameWrapper name={PRODUCT_NAME} />
 
-With your project set up, you are ready to deploy your Storybook component library with [ZEIT Now](/now).
-
-If you have not yet installed Now, you can do so by [installing Now CLI](/download).
-
-You can now deploy your Storybook component library with **a single command**:
-
-<Snippet dark text="now" />
-
-<Caption>
-  Deploying the app with the <InlineCode>now</InlineCode> command.
-</Caption>
-
-If you want to deploy your Storybook component library from a Git repository, you can use either [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) to have your project automatically deployed on every push, and the [production domain](https://zeit.co/docs/v2/custom-domains/#adding-a-domain) updated on push to master.
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

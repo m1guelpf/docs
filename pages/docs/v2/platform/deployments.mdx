@@ -5,12 +5,17 @@ import Caption from '~/components/text/caption'
 import Snippet from '~/components/snippet'
 import Note from '~/components/text/note'
 import { InlineCode } from '~/components/text/code'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import { PRODUCT_NAME, ORG_NAME, PRODUCT_SHORT_NAME } from '~/lib/constants'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   title: 'Deployments',
-  description: 'Understanding and making deployments with ZEIT Now.',
+  description: `Understanding and making deployments with ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/platform/deployments.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 A deployment is the result of building your [Project](/docs/v2/platform/projects/) and making it available through a live URL.
@@ -19,7 +24,7 @@ This section contains information about making, managing, and understanding the 
 
 ## Making Deployments
 
-There are multiple ways to make deployments with ZEIT Now; these include via a [Git Integration](#git-integration), [Now CLI](#now-cli), [Deploy Hooks](#deploy-hooks), and the [Now API](#now-api).
+There are multiple ways to make deployments with <ProductName />; these include via a [<ProductName /> for Git Integration](#git-integration), [Deploy Hooks](#deploy-hooks), [<ProductShortName /> CLI](#now-cli), and the [<ProductName /> API](#now-api).
 
 When making deployments, the [Project](/docs/v2/platform/projects/) will be uploaded and transformed into a production-ready output through the use of a [Build Step](/docs/v2/build-step).
 
@@ -27,15 +32,30 @@ Once the build step has completed successfully, a new, [immutable](https://en.wi
 
 ### Git Integration
 
-You can make deployments with Git by using either the [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) integrations.
+You can make deployments with Git by using either the [<ProductName /> for GitHub](/docs/v2/git-integrations/zeit-now-for-github), [<ProductName /> for GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), or [<ProductName /> for Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) integrations.
 
 When using these integrations, every push to a branch will provide you with a [preview deployment](/docs/v2/platform/deployments/#preview) to view your changes.
 
 When merging to the default branch (commonly `master`), a [production deployment](/docs/v2/platform/deployments/#production) will be made.
 
-### Now CLI
+### Deploy Hooks
 
-By using [Now CLI](/download), you can deploy [Projects](/docs/v2/platform/projects/) with **a single command** from your terminal.
+[Deploy Hooks](/docs/v2/advanced/deploy-hooks/) allow you to create URLs that accept HTTP POST requests to trigger deployments, re-running the [Build Step](/docs/v2/build-step), from outside of <OrgName />.
+
+There are many use cases for Deploy Hooks, for example, rebuilding your site to reflect changes in a Headless CMS or scheduling deployments with Cron Jobs.
+
+To create a Deploy Hook, visit the settings page of your [Project](/docs/v2/platform/projects/) where you can choose the branch to deploy when the HTTP endpoint receives a POST request.
+
+<Note>
+  Deploy Hooks require a{' '}
+  <Link href="/docs/v2/git-integrations">Git Integration</Link> to be installed.
+</Note>
+
+You can find more information about Deploy Hooks in the [documentation](/docs/v2/advanced/deploy-hooks/).
+
+### <NameWrapper name={PRODUCT_SHORT_NAME} /> CLI
+
+By using [<ProductShortName /> CLI](/download), you can deploy [Projects](/docs/v2/platform/projects/) with **a single command** from your terminal.
 
 To make a [preview deployment](/docs/v2/platform/deployments/#preview), use the `now` command:
 
@@ -44,8 +64,8 @@ To make a [preview deployment](/docs/v2/platform/deployments/#preview), use the 
 
 <Note>
   The first deployment for a <strong>Project</strong> is always both a{' '}
-  <Link href="/docs/v2/platform/deployments/#preview">preview</Link> and{' '}
-  <Link href="/docs/v2/platform/deployments/#production">production</Link>{' '}
+  <Link href="/docs/v2/platform/deployments#preview">preview</Link> and{' '}
+  <Link href="/docs/v2/platform/deployments#production">production</Link>{' '}
   deployment.
 </Note>
 
@@ -54,30 +74,15 @@ To make a [production deployment](/docs/v2/platform/deployments/#preview), use t
 <Snippet dark text="now --prod" />
 <Caption>Making a production deployment with the <InlineCode>now</InlineCode> command.</Caption>
 
-### Deploy Hooks
+### <NameWrapper name={PRODUCT_SHORT_NAME} /> API
 
-[Deploy Hooks](/docs/v2/advanced/deploy-hooks/) allow you to create URLs that accept HTTP POST requests to trigger deployments, re-running the [Build Step](/docs/v2/build-step), from outside of ZEIT.
+The [<ProductName /> API](/docs/api/) can be used to make deployments by making an HTTP POST request to the relevant endpoint, including the files you wish to deploy as the body.
 
-There are many use cases for Deploy Hooks, for example, rebuilding your site to reflect changes in a Headless CMS or scheduling deployments with Cron Jobs.
-
-To create a Deploy Hook, visit the settings page of your [Project](/docs/v2/platform/projects/) where you can choose the branch to deploy when the HTTP endpoint receives a POST request.
-
-<Note>
-  Deploy Hooks require a{' '}
-  <Link href="/docs/v2/git-integration/">Git Integration</Link> to be installed.
-</Note>
-
-You can find more information about Deploy Hooks in the [documentation](/docs/v2/advanced/deploy-hooks/).
-
-### Now API
-
-The [ZEIT Now API](/docs/api/) can be used to make deployments by making an HTTP POST request to the relevant endpoint, including the files you wish to deploy as the body.
-
-You can find more information about the Now API in the [API Reference](/docs/api/#endpoints/deployments).
+You can find more information about the <ProductName /> API in the [API Reference](/docs/api/#endpoints/deployments).
 
 ## Deployment Types
 
-There are two types of deployment on the ZEIT Now platform: **preview** and **production**.
+There are two types of deployment on the <ProductName /> platform: **preview** and **production**.
 
 ### Preview
 
@@ -85,7 +90,9 @@ There are two types of deployment on the ZEIT Now platform: **preview** and **pr
 
 By making a **preview deployment**, the **preview URL** will be updated to reflect that of the latest deployment made.
 
-The **preview URL** is provided either by the deployment output from Now CLI or on a pull or merge request when using a git integration and contains the name of the user or team to which the [Project](/docs/v2/platform/projects/) belongs.
+The **preview URL** is provided on a pull or merge request when using a [<ProductName /> for Git Integration](/docs/v2/git-integrations) and contains the name of the user or team to which the [Project](/docs/v2/platform/projects) belongs.
+
+If you request a **preview URL**, the `X-Robots-Tag` HTTP header will be set as `noindex`. This ensures that preview URLs will _not_ be indexed by search engines such as Google. Learn more about `X-Robots-Tag` by visiting [Google Search Reference](https://developers.google.com/search/reference/robots_meta_tag#xrobotstag).
 
 ### Production
 
@@ -93,25 +100,54 @@ The **preview URL** is provided either by the deployment output from Now CLI or 
 
 By making a **production deployment**, the **production domain(s)** will be updated to reflect that of the latest deployment.
 
-The **production domain(s)** are defined from the **Domains** tab of a Project on the ZEIT Dashboard.
+The **production domain(s)** are defined from the **Domains** tab of a Project on the <OrgName /> Dashboard.
 
 To add a **production domain** to a [Project](/docs/v2/platform/projects/), visit **Domains** from the Project Overview page, you can read more about this in the [custom domains documentation](/docs/v2/custom-domains/).
 
 ## Managing Deployments
 
-You can manage your deployments either via the [ZEIT Dashboard](/dashboard) or [Now CLI](/download).
+You can manage your deployments either via the [<OrgName /> Dashboard](/dashboard) or, in advanced use cases, [<ProductShortName /> CLI](/download).
 
-### ZEIT Dashboard
+### <NameWrapper name={ORG_NAME} /> Dashboard
 
-The [ZEIT Dashboard](/dashboard) is the easiest way for you to manage your deployments.
+The [<OrgName /> Dashboard](/dashboard) is the easiest way for you to manage your deployments.
 
-Through the ZEIT Dashboard, you can find a variety of settings; including a **Domains** tab where you can add [custom domains](/docs/v2/custom-domains/) to your Project.
+Through the <OrgName /> Dashboard, you can find a variety of settings; including a **Domains** tab where you can add [custom domains](/docs/v2/custom-domains/) to your Project.
 
-### Now CLI and API
+### <NameWrapper name={PRODUCT_SHORT_NAME} /> CLI and API
 
-The [Now CLI](/download) and [Now API](/docs/api/) provide alternative ways to manage your deployments.
+The [<ProductShortName /> CLI](/download) and [<ProductShortName /> API](/docs/api/) provide alternative ways to manage your deployments.
 
-You can find a full list of the commands available in the [Now CLI Reference](/docs/now-cli/), along with the deployments section of the [Now API Reference](/docs/api/#endpoints/deployments).
+You can find a full list of the commands available in the [<ProductShortName /> CLI Reference](/docs/now-cli/), along with the deployments section of the [<ProductShortName /> API Reference](/docs/api/#endpoints/deployments).
+
+## Logs
+
+There are three types of logs available, **Build Time**, **Runtime**, and **Edge Network**.
+
+### Build Time
+
+**Build Time** logs are generated during the [build step](/docs/v2/build-step/). These logs contain information about the build process and are stored **indefinitely**.
+
+### Edge Network
+
+**Edge Network** logs are generated when requesting a path from the Edge. These logs contain information about a request to a specific path with details such as the path name, request method, and status code. These logs are **not persisted**.
+
+### Runtime
+
+**Runtime** logs are generated by [Serverless Functions](/docs/v2/serverless-functions/introduction) while they're being invoked. Runtime logs are stored in memory only as they arrive from the Serverless Function and are **not persisted**.
+
+The only exception to this are **failed requests**. If a request leads to the Serverless Function throwing an error, the log for this will be stored indefinitely whereas all other Runtime logs will be lost when navigating away from the page.
+
+<Note type="hint">
+  If you wish to persist <strong>Runtime</strong> or{' '}
+  <strong>Edge Network</strong> logs, you can use a{' '}
+  <Link href="/integrations?category=Logging">logging integration</Link>{' '}
+  available from the <OrgName /> Integrations marketplace. Alternatively, you
+  may build your own service by making use of the{' '}
+  <Link href="/docs/api#endpoints/log-drains">Log Drains API</Link>.
+</Note>
+
+There is a maximum size limit of **4kb** for each log. If the size of the log exceeds this, only the last **4kb** of data to arrive will be shown.
 
 ## Special Paths
 
@@ -130,7 +166,9 @@ By appending `/_logs` to a deployment URL or [custom domain](/docs/v2/custom-dom
 
 ### Security Considerations
 
-These pathnames redirect to `https://zeit.co` and **require logging in** to access any sensitive information. A 3rd-party can **never** access your source or logs by crafting a deployment URL with one of these paths.
+These pathnames redirect to `https://zeit.co` and **require logging in** to access any sensitive information. By default, a 3rd-party can **never** access your source or logs by crafting a deployment URL with one of these paths.
+
+However, you can configure project settings to make these paths public. [Learn more here](/docs/v2/platform/projects#logs-and-source-access).
 
 ## Technical Details
 
@@ -138,13 +176,13 @@ These pathnames redirect to `https://zeit.co` and **require logging in** to acce
 
 The URL structure of each preview deployment contains the name of the application and a random UID.
 
-Now generates a new UID (and therefore a new deployment), by combining the following information into an internal digest that is looked up within the deployment database:
+​<ProductName /> generates a new UID (and therefore a new deployment), by combining the following information into an internal digest that is looked up within the deployment database:
 
 - The entire deployment configuration from `now.json`.
 - The owner ID (either the user ID or team ID, if deploying within a team).
 - The description of the filesystem. This includes symlinks, [modes](<https://en.wikipedia.org/wiki/Modes_(Unix)>), pathnames, and the [checksum](https://en.wikipedia.org/wiki/Checksum) of each file's contents.
 
-Now ensures that the digest is computed [deterministically](https://en.wikipedia.org/wiki/Deterministic_algorithm) by sorting and ordering all the inputs involved in the algorithm.
+​<ProductName /> ensures that the digest is computed [deterministically](https://en.wikipedia.org/wiki/Deterministic_algorithm) by sorting and ordering all the inputs involved in the algorithm.
 
 Our lookup excludes deployments that are in an `ERROR` state – if a previous deployment matches the digest but failed to build correctly.
 
@@ -154,7 +192,7 @@ There are two ways to force a **new** deployment to be created when our system w
 
 - **Make any change** to any of the parameters considered by the algorithm, listed above. For example, even changing one character in a comment of a source file yields a new deployment.
 - **Force a new deployment** by instructing your client to do so.
-  - For [Now CLI](/download) you can run `now --force`
+  - For [<ProductShortName /> CLI](/download) you can run `now --force`
   - If using our API, include the [`forceNew` query parameter](/docs/api/v2#endpoints/deployments/create-a-new-deployment)
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

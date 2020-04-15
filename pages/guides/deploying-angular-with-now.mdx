@@ -5,24 +5,29 @@ import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Create an Angular App That Builds and Deploys with ZEIT Now',
-  description: 'Deploy your Angular app with ZEIT Now.',
+  title: `Create an Angular App That Builds and Deploys with ${PRODUCT_NAME}`,
+  description: `Deploy your Angular app with ${PRODUCT_NAME}.`,
   published: '2019-02-27T03:00:00.860Z',
   authors: ['unicodeveloper'],
   url: '/guides/deploying-angular-with-now',
   example: 'angular',
   demo: 'https://angular.now-examples.now.sh',
-  image:
-    'https://og-image.now.sh/**Deploy%20an%20Angular%20app**%20with%20Now.png?theme=light&md=1&fontSize=90px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnow-black.svg&images=https%3A%2F%2Fangular.io%2Fassets%2Fimages%2Flogos%2Fangular%2Fangular.svg&heights=250&heights=300',
+  image: `https://og-image.now.sh/**Deploy%20an%20Angular%20app**%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=90px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fangular.io%2Fassets%2Fimages%2Flogos%2Fangular%2Fangular.svg&heights=250&heights=300`,
+  name: 'Angular',
+  type: 'app',
   editUrl: 'pages/guides/deploying-angular-with-now.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 Angular is a popular JavaScript framework for building apps across all platforms; web, mobile web, native mobile, and native desktop.
 
-In this guide, we will deploy an Angular app with [ZEIT Now](/docs/v2) like the following: <https://angular.now-examples.now.sh/>
+In this guide, we will deploy an Angular app with [<ProductName />](/docs/v2) like the following: <https://angular.now-examples.now.sh/>
 
 <Image
   src={`${
@@ -61,29 +66,9 @@ After a successful scaffolding, `cd` into `my-new-app` directory and run the fol
 
 Your browser will automatically be launched with the served Angular app at <http://localhost:4200/>
 
-## Step 2: Deploy Your Angular Project with ZEIT Now
+## Step 2: Deploy Your Angular Project with <NameWrapper name={PRODUCT_NAME} />
 
-With your Angular app set up, it is ready to deploy with [Now](/docs/v2).
-
-If you have not yet installed Now, you can do so by [installing Now CLI](/download).
-
-With Now installed, you can deploy your Angular project with **a single command**.
-
-<Snippet dark text="now" />
-
-<Caption>
-  Deploying the app with the <InlineCode>now</InlineCode> command.
-</Caption>
-
-If you want your app to deploy automatically, you can install either the [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) apps, this will provide you with unique deployments for your Git repository on every push.
-
-<Note>
-  We used the{' '}
-  <Link href="https://angular.io/generated/zips/toh-pt6/toh-pt6.zip">
-    official Angular Tour of Heroes tutorial app
-  </Link>{' '}
-  for the deployment. Download, extract and follow this guide to deploy.
-</Note>
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

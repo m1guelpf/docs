@@ -4,6 +4,7 @@ import Card from '~/components/card'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
 import { Code } from '~/components/text/code'
+import ProductName from '~/components/name/product-name'
 
 export const meta = {
   editUrl: 'pages/docs/configuration/configuration-mdx/routes/routes.mdx',
@@ -12,16 +13,7 @@ export const meta = {
 
 # Routes
 
-<Note type="alert">
-  The <InlineCode>routes</InlineCode> property has been deprecated in favor of{' '}
-  <Link href="/docs/configuration#project/redirects">redirects</Link>,{' '}
-  <Link href="/docs/configuration#project/rewrites">rewrites</Link>,{' '}
-  <Link href="/docs/configuration#project/headers">headers</Link>,{' '}
-  <Link href="/docs/configuration#project/cleanurls">cleanUrls</Link>, and{' '}
-  <Link href="/docs/configuration#project/trailingslash">trailingSlash</Link>.
-</Note>
-
-ZEIT Now uses Routes to define the behavior of how a request is handled by the routing layer. For example, you might use a Route to proxy a URL to another, redirect a client, or apply a header with the response to a request.
+&#8203;<ProductName /> uses Routes to define the behavior of how a request is handled by the routing layer. For example, you might use a Route to proxy a URL to another, redirect a client, or apply a header with the response to a request.
 
 By default, routing is defined by the filesystem of your deployment. For example, if a user makes a request to `/123.png`, and your [`now.json` file](/docs/configuration#project/routes) does not contain any routes with a valid `src` matching that path, it will fallback to the filesystem and serve `/123.png` if it exists.
 
@@ -46,7 +38,7 @@ A Route can be defined within a project's [`now.json` configuration file](/docs/
     upon request.
   </Caption>
 
-ZEIT Now Routes have multiple properties for each route object that help define the behavior of a response to each request to a particular path.
+&#8203;<ProductName /> Routes have multiple properties for each route object that help define the behavior of a response to each request to a particular path.
 
 ## src
 
@@ -69,7 +61,7 @@ The following example shows a `now.json` configuration that takes a `src` path a
 
 **Type**: String
 
-`dest` is used to proxy the [`src`](#src) path to another path, such as another URL or Now hosted Serverless Function.
+`dest` is used to proxy the [`src`](#src) path to another path, such as another URL or <ProductName /> hosted Serverless Function.
 
 [The example for the `src` property](#src) shows how both methods work together to create a proxy.
 
@@ -86,10 +78,10 @@ The following example shows a `now.json` configuration that takes a `src` path a
 </Caption>
 
 <Note>
-  You can point the <InlineCode>dest</InlineCode> path to any URL, Now hosted
-  Serverless Function, or even non-Now hosted URLs as shown in the code above.
-  If you don't perform any proxying, you can safely remove{' '}
-  <InlineCode>dest</InlineCode>.
+  You can point the <InlineCode>dest</InlineCode> path to any URL,{' '}
+  <ProductName /> hosted Serverless Function, or even non <ProductName /> hosted
+  URLs as shown in the code above. If you don't perform any proxying, you can
+  safely remove <InlineCode>dest</InlineCode>.
 </Note>
 
 <Code lang="json">{`{
@@ -99,7 +91,10 @@ The following example shows a `now.json` configuration that takes a `src` path a
 <Caption>
   This will route to <InlineCode>/about</InlineCode> without proxying, but
   routes like this are usually redundant with{' '}
-  <Link href="#wildcard-routes">handle filesystem</Link>.
+  <Link href="/docs/configuration#routes/advanced/wildcard-routes">
+    handle filesystem
+  </Link>
+  .
 </Caption>
 
 ## headers
@@ -161,7 +156,7 @@ For example, you can use this property in combination with [the `headers` proper
 
 **Type**: Integer
 
-The `status` property defines the status code that Now should respond with when a path is requested.
+The `status` property defines the status code that <ProductName /> should respond with when a path is requested.
 
 For example, you can use this property in combination with [the `headers` property](#headers) to create a redirect with the initial status code of 308 (Moved Permanently).
 
@@ -186,7 +181,7 @@ For example, you can use this property in combination with [the `headers` proper
 
 <Note>
   In a redirect case as shown above, the <InlineCode>Location</InlineCode>{' '}
-  property can also point to non-Now hosted URLs.
+  property can also point to non <ProductName /> hosted URLs.
 </Note>
 
 Read more about redirecting your `www.` subdomain to your root domain in the [custom domains documentation](/docs/v2/custom-domains/#redirecting-domains).
@@ -219,8 +214,8 @@ As an example, you can use this property when you have an API endpoint and only 
 <Note>
   The above example uses the{' '}
   <Link href="/docs/runtimes#official-builders/node-js">@now/node</Link> Runtime
-  as an example of a <InlineCode>now.json</InlineCode> configuration that tells
-  Now to build JavaScript files with Node.js and outputs them as{' '}
+  as an example of a <InlineCode>now.json</InlineCode> configuration that tells{' '}
+  <ProductName /> to build JavaScript files with Node.js and outputs them as{' '}
   <Link href="/docs/v2/serverless-functions/introduction/">
     Serverless Functions
   </Link>
@@ -350,13 +345,13 @@ As another example, if you want to redirect from all paths under a certain direc
   instead using <InlineCode>redirects</InlineCode>.
 </Caption>
 
-If you are using a Next.js app and want to learn more about using custom routes with ZEIT Now, read our guide:
+If you are using a Next.js app and want to learn more about using custom routes with <ProductName />, read our guide:
 
 <Card
   title="Deploying with Custom Next.js Routes"
   href="/guides/custom-next-js-server-to-routes"
 >
-  Custom Routes with Next.js and ZEIT Now.
+  Custom Routes with Next.js and <ProductName />.
 </Card>
 
 ### Wildcard Routes
@@ -464,7 +459,7 @@ A common pattern with single-page applications (SPAs) is to route everything tow
 
 ```json
 {
-  "rewrites": [{ "source": "/.*", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
 ```
 

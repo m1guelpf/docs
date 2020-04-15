@@ -1,3 +1,5 @@
+import ProductName from '~/components/name/product-name'
+
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/api-basics/types.mdx',
   lastEdited: '2019-08-06T15:31:27.000Z'
@@ -5,16 +7,16 @@ export const meta = {
 
 ## Types
 
-The following is a list of the types of data used within the Now API:
+The following is a list of the types of data used within the <ProductName /> API:
 
 | Name        | Definition                                                             | Example                      |
 | ----------- | ---------------------------------------------------------------------- | ---------------------------- |
 | **ID**      | A unique value used to identify resources.                             | `"V0fra8eEgQwEpFhYG2vTzC3K"` |
-| **String**  | A string is a sequence of characters used to represent text.           | `"ZEIT"`                     |
+| **String**  | A string is a sequence of characters used to represent text.           | `"value"`                    |
 | **Integer** | An integer is a number without decimals.                               | `1234`                       |
 | **Float**   | A float is a number with decimals.                                     | `12.34`                      |
-| **Map**     | A data structure with a list of values assigned to a unique key.       | `{ "service": "ZEIT" }`      |
-| **List**    | A data structure with only a list of values separated by a comma.      | `["ZEIT", 1234, 12.34]`      |
+| **Map**     | A data structure with a list of values assigned to a unique key.       | `{ "key": "value" }`         |
+| **List**    | A data structure with only a list of values separated by a comma.      | `["value", 1234, 12.34]`     |
 | **Enum**    | An Enum is a String with only a few possible valid values.             | `"A" | "B"`                  |
 | **Date**    | An Integer representing a date in milliseconds since the UNIX epoch.   | `1540095775941`              |
 | **Boolean** | A Boolean is a type of two possible values representing true or false. | `true`                       |

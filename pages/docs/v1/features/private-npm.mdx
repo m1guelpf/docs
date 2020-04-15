@@ -1,5 +1,5 @@
 import Doc from '~/components/layout/docs'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import Link from '~/components/text/link'
 import { TerminalInput } from '~/components/text/terminal'
 import { Image } from '~/components/media'
@@ -10,7 +10,7 @@ export const meta = {
     'Granting permissions for your deployments to use private npm scopes ',
   date: '12 Mar 2017',
   editUrl: 'pages/docs/v1/features/private-npm.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 If your application is using projects with dependencies hosted in private npm scopes, you can deploy such with - true to our style - just one command (and a flag):
@@ -27,7 +27,7 @@ This command will forward your npm credentials during the build process to fetch
 
 ## Config Property
 
-If you want to forward your [npm](https://npmjs.com/) credentials every time you create a new deployment using Now, you can set the `forwardNpm` property inside your global `~/.now.json` file to `true`:
+If you want to forward your [npm](https://npmjs.com/) credentials every time you create a new deployment using <ProductShortV1Name />, you can set the `forwardNpm` property inside your global `~/.now.json` file to `true`:
 
 ```
 {
@@ -35,7 +35,7 @@ If you want to forward your [npm](https://npmjs.com/) credentials every time you
 }
 ```
 
-You can read more about how to configure <Now color="#000" /> to your needs <Link href="/docs/features/configuration">here</Link>.
+You can read more about how to configure <ProductShortV1Name /> to your needs <Link href="/docs/features/configuration">here</Link>.
 
 ## Why?
 

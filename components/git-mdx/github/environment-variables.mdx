@@ -1,0 +1,37 @@
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+import Note from '~/components/text/note'
+import Link from '~/components/text/link'
+import ProductName from '~/components/name/product-name'
+import { GITHUB_SYSTEM_ENVS } from '~/lib/data/v2/system-env-variables'
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableRowCell,
+  TableHeadCell
+} from '~/components/table'
+
+You may want to use different workflows and APIs based on Git information. To support this, the following [System Environment Variables](/docs/v2/build-step#system-environment-variables) can be added to your deployment:
+
+<br />
+
+<Table>
+  <TableHead>
+    <TableRow noTagName>
+      <TableHeadCell className="head-cell">Name</TableHeadCell>
+      <TableHeadCell className="head-cell">Description</TableHeadCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    {GITHUB_SYSTEM_ENVS.map(systemEnv => (
+      <TableRow key={systemEnv.name} noTagName>
+        <TableRowCell>
+          <InlineCode>{systemEnv.name}</InlineCode>
+        </TableRowCell>
+        <TableRowCell>{systemEnv.description}</TableRowCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>

@@ -1,16 +1,15 @@
 import Doc from '~/components/layout/docs'
-
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 import { TerminalInput } from '~/components/text/terminal'
 import Link from '~/components/text/link'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 
 export const meta = {
   title: 'Environment Variables',
-  description:
-    'Setting up environment variables to use in your deployed Now apps',
+  description: `Setting up environment variables to use in your deployed ${PRODUCT_SHORT_V1_NAME} apps`,
   date: '6 August 2017',
   editUrl: 'pages/docs/v1/getting-started/environment-variables.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T06:26:07.000Z'
 }
 
 Almost every app needs to get configurations at runtime. These configurations could be anything, including:
@@ -21,7 +20,7 @@ Almost every app needs to get configurations at runtime. These configurations co
 
 The best way to expose these configurations is to do so with [environment variables](https://en.wikipedia.org/wiki/Environment_variable), which is a universally available method that works across various programming languages, operating systems and hosting providers.
 
-Exposing environment variables with <Now color="#000"/> is easy.
+Exposing environment variables with <ProductShortV1Name /> is easy.
 
 ## Via CLI
 
@@ -53,6 +52,6 @@ You can also expose these environment variables with [now.json](https://zeit.co/
 
 After that, `now` will use above environment variables when you deploy your app.
 
-> It's not a good idea to commit the `now.json` file to [Git](https://en.wikipedia.org/wiki/Git) if it contains secret information. For that, consider using <Link href="/docs/getting-started/secrets"><Now color="#0076FF"/> Secrets</Link>.
+> It's not a good idea to commit the `now.json` file to [Git](https://en.wikipedia.org/wiki/Git) if it contains secret information. For that, consider using <Link href="/docs/getting-started/secrets">Secrets</Link>.
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

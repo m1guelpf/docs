@@ -1,3 +1,5 @@
+import OrgName from '~/components/name/org-name'
+
 export const meta = {
   editUrl:
     'pages/docs/integrations/integrations-docs-mdx/creating-user-interfaces/tokens.mdx',
@@ -6,7 +8,7 @@ export const meta = {
 
 ## Tokens
 
-Every request to a UIHook will receive a token which can be used to make requests to the ZEIT API for the related account.
+Every request to a UIHook will receive a token which can be used to make requests to the <OrgName /> API for the related account.
 
 This is a **short-lived token**. Therefore, you should only use it inside the UIHook. You **should not use it** inside asynchronous functions which are executed even after you return the UIHook response.
 
@@ -14,7 +16,7 @@ If you need a **long-lived token**, you can ask for a [OAuth2 token](/docs/integ
 
 You can access this property inside `payload.token`.
 
-When you use the `@zeit/integration-utils` utility, you **do not** need to extract this token manually. You will receive an instance called `zeitClient` which is initialized with the above token and account information. You can use that to consume the ZEIT token.
+When you use the `@zeit/integration-utils` utility, you **do not** need to extract this token manually. You will receive an instance called `zeitClient` which is initialized with the above token and account information. You can use that to consume the <OrgName /> token.
 
 This is how you can get that instance:
 

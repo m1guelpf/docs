@@ -1,19 +1,22 @@
 import Doc from '~/components/layout/docs'
 import Note from '~/components/text/note'
 import { InlineCode } from '~/components/code'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import OrgName from '~/components/name/org-name'
 
 export const meta = {
   title: 'Headers',
-  description: 'The list of headers included with deployments with ZEIT Now.',
+  description: `The list of headers included with deployments with ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/network/headers.mdx',
-  lastEdited: '2019-11-01T15:20:23.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) can be found in both the HTTP Request and HTTP Response.
 
 ## Request Headers
 
-The following headers are sent to each ZEIT Now deployment and can be used to process the request before sending back a response. These headers can be read from the [Request](https://nodejs.org/api/http.html#http_message_headers) object in your [Serverless Function](/docs/v2/serverless-functions/introduction/).
+The following headers are sent to each <ProductName /> deployment and can be used to process the request before sending back a response. These headers can be read from the [Request](https://nodejs.org/api/http.html#http_message_headers) object in your [Serverless Function](/docs/v2/serverless-functions/introduction/).
 
 ### `host`
 
@@ -60,7 +63,7 @@ This header is identical to the `x-forwarded-for` header.
 
 ## Response Headers
 
-The following headers are included in ZEIT Now deployment responses and indicate certain factors of the environment. These headers can be viewed from the Browser's Dev Tools or using an HTTP client such as `curl -I <DEPLOYMENT_URL>`.
+The following headers are included in <ProductName /> deployment responses and indicate certain factors of the environment. These headers can be viewed from the Browser's Dev Tools or using an HTTP client such as `curl -I <DEPLOYMENT_URL>`.
 
 ### `cache-control`
 
@@ -88,7 +91,7 @@ A header often abbreviated as [HSTS](https://developer.mozilla.org/en-US/docs/Gl
 
 ### `x-now-cache`
 
-This header's value indicates whether the response was served from ZEIT's edge cache.
+This header's value indicates whether the response was served from <OrgName />'s edge cache.
 
 The following values are possible when the content being served [is static](/docs/v2/network/caching/#caching-static-files) or uses [a `Cache-Control` header](/docs/v2/network/caching).
 

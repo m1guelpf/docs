@@ -4,23 +4,28 @@ import { InlineCode } from '~/components/text/code'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import ProductShortName from '~/components/name/product-short-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Deploying Real-Time Apps with Pusher Channels and ZEIT Now',
-  description:
-    'How to get started building and deploying real-time apps with Channels on ZEIT Now.',
+  title: `Deploying Real-Time Apps with Pusher Channels and ${PRODUCT_NAME}`,
+  description: `How to get started building and deploying real-time apps with Channels on ${PRODUCT_NAME}.`,
   published: '2019-08-28T19:22:52.039Z',
   authors: ['coetry'],
+  name: 'Channels',
+  type: 'app',
   url: '/guides/deploying-pusher-channels-with-zeit-now',
-  image:
-    'https://og-image.now.sh/**Deploy%20Pusher%20Channels%20Apps**%20with%20ZEIT%20Now.png?theme=light&md=1&fontSize=96px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnow-black.svg&images=https%3A%2F%2Fpusher-icon.now-examples.now.sh&widths=250&widths=300&heights=250&heights=250',
+  image: `https://og-image.now.sh/**Deploy%20Pusher%20Channels%20Apps**%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=96px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fpusher-icon.now-examples.now.sh&widths=250&widths=300&heights=250&heights=250`,
   editUrl: 'pages/guides/deploying-pusher-channels-with-zeit-now.mdx',
-  lastEdited: '2019-11-05T20:55:16.000Z'
+  lastEdited: '2020-04-14T06:26:07.000Z'
 }
 
 [Pusher Channels](https://pusher.com/channels) is a service that makes it easy to add real-time data and functionality to web and mobile apps by using [WebSockets](https://en.wikipedia.org/wiki/WebSocket).
 
-This guide demonstrates how to get started creating and deploying real-time apps with [Channels](https://pusher.com/channels) and [ZEIT Now](/now).
+This guide demonstrates how to get started creating and deploying real-time apps with [Channels](https://pusher.com/channels) and [<ProductName />](/).
 
 <Note>
   This guide is an overview. For the full code, see the linked example at the
@@ -68,7 +73,7 @@ From your dashboard, find and click on the Channels app you just created.
 />
 <Caption>Selecting the app from the Channels dashboard.</Caption>
 
-Next, click the **App Keys** tab. Copy these values so that you can save them as [Now Secrets](/docs/v2/serverless-functions/env-and-secrets/#adding-secrets) and then provide them to your app as [environment variables](/docs/v2/serverless-functions/env-and-secrets/#providing-environment-variables).
+Next, click the **App Keys** tab. Copy these values so that you can save them as [Secrets](/docs/now-cli#commands/secrets).
 
 <Image
   src={`${
@@ -155,16 +160,16 @@ async function pushData(data) {
   <InlineCode>/api</InlineCode> endpoint.
 </Caption>
 
-Using [Now CLI](/download), add the following [Now Secrets](https://zeit.co/docs/v2/build-step#using-environment-variables-and-secrets) to your account and expose them as environment variables.
+Using [<ProductShortName /> CLI](/download), add the following [Secrets](/docs/now-cli#commands/secrets) to your account and expose them as environment variables.
 
 <Snippet dark text={`now secrets add channels-app-id [Your Channel's app ID]`} />
 <Caption>
-  Adding the <InlineCode>channels-app-id</InlineCode> as a Now Secret.
+  Adding the <InlineCode>channels-app-id</InlineCode> as a Secret.
 </Caption>
 
 <Snippet dark text={`now secrets add channels-app-secret [Your Channel's app Secret]`} />
 <Caption>
-  Adding the <InlineCode>channels-app-secret</InlineCode> as a Now Secret.
+  Adding the <InlineCode>channels-app-secret</InlineCode> as a Secret.
 </Caption>
 
 <Note>
@@ -218,8 +223,9 @@ const channels = new Channels({
 
 module.exports = (req, res) => {
   const data = req.body
-  channels.trigger('event-channel', 'event-name', data)
-  res.status(200).end('sent event successfully')
+  channels.trigger('event-channel', 'event-name', data, () => {
+    res.status(200).end('sent event successfully')
+  })
 }
 ```
 
@@ -230,18 +236,11 @@ module.exports = (req, res) => {
 
 When `channels.trigger` is called, an event will be broadcast to all subscribed clients.
 
-## Step 3: Deploying with ZEIT Now
+## Step 3: Deploying with <NameWrapper name={PRODUCT_NAME} />
 
-With your [Channels](https://pusher.com/channels) app set up, it is ready to be deployed with [ZEIT Now](/docs).
+<DeploySection meta={meta} />
 
-If you have not yet installed Now, you can do so by installing [Now CLI](/download). You are now ready to deploy your app with **a single command**.
-
-<Snippet dark text="now" />
-<Caption>Deploying your project with the <InlineCode>now</InlineCode> command.</Caption>
-
-If you want to deploy your Channels project when you push to a Git repository, you can use either [Now for GitHub](/github) or [Now for GitLab](/gitlab) to have your project automatically deployed on every push, and the [production domain](https://zeit.co/docs/v2/custom-domains/#adding-a-domain) updated on push to master.
-
-You can find a full code example of an app made with this guide in [the ZEIT Now examples repository](https://github.com/zeit/now-examples/tree/master/vanilla-pusher-functions) on GitHub, along with the [live example](https://pusher-whiteboard.now-examples.now.sh/) deployed with ZEIT Now.
+You can find a full code example of an app made with this guide in [the <ProductName /> repository](https://github.com/zeit/now/tree/master/examples/vanilla-pusher-functions) on GitHub, along with the [live example](https://pusher-whiteboard.now-examples.now.sh/) deployed with <ProductName />.
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

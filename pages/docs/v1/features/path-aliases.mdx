@@ -1,15 +1,15 @@
 import Doc from '~/components/layout/docs'
-
-import Now from '~/components/text/now'
+import OrgV1Name from '~/components/name/org-v1-name'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import { TerminalInput } from '~/components/text/terminal'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 
 export const meta = {
   title: 'Simplifying Microservices with Path Alias',
-  description:
-    'Aliasing microservices to exist in different locations with your domain on Now',
+  description: `Aliasing microservices to exist in different locations with your domain on ${PRODUCT_SHORT_V1_NAME}`,
   date: '15 Mar 2017',
   editUrl: 'pages/docs/v1/features/path-aliases.mdx',
-  lastEdited: '2019-01-07T00:27:37.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 With the microservices architecture, we break down the whole app into multiple independent programs: microservices. This architecture gives us a lot of benefits including:
@@ -51,7 +51,7 @@ After this, we will have whole new microservices set up. However, our end users 
 
 ## Path Alias
 
-If you [manage](/docs/getting-started/assign-a-domain-name#2.-using-a-custom-domain,-managed-by-now) your domain inside ZEIT or [point it](/docs/getting-started/assign-a-domain-name#4.-using-a-custom-domain-with-a-cname) to `alias.zeit.co`, you can hide microservices under a domain as shown above with our "Path Alias" feature.
+If you [manage](/docs/getting-started/assign-a-domain-name#2.-using-a-custom-domain,-managed-by-now) your domain inside <OrgV1Name /> or [point it](/docs/getting-started/assign-a-domain-name#4.-using-a-custom-domain-with-a-cname) to `alias.zeit.co`, you can hide microservices under a domain as shown above with our "Path Alias" feature.
 
 Here's how to do it.
 
@@ -131,7 +131,7 @@ Have a look at the rules we have introduced previously:
 }
 ```
 
-Destinations of these rules are unique <Now color="#000" /> deployment URLs. They will be changed every time you deploy a new version. Therefore, you need to update the rules again and again.
+Destinations of these rules are unique <ProductShortV1Name /> deployment URLs. They will be changed every time you deploy a new version. Therefore, you need to update the rules again and again.
 
 It works, but there is a better way to do this.
 

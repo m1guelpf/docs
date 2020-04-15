@@ -4,24 +4,27 @@ import Snippet from '~/components/snippet'
 import { Image } from '~/components/media'
 import Note from '~/components/text/note'
 import Caption from '~/components/text/caption'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import OrgName from '~/components/name/org-name'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   title: 'Users and Teams',
-  description:
-    'Using ZEIT Now with a scope of a user or a team and how to manage them.',
+  description: `Using ${PRODUCT_NAME} with a scope of a user or a team and how to manage them.`,
   editUrl: 'pages/docs/v2/platform/users-and-teams.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-There are identity forms available on Now, called "scopes": Users and teams.
+There are identity forms available on <ProductName />, called "scopes": Users and teams.
 
-When you signed up for our service the first time, you have created a user account. With this type of identity, you can enjoy all the features Now has to offer and access to the data created by those features is limited to just your user account.
+When you signed up for our service the first time, you have created a user account. With this type of identity, you can enjoy all the features <ProductName /> has to offer and access to the data created by those features is limited to just your user account.
 
 ## Sharing Your Data with Other People
 
 Firstly, it is important to understand that you should **never give any other person access to your own user account,** not under any circumstance.
 
-If you would like to share access to your deployments, domains, secrets or other resources with a co-worker, family member or any other kind of person, they first need to create their own user account on Now.
+If you would like to share access to your deployments, domains, secrets or other resources with a co-worker, family member or any other kind of person, they first need to create their own user account on <ProductName />.
 
 Point them to this URL for signing up: [https://zeit.co/signup](/signup)
 
@@ -57,13 +60,7 @@ After clicking the "INVITE" button the person is now part of your team and has a
 
 ## Switching Between Users and Teams
 
-If you are part of one or multiple teams, you might want to change whether you are deploying to one of those teams or to your own user account.
-
-To do this, you have several options depending on the client you are using:
-
-### Dashboard
-
-Click on your avatar on the top left, then select the team of your choice:
+If you are part of one or multiple teams, you can choose which to show project information for or manage from the [<OrgName /> Dashboard](/dashboard). To do this, click on your avatar on the top left, then select the team of your choice:
 
 <Image src={`https://assets.zeit.co/image/upload/v1541367165/front/docs/users-and-teams/team-dashboard.png`}
   width={1124/2}
@@ -71,15 +68,14 @@ Click on your avatar on the top left, then select the team of your choice:
 />
 <Caption>Switching teams from the account picker in the <Link href="/dashboard">dashboard</Link>.</Caption>
 
-### Now CLI
-
-Run the following command and pick the user or team of your choice:
-
-<Snippet dark text="now switch" />
-
-You can also run this command with the slug of a team or username you would like to switch to:
-
-<Snippet dark text="now switch <team-slug|username>" />
+<Note>
+  You can also use{' '}
+  <Link href="/docs/now-cli#commands/switch">
+    <ProductShortName /> CLI
+  </Link>{' '}
+  to switch between users and teams when making{' '}
+  <Link href="/docs/v2/platform/deployments#preview">Preview Deployments</Link>.
+</Note>
 
 ## Changing the User or Team Settings
 
@@ -91,34 +87,11 @@ As you read above, all our interfaces allow switching between scopes without has
   width={700/2}
   height={276/2}
 />
-<Caption>Switching teams from the Now Dashboard account bar.</Caption>
+<Caption>Switching teams from the <OrgName /> Dashboard account bar.</Caption>
 
 After clicking the button, you will be presented a series of fields that you can adjust to your needs. Any changes you make to those fields are entirely unrelated to any other scopes and do not affect them in any way.
 
 Only the scope that is indicated using the avatar icon on the top left is affected.
-
-## Selecting a Scope for API Requests
-
-When communicating with [our API](/docs/api), all interactions only consider the resources contained within your own user account by default.
-
-If you want to access a team's resources, you first need to find out the ID of the team.
-
-This can be accomplished by switching to the team in Now CLI (as described above) and then opening the file located under `./.now/config.json`, which will reveal a property named `currentTeam` within it. This property contains the ID of your team.
-
-Now you can attach the ID to the URL of your requests like this:
-
-```
-https://api.zeit.co/v2/now/deployments?teamId=<team-id-here>
-```
-
-With this GET parameter attached, the response will of the URL above will now include only the deployments of the team matching the specified `teamId`.
-
-However, you still need to attach a token of your user account as described [here](/docs/api#api-basics/authentication). In turn, this user account needs to be a member of the team you would like to access over the API.
-
-<Note>
-  For more information on the teams API endpoint, see our{' '}
-  <Link href="/docs/api/v2#endpoints/teams">API reference documentation</Link>.
-</Note>
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 

@@ -41,11 +41,11 @@ async function main() {
     files = await globby([
       'dist/guides/**/*.html',
       'dist/docs/v2/**/*.html',
-      'dist/docs/api/v2/**/*.html',
-      'dist/docs/integrations/v2/**/*.html',
-      'dist/docs/now-cli/**/*.html',
-      'dist/docs/configuration/**/*.html',
-      'dist/docs/runtimes/**/*.html'
+      'dist/docs/api.html',
+      'dist/docs/integrations.html',
+      'dist/docs/now-cli.html',
+      'dist/docs/configuration.html',
+      'dist/docs/runtimes.html'
     ])
     // filter out AMP pages
     files = files.filter(f => f.indexOf('.amp/index.html') < 0)
@@ -55,12 +55,12 @@ async function main() {
 
   // Loop through files
   files.forEach(file => {
-    const isAPISection = !!file.startsWith('dist/docs/api/v2')
+    const isAPISection = !!file.startsWith('dist/docs/api')
     const isRefSection =
       !!file.startsWith('dist/docs/now-cli') ||
       !!file.startsWith('dist/docs/runtimes') ||
       !!file.startsWith('dist/docs/configuration') ||
-      !!file.startsWith('dist/docs/integrations/v2')
+      !!file.startsWith('dist/docs/integrations')
     const isDocs = !!file.startsWith('dist/docs/v2')
     const isGuides = !!file.startsWith('dist/guides')
 
@@ -107,7 +107,11 @@ async function main() {
         // If the element is a paragraph, create the record using available information, including the current heading, and push it to the index array.
 
         // Infer URL from filepath
-        const url = `/${file.replace('dist/', '').replace('/index.html', '')}`
+        const url = `/${file
+          .replace('dist/', '')
+          .replace('/index.html', '')
+          .replace('.amp', '')
+          .replace('.html', '')}`
 
         // Create record with title, (if it exists) section heading, url (inferred), paragraph content, and order
         const record = {

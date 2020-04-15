@@ -1,6 +1,8 @@
 import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
+import OrgName from '~/components/name/org-name'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   editUrl: 'pages/docs/now-cli/now-cli-mdx/commands/logout.mdx',
@@ -9,9 +11,9 @@ export const meta = {
 
 ## Logout
 
-The `now logout` command allows you to logout of your ZEIT account through Now CLI.
+The `now logout` command allows you to logout of your <OrgName /> account through <ProductShortName /> CLI.
 
 ### Basic Usage
 
 <Snippet dark text="now logout" />
-<Caption>Using the <InlineCode>now logout</InlineCode> command to logout of a ZEIT account.</Caption>
+<Caption>Using the <InlineCode>now logout</InlineCode> command to logout of a <OrgName /> account.</Caption>

@@ -8,7 +8,7 @@ import Copy from '~/components/icons/copy'
 import { useToasts } from '~/components/toasts'
 
 const Snippet = memo(
-  ({ text, onCopy, width = '100%', prompt = true, dark }) => {
+  ({ text, onCopy, width = '100%', prompt = true, dark, clipboard = true }) => {
     const toasts = useToasts()
 
     const copyToClipboard = useCallback(() => {
@@ -30,14 +30,16 @@ const Snippet = memo(
       <div className={cn('snippet-wrapper', { prompt })}>
         <pre className="geist-overflow-scroll-y">{text}</pre>
 
-        <div className="copy" onClick={copyToClipboard}>
-          <Copy
-            stroke="currentColor"
-            fill={dark ? '#000' : 'var(--geist-background)'}
-            width="18px"
-            height="18px"
-          />
-        </div>
+        {clipboard && (
+          <div className="copy" onClick={copyToClipboard}>
+            <Copy
+              stroke="currentColor"
+              fill={dark ? '#000' : 'var(--geist-background)'}
+              width="18px"
+              height="18px"
+            />
+          </div>
+        )}
 
         <style jsx>
           {`

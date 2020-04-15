@@ -5,24 +5,28 @@ import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Create a Charge App That Builds and Deploys with ZEIT Now',
-  description: 'Deploy your Charge app with ZEIT Now in 3 easy steps.',
+  title: `Create a Charge App That Builds and Deploys with ${PRODUCT_NAME}`,
+  description: `Deploy your Charge app with ${PRODUCT_NAME} in 3 easy steps.`,
   published: '2019-04-09T03:00:00.860Z',
   authors: ['msweeneydev'],
   url: '/guides/deploying-charge-with-now',
-  example: 'charge',
   demo: 'https://charge.now-examples.now.sh',
-  image:
-    'https://og-image.now.sh/**Deploy%20a%20Charge%20site**%20with%20Now.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnow-black.svg&images=https%3A%2F%2Fd33wubrfki0l68.cloudfront.net%2F25151dcf9878a3c40b686628cc84c9292d95ca0e%2F9e22f%2Fimages%2Flogomark.svg',
+  image: `https://og-image.now.sh/**Deploy%20a%20Charge%20site**%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fd33wubrfki0l68.cloudfront.net%2F25151dcf9878a3c40b686628cc84c9292d95ca0e%2F9e22f%2Fimages%2Flogomark.svg`,
   editUrl: 'pages/guides/deploying-charge-with-now.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  name: 'Charge',
+  type: 'app',
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 [Charge](https://charge.js.org/) is an opinionated, zero-config static site generator written in JavaScript. Charge is fast, simple and behaves the way you expect it to.
 
-In this guide, we will walk you through creating and [deploying](/docs/v2/deployments/basics/) a basic Charge website with [ZEIT Now](/docs/v2).
+In this guide, we will walk you through creating and [deploying](/docs/v2/deployments/basics/) a basic Charge website with [<ProductName />](/docs/v2).
 
 <Image
   src={`${
@@ -176,31 +180,11 @@ export default () => {
   that imports the About content component and uses it in the page.
 </Caption>
 
-Now that you have a simple Charge site created, you're ready to deploy with [Now](/docs/v2).
+Now that you have a simple Charge site created, you're ready to deploy with [<ProductName />](/docs/v2).
 
-## Step 3: Deploy Your Charge Project with ZEIT Now
+## Step 3: Deploy Your Charge Project with <NameWrapper name={PRODUCT_NAME} />
 
-The last step is to deploy the app with [ZEIT Now](/docs/v2/getting-started/introduction-to-now).
-
-If you have not yet installed Now, you can do so by [installing Now CLI](/download).
-
-Now allows you to [deploy your project](/docs/v2/deployments/basics) from the terminal with **a single command**:
-
-<Snippet dark text="now" />
-
-<Caption>
-  Deploying the app with the <InlineCode>now</InlineCode> command.
-</Caption>
-
-You will see a short build step in your terminal followed by the news that your Charge project has now been [deployed](https://zeit.co/docs/v2/deployments/basics/), it should look similar to this: <https://charge.now-examples.now.sh/>
-
-<Note>
-  By default, Now will cache static assets in every{' '}
-  <Link href="/docs/v2/platform/regions-and-providers">region</Link>, making
-  your site fast to load wherever you are in the world.
-</Note>
-
-If you want to deploy your Charge project when you push to a Git repository, you can use either [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) to have your project automatically deployed on every push, and the [production domain](https://zeit.co/docs/v2/custom-domains/#adding-a-domain) updated on push to master.
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

@@ -4,18 +4,19 @@ import PropTypes from 'prop-types'
 class TableHead extends Component {
   static propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string
+    className: PropTypes.string,
+    noTagName: PropTypes.bool
   }
 
   render() {
-    const { children, innerRef, ...other } = this.props
+    const { children, innerRef, noTagName, ...other } = this.props
     return (
       <thead {...other} ref={innerRef}>
         {Children.map(children, (child, index) => {
           if (!child) return null
           return cloneElement(child, {
             column: index,
-            tagName: 'th'
+            tagName: noTagName ? undefined : 'th'
           })
         })}
       </thead>

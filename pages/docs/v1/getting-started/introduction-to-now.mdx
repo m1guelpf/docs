@@ -1,38 +1,39 @@
 import Doc from '~/components/layout/docs'
-
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 import { TerminalInput } from '~/components/text/terminal'
 import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import { InlineCode } from '~/components/text/code'
+import CliV1Name from '~/components/name/cli-v1-name'
+import NameWrapper from '~/components/name/name-wrapper'
 
 export const meta = {
-  title: 'Introduction to Now',
-  description:
-    'A quick-start guide to deploying your dynamic and static apps with Now and what you can do with your deployments.',
+  title: `Introduction to ${PRODUCT_SHORT_V1_NAME}`,
+  description: `A quick-start guide to deploying your dynamic and static apps with ${PRODUCT_SHORT_V1_NAME} and what you can do with your deployments.`,
   date: '30 July 2017',
   editUrl: 'pages/docs/v1/getting-started/introduction-to-now.mdx',
-  lastEdited: '2019-08-06T15:31:27.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-With Now's help, you can deploy and publish any kind of web application (or service) in
+With <ProductShortV1Name />'s help, you can deploy and publish any kind of web application (or service) in
 under five minutes.
 
 This quick-start guide will show you how to deploy an app, connect it to a
 domain name of your choice, and configure an SSL certificate.
 
-## Step 1: Getting Now
+## Step 1: Getting <NameWrapper name={PRODUCT_SHORT_V1_NAME} />
 
-The best way to get started with Now is by [installing Now CLI](/download):
+The best way to get started with <ProductShortV1Name /> is by [installing <CliV1Name />](/download):
 
 <TerminalInput>npm i -g now</TerminalInput>
 <Caption>
-  Installing Now CLI with npm.
+  Installing <CliV1Name /> with npm.
 </Caption>
 
 ## Step 2: Signing Up
 
-Once you've installed Now CLI, use the following command to start the registration process:
+Once you've installed <CliV1Name />, use the following command to start the registration process:
 
 <TerminalInput>now login</TerminalInput>
 <Caption>
@@ -58,13 +59,13 @@ First, create a directory called `my-web-app` and add the following content to a
 </html>
 ```
 
-> Alternatively, use [Docker to deploy](https://github.com/zeit/now-examples#serverless-docker-v2) your dynamic applications, or use a `Dockerfile` to instruct Now to [build and deploy your static applications](/docs/static-deployments/builds/building-with-now).
+> Alternatively, use [Docker to deploy](https://github.com/zeit/now-examples#serverless-docker-v2) your dynamic applications, or use a `Dockerfile` to instruct <ProductShortV1Name /> to [build and deploy your static applications](/docs/static-deployments/builds/building-with-now).
 
 After you have added the content, change to the `my-web-app` directory in your terminal and run this command:
 
 <TerminalInput>now</TerminalInput>
 
-<Now color="#000"/> will deploy the app and give you a URL as shown below:
+​<ProductShortV1Name /> will deploy the app and give you a URL as shown below:
 
 <Image
   src={`${
@@ -134,6 +135,6 @@ Your users can access the updated web app at <https://my-web-app.com>.
 
 ---
 
-These are just a few things you can do with <Now color="#000"/>. To do more with <Now color="#000"/>, follow the rest of the docs.
+These are just a few things you can do with <ProductShortV1Name />. To do more with <ProductShortV1Name />, follow the rest of the docs.
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

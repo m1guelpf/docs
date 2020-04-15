@@ -15,7 +15,7 @@ This document contains all the required information and links to resources neede
   - [Platform and Usage Documentation](#platform-and-usage-documentation) - information on contributing to `pages/docs`
   - [Guides](#guides) - information on contributing to `pages/guides`
   - [API Reference](#api-reference) - information on contributing to `pages/docs/api`
-  - [Examples](#examples) - information on contributing to the [now-examples](https://github.com/zeit/now-examples) repository
+  - [Examples](#examples) - information on contributing to the [examples](https://github.com/zeit/now/tree/master/examples) repository
   - [Using Components](#using-components) - how to make the most out of pre-built component library
   - [Static Assets](#static-assets) - where to put static assets and how the naming convention works
 
@@ -28,7 +28,7 @@ available at [http://contributor-covenant.org/version/1/4](http://contributor-co
 
 ## Reporting Issues
 
-If you have found a bug, spelling mistake, missing information, or anything related to the ZEIT documentation that you feel is an issue that should be reported, please create a new issue here on GitHub. For issues relating to examples, please [create an issue on the now-examples repository](https://github.com/zeit/now-examples/issues/new).
+If you have found a bug, spelling mistake, missing information, or anything related to the ZEIT documentation that you feel is an issue that should be reported, please create a new issue here on GitHub. For issues relating to examples, please [create an issue on the ZEIT Now repository](https://github.com/zeit/now/issues/new).
 
 An issue can be raised by clicking the 'Issues' tab at the top of the repository, followed by the Green 'New issue' button. To make this process as easy as possible we have created a few basic templates to choose from, there are, however, often cases that will fall outside of the templates provided.
 
@@ -124,7 +124,7 @@ All you need to do is make the changes on the same branch locally, commit and pu
 
 ## Platform and Usage Documentation
 
-The content for this section can be found in the `pages/docs` directory, under its respective version tag. The latest documentation for Now 2.0 can be found within the `pages/docs/v2` directory.
+The content for this section can be found in the `pages/docs` directory, under its respective version tag. The latest documentation for ZEIT Now 2.0 can be found within the `pages/docs/v2` directory.
 
 Each `.mdx` file within the docs directory, aside from the API files, is an independent page; as [enabled by Next.js](https://nextjs.org/docs/#configuring-extensions-looked-for-when-resolving-pages-in-pages). You can edit existing files or create a new file under the section the content belongs to.
 
@@ -159,9 +159,9 @@ When adding a new page to the v2 docs, make sure to add it to the appropriate se
 The content for this section can be found in the `pages/guides` directory.
 Just like [Platform and Usage Docs](#platform-and-usage-documentation), our Guides use the same MDX system to generate top-level pages.
 
-A guide can be written on many topics and will commonly focus on the creation and deployment of a project using Now. We strongly encourage you to take a look at the existing guides, these illustrate the right level of detail required for each step, from initial creation through to deployment.
+A guide can be written on many topics and will commonly focus on the creation and deployment of a project using ZEIT Now. We strongly encourage you to take a look at the existing guides, these illustrate the right level of detail required for each step, from initial creation through to deployment.
 
-Guides are not limited to project creation and deployment however. The Now platform is incredibly powerful and feature-rich, as a result there are many topics you could contribute to, our advice would be to take a feature you enjoy and use that as a starting point for your guide.
+Guides are not limited to project creation and deployment however. The ZEIT Now platform is incredibly powerful and feature-rich, as a result there are many topics you could contribute to, our advice would be to take a feature you enjoy and use that as a starting point for your guide.
 
 An example of a guides MDX file:
 
@@ -195,7 +195,7 @@ When adding a new guide, make sure to import and export the meta of the guide in
 
 The content for this section can be found in the `pages/docs/api` directory. It uses the same versioning structure as `pages/docs`.
 
-We are currently focused on expanding the documentation for the Now platform 2.0 API reference which can be found in `pages/docs/api/v2`.
+We are currently focused on expanding the documentation for the ZEIT Now platform 2.0 API reference which can be found in `pages/docs/api/v2`.
 
 As with the [Platform and Usage Docs](#platform-and-usage-documentation), the API uses MDX, although each file is not an independent page but instead is compiled into a single page, listing the file in the `lib/data/v2/api.js` file.
 
@@ -203,7 +203,7 @@ An example API Reference MDX file: https://github.com/zeit/docs/blob/master/page
 
 ## Examples
 
-The content for the examples section is not contained within this repository. To contribute an example, please head over to the [now-examples](https://github.com/zeit/now-examples) repository where you will find all the relevant information to do so.
+The content for the examples section is not contained within this repository. To contribute an example, please head over to the [now](https://github.com/zeit/now/) repository where you will find all the relevant information to do so.
 
 ## Using Components
 
@@ -219,6 +219,6 @@ We believe that these components should be enough to cover usage in nearly all s
 
 A picture is worth a thousand words. Using graphics such as images in guides and documentation can really help the reader understand new concepts, if you'd like to include images, or any other static asset, you should follow this advice.
 
-All static assets should be filed under `static/` along with their type, docs or guide, and if specific to a particular page, the name of that page. For example, `static/guides/deploying-angular-with-now` would be the place to store static assets for a guide on deploying Angular with Now.
+All static assets should be filed under `public/static` along with their type, docs or guide, and if specific to a particular page, the name of that page. For example, `public/static/guides/deploying-angular-with-now` would be the place to store static assets for a guide on deploying Angular with ZEIT Now.
 
 By following this convention, you will be helping us keep this repository organized and easy to find things within, making life easier for everyone.

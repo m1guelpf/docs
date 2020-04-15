@@ -5,23 +5,28 @@ import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import OrgName from '~/components/name/org-name'
+import ProductName from '~/components/name/product-name'
+import ProductShortName from '~/components/name/product-short-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title:
-    'Create a Next.js and Storyblok App That Builds and Deploys with ZEIT Now',
-  description:
-    'Use Storyblok as a Headless CMS to power content for your Next.js app deployed with ZEIT Now.',
+  title: `Create a Next.js and Storyblok App That Builds and Deploys with ${PRODUCT_NAME}`,
+  description: `Use Storyblok as a Headless CMS to power content for your Next.js app deployed with ${PRODUCT_NAME}.`,
+  name: 'Next.js + Storyblok',
+  type: 'app',
   published: '2019-06-24T16:51:04.000Z',
   authors: ['msweeneydev'],
   url: '/guides/deploying-next-and-storyblok-with-now',
   image: `https://zeit.co/docs/static/guides/deploying-next-storyblok-with-now/deploying-next-storyblok-with-now.png`,
   editUrl: 'pages/guides/deploying-next-and-storyblok-with-now.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T06:26:07.000Z'
 }
 
-In this guide, you will discover how to create a [Next.js](https://nextjs.org/) app that displays links to posts from the [ZEIT blog](/blog) by utilizing the [Storyblok](https://www.storyblok.com/) headless CMS, before deploying **with a single command** to [ZEIT Now](/docs/v2).
+In this guide, you will discover how to create a [Next.js](https://nextjs.org/) app that displays links to posts from the [<OrgName /> blog](/blog) by utilizing the [Storyblok](https://www.storyblok.com/) headless CMS, before deploying **with a single command** to [<ProductName />](/docs/v2).
 
-[Next.js](https://nextjs.org/) from [ZEIT](https://zeit.co) is a **production-ready framework** that helps you create fast React apps. [Storyblok](https://www.storyblok.com/) is a headless CMS with a **visual editor, block system, custom field types and localization built in**.
+[Next.js](https://nextjs.org/) from [<OrgName />](https://zeit.co) is a **production-ready framework** that helps you create fast React apps. [Storyblok](https://www.storyblok.com/) is a headless CMS with a **visual editor, block system, custom field types and localization built in**.
 
 By following this guide, you will create a clone of the [example app](https://nextjs-storyblok.now-examples.now.sh/), a starting point to get you up and running with your own Next.js + Storyblok app in minutes.
 
@@ -301,11 +306,11 @@ STORYBLOK_API_TOKEN=your-api-token
   Storyblok project.
 </Caption>
 
-Lastly, to make your API key available for [cloud deployment](/docs/v2/deployments/basics/), create a [Now Secret](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) with the command below:
+Lastly, to make your API key available for [cloud deployment](/docs/v2/deployments/basics/), create a [Secret](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) with the command below:
 
-<Snippet dark text="now secrets add STORYBLOK_API_TOKEN your-space-id" />
+<Snippet dark text="now secrets add STORYBLOK_API_TOKEN your-api-token" />
 <Caption>
-  Adding the <InlineCode>STORYBLOK_API_TOKEN</InlineCode> secret to your project using <Link href="/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets">Now Secrets</Link>.
+  Adding the <InlineCode>STORYBLOK_API_TOKEN</InlineCode> secret to your project using <Link href="/docs/now-cli#commands/secrets">Secrets</Link>.
 </Caption>
 
 With those steps out the way you are now able to run your app. You can develop your app locally using the following command:
@@ -317,14 +322,7 @@ With those steps out the way you are now able to run your app. You can develop y
 
 ## Step 4: Deploying the App
 
-With your app ready, it is time to deploy it using **a single command**:
-
-<Snippet dark text="now" />
-<Caption>
-  Using the <InlineCode>now</InlineCode> command to deploy your project to Now.
-</Caption>
-
-You will see a short build step in your terminal followed by the news that your project has been [deployed](https://zeit.co/docs/v2/deployments/basics/), it should look similar to the [example app](https://nextjs-storyblok.now-examples.now.sh/).
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

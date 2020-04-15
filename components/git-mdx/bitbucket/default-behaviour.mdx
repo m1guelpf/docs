@@ -1,0 +1,27 @@
+import Caption from '~/components/text/caption'
+import { Image } from '~/components/media'
+import ProductName from '~/components/name/product-name'
+import ProductShortName from '~/components/name/product-short-name'
+
+#### A Deployment for Each Push
+
+&#8203;<ProductName /> for Bitbucket will **deploy each push by default**. This includes pushes and pull requests made to branches. This allows those working within the project to preview the changes made before they are pushed to production.
+
+With each new push, if <ProductShortName /> is already building a previous commit, the current build will be canceled to build the most recent commit so that you always have the latest changes deployed as quickly as possible.
+
+#### Updating the Production Domain
+
+If [Custom Domains](/docs/v2/custom-domains) are set from a project domains dashboard, pushes and merges to the [default branch](https://confluence.atlassian.com/bitbucket/branching-a-repository-223217999.html#BranchingaRepository-branching_modelThebranchingmodel) (commonly "master") will be made live to those domains with the latest deployment made with a push.
+
+If you decide to revert a commit that has already been deployed to production, the previous [Production Deployment](/docs/v2/platform/deployments#production) from a commit will automatically be made available at the [Custom Domain](/docs/v2/custom-domains) instantly; providing you with instant rollbacks.
+
+#### Preview URLs for Each Pull Request
+
+The latest push to any [pull request](https://www.atlassian.com/git/tutorials/making-a-pull-request) will automatically be made available at a unique preview URL based on the project name, branch, and team or username. These URLs will be given through a comment on each pull request.
+
+<Image
+  src={`${process.env.ASSETS}/docs/now-for-bitbucket/comment.png`}
+  width={1420/2.5}
+  height={720/2.5}
+/>
+<Caption style={{marginTop: '-40px'}}>A preview URL created from a pull request.</Caption>

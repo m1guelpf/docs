@@ -5,74 +5,87 @@ import Note from '~/components/text/note'
 import Card from '~/components/card'
 import { Image } from '~/components/media'
 import { InlineCode } from '~/components/text/code'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
   title: 'Custom Domains',
   description: 'How to add and use a custom domain with your project.',
   editUrl: 'pages/docs/v2/custom-domains.mdx',
-  lastEdited: '2019-12-20T13:50:09.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-By default, all deployments are assigned a `.now.sh` prefixed domain.
+By default, all deployments are assigned a `.now.sh` suffixed domain.
 
-This domain can be replaced with a **Custom Domain** of your choice. This Custom Domain can be purchased with ZEIT or a third-party.
+This domain can be replaced with a **Custom Domain** of your choice. This Custom Domain can be purchased with <OrgName /> or a third-party.
 
-In this document, adding a domain to your ZEIT Now [projects](/docs/v2/platform/projects/) is explained in detail.
+In this document, adding a domain to your <ProductName /> [projects](/docs/v2/platform/projects/) is explained in detail.
 
 ## Adding a Domain
 
-If you don't own a domain yet, you can [purchase it with ZEIT](https://zeit.co/domains). Then, once you own a domain, adding it to a project is very straightforward:
+If you don't own a domain yet, you can [purchase it with <OrgName />](https://zeit.co/domains). Then, once you own a domain, adding it to a project is very straightforward:
 
 ### Step 1: Selecting Your Project
 
 On the [dashboard](https://zeit.co/dashboard), pick the project to which you would like to assign your domain:
 
 <Image
-  src={`${process.env.ASSETS}/docs/custom-domains/select-project.png`}
-  width={1080 / 2}
-  height={320 / 2}
+  src={`${process.env.ASSETS}/docs/common/select-project.png`}
+  width={1102 / 2}
+  height={410 / 2}
   shadow
 />
-<Caption>Selecting the project from the ZEIT Dashboard.</Caption>
+<Caption>Selecting the project from the <OrgName /> Dashboard.</Caption>
 
 ### Step 2: Navigating to Domain Settings
 
-Once you have selected the project of your choice, click on the **Domains** item in the menubar:
+Once you have selected the project of your choice, click on the **Settings** tab:
+
+<Image
+  src={`${process.env.ASSETS}/docs/common/select-settings.png`}
+  width={626 / 2}
+  height={340 / 2}
+  shadow
+/>
+<Caption>Selecting the <b>Settings</b> tab from the Project Overview page.</Caption>
+
+Then, select the **Domains** menu item:
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/select-domains.png`}
-  width={728 / 2}
-  height={274 / 2}
+  width={318 / 2}
+  height={354 / 2}
   shadow
 />
-<Caption>Selecting the <b>Domains</b> tab from the Project Overview page.</Caption>
+<Caption>Selecting the <b>Domains</b> menu item from the Project Settings page.</Caption>
 
 ### Step 3: Entering Your Chosen Domain
 
-From the **Project Domains** page, enter the domain you wish to add to the project:
+From the **Domains** page, enter the domain you wish to add to the project:
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/enter-domain.png`}
-  width={1350 / 2}
-  height={447 / 2}
+  width={1492 / 2}
+  height={474 / 2}
   shadow
 />
-<Caption>Entering a domain for the project from the Project Domains page.</Caption>
+<Caption>Entering a domain for the project from the Domains page.</Caption>
 
 ### Step 4: Configuring the Domain
 
-Once the domain has been added, you will be presented with different methods for configuring it, depending on whether it is an **apex domain** (zeit.co) or **subdomain** (docs.zeit.co).
+Once the domain has been added, you will be presented with different methods for configuring it, depending on whether it is an [**apex domain**](/docs/v2/platform/glossary#apex-domain) (zeit.co) or **subdomain** (docs.zeit.co).
 
-Both domain types can be configured using the **Nameservers** method, however **apex domains** also allow for verification via the **ANAME** record, whilst **subdomains** allow for verification via the **CNAME** record.
+Both domain types can be configured using the **Nameservers** method. However, **apex domains** also allow for verification via the **ANAME** record, while **subdomains** allow for verification via the **CNAME** record.
 
 #### Apex Domains
 
-You can configure apex domains either through the **Nameservers** or **ANAME** methods.
+You can configure [apex domains](/docs/v2/platform/glossary#apex-domain) either through the **Nameservers** or **ANAME** methods.
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/configure-apex-domain.png`}
-  width={1350 / 2}
-  height={984 / 2}
+  width={1402 / 2}
+  height={1022 / 2}
   shadow
 />
 <Caption>Instructions on configuring an <strong>apex domain</strong> from the Project Domains page.</Caption>
@@ -83,8 +96,8 @@ You can configure subdomains either through the **Nameservers** or **CNAME** met
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/configure-subdomain.png`}
-  width={1350 / 2}
-  height={984 / 2}
+  width={1420 / 2}
+  height={1034 / 2}
   shadow
 />
 <Caption>Instructions on configuring a <strong>subdomain</strong> from the Project Domains page.</Caption>
@@ -95,8 +108,8 @@ Once the domain has been configured, the card status will change to reflect this
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/configured-domain.png`}
-  width={1350 / 2}
-  height={210 / 2}
+  width={1412 / 2}
+  height={212 / 2}
   shadow
 />
 <Caption>A configured domain on the Project Domains page.</Caption>
@@ -126,32 +139,20 @@ After the verification process is complete, the status of the domain will be upd
 
 Once the domain has been added to your project and configured, it is **automatically applied to your latest deployment**.
 
-If you want to update your production deployment, there are two options available, [using Now CLI](#using-now-cli) or [with Git](#with-git).
-
 <Note>
-  The first successful deployment of a new project will be marked as production
-  and subsequently assigned with your custom domain automatically if you have
-  used one of the following methods.
+  The first deployment of a new project will be marked as production and
+  subsequently assigned with your custom domain automatically.
 </Note>
 
-### Using Now CLI
-
-To update your production deployment, you can use the `--prod` argument with the [`now` command](/docs/now-cli/#commands/now) in your terminal:
-
-<Snippet dark text="now --prod" />
-<Caption>Deploying a project to production.</Caption>
-
-### With Git
-
-When a custom domain is assigned as a production domain to a project with a [Now for Git integration](/docs/v2/git-integration) enabled, each push (including merges) to the default branch (commonly `master`) will trigger a deployment to the defined domain.
+When a custom domain is assigned to a project with an enabled [<ProductName /> for Git Integration](/docs/v2/git-integrations), each push (including merges) to the default branch (commonly `master`) will trigger a deployment to the defined domain.
 
 Reverts take effect immediately, assigning the custom domain to the deployment made prior to the point the revert is effective from.
 
 ## Redirecting Domains
 
-You can add domain redirects from the **Domains** tab when more than one domain is present for the project. This provides a way to, for example, redirect a `www` subdomain to an apex domain but can be used in a variety of ways.
+You can add domain redirects from the **Domains** tab when **more than one domain** is present for the project. This provides a way to, for example, redirect a `www` subdomain to an apex domain but can be used in a variety of ways.
 
-To add a redirect, select the domain you want to redirect to from the **Redirect to** dropdown:
+To add a redirect, click the **Edit** button for the domain you want to redirect from and use the **Redirect to** dropdown to select the domain you want to redirect to:
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/redirecting-domains.png`}
@@ -161,9 +162,50 @@ To add a redirect, select the domain you want to redirect to from the **Redirect
 />
 <Caption>A <b>domain redirect</b> that redirects requests made to <InlineCode>www.zeit.rocks</InlineCode> to <InlineCode>zeit.rocks</InlineCode>.</Caption>
 
+## Moving Domains
+
+You can move domains to another profile or team using the **Domains** tab from the **<OrgName /> Dashboard**.
+
+<Image
+  src={`${process.env.ASSETS}/docs/custom-domains/select-domains-tab.png`}
+  width={1224 / 2}
+  height={278 / 2}
+  shadow
+/>
+<Caption>Selecting the <b>Domains</b> tab from the <OrgName /> Dashboard page.</Caption>
+
+Once on the **Domains** tab, select the domain(s) you wish to move by using the checkbox next to each domain then click **Move**.
+
+<Image
+  src={`${process.env.ASSETS}/docs/custom-domains/domains-list.png`}
+  width={1350 / 2}
+  height={492 / 2}
+  shadow
+/>
+<Caption>Selecting which domains to move from the <b>Domains</b> tab.</Caption>
+
+After selecting the domain(s) and clicking **Move**, you will be asked to confirm which profile or team you wish to move them to.
+
+<Image
+  src={`${process.env.ASSETS}/docs/custom-domains/move-modal.png`}
+  width={840 / 2}
+  height={818 / 2}
+  shadow
+/>
+<Caption>Entering a new profile or team destination for a domain.</Caption>
+
+When selecting the input field, you will be provided with a list of teams you belong to. If the profile or team you wish to move the domain(s) to is not present, enter the `slug` value instead. You can find the `slug` value in **Settings** page for both profiles and teams.
+
+<Note type="warning">
+  When moving domains to another team or profile, they will be removed from{' '}
+  <b>all projects</b> they are currently part of.
+</Note>
+
+To confirm the change, select **Move**. The domains will be transferred to the new profile of team immediately.
+
 ## Assigning a Domain to a Git Branch
 
-Every commit pushed to the default branch of your Git repository using our [Git integration](/docs/v2/git-integration) will be assigned the Domains [configured in your project](#adding-a-domain).
+Every commit pushed to the default branch of your Git repository using our [Git Integration](/docs/v2/git-integrations) will be assigned the Domains [configured in your project](#adding-a-domain).
 
 In order to automatically assign a Domain to a different branch, you can select it in the **Git Branch** dropdown of your Domain:
 
@@ -177,7 +219,7 @@ In order to automatically assign a Domain to a different branch, you can select 
 
 ## Removing a Domain
 
-To remove a domain that is assigned to your ZEIT account or team, navigate to the **Domains** tab from the Project Overview and click the **Edit** button for the domain you want to remove:
+To remove a domain that is assigned to a project, navigate to the **Domains** tab from the Project Overview and click the **Edit** button for the domain you want to remove:
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/edit-domain.png`}
@@ -197,6 +239,17 @@ Once the **Edit** button has been clicked, you will be presented with further op
 />
 <Caption>A configured domain on the Project Domains page with the option to remove.</Caption>
 
+## Provider Specific Instructions
+
+### Cloudflare
+
+To use [Cloudflare](https://www.cloudflare.com/)-managed domains, follow these steps:
+
+1. Configure your domain such that SSL is disabled for the path `/.well-known/**`.
+2. Run `curl http://<domain>/.well-known/acme-challenge` (Replace `<domain>` with your domain. Notice that it’s `http` and not `https`).
+
+If the above `curl` command returns an error (e.g. `{"error":{...}}`), then you’re good to go - it means that <OrgName /> can generate certificates successfully. Otherwise, make sure that SSL is disabled for `/.well-known/**` and try again.
+
 ## Related
 
 For more information on what to do next, we recommend the following article:
@@ -205,7 +258,7 @@ For more information on what to do next, we recommend the following article:
   title="Transferring Your Domain"
   href="/guides/transferring-domains-to-zeit-now"
 >
-  Learn how to transfer a domain to ZEIT Now.
+  Learn how to transfer a domain to <ProductName />.
 </Card>
 
 <Card

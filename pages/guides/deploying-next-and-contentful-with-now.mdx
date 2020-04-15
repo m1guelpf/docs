@@ -5,11 +5,14 @@ import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Create a Next.js App with Contentful and Deploy It with ZEIT Now',
-  description:
-    'Deploy your Next.js and Contentful app with ZEIT Now in a serverless environment.',
+  title: `Create a Next.js App with Contentful and Deploy It with ${PRODUCT_NAME}`,
+  description: `Deploy your Next.js and Contentful app with ${PRODUCT_NAME} in a serverless environment.`,
   published: '2019-06-18T16:51:04.000Z',
   authors: ['msweeneydev'],
   url: '/guides/deploying-next-and-contentful-with-now',
@@ -17,12 +20,14 @@ export const meta = {
     process.env.ASSETS
   }/guides/deploying-next-contentful-with-now/deploying-next-contentful-with-now.png`,
   editUrl: 'pages/guides/deploying-next-and-contentful-with-now.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  name: 'Next.js + Contentful',
+  type: 'app',
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-In this guide, you will discover how to create a [Next.js](https://nextjs.org/) app that displays links to posts from the [ZEIT blog](/blog) by utilizing the [Contentful](https://www.contentful.com/) client, before deploying **with a single command** to [ZEIT Now](/docs/v2).
+In this guide, you will discover how to create a [Next.js](https://nextjs.org/) app that displays links to posts from the [<OrgName /> blog](/blog) by utilizing the [Contentful](https://www.contentful.com/) client, before deploying **with a single command** to [<ProductName />](/docs/v2).
 
-[Next.js](https://nextjs.org/) from [ZEIT](https://zeit.co) is a **production-ready framework** that helps you create fast React apps. [Contentful](https://www.contentful.com/) is a powerful headless CMS that allows you to **rapidly create, manage and distribute content** to any platform you like.
+[Next.js](https://nextjs.org/) from [<OrgName />](https://zeit.co) is a **production-ready framework** that helps you create fast React apps. [Contentful](https://www.contentful.com/) is a powerful headless CMS that allows you to **rapidly create, manage and distribute content** to any platform you like.
 
 By following this guide, you will create a clone of the [example app](https://nextjs-contentful.now-examples.now.sh/), a starting point to get you up and running with your own Next.js + Contentful app in minutes.
 
@@ -125,16 +130,8 @@ const client = require('contentful').createClient({
 })
 
 function HomePage() {
-  async function fetchContentTypes() {
-    const types = await client.getContentTypes()
-    if (types.items) return types.items
-    console.log('Error getting Content Types.')
-  }
-
-  async function fetchEntriesForContentType(contentType) {
-    const entries = await client.getEntries({
-      content_type: contentType.sys.id
-    })
+  async function fetchEntries() {
+    const entries = await client.getEntries()
     if (entries.items) return entries.items
     console.log(`Error getting Entries for ${contentType.name}.`)
   }
@@ -143,8 +140,7 @@ function HomePage() {
 
   useEffect(() => {
     async function getPosts() {
-      const contentTypes = await fetchContentTypes()
-      const allPosts = await fetchEntriesForContentType(contentTypes[0])
+      const allPosts = await fetchEntries()
       setPosts([...allPosts])
     }
     getPosts()
@@ -276,38 +272,21 @@ Add a `now.json` file at the root of your project directory with the following c
   Contentful project.
 </Caption>
 
-With your `now.json` file created, you should add a `next.config.js` file at the root of your project directory with the code below:
-
-```js
-module.exports = {
-  env: {
-    SPACE_ID: process.env.CONTENTFUL_SPACE_ID,
-    ACCESS_TOKEN: process.env.CONTENTFUL_ACCESS_TOKEN
-  }
-}
-```
-
-<Caption>
-  An example <InlineCode>next.config.js</InlineCode> file for your Next.js +
-  Contentful project.
-</Caption>
-
-The `next.config.js` file provides access to environment variables inside your Next.js app.
-
-Now, add the following build script to your `package.json` file:
+Now, add the following scripts to your `package.json` file:
 
 ```json
 {
   ...
   "scripts": {
+    "dev": "next dev",
     "build": "next build"
   }
 }
 ```
 
 <Caption>
-  Adding a build script to your <InlineCode>package.json</InlineCode> file for
-  your Next.js + Contentful project.
+  Adding <InlineCode>dev</InlineCode> and <InlineCode>build</InlineCode> scripts
+  to your <InlineCode>package.json</InlineCode> file.
 </Caption>
 
 Next, you will make your API keys available to your app during local development by creating a `.env.build` file.
@@ -324,35 +303,28 @@ CONTENTFUL_ACCESS_TOKEN=your-access-token
   Contentful project.
 </Caption>
 
-Lastly, to make your API keys available for [cloud deployment](/docs/v2/deployments/basics/), create two [Now Secrets](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) with the commands below:
+Lastly, to make your API keys available for [cloud deployment](/docs/v2/deployments/basics/), create two [Secrets](/docs/now-cli#commands/secrets) with the commands below:
 
 <Snippet dark text="now secrets add CONTENTFUL_SPACE_ID your-space-id" />
 <Caption>
-  Adding the <InlineCode>CONTENTFUL_SPACE_ID</InlineCode> secret to your project using <Link href="/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets">Now Secrets</Link>.
+  Adding the <InlineCode>CONTENTFUL_SPACE_ID</InlineCode> secret to your project using <Link href="/docs/now-cli#commands/secrets">Secrets</Link>.
 </Caption>
 
 <Snippet dark text="now secrets add CONTENTFUL_ACCESS_TOKEN your-access-token" />
 <Caption>
-  Adding the <InlineCode>CONTENTFUL_ACCESS_TOKEN</InlineCode> secret to your project using <Link href="/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets">Now Secrets</Link>.
+  Adding the <InlineCode>CONTENTFUL_ACCESS_TOKEN</InlineCode> secret to your project using <Link href="/docs/now-cli#commands/secrets">Secrets</Link>.
 </Caption>
 
 With those steps out the way you are now able to run your app. You can develop your app locally using the following command:
 
-<Snippet dark text="next dev" />
+<Snippet dark text="now dev" />
 <Caption>
-  Using the <InlineCode>next dev</InlineCode> command to run the app locally.
+  Using the <InlineCode>now dev</InlineCode> command to run the app locally.
 </Caption>
 
 ## Step 5: Deploying the App
 
-With your app ready, it is time to deploy it using **a single command**:
-
-<Snippet dark text="now" />
-<Caption>
-  Using the <InlineCode>now</InlineCode> command to deploy your project to Now.
-</Caption>
-
-You will see a short build step in your terminal followed by the news that your project has been [deployed](https://zeit.co/docs/v2/deployments/basics/), it should look similar to the [example app](https://nextjs-contentful.now-examples.now.sh/).
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

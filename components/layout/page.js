@@ -54,7 +54,7 @@ export default class Page extends Component {
             margin: 0 auto;
             max-width: 100%;
             position: relative;
-            padding-top: 80px;
+            padding-top: 40px;
           }
 
           ::selection {

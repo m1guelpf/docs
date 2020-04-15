@@ -7,6 +7,7 @@ import NProgress from 'nprogress'
 import debounce from 'lodash.debounce'
 import RouterEvents from '../../lib/router-events'
 import * as metrics from '../../lib/metrics'
+import { ORG_NAME } from '~/lib/constants'
 
 let title
 
@@ -25,7 +26,13 @@ RouterEvents.on('routeChangeError', () => {
 
 if (global.document) {
   const info = [
-    `Version: ${process.env.VERSION}`,
+    ...(process.env.NOW_GITHUB_COMMIT_SHA
+      ? [
+          `Commit: https://github.com/zeit/docs/commit/${
+            process.env.NOW_GITHUB_COMMIT_SHA
+          }`
+        ]
+      : []),
     `Check out our code here: https://zeit.co/oss`,
     `Have a great day! 📣🐢`
   ]
@@ -66,17 +73,17 @@ class Head extends React.PureComponent {
 
   render() {
     const titlePrefix =
-      null != this.props.titlePrefix ? this.props.titlePrefix : 'ZEIT – '
+      null != this.props.titlePrefix ? this.props.titlePrefix : `${ORG_NAME} – `
     const titleSuffix =
       null != this.props.titleSuffix ? this.props.titleSuffix : ''
     const ogDescription = this.props.ogDescription || this.props.description
     return (
-      <div>
+      <>
         <NextHead>
           <title>{titlePrefix + this.props.title + titleSuffix}</title>
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@zeithq" />
-          <meta property="og:site_name" content="ZEIT Documentation" />
+          <meta property="og:site_name" content={`${ORG_NAME} Documentation`} />
           <meta property="og:type" content="website" />
           <meta
             property="og:title"
@@ -108,7 +115,7 @@ class Head extends React.PureComponent {
               this.props.image ||
               `https://og-image.now.sh/${encodeURIComponent(
                 this.props.ogTitle || this.props.title
-              )}.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnow-black.svg`
+              )}.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg`
             }
           />
           {this.props.image ? (
@@ -214,7 +221,7 @@ class Head extends React.PureComponent {
                 'https://zeit.co/docs'}",
               "headline": "${this.props.ogTitle ||
                 this.props.title ||
-                'ZEIT Documentation'}",
+                `${ORG_NAME} Documentation`}",
               ${
                 this.props.description
                   ? '"description": "' + this.props.description + '",'
@@ -225,7 +232,7 @@ class Head extends React.PureComponent {
               "name": "${titlePrefix +
                 (this.props.ogTitle ||
                   this.props.title ||
-                  'ZEIT Documentation') +
+                  `${ORG_NAME} Documentation`) +
                 titleSuffix}",
               "dateModified": "${
                 this.props.lastEdited ? this.props.lastEdited : null
@@ -235,7 +242,7 @@ class Head extends React.PureComponent {
               }",
               "author": {
                 "@type": "Person",
-                "name": "ZEIT"
+                "name": "${ORG_NAME}"
               },
               "publisher": {
                 "@type": "Organization",
@@ -245,7 +252,7 @@ class Head extends React.PureComponent {
                     process.env.IMAGE_ASSETS_URL
                   }/favicon/favicon-96x96.png`}"
                 },
-                "name": "ZEIT"
+                "name": "${ORG_NAME}"
               },
               "@context": "http:\/\/schema.org"
             }
@@ -255,7 +262,7 @@ class Head extends React.PureComponent {
 
           {this.props.children}
         </NextHead>
-      </div>
+      </>
     )
   }
 }

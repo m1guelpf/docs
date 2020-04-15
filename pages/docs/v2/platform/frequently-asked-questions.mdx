@@ -3,71 +3,74 @@ import Link from '~/components/text/link'
 import Note from '~/components/text/note'
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import { PRODUCT_NAME } from '~/lib/constants'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   title: 'Frequently Asked Questions',
   description: 'A list of frequently asked questions relating to deployments.',
   editUrl: 'pages/docs/v2/platform/frequently-asked-questions.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
+}
+
+## Platform Version Detection
+
+[<ProductShortName /> CLI](/download) will automatically upgrade your deployment to the latest platform version if you import a project or if your project meets certain criteria. In order for this to work, you must:
+
+- Remove any Dockerfile.
+- Remove the `type` property from your `now.json` file.
+- Remove the `start` script from your `package.json` file.
+- Remove the `server.js` file from the root of your project.
+
+It is possible to opt out of this behavior by creating a `now.json` file with a `version` property.
+
+If you are yet to upgrade to the latest platform version, please read our [upgrade guide](https://zeit.co/guides/migrate-to-zeit-now/).
+
+## Green Energy Policy
+
+​<OrgName /> works with multiple cloud partners in order to provide services to end users.
+
+The Serverless approach is an energy-efficient alternative to traditional servers because your code runs only on-demand.
+
+For more information on our cloud partners' Green energy policies, we recommend viewing their documentation:
+
+- [AWS Sustainability Timeline](https://aws.amazon.com/about-aws/sustainability/sustainability-timeline/)
+- [Google Cloud Sustainability](https://cloud.google.com/sustainability/)
+- [Microsoft Environmental Sustainability](https://www.microsoft.com/en-us/corporate-responsibility/sustainability)
+
+## What can I deploy with <NameWrapper name={PRODUCT_NAME} />?
+
+​<ProductName /> is best at deploying technologies that can be served over HTTP and distributed through our CDN network:
+
+- Static websites and static generators ([Next.js](/guides/deploying-nextjs-with-now), React, Vue, Angular, etc)
+- Code that renders HTML on the server-side
+- API endpoints that query databases or web APIs and return dynamic data
+
+In general, most popular technologies and languages already have [quickstarts](/docs/v2/introduction#quickstarts) or [guides](/guides) you can start taking advantage of today.
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
 }
 
 ## Missing Public Directory
 
-If your project contains a `package.json` file with a `build` [script](https://docs.npmjs.com/misc/scripts), and no `now.json` configuration, it is expected to output its static files into a directory named `public`, at the root of the project, when the `build` [script](https://docs.npmjs.com/misc/scripts) is executed.
+The [build step](/docs/v2/build-step) will result in an error if the output directory is missing, empty, or invalid (if it’s actually not a directory). To resolve this error, you can try the following steps:
 
-<Note type="warning">
-  If you are using an{' '}
-  <Link href="/docs/v2/build-step/#optimized-frameworks">
-    optimized framework
-  </Link>
-  , you must use the default output directory provided by the framework.
-</Note>
-
-You are seeing this error because your setup did not satisfy the above constraint.
-
-To resolve this error, configure your project to place its static output files into a `public` directory, at the root of your project, when the `build` [script](https://docs.npmjs.com/misc/scripts) from your `package.json` file is invoked.
-
-For example, this is how your `package.json` file might look:
-
-```json
-{
-  "scripts": {
-    "build": "[my-framework] build"
-  }
-}
-```
-
-<Caption>
-  An example <InlineCode>build</InlineCode> script in a{' '}
-  <InlineCode>package.json</InlineCode> file.
-</Caption>
-
-If you are seeing this error with a similar `build` script already, you may need to adjust the command to direct its static output files into the `public` directory instead.
-
-<Note>
-  Consult your framework's documentation to understand how to specify the build
-  output directory.
-</Note>
-
-Depending on your framework, the option for this might be called `--output`, `--out`, `--output-dir` or similar:
-
-```json
-{
-  "scripts": {
-    "build": "[my-framework] build --output public"
-  }
-}
-```
-
-<Caption>
-  An example <InlineCode>build</InlineCode> script in a{' '}
-  <InlineCode>package.json</InlineCode> file that specifies the output
-  directory.
-</Caption>
-
-Once you have done this, the error will disappear since the output will be the expected directory, `public`.
+- Make sure that the output directory is specified correctly in project settings. [Here’s the documentation](/docs/v2/build-step#output-directory).
+- If the output directory is correct, double check the Build Command ([documentation](/docs/v2/build-step#build-command)) or the root directory ([documentation](/docs/v2/build-step#root-directory)).
+- Try running the Build Command locally and make sure that the files are correctly generated in the specified output directory.
 
 ## Missing Build Script
+
+<Note>
+  This is only relevant if you’re using <ProductShortName /> CLI 16.7.3 or
+  older.
+</Note>
 
 If your project contains a `package.json` file, no `api` directory, and no `now.json` configuration, it is expected to provide a `build` [script](https://docs.npmjs.com/misc/scripts) that performs a static build of your frontend and outputs it to a `public` directory at the root of your project.
 
@@ -89,33 +92,14 @@ When properly configured, your `package.json` file would look similar to this:
 
 Once you have defined the `build` [script](https://docs.npmjs.com/misc/scripts), this error will disappear. Furthermore, it will not be displayed if you are using `package.json` purely to provide dependencies for your Serverless Functions located inside the `api` directory.
 
-## Platform Version Detection
+## Broken Preview Deployment Suffix
 
-[Now CLI](/download) will automatically upgrade your deployment to the latest platform version if you create a new project or if your project meets certain criteria. In order for this to work, you must:
+The Preview Deployment Suffix feature (available optionally on the "General" team settings page) allows for replacing the `now.sh` suffix of every freshly created deployment with a custom domain of your choice.
 
-- Remove any Dockerfile.
-- Remove the `type` property from your `now.json` file.
-- Remove the `start` script from your `package.json` file.
-- Remove the `server.js` file from the root of your project.
+In order for this feature to function properly, the custom domain you configured must be:
 
-It is possible to opt out of this behavior by creating a `now.json` file with a `version` property.
+- Active (not deleted)
+- Available within the team that enabled the Preview Deployment Suffix
+- Backed by an active wildcard certificate
 
-If you are yet to upgrade to the latest platform version, please read our [upgrade guide](https://zeit.co/guides/migrate-to-zeit-now/).
-
-## Green Energy Policy
-
-ZEIT works with multiple cloud partners in order to provide services to end users.
-
-The Serverless approach is an energy-efficient alternative to traditional servers because your code runs only on-demand.
-
-For more information on our cloud partners' Green energy policies, we recommend viewing their documentation:
-
-- [AWS Sustainability Timeline](https://aws.amazon.com/about-aws/sustainability/sustainability-timeline/)
-- [Google Cloud Sustainability](https://cloud.google.com/sustainability/)
-- [Microsoft Environmental Sustainability](https://www.microsoft.com/en-us/corporate-responsibility/sustainability)
-
-export default ({ children }) => <Doc meta={meta}>{children}</Doc>
-
-export const config = {
-  amp: 'hybrid'
-}
+The easiest way to satisfy all of these constraints is to ensure the domain is also added to a project located within the same team. This project would ideally contain a single `index.html` that would display when someone visits the bare domain.

@@ -2,23 +2,24 @@ import Doc from '~/components/layout/docs'
 import { TerminalInput } from '~/components/text/terminal'
 import Link from '~/components/text/link'
 import { Image } from '~/components/media'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 
 export const meta = {
   title: 'Scaling',
-  description: 'Handling increased traffic by scaling your Now deployments',
+  description: `Handling increased traffic by scaling your ${PRODUCT_SHORT_V1_NAME} deployments`,
   date: '10 August 2017',
   editUrl: 'pages/docs/v1/getting-started/scaling.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 Deploying an app is just the start. We need to scale our app as our user base grows. It could be a linear growth or random spikes in certain times.
 
-Either way, we need to make sure our app is running smoothly as the traffic increases. All the <Now color="#000"/> deployments are backed by "auto scaling ready" infrastructure. So, you are in good hands.
+Either way, we need to make sure our app is running smoothly as the traffic increases. All the <ProductShortV1Name /> deployments are backed by "auto scaling ready" infrastructure. So, you are in good hands.
 
 ## Basics
 
-Each of your <Now color="#000"/> deployment consists of zero or few instances. An instance is a running version of your deployment. <Now color="#000"/> can clone and run new instances as needed and kill them if they are not needed.
+Each of your <ProductShortV1Name /> deployment consists of zero or few instances. An instance is a running version of your deployment. <ProductShortV1Name /> can clone and run new instances as needed and kill them if they are not needed.
 
 Each deployment has a minimum and maximum amount of instances it can have. Based on that we can scale our app as needed.
 
@@ -29,7 +30,7 @@ By default, all of the deployments are configured like this:
 - min: 0
 - max: auto
 
-This means, when your deployment receives some traffic <Now color="#000"/> will start an instance. If your deployment doesn't receive any traffic for a while, <Now color="#000"/> will kill that instance.
+This means, when your deployment receives some traffic <ProductShortV1Name /> will start an instance. If your deployment doesn't receive any traffic for a while, <ProductShortV1Name /> will kill that instance.
 
 With this configuration, your deployment will scale to up to 10 instances automatically, depending on the incoming traffic load.
 
@@ -45,7 +46,7 @@ Here's how you can do that:
 
 <TerminalInput>now scale hello-node-lwbxweoqjo.now.sh 3</TerminalInput>
 
-In this case, <Now color="#000"/> will set the `min` and `max` instance settings to 3.
+In this case, <ProductShortV1Name /> will set the `min` and `max` instance settings to 3.
 
 <Image
   src={`${process.env.IMAGE_ASSETS_URL}/docs/scaling/fixed-scaling.png`}
@@ -85,7 +86,7 @@ Here's how to auto scale an app with the URL `hnode.now.sh`
 
 Now the deployment behind `hnode.now.sh` runs with a minimum of 2 instances and it can scale up to 15 instances as the traffic increases.
 
-<Now color="#000"/> will automatically start and kill instances based on the traffic `hnode.now.sh` receives.
+​<ProductShortV1Name /> will automatically start and kill instances based on the traffic `hnode.now.sh` receives.
 
 <Image
   src={`${process.env.IMAGE_ASSETS_URL}/docs/scaling/auto-scaling.png`}

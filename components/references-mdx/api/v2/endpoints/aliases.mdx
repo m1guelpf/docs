@@ -13,31 +13,36 @@ export const meta = {
 
 ### List all the aliases
 
-<Endpoint method="GET" url="/v2/now/aliases" />
+<Endpoint method="GET" url="/v3/now/aliases" />
 
-Retrieves all of the active aliases for the authenticated account.
+Retrieves active aliases for the authenticated account. By default it returns
+the last 20 aliases if no `limit` is provided.
 
 #### Request Query Parameters
 
 The response of this API can be controlled with the following optional query parameters.
 
-| Key           | Description                                          |
-| ------------- | ---------------------------------------------------- |
-| **limit**     | Maximum number of aliases to list from a request.    |
-| **from**      | Get aliases created after this JavaScript timestamp. |
-| **projectId** | Filter aliases from the given `projectId`.           |
+| Key           | Description                                           |
+| ------------- | ----------------------------------------------------- |
+| **limit**     | Maximum number of aliases to list from a request.     |
+| **since**     | Get aliases created after this JavaScript timestamp.  |
+| **until**     | Get aliases created before this JavaScript timestamp. |
+| **projectId** | Filter aliases from the given `projectId`.            |
 
 The body will contain an entry for each alias.
 
 #### Response Parameters
 
-| Key              | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                           |
-| ---------------- | ---------------------------------------------------------- | --------------------------------------------------------------------- |
-| **uid**          | <HelpLink href="#api-basics/types">ID</HelpLink>           | The unique identifier of the alias.                                   |
-| **alias**        | <HelpLink href="#api-basics/types">String</HelpLink>       | The alias name, it could be a `.now.sh` subdomain or a custom domain. |
-| **created**      | <HelpLink href="#api-basics/types">Date</HelpLink>         | The date when the alias was created.                                  |
-| **deployment**   | <HelpLink href="#api-basics/types">Map</HelpLink>          | A map with the deployment ID and URL.                                 |
-| **deploymentId** | <HelpLink href="#api-basics/types">ID</HelpLink>           | The deployment ID.                                                    |
+| Key              | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                               |
+| ---------------- | ---------------------------------------------------------- | ------------------------------------------------------------------------- |
+| **uid**          | <HelpLink href="#api-basics/types">ID</HelpLink>           | The unique identifier of the alias.                                       |
+| **alias**        | <HelpLink href="#api-basics/types">String</HelpLink>       | The alias name, it could be a `.now.sh` subdomain or a custom domain.     |
+| **created**      | <HelpLink href="#api-basics/types">Date</HelpLink>         | The date when the alias was created.                                      |
+| **createdAt**    | <HelpLink href="#api-basics/types">Date</HelpLink>         | The date when the alias was created in milliseconds since the UNIX epoch. |
+| **updatedAt**    | <HelpLink href="#api-basics/types">Date</HelpLink>         | The date when the alias was updated in milliseconds since the UNIX epoch. |
+| **deployment**   | <HelpLink href="#api-basics/types">Map</HelpLink>          | A map with the deployment ID and URL.                                     |
+| **deploymentId** | <HelpLink href="#api-basics/types">ID</HelpLink>           | The deployment ID.                                                        |
+| **projectId**    | <HelpLink href="#api-basics/types">ID</HelpLink>           | The unique identifier of the project.                                     |
 
 #### Deployment
 
@@ -50,7 +55,7 @@ This is the format of the `deployment` described above.
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v2/now/aliases" auth />
+<Request url="https://api.zeit.co/v3/now/aliases" auth />
 
 ##### Example Response
 
@@ -60,6 +65,9 @@ This is the format of the `deployment` described above.
       "uid": "2WjyKQmM8ZnGcJsPWMrHRHrE",
       "alias": "my-alias",
       "created": "2016-06-02T21:01:40.950Z",
+      "createdAt": 1464894100000,
+      "updatedAt": 1464895100000,
+      "projectId": "QmXGTs7mvAMMC7WW5ebrM33qKG32QK3h4vmQMjmY",
       "deployment": {
         "id": "c9MrOWGzdJSfPxqyTDYhdEGN",
         "url": "my-app-fjvngszyiq.now.sh"
@@ -70,6 +78,9 @@ This is the format of the `deployment` described above.
       "uid": "CR3bdJZkiaAuh9yr0OHXJJPG",
       "alias": "my-alias-2",
       "created": "2016-06-01T21:03:10.420Z",
+      "createdAt": 1464807790000,
+      "updatedAt": 1464808790000,
+      "projectId": "QmXGTs7mvAMMC7WW5ebrM33qKG32QK3h4vmQMjmY",
       "rules": [
           {
               "pathname": "/",
@@ -80,7 +91,12 @@ This is the format of the `deployment` described above.
           }
       ]
     }
-  ]
+  ],
+  "pagination": {
+    "count": 2,
+    "next": 1464807790000,
+    "prev": 1464894100000
+  }
 }`}</Code>
 
 ### Get a Single Alias
@@ -153,7 +169,7 @@ You can obtain this id from the list of aliases.
   "status": "SUCCESS"
 }`}</Code>
 
-### Purge Alias in Now CDN
+### Purge Alias in the CDN
 
 <Endpoint method="PURGE" url="/v2/now/aliases/:id" />
 

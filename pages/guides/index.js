@@ -1,6 +1,5 @@
 import formatDate from 'date-fns/format'
 
-import Layout from '~/components/layout/layout'
 import Head from '~/components/layout/head'
 import Wrapper from '~/components/layout/wrapper'
 import { H1, H4, P } from '~/components/text'
@@ -8,21 +7,22 @@ import { AvatarGroup } from '~/components/avatar'
 import Link from '~/components/text/link'
 import Button from '~/components/buttons'
 import guides from '~/lib/data/guides.json'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 const Guides = () => (
-  <Layout>
+  <>
     <Head
       titlePrefix=""
       titleSuffix=""
-      title="ZEIT Now Guides"
-      description="Learn how to quickly deploy with Now in any situation."
+      title={`${PRODUCT_NAME} Guides`}
+      description={`Learn how to quickly deploy with ${PRODUCT_NAME} in any situation.`}
     />
 
     <div className="guides">
       <div className="guide-heading">
         <Wrapper>
           <H1>Guides</H1>
-          <P>A list of guides for using Now with any project.</P>
+          <P>A list of guides for using {PRODUCT_NAME} with any project.</P>
 
           <div className="actions">
             <span className="caption">Sorted by Newest</span>
@@ -49,7 +49,7 @@ const Guides = () => (
                 </div>
                 <div className="meta">
                   <span className="date">
-                    {formatDate(guide.published, 'MMMM Do YYYY')}
+                    Created on {formatDate(guide.published, 'MMMM Do YYYY')}
                   </span>
                   <AvatarGroup
                     size={24}
@@ -67,8 +67,8 @@ const Guides = () => (
               <div className="titles">
                 <H4>Write Your Guide →</H4>
                 <P>
-                  Write about using Now in combination with a technology of your
-                  choosing and get featured!
+                  Write about using {PRODUCT_NAME} in combination with a
+                  technology of your choosing and get featured!
                 </P>
               </div>
               <div className="meta">
@@ -82,6 +82,10 @@ const Guides = () => (
     </div>
 
     <style jsx>{`
+      .titles {
+        margin-right: var(--geist-gap);
+      }
+
       .guides {
         min-height: 100vh;
         padding-bottom: 64px;
@@ -211,7 +215,7 @@ const Guides = () => (
 
       .date {
         color: #666;
-        font-size: var(--font-size-primary);
+        font-size: var(--font-size-small);
         line-height: var(--line-height-primary);
       }
 
@@ -234,7 +238,7 @@ const Guides = () => (
         }
       }
     `}</style>
-  </Layout>
+  </>
 )
 
 export default Guides

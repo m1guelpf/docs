@@ -6,22 +6,25 @@ import Note from '~/components/text/note'
 import { Code } from '~/components/text/code'
 import Link from '~/components/text/link'
 import Snippet from '~/components/snippet'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import OrgName from '~/components/name/org-name'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   title: 'Deploy Button',
-  description:
-    'The Deploy Button can be used to deploy GitHub repositories and GitLab projects to ZEIT Now.',
+  description: `The Deploy Button can be used to deploy GitHub repositories and GitLab projects to ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/more/deploy-button.mdx',
-  lastEdited: '2019-11-11T10:29:24.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-Use the deploy button to create a ZEIT Project from any GitHub repository or GitLab project, including branches and subdirectories, and optionally create a copy of the original repository in your Git account.
+Use the deploy button to create a <OrgName /> Project from any GitHub repository or GitLab project, including branches and subdirectories, and optionally create a copy of the original repository in your Git account.
 
 ## Example
 
-The example below shows how the deploy button looks when rendered, clicking it allows you to deploy the [Gatsby example](https://github.com/zeit/now-examples/tree/master/gatsby) from the [Now Examples repository](https://github.com/zeit/now-examples).
+The example below shows how the deploy button looks when rendered, clicking it allows you to deploy the [Gatsby example](https://github.com/zeit/now/tree/master/examples/gatsby) from the [<ProductName /> repository](https://github.com/zeit/now/tree/master/examples).
 
-<Link href="https://zeit.co/new/project?template=https://github.com/zeit/now-examples/tree/master/gatsby">
+<Link href="https://zeit.co/import/project?template=https://github.com/zeit/now/tree/master/examples/gatsby">
   <Image src="https://zeit.co/button" width={104} height={36} align="left" />
 </Link>
 
@@ -29,34 +32,34 @@ The example below shows how the deploy button looks when rendered, clicking it a
 
 Consisting of an `.svg` asset and an associated link to a public GitHub repository or GitLab project, the deploy button can be used wherever its rendering is supported.
 
-When implementing the deploy button, provide a link with it to the `/new/project` endpoint and pass a GitHub repository or GitLab project as the template query parameter like so:
+When implementing the deploy button, provide a link with it to the `/import/project` endpoint and pass a GitHub repository or GitLab project as the template query parameter like so:
 
-<Snippet dark text="https://zeit.co/new/project?template=https://github.com/zeit/now-examples/tree/master/gatsby" />
-<Caption>The URL for deploying GitHub repositories to ZEIT Now.</Caption>
+<Snippet dark text="https://zeit.co/import/project?template=https://github.com/zeit/now/tree/master/examples/gatsby" />
+<Caption>The URL for deploying GitHub repositories to <ProductName />.</Caption>
 
 The template parameter can be either a repository URL, or alternatively, a URL for a folder within that repository, both are supported.
 
-By combining both the button and the `/new/project` endpoint, you can provide users with a way to deploy projects in seconds. Some common use cases are listed below.
+By combining both the button and the `/import/project` endpoint, you can provide users with a way to deploy projects in seconds. Some common use cases are listed below.
 
 ### Markdown
 
 To render the deploy button in a [Markdown](https://en.wikipedia.org/wiki/Markdown) file, for example a Git `README.md`, use the following code, changing only the template parameter:
 
 ```
-[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/new/project?template=https://github.com/zeit/now-examples/tree/master/gatsby)
+[![Deploy with <ProductName />](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/zeit/now/tree/master/examples/gatsby)
 ```
 
 <Caption>The code required to add a deploy button in Markdown.</Caption>
 
 ### HTML
 
-To use the Deploy to Now button with HTML, add the button as an image and wrap it with a link to the endpoint, changing only the template parameter:
+To use the Deploy to <ProductShortName /> button with HTML, add the button as an image and wrap it with a link to the endpoint, changing only the template parameter:
 
 ```html
 <a
-  href="https://zeit.co/new/project?template=https://github.com/zeit/now-examples/tree/master/gatsby"
+  href="https://zeit.co/import/project?template=https://github.com/zeit/now/tree/master/examples/gatsby"
 >
-  <img src="https://zeit.co/button" alt="Deploy to ZEIT Now" />
+  <img src="https://zeit.co/button" alt="Deploy" />
 </a>
 ```
 

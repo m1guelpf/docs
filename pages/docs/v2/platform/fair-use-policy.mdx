@@ -1,0 +1,69 @@
+import Doc from '~/components/layout/docs'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import CheckmarkInCircle from '~/components/icons/checkmark-in-circle'
+import CrossInCircle from '~/components/icons/cross-in-circle'
+import { LI, CheckList } from '~/components/list'
+import Note from '~/components/text/note'
+
+export const meta = {
+  title: 'Fair Use Policy',
+  description: `Fair Use Policy for the ${PRODUCT_NAME} platform.`,
+  editUrl: 'pages/docs/v2/platform/fair-use-policy.mdx',
+  lastEdited: '2020-04-14T00:02:08.000Z'
+}
+
+All subscription plans include unlimited Bandwidth, Builds, and Serverless Function Execution subject to this Fair Use policy. Below is a rule-of-thumb for determining which projects fall within our definition of "Fair Use" and which do not.
+
+### Examples of Fair Use
+
+<CheckList
+  items={[
+    'Jamstack sites and apps',
+    'Frontends',
+    'SPAs',
+    'Functions that query DBs or APIs',
+    'Blogs, e-commerce, marketing'
+  ]}
+/>
+
+### Never Fair Use
+
+<CheckList
+  cross
+  items={[
+    'Proxies and VPNs',
+    'Media hosting for hot-linking',
+    'Scrapers',
+    'Crypto Mining',
+    'CPU-intensive APIs (e.g.: Machine Learning)'
+  ]}
+/>
+
+## Usage Guidelines
+
+As a guideline for our community, we expect most users to fall within the below ranges for each plan. We will notify you if your usage is an outlier. Our goal is to be as permissive as possible while not allowing an unreasonable burden on our infrastructure. Where possible, we'll reach out to you ahead of any action we take to address unreasonable usage and work with you to correct it.
+
+### Typical Monthly Usage Guidelines
+
+<br />
+
+|                                 | Hobby           | Pro               |
+| ------------------------------- | --------------- | ----------------- |
+| Bandwidth                       | Up to 100GB     | Up to 1TB         |
+| Serverless Function Invocations | Up to 100GB/Hrs | Up to 1,000GB/Hrs |
+| Builds per Week                 | Up to 25        | Up to 100         |
+
+### General Limits
+
+[**Take a look at our Limits documentation**](/docs/v2/platform/limits#general-limits) for the limits we apply to all accounts.
+
+### Learn More
+
+For further information regarding this policy and acceptable use of our Services, please refer to our [Terms of Service](/legal/terms#fair-use) or your Enterprise Service Agreement.
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
+}

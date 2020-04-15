@@ -1,16 +1,18 @@
 import Doc from '~/components/layout/docs'
+import ProductName from '~/components/name/product-name'
+import { ORG_NAME } from '~/lib/constants'
+import OrgName from '~/components/name/org-name'
 
 export const meta = {
   title: 'Network Overview',
-  description:
-    'The ZEIT Network layer sits in-between the internet and your deployments. It routes the users requests to the correct files of the requested deployment.',
+  description: `The ${ORG_NAME} Network layer sits in-between the internet and your deployments. It routes the users requests to the correct files of the requested deployment.`,
   editUrl: 'pages/docs/v2/network/overview.mdx',
-  lastEdited: '2019-11-09T00:06:30.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-The ZEIT Network layer sits in-between the internet and your Now deployments. This type of network topology is sometimes called a [Content Delivery Network](https://en.wikipedia.org/wiki/Content_delivery_network) or CDN.
+The <OrgName /> Network layer sits in-between the internet and your <ProductName /> deployments. This type of network topology is sometimes called a [Content Delivery Network](https://en.wikipedia.org/wiki/Content_delivery_network) or CDN.
 
-The ZEIT Network has many responsibilities, but most importantly, it is responsible for routing requests to the correct **Serverless Function** or **Static File** output of your **Builds**. Since the ZEIT network is a CDN with the ability to execute functions at the edge, the ZEIT Network is a [Smart CDN](/smart-cdn).
+The <OrgName /> Network has many responsibilities, but most importantly, it is responsible for routing requests to the correct **Serverless Function** or **Static File** output of your **Builds**. Since the <OrgName /> network is a CDN with the ability to execute functions at the edge, the <OrgName /> Network is a [Smart CDN](/smart-cdn).
 
 ## Regions
 
@@ -22,7 +24,7 @@ In the event that the **Serverless Function** of your deployment is not created 
 
 ## Caching
 
-The ZEIT Network has multiple layers of caches to ensure that your Now deployments are fast around the world. At a high level, the layers of the cache are as follows:
+The <OrgName /> Network has multiple layers of caches to ensure that your <ProductName /> deployments are fast around the world. At a high level, the layers of the cache are as follows:
 
 - L1 - a small per-[process](<https://en.wikipedia.org/wiki/Process_(computing)>) cache
 - L2 - shared cache for processes on a single node
@@ -40,7 +42,12 @@ All of these actions are performed automatically with careful attention to perfo
 
 ## Supported Protocols
 
-We currently support [HTTPS](https://en.wikipedia.org/wiki/HTTPS) and [WSS](https://en.wikipedia.org/wiki/WebSocket) (this list will be updated in the event that support for an additional protocol is added to the Network layer).
+The network layer supports the following protocols:
+
+- [HTTPS](https://en.wikipedia.org/wiki/HTTPS)
+- [WSS](https://en.wikipedia.org/wiki/WebSocket)\*
+
+Please note that although the network layer supports the WSS protocol, [Serverless Functions](/docs/v2/serverless-functions/introduction) do not. This means you can proxy WSS traffic to a different provider but [Serverless Functions cannot serve WSS](/docs/v2/platform/limits#websockets).
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 

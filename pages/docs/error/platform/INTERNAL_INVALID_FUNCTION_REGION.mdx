@@ -1,12 +1,13 @@
 import Standard from '~/components/layout/standard'
 import Note from '~/components/text/note'
 import { InlineCode } from '~/components/text/code'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
   title: 'Invalid Serverless Function Region',
   description: 'An error occurred in the platform infrastructure layer.',
   editUrl: 'pages/docs/error/platform/INTERNAL_INVALID_FUNCTION_REGION.mdx',
-  lastEdited: '2019-09-26T14:00:22.000Z'
+  lastEdited: '2020-04-15T01:59:48.000Z'
 }
 
 #### Platform Error
@@ -25,7 +26,7 @@ An error occurred in the platform infrastructure layer.
 
 #### Troubleshoot
 
-- **[Contact Support](mailto:support@zeit.co)** along with the ID on the error page from your deployment.
+- **<EmailLink type="support">Contact Support</EmailLink>** along with the ID on the error page from your deployment.
 
 export default ({ children }) => <Standard meta={meta}>{children}</Standard>
 

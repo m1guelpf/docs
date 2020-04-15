@@ -1,5 +1,6 @@
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
+import OrgName from '~/components/name/org-name'
 
 export const meta = {
   editUrl:
@@ -43,7 +44,7 @@ module.exports = withUiHook(async ({ payload, zeitClient }) => {
 
 Based on the example above:
 
-- `zeitClient.ensureSecret` will create a unique ZEIT secret based on the hash value of `mongo_url`, then returns the name of secret
+- `zeitClient.ensureSecret` will create a unique <OrgName /> secret based on the hash value of `mongo_url`, then returns the name of secret
 - If the secret already exists, it will not be duplicated for the given value
 - The value of `secretName` will be, for example; `mongo_url_s2kj23jh55`
 - The secret is added to the project (using `payload.projectId`) through the `zeitClient.upsertEnv` method

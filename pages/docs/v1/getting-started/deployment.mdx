@@ -1,23 +1,22 @@
 import Doc from '~/components/layout/docs'
-
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 import { TerminalInput } from '~/components/text/terminal'
 import Caption from '~/components/text/caption'
 import { Image } from '~/components/media'
 import Link from '~/components/text/link'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import Note from '~/components/text/note'
 import { InlineCode } from '~/components/text/code'
 
 export const meta = {
   title: 'Deployment',
-  description:
-    'How to setup and deploy Node.js apps, Docker apps, or static websites with Now',
+  description: `How to setup and deploy Node.js apps, Docker apps, or static websites with ${PRODUCT_SHORT_V1_NAME}`,
   date: '1 August 2017',
   editUrl: 'pages/docs/v1/getting-started/deployment.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-With <Now color="#000"/>, you can deploy any kind of web app by using a single command. <Now color="#000"/> supports three types of deployments:
+With <ProductShortV1Name />, you can deploy any kind of web app by using a single command. <ProductShortV1Name /> supports three types of deployments:
 
 - [Static](#static-deployment) - for static web apps
 - [Node.js](#node.js-deployment) - for Node.js apps
@@ -29,11 +28,11 @@ Here is how each of these deployments work:
 
 ## Static Deployment
 
-With static deployment, you can deploy a static web app or a set of assets to <Now color="#000"/>. Visit the directory you want to deploy and run this command:
+With static deployment, you can deploy a static web app or a set of assets to <ProductShortV1Name />. Visit the directory you want to deploy and run this command:
 
 <TerminalInput>now</TerminalInput>
 
-If that directory contains an `index.html` file, that file will be served. Otherwise, <Now color="#000"/> will show all the files in that directory.
+If that directory contains an `index.html` file, that file will be served. Otherwise, <ProductShortV1Name /> will show all the files in that directory.
 
 <Image
   src={`${process.env.IMAGE_ASSETS_URL}/docs/deployment/static-dir-listing.png`}
@@ -42,13 +41,11 @@ If that directory contains an `index.html` file, that file will be served. Other
   caption="Directory listing of a static deployment"
 />
 
-> For all static deployments, you will be charged only for the bandwidth. You [do not pay](https://zeit.co/blog/unlimited-static) for computing resources and storage.
-
 To learn more about static deployments, read <Link href="/docs/deployment-types/static">this guide</Link>.
 
 ## Node.js Deployment
 
-If you have a `package.json` file in your app directory, <Now color="#000"/> considers that a valid Node.js deployment. Here is a simple Node.js deployment with the help of [micro](https://github.com/zeit/micro).
+If you have a `package.json` file in your app directory, <ProductShortV1Name /> considers that a valid Node.js deployment. Here is a simple Node.js deployment with the help of [micro](https://github.com/zeit/micro).
 
 We have two files in our app directory. They are:
 
@@ -79,13 +76,13 @@ To deploy this app, visit the app directory and run this command:
 
 <TerminalInput>now</TerminalInput>
 
-<Now color="#000"/> will install dependencies and run the `start` NPM script, as mentioned in the above `package.json` file.
+​<ProductShortV1Name /> will install dependencies and run the `start` NPM script, as mentioned in the above `package.json` file.
 
 You can also specify a separate build command, select the Node.js runtime and control dependency installation, and do more. To learn about those, read <Link href="/docs/deployment-types/node">this guide</Link>.
 
 ## Docker Deployment
 
-If your app directory contains a `Dockerfile`, <Now color="#000"/> considers that a valid [Docker](https://www.docker.com/) deployment. It will build a docker image based on the `Dockerfile` and start container(s) based on that.
+If your app directory contains a `Dockerfile`, <ProductShortV1Name /> considers that a valid [Docker](https://www.docker.com/) deployment. It will build a docker image based on the `Dockerfile` and start container(s) based on that.
 
 To deploy a simple [Go](https://golang.org/) HTTP server, create a directory and add these two files:
 
@@ -128,7 +125,7 @@ CMD ["/go-http-microservice"]
 </Caption>
 
 <Note>
-  Without enabling Now Cloud v2 with the following{' '}
+  Without enabling <ProductShortV1Name /> Cloud v2 with the following{' '}
   <InlineCode>now.json</InlineCode> configuration, the Dockerfile will require
   an <InlineCode>EXPOSE</InlineCode> instruction. In this case it would be{' '}
   <InlineCode>EXPOSE 3000</InlineCode>.
@@ -144,7 +141,9 @@ CMD ["/go-http-microservice"]
 }
 ```
 
-<Caption>Enabling Now Cloud v2 from a `now.json` configuration file.</Caption>
+<Caption>
+  Enabling <ProductShortV1Name /> Cloud v2 from a `now.json` configuration file.
+</Caption>
 
 ### .dockerignore
 
@@ -166,6 +165,6 @@ Now run this command inside that directory:
 
 That's it. You'll get a URL like this: <https://go-hello-isftssqinn.now.sh>
 
-To learn more about Docker deployments on <Now color="#000"/>, read <Link href="/docs/deployment-types/docker">this guide</Link>.
+To learn more about Docker deployments on <ProductShortV1Name />, read <Link href="/docs/deployment-types/docker">this guide</Link>.
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

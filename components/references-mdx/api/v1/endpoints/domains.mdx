@@ -1,7 +1,7 @@
 import Example from '~/components/example'
 import { Code, InlineCode } from '~/components/text/code'
 import Link from '~/components/text/link'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import {
   InputTable,
   OutputTable,
@@ -53,7 +53,7 @@ manage DNS records for the domain.
     <BoldCell>boughtAt</BoldCell>
     <TypeCell>Date</TypeCell>
     <Cell>
-      If it was purchased through {<Now color="#000" />} the date when it was
+      If it was purchased through {<ProductShortV1Name />} the date when it was
       purchased.
     </Cell>
   </Row>
@@ -133,7 +133,7 @@ Example successful (**200**) response:
 
 <Endpoint method="POST" url="/v2/domains" />
 
-Register a new domain name with <Now color="#000" /> for the authenticating
+Register a new domain name with <ProductShortV1Name /> for the authenticating
 user. The field `serviceType` selects whether the domains is going to use
 zeit.world DNS or an external nameserver. In the latter case a `CNAME/ALIAS`
 record(s) are expected to point towards `alias.zeit.co`.
@@ -255,7 +255,7 @@ Successful (**200**) response:
 
 <Endpoint method="DELETE" url="/v2/domains/:name" />
 
-Delete a previously registered domain name from <Now color="#000" />.
+Delete a previously registered domain name from <ProductShortV1Name />.
 Deleting a domain will automatically remove any associated aliases.
 
 #### Output

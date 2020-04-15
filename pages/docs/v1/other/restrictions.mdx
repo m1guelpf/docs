@@ -1,16 +1,19 @@
 import Doc from '~/components/layout/docs'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
+import EmailLink from '~/components/text/email-link'
 
 export const meta = {
   title: 'Restrictions',
-  description: 'A guide to what restrictions you have when deploying to Now',
+  description: `A guide to what restrictions you have when deploying to ${PRODUCT_SHORT_V1_NAME}`,
   date: '20 Mar 2018',
   editUrl: 'pages/docs/v1/other/restrictions.mdx',
-  lastEdited: '2019-03-13T13:19:27.000Z'
+  lastEdited: '2020-04-15T00:54:08.000Z'
 }
 
 The purpose of this page is to guide you through
 all the potential restrictions that might be
-enforced upon the content you have uploaded to Now.
+enforced upon the content you have uploaded to <ProductShortV1Name />.
 
 ## Blocked Deployments
 
@@ -47,7 +50,7 @@ and what you can do to activate
 your subscription again.
 
 At this point, if you haven't taken any action, you
-won't be able to access any of Now's features
+won't be able to access any of <ProductShortV1Name />'s features
 anymore ([more details](#how-deployments-are-blocked)).
 
 To prevent this from happening, please ensure
@@ -57,7 +60,7 @@ charged.
 In addition to that, it would also be beneficial
 to ensure that emails from our platform
 don't end up in your spam folder or get filtered out
-as junk (they're being sent by an address ending with `@zeit.co`).
+as junk.
 
 ### Deployed under a Higher Plan
 
@@ -96,6 +99,6 @@ failed payments, the following will apply as well:
 
 If you need additional advice on how to unblock your
 deployments or prevent them from initially getting
-blocked, please contact us at [support@zeit.co](mailto:support@zeit.co).
+blocked, please contact us at <EmailLink type="support" />.
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

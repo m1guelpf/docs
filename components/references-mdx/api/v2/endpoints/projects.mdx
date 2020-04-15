@@ -101,11 +101,13 @@ Create a project with the `name` request parameter if it does not already exist.
   "createdAt":1555413045188
 }`}</Code>
 
-### Get All Projects
+### Get Projects
 
-<Endpoint method="GET" url="/v2/projects/" />
+<Endpoint method="GET" url="/v4/projects/" />
 
-Get a list of all the projects you currently have under your account.
+Get a list of the projects you currently have under your account.
+
+By default, it returns the last 20 projects. The rest can be retrieved using the pagination options described below.
 
 <Note>
   The order is always based on the <InlineCode>updatedAt</InlineCode> field of
@@ -117,37 +119,43 @@ Get a list of all the projects you currently have under your account.
 | Key        | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                                        |
 | ---------- | ---------------------------------------------------------- | -------- | -------------------------------------------------- |
 | **limit**  | <HelpLink href="#api-basics/types">Number</HelpLink>       | No       | Limit the number of projects returned.             |
-| **from**   | <HelpLink href="#api-basics/types">Date</HelpLink>         | No       | The `updatedAt` point where the list should start. |
+| **since**  | <HelpLink href="#api-basics/types">Date</HelpLink>         | No       | The `updatedAt` point where the list should start. |
+| **until**  | <HelpLink href="#api-basics/types">Date</HelpLink>         | No       | The `updatedAt` point where the list should end.   |
 | **search** | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | Search projects by the name field.                 |
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v2/projects/?limit=2" auth />
+<Request url="https://api.zeit.co/v4/projects/?limit=2" auth />
 
 ##### Example Response
 
-<Code lang="json">{`
-[
-  {
-    "id":"QmQKrt94KYKF3sDysJq19N8gvhmE8Wicbt2GirePy1dH8U",
-    "name":"a-project-name",
-    "accountId":"K4amb7K9dAt5R2vBJWF32bmY",
-    "createdAt":1555413045188,
-    "updatedAt":1555413045188,
-    "targets": {},
-    "latestDeployments": []
-  },
-  {
-    "id":"QmRhxc9HAmRMcLvWhCAf2ALLctxZ4s4fwsM1D5kNM8PJuL",
-    "name":"another-project-name",
-    "accountId":"K4amb7K9dAt5R2vBJWF32bmY",
-    "createdAt":1555072968396,
-    "updatedAt":1555345633993,
-    "targets": {},
-    "latestDeployments": []
+<Code lang="json">{`{
+  "projects": [
+    {
+      "id":"QmQKrt94KYKF3sDysJq19N8gvhmE8Wicbt2GirePy1dH8U",
+      "name":"a-project-name",
+      "accountId":"K4amb7K9dAt5R2vBJWF32bmY",
+      "createdAt":1555413045188,
+      "updatedAt":1555413045188,
+      "targets": {},
+      "latestDeployments": []
+    },
+    {
+      "id":"QmRhxc9HAmRMcLvWhCAf2ALLctxZ4s4fwsM1D5kNM8PJuL",
+      "name":"another-project-name",
+      "accountId":"K4amb7K9dAt5R2vBJWF32bmY",
+      "createdAt":1555072968396,
+      "updatedAt":1555345633993,
+      "targets": {},
+      "latestDeployments": []
+    }
+  ],
+  "pagination": {
+    "count": 2,
+    "next": 1555072968396,
+    "prev": 1555413045188
   }
-]
-`}</Code>
+}`}</Code>
 
 ### Get a Single Project
 
@@ -222,7 +230,7 @@ Get the information for a specific project by passing either the project `id` or
       "forced": false,
       "id": "dpl_89qyp1cskzkLrVicDaZoDbjyHuDJ",
       "meta": {},
-      "plan": "unlimited",
+      "plan": "pro",
       "private": true,
       "readyState": "READY",
       "requestedAt": 1571239348998,
@@ -245,7 +253,7 @@ Get the information for a specific project by passing either the project `id` or
       "forced": false,
       "id": "dpl_89qyp1cskzkLrVicDaZoDbjyHuDJ",
       "meta": {},
-      "plan": "unlimited",
+      "plan": "pro",
       "private": true,
       "readyState": "READY",
       "requestedAt": 1571239348998,
@@ -256,6 +264,60 @@ Get the information for a specific project by passing either the project `id` or
       "userId": "K4amb7K9dAt5R2vBJWF32bmY"
     }
   ]
+}`}</Code>
+
+### Update a Single Project
+
+<Endpoint>
+  PATCH /v2/projects/:id
+  <br />
+  PATCH /v2/projects/:name
+</Endpoint>
+
+Update the fields of a project using either its `name` or `id`.
+
+#### Request Parameters
+
+| Key                 | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                                                                                                                           |
+| ------------------- | ---------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **framework**       | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The framework that is being used for this project. When `null` is used no framework is selected.                                      |
+| **publicSource**    | <HelpLink href="#api-basics/types">Boolean</HelpLink>      | No       | Specifies whether the source code and logs of the deployments for this project should be public or not.                               |
+| **buildCommand**    | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The build command for this project. When `null` is used this value will be automatically detected.                                    |
+| **devCommand**      | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The dev command for this project. When `null` is used this value will be automatically detected.                                      |
+| **outputDirectory** | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The output directory of the project. When `null` is used this value will be automatically detected.                                   |
+| **rootDirectory**   | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The name of a directory or relative path to the source code of your project. When `null` is used it will default to the project root. |
+
+##### Example Request
+
+<Request
+  method="PATCH"
+  url="https://api.zeit.co/v2/projects/a-project-name"
+  headers={{
+    'Content-Type': 'application/json'
+  }}
+  auth
+  body={{
+    framework: 'nextjs',
+    publicSource: false,
+    buildCommand: 'yarn run different-build',
+    devCommand: 'yarn run different-dev',
+    outputDirectory: null
+  }}
+/>
+
+##### Example Response
+
+<Code lang="json">{`{
+  "id": "QmQKrt94KYKF3sDysJq19N87uMmE8Wicbt2GirePy1dH8U",
+  "name": "a-project-name",
+  "accountId": "K4amb7K9dAt5R2vBJWF32bmY",
+  "framework": 'nextjs',
+  "publicSource": false,
+  "buildCommand": "yarn run different-build",
+  "devCommand": "yarn run different-dev",
+  "outputDirectory": null,
+  "updatedAt": 1555413045188,
+  "createdAt": 1575972468641
 }`}</Code>
 
 ### Remove a Single Project
@@ -290,7 +352,7 @@ Delete a specific project by passing either the project `id` or `name` in the UR
 
 ### Get Project Environment Variables
 
-<Endpoint method="GET" url="/v1/projects/:id/env" />
+<Endpoint method="GET" url="/v4/projects/:id/env" />
 
 Retrieve the environment variables for a given project by passing the project `id` in the URL.
 
@@ -312,7 +374,9 @@ Retrieve the environment variables for a given project by passing the project `i
 <Code lang="json">{`[
   {
     "key": "API_SECRET",
-    "value": "@a-new-secret",
+    "value": "secret_id_123456789",
+    "target": "production",
+    "system": false,
     "configurationId": null,
     "updatedAt": 1557241361455,
     "createdAt": 1557241361455
@@ -321,17 +385,15 @@ Retrieve the environment variables for a given project by passing the project `i
 
 ### Create a Project Environment Variable
 
-<Endpoint method="POST" url="/v1/projects/:id/env" />
+<Endpoint method="POST" url="/v4/projects/:id/env" />
 
 Create a new environment variable for the project by passing the project `id` in the URL and a `key` and `value` as request parameters.
 
-<Note>
-  For security, only secrets can be used for these environment variables.
-</Note>
+<Note>For security, environment variable values must reference a secret.</Note>
 
 <Note>
-  Only deployments made after this call will receive the environment variables
-  set.
+  Changes to environment variables are not applied to existing deployments. The
+  changes are only applied to new deployments.
 </Note>
 
 #### URL Parameters
@@ -342,10 +404,11 @@ Create a new environment variable for the project by passing the project `id` in
 
 #### Request Parameters
 
-| Key       | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                            |
-| --------- | ---------------------------------------------------------- | -------- | -------------------------------------- |
-| **key**   | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The name of the environment variable.  |
-| **value** | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The value of the environment variable. |
+| Key        | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                                                  |
+| ---------- | ---------------------------------------------------------- | -------- | ------------------------------------------------------------ |
+| **key**    | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The name of the environment variable.                        |
+| **value**  | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The Secret ID or an empty string.                            |
+| **target** | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The target can be `development`, `preview`, or `production`. |
 
 ##### Example Request
 
@@ -358,25 +421,22 @@ Create a new environment variable for the project by passing the project `id` in
   auth
   body={{
     key: 'API_SECRET',
-    value: '@a-new-secret'
+    value: 'secret_id_123456789',
+    target: 'production'
   }}
 />
 
 ##### Example Response
 
-<Code lang="json">{`[
-  {
-    "key": "API_SECRET",
-    "value": "@a-new-secret",
-    "configurationId": null,
-    "updatedAt": 1557241361455,
-    "createdAt": 1557241361455
-  }
-]`}</Code>
-
-<Note>
-  The response will include all environment variables for the project.
-</Note>
+<Code lang="json">{`{
+  "key": "API_SECRET",
+  "value": "secret_id_123456789",
+  "target": "production",
+  "system": false,
+  "configurationId": null,
+  "updatedAt": 1557241361455,
+  "createdAt": 1557241361455
+}`}</Code>
 
 <Note>
   The <InlineCode>configurationId</InlineCode> depends on the token used to make
@@ -385,33 +445,37 @@ Create a new environment variable for the project by passing the project `id` in
 
 ### Delete a Specific Environment Variable
 
-<Endpoint method="DELETE" url="/v1/projects/:id/env/:key" />
+<Endpoint method="DELETE" url="/v4/projects/:id/env/:key?target=:target" />
 
-Delete a specific environment variable for a given project by passing both the project `id` and `env` key in the URL.
+Delete a specific environment variable for a given project by passing the project `id`, `env` key, and `target` in the URL.
 
 #### URL Parameters
 
-| Key     | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                    |
-| ------- | ---------------------------------------------------------- | -------- | ------------------------------ |
-| **id**  | <HelpLink href="#api-basics/types">ID</HelpLink>           | Yes      | The unique project identifier. |
-| **key** | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The environment variable key.  |
+| Key        | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                                                  |
+| ---------- | ---------------------------------------------------------- | -------- | ------------------------------------------------------------ |
+| **id**     | <HelpLink href="#api-basics/types">ID</HelpLink>           | Yes      | The unique project identifier.                               |
+| **key**    | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The name of the environment variable.                        |
+| **target** | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The target can be `development`, `preview`, or `production`. |
 
 ##### Example Request
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/env/API_SECRET"
+  url="https://api.zeit.co/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/env/API_SECRET?target=production"
   auth
 />
 
 ##### Example Response
 
-<Code lang="json">{`[]`}</Code>
-
-<Note>
-  The response will include all <b>remaining</b> environment variables for the
-  project.
-</Note>
+<Code lang="json">{`{
+  "key": "API_SECRET",
+  "value": "secret_id_123456789",
+  "target": "production",
+  "system": false,
+  "configurationId": null,
+  "updatedAt": 1557241361455,
+  "createdAt": 1557241361455
+}`}</Code>
 
 ### Add a Domain to a Project
 

@@ -4,24 +4,26 @@ import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
 import Note from '~/components/text/note'
 
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
 export const meta = {
-  title: 'Upgrade Your Existing ZEIT Now Projects With Zero Configuration',
-  description:
-    'Upgrade your existing ZEIT Now projects to use no configuration.',
+  title: `Upgrade Your Existing ${PRODUCT_NAME} Projects With Zero Configuration`,
+  description: `Upgrade your existing ${PRODUCT_NAME} projects to use no configuration.`,
   published: '2019-07-31T20:06:26.000Z',
   authors: ['msweeneydev', 'timothy', 'skllcrn'],
   url: '/guides/upgrade-to-zero-configuration',
   editUrl: 'pages/guides/upgrade-to-zero-configuration.mdx',
-  lastEdited: '2019-11-09T00:06:30.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-With zero configuration, it's never been easier to deploy an app with ZEIT Now. This guide highlights a set of common scenarios, showing you how to take advantage of these new features.
+With zero configuration, it's never been easier to deploy an app with <ProductName />. This guide highlights a set of common scenarios, showing you how to take advantage of these new features.
 
 ## Next.js
 
 In the first example, we will explore how to deploy [a Next.js app](/guides/deploying-nextjs-with-now) with zero configuration.
 
-Using [the Next.js example project from the ZEIT Now Examples repository](https://github.com/zeit/now-examples/tree/master/nextjs), the following `now.json` configuration file was previously needed to deploy:
+Using [the Next.js example project from the <ProductName /> repository](https://github.com/zeit/now/tree/master/examples/nextjs), the following `now.json` configuration file was previously needed to deploy:
 
 ```json
 {
@@ -42,11 +44,11 @@ Using [the Next.js example project from the ZEIT Now Examples repository](https:
 
 With zero configuration, the `now.json` file is no longer required. You only have to remove the `now.json` file from your project.
 
-For Next.js projects that have a **JavaScript API**, you can use a `/pages/api/` folder, this will allow Next.js to [handle the building of these files for you](https://nextjs.org/docs#api-routes).
+For Next.js projects that have a **JavaScript API**, you can use a `/pages/api/` folder, this will allow Next.js to [handle the building of these files for you](https://nextjs.org/docs/api-routes/introduction).
 
-If your Next.js project is using a different language for the API, put it in the top-level `/api` directory instead. By doing that, you will take advantage of Now's native support for Serverless Functions written in multiple languages, while `/pages/api` only supports JavaScript (powered by Next.js).
+If your Next.js project is using a different language for the API, put it in the top-level `/api` directory instead. By doing that, you will take advantage of <ProductName />'s native support for Serverless Functions written in multiple languages, while `/pages/api` only supports JavaScript (powered by Next.js).
 
-View this zero configuration deployment on Now: <https://next-zero-config.now-examples.now.sh/>
+View this zero configuration deployment on <ProductName />: <https://next-zero-config.now-examples.now.sh/>
 
 ## Other Frameworks
 
@@ -74,9 +76,9 @@ Before zero configuration, the [Gatsby default starter](https://github.com/gatsb
 
 ### Frameworks with Zero Configuration
 
-The above configuration is no longer required. Instead, for frontend frameworks like Gatsby or Next.js, Now will locate the `build` script inside a `package.json` file at your project's root and use it to build and serve the output from the `public` directory.
+The above configuration is no longer required. Instead, for frontend frameworks like Gatsby or Next.js, <ProductName /> will locate the `build` script inside a `package.json` file at your project's root and use it to build and serve the output from the `public` directory.
 
-A set of frontend frameworks are [optimized for Now](/docs/v2/build-step/#optimized-frameworks) with zero configuration. If the framework you are using is not, you must ensure that the build output directory is set to `public`.
+A set of frontend frameworks are optimized with zero configuration. If the framework you are using is not, you must ensure that the build output directory is set to `public`.
 
 If your framework does not support changing the output build directory, you can make an addition to your build script, moving the build output to the `public` folder manually like the example below:
 
@@ -140,7 +142,7 @@ However, when writing multiple endpoints you will either require RegEx knowledge
 
 ### With Zero Configuration
 
-Zero configuration for API's has one rule, put everything in a top level `/api` directory. From there, Now will handle all of the building and routing for you.
+Zero configuration for API's has one rule, put everything in a top level `/api` directory. From there, <ProductName /> will handle all of the building and routing for you.
 
 In the example above, all that would be required is to move `/api/date.go` into the project's root directory and then simply deleting the `now.json` file.
 
@@ -186,7 +188,7 @@ module.exports = (req, res) => {
   <Link href="/docs/v2/serverless-functions/supported-languages#node.js-helpers">
     helper methods
   </Link>{' '}
-  with ZEIT Now.
+  with <ProductName />.
 </Caption>
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>

@@ -4,44 +4,30 @@ import Link from '~/components/text/link'
 import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Migrate to ZEIT Now',
-  description:
-    'Migrate your websites and APIs to the ZEIT Now Platform with zero configuration.',
+  title: `Migrate to ${PRODUCT_NAME}`,
+  description: `Migrate your websites and APIs to the ${PRODUCT_NAME} Platform with zero configuration.`,
   published: '2019-07-31T03:00:00.860Z',
   authors: ['msweeneydev', 'timothy', 'skllcrn'],
   url: '/guides/migrate-to-zeit-now',
   editUrl: 'pages/guides/migrate-to-zeit-now.mdx',
-  lastEdited: '2019-11-05T13:14:41.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
-
-This guide highlights a set of common scenarios and how they are deployed with ZEIT Now.
 
 ## Frontend Frameworks
 
-When deploying frontend frameworks, ZEIT Now locates a `build` script in a `package.json` file at your project's root, then executes the script to build and deploy your project. If your project is building using this method, no changes are required.
+​<ProductName /> tries to automatically detect the frontend framework you’re using for your project and configure the project settings for you. If you’d like to override the settings or specify a different framework, take a look at [our documentation on build settings](/docs/v2/build-step).
 
-```json
-{
-  ...
-  "scripts": {
-    "build": "gatsby build",
-    "dev": "gatsby develop"
-  }
-}
-```
+## Custom Domains
 
-<Caption>
-  An example Gatsby <InlineCode>build</InlineCode> script inside a{' '}
-  <InlineCode>package.json</InlineCode>.
-</Caption>
+To migrate your domains to <ProductName />, refer to the following documentation:
 
-When your project uses this method to build a frontend framework, you can deploy using [Now CLI](/download) from your terminal:
-
-<Snippet dark text="now" />
-
-Next, [setup a Now for Git integration](/docs/v2/git-integration) to deploy your projects automatically on each push, and add a [custom domain](/docs/v2/custom-domains) to deploy your projects to.
+- [Custom Domains](/docs/v2/custom-domains)
+- [Zero-Downtime Domain Migration with <ProductName />](/guides/zero-downtime-domain-migration)
 
 ## Serverful vs. Serverless APIs
 
@@ -65,7 +51,7 @@ app.get('/teams/data', function(req, res) {
 
 <Caption>A common routes configuration for serverful Express.js.</Caption>
 
-### Moving to ZEIT Now and Serverless
+### Moving to <NameWrapper name={PRODUCT_NAME} /> and Serverless
 
 With serverless, functionality is split into separate files, called [Serverless Functions](/docs/v2/serverless-functions/introduction). Instead of a file or process growing monolithically, this gives us the ability to break down the app into independently scalable parts.
 
@@ -73,7 +59,7 @@ When a path is requested, the Serverless Function for that path is [invoked](/do
 
 #### Step 1: Creating an API Directory
 
-The only requirement for Serverless Functions on Now, without advanced configuration, is that you place your files inside of an `/api` directory. By doing this, Now will be able to handle both the routing and building of these files – dramatically simplifying the process of developing an API.
+The only requirement for Serverless Functions on <ProductName />, without advanced configuration, is that you place your files inside of an `/api` directory. By doing this, <ProductName /> will be able to handle both the routing and building of these files – dramatically simplifying the process of developing an API.
 
 When using the `/api` directory, routing is based on the filesystem, making it easy to keep track of endpoints simply by looking at the file tree. For example, the file `/api/teams/zeit.js` would be available at the endpoint `/api/teams/zeit`.
 
@@ -138,7 +124,7 @@ module.exports = (req, res) => {
 
 #### Bonus: Dynamic Routes
 
-Using route parameters with your Serverless Functions is made easy with Now. Let's first take a look at another serverful Express.js example that uses a dynamic route.
+Using route parameters with your Serverless Functions is made easy with <ProductName />. Let's first take a look at another serverful Express.js example that uses a dynamic route.
 
 ```js
 app.get('/teams/:member', function(req, res) {
@@ -153,11 +139,11 @@ app.get('/teams/:member', function(req, res) {
 
 The above route uses the route parameter _member_, with Express.js making it available as part of the `req.query` object.
 
-To convert this route for use inside of the `/api` directory with Now, we will once again place it inside the `/teams` directory. However, this time we will name it `[member].js` - this is called a _Path Segment_.
+To convert this route for use inside of the `/api` directory with <ProductName />, we will once again place it inside the `/teams` directory. However, this time we will name it `[member].js` - this is called a _Path Segment_.
 
 Path Segments allow your endpoints to receive route parameters and, just like Express, they are made available on the `req.query` object with the key specified in the filename.
 
-Taking this into account, we can convert the above Express route for Now with the following code:
+Taking this into account, we can convert the above Express route for <ProductName /> with the following code:
 
 ```js
 // api/teams/[member].js
@@ -177,7 +163,7 @@ module.exports = (req, res) => {
   <Link href="/docs/v2/serverless-functions/introduction#local-development">
     use <InlineCode>now dev</InlineCode>
   </Link>{' '}
-  to replicate the ZEIT Now Platform environment locally.
+  to replicate the <ProductName /> Platform environment locally.
 </Note>
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>

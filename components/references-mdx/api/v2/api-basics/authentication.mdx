@@ -2,6 +2,7 @@ import Link from '~/components/text/link'
 import { InlineCode, Code } from '~/components/text/code'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
+import ProductName from '~/components/name/product-name'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/api-basics/authentication.mdx',
@@ -10,7 +11,7 @@ export const meta = {
 
 ## Authentication
 
-Requests to the Now API must provide an API token through the `Authorization` header:
+Requests to the <ProductName /> API must provide an API token through the `Authorization` header:
 
 <Code>
     Authorization: Bearer{' '}
@@ -20,20 +21,22 @@ Requests to the Now API must provide an API token through the `Authorization` he
     The <InlineCode>Authorization</InlineCode> header with a token.
 </Caption>
 
-API queries for resources owned by a team require a `teamId` query string at the end of the API endpoint URL and use the team's ID as the value:
+### Accessing Resources Owned by a Team
+
+By default, you can access resources contained within your own user account.
+
+To access resources owned by a team, you must first find the team ID. You can do so by using the `teams` endpoint ([documentation](#endpoints/teams/list-all-your-teams)) and obtaining the `id` of a team.
+
+After you obtained the team ID, append it as a query string at the end of the API endpoint URL:
 
 <Code>https://api.zeit.co/v6/now/deployments?teamId=[team ID]</Code>
 <Caption>
-    An API endpoint using a team ID with the <InlineCode>teamId</InlineCode>{' '}
-    query string.
+    Replace <InlineCode>[team ID]</InlineCode>{' '}with the team ID you obtained.
 </Caption>
 
 <Note>
-  You can find your own team's ID using the{' '}
-  <Link href="#endpoints/teams/list-all-your-teams">
-    <InlineCode>teams</InlineCode> endpoint
-  </Link>
-  .
+  You still need to provide an API token through the{' '}
+  <InlineCode>Authorization</InlineCode> header.
 </Note>
 
 ### Failed Authentication

@@ -1,6 +1,8 @@
 import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
+import OrgName from '~/components/name/org-name'
+import ProductShortName from '~/components/name/product-short-name'
 
 export const meta = {
   editUrl: 'pages/docs/now-cli/now-cli-mdx/commands/login.mdx',
@@ -9,9 +11,9 @@ export const meta = {
 
 ## Login
 
-The `now login` command allows you to login to your ZEIT account through Now CLI.
+The `now login` command allows you to login to your <OrgName /> account through <ProductShortName /> CLI.
 
 ### Basic Usage
 
 <Snippet dark text="now login" />
-<Caption>Using the <InlineCode>now login</InlineCode> command to login to a ZEIT account.</Caption>
+<Caption>Using the <InlineCode>now login</InlineCode> command to login to a <OrgName /> account.</Caption>

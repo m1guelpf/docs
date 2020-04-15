@@ -1,19 +1,20 @@
 import Doc from '~/components/layout/docs'
-import Now from '~/components/text/now'
+import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import Caption from '~/components/text/caption'
 import { InlineCode } from '~/components/text/code'
 import Note from '~/components/text/note'
+import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Configuring Static Applications on Now',
+  title: `Configuring Static Applications on ${PRODUCT_SHORT_V1_NAME}`,
   description:
     'All the configuration options you need to control static app deployments and what they do.',
   date: '22 August 2018',
   editUrl: 'pages/docs/v1/static-deployments/configuration.mdx',
-  lastEdited: '2019-08-06T15:31:27.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
-In order to change the [default behavior of a static deployment](/docs/static-deployments/introduction-and-deploying#default-behavior) running on <Now color="#000"/>, there are configuration options that can be used within a `static` property within a `now.json` file.
+In order to change the [default behavior of a static deployment](/docs/static-deployments/introduction-and-deploying#default-behavior) running on <ProductShortV1Name />, there are configuration options that can be used within a `static` property within a `now.json` file.
 
 ## Options
 
@@ -126,7 +127,7 @@ This is very beneficial for single page applications (SPAs), where the user shou
   starting with `app/` to `/index.html`.
 </Caption>
 
-Another feature of the `rewrites` option is "routing segments". When a route is requested using this method, Now can pass a particular section of that route to the file that's intended to be served. For example, to route a user from `projects/acme/edit` to `/edit-acme.html`, the following method is used:
+Another feature of the `rewrites` option is "routing segments". When a route is requested using this method, <ProductShortV1Name /> can pass a particular section of that route to the file that's intended to be served. For example, to route a user from `projects/acme/edit` to `/edit-acme.html`, the following method is used:
 
 ```json
 {
@@ -195,7 +196,7 @@ Like `rewrites`, `redirects` support "routing segments".
 The `headers` configuration option gives the ability to set custom headers and to overwrite the default headers.
 
 **Usage**:<br />
-For example, when using the [Now CDN](/cdn), you might want to set custom caching headers since we automatically set them for static deployments.
+For example, when using the [<ProductShortV1Name /> CDN](/cdn), you might want to set custom caching headers since we automatically set them for static deployments.
 
 ```json
 {
@@ -257,7 +258,7 @@ Another example is to use the `Accept` header to serve a different kind of conte
 
 ### directoryListing (Boolean|Array)
 
-For a path that is not a file but a directory, Now will automatically render a list of all the files and directories contained inside that directory.
+For a path that is not a file but a directory, <ProductShortV1Name /> will automatically render a list of all the files and directories contained inside that directory.
 
 **Usage**:<br />
 This option can be disabled by passing `false` to the option from within a `now.json` configuration file.
@@ -291,7 +292,7 @@ It can also be used to restrict listing to certain paths:
 
 ### unlisted (Array)
 
-To prevent listing certain files in the directory listing that Now provides, if it is enabled, use the `unlisted` property.
+To prevent listing certain files in the directory listing that <ProductShortV1Name /> provides, if it is enabled, use the `unlisted` property.
 
 **Usage**:<br />
 This option can be disabled by passing `false` to the option from within a `now.json` configuration file.
@@ -315,7 +316,7 @@ This option can be disabled by passing `false` to the option from within a `now.
 
 ### trailingSlash (Boolean)
 
-By default, Now tries to make assumptions for whether to add or remove trailing slashes. To explicitly enable or disable them, pass a boolean to the configuration option.
+By default, <ProductShortV1Name /> tries to make assumptions for whether to add or remove trailing slashes. To explicitly enable or disable them, pass a boolean to the configuration option.
 
 **Usage**:<br />
 
@@ -328,13 +329,13 @@ By default, Now tries to make assumptions for whether to add or remove trailing 
 ```
 
 <Caption>
-  Configuring Now to add a trailing slash to paths. For example, accessing
-  `/test` will result in a 301 redirect to `/test/`.
+  Configuring <ProductShortV1Name /> to add a trailing slash to paths. For
+  example, accessing `/test` will result in a 301 redirect to `/test/`.
 </Caption>
 
 ### renderSingle (Boolean)
 
-By default, if a deployment contains more than one file, Now will not render a file if it is the sole content of a directory. To enable the file to be rendered, pass `true` to the `renderSingle` property.
+By default, if a deployment contains more than one file, <ProductShortV1Name /> will not render a file if it is the sole content of a directory. To enable the file to be rendered, pass `true` to the `renderSingle` property.
 
 **Usage**:<br />
 
@@ -347,7 +348,8 @@ By default, if a deployment contains more than one file, Now will not render a f
 ```
 
 <Caption>
-  Configuring Now to render files if they are the sole content of directories.
+  Configuring <ProductShortV1Name /> to render files if they are the sole
+  content of directories.
 </Caption>
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

@@ -2,6 +2,9 @@ import WhyBuildOrUseIntegrations from './why-build-or-use-an-integration.mdx'
 import WhatsAnIntegration from './whats-an-integration.mdx'
 import Note from '~/components/text/note'
 import Link from '~/components/text/link'
+import NameWrapper from '~/components/name/name-wrapper'
+import OrgName from '~/components/name/org-name'
+import { ORG_NAME } from '~/lib/constants'
 
 export const meta = {
   editUrl:
@@ -11,20 +14,20 @@ export const meta = {
 
 # Introduction
 
-## ZEIT Integrations
+## <NameWrapper name={ORG_NAME} /> Integrations
 
-ZEIT Integrations introduce a way to **extend the capabilities of ZEIT** and to connect with **any platform**.
+&#8203;<OrgName /> Integrations introduce a way to **extend the capabilities of <OrgName />** and to connect with **any platform**.
 
-The following is just some the things you can do with ZEIT Integrations:
+The following is just some the things you can do with <OrgName /> Integrations:
 
 - Add databases into deployments with just a few clicks.
-- Add custom UI elements to the [ZEIT Dashboard](/).
-- Complete access to the [ZEIT API](/docs/api).
+- Add custom UI elements to the [<OrgName /> Dashboard](/).
+- Complete access to the [<OrgName /> API](/docs/api).
 - Configure third-party services such as error tracking and performance monitoring.
 - Create mashup apps by connecting multiple different services of your choosing.
 - Access hardware and connect with external devices such Arduino, Philips Hue, etc.
 
-These are **just a few of the possibilities** afforded by ZEIT Integrations. This page will walk you through on how to create your own to do more with ZEIT.
+These are **just a few of the possibilities** afforded by <OrgName /> Integrations. This page will walk you through on how to create your own to do more with <OrgName />.
 
 <Note>
   This page is dedicated to explaining what Integrations are and how you can

@@ -3,19 +3,24 @@ import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import Link from '~/components/text/link'
 import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'Deploy Hexo with ZEIT Now',
-  description: 'Create a Hexo blog and deploy it live with ZEIT Now.',
+  title: `Deploy Hexo with ${PRODUCT_NAME}`,
+  description: `Create a Hexo blog and deploy it live with ${PRODUCT_NAME}.`,
   published: '2019-10-31T12:00:00.860Z',
   authors: ['msweeneydev'],
   url: '/guides/deploying-hexo-with-zeit-now',
   example: 'hexo',
   demo: 'https://hexo.now-examples.now.sh',
-  image:
-    'https://og-image.now.sh/**Deploy%20Hexo%20Blogs**%20%3Cbr%2F%3E%20with%20ZEIT%20Now.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fwww.stickpng.com%2Fassets%2Fimages%2F5848087ecef1014c0b5e48eb.png&widths=300&widths=300&heights=300&heights=300',
+  image: `https://og-image.now.sh/**Deploy%20Hexo%20Blogs**%20%3Cbr%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fwww.stickpng.com%2Fassets%2Fimages%2F5848087ecef1014c0b5e48eb.png&widths=300&widths=300&heights=300&heights=300`,
   editUrl: 'pages/guides/deploying-hexo-with-zeit-now.mdx',
-  lastEdited: '2019-11-27T13:36:05.000Z'
+  name: 'Hexo',
+  type: 'site',
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 [Hexo](https://hexo.io/) is a fast, simple, and powerful blog framework powered by Node.js.
@@ -27,16 +32,9 @@ Set up a Hexo blog with [`npx`](https://www.npmjs.com/package/npx) and move into
 <Snippet dark text="npx hexo init my-hexo-blog && cd my-hexo-blog" />
 <Caption>Initializing a Hexo blog with <Link href="https://www.npmjs.com/package/npx">npx</Link> and moving into the project directory.</Caption>
 
-## Step 2: Deploying Your Hexo Blog with ZEIT Now
+## Step 2: Deploying Your Hexo Blog with <NameWrapper name={PRODUCT_NAME} />
 
-With a Hexo blog set up, it is ready to deploy live with [Now](/docs/v2).
-
-Using [Now CLI](/download), deploy your app with **a single command**:
-
-<Snippet dark text="now" />
-<Caption>Deploying your Hexo blog with Now CLI.</Caption>
-
-If you want to deploy your Hexo blog when you push to a Git repository, you can use either [Now for GitHub](/docs/v2/more/now-for-github), [Now for GitLab](/docs/v2/more/now-for-gitlab), or [Now for Bitbucket](/docs/v2/more/now-for-bitbucket) to have your project automatically deployed on every push, and the [production domain](https://zeit.co/docs/v2/custom-domains/#adding-a-domain) updated on push to master.
+<DeploySection meta={meta} />
 
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 

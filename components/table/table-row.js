@@ -9,7 +9,8 @@ const TableRow = ({
   className,
   disabled,
   onClick,
-  selectable
+  selectable,
+  noTagName
 }) => {
   const isAmp = useAmp()
   return (
@@ -21,7 +22,7 @@ const TableRow = ({
       {Children.map(children, child => {
         if (!child) return null
         return cloneElement(child, {
-          tagName: 'td'
+          tagName: noTagName ? undefined : 'td'
         })
       })}
     </tr>

@@ -52,9 +52,10 @@ export default function List({
         .geist-list {
           display: flex;
           flex-wrap: wrap;
-          margin: ${halfGap
-            ? 'var(--geist-gap-quarter-negative)'
-            : 'var(--geist-gap-half-negative)'};
+          margin: 0
+            ${halfGap
+              ? 'var(--geist-gap-quarter-negative)'
+              : 'var(--geist-gap-half-negative)'};
         }
       `}</style>
     </div>

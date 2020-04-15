@@ -19,10 +19,10 @@ To help you understand the benefits of `htm` and how it differs slightly from JS
 const { withUiHook, htm } = require('@zeit/integration-utils')
 
 module.exports = withUiHook(({ payload }) => {
-  const url = 'https://zeit.co'
+  const url = 'https://example.com'
   return htm`
     <Page>
-      <Link href=${url}>ZEIT Homepage</Link>
+      <Link href=${url}>Example Page</Link>
     </Page>
   `
 })

@@ -2,13 +2,15 @@ import Standard from '~/components/layout/standard'
 import Note from '~/components/text/note'
 import { InlineCode } from '~/components/text/code'
 import Link from '~/components/text/link'
+import ProductV1Name from '~/components/name/product-v1-name'
+import { PRODUCT_V1_NAME } from '~/lib/constants'
 
 export const meta = {
-  title: 'ZEIT Now Platform 1.0 No Scaled Deployments',
+  title: `${PRODUCT_V1_NAME} No Scaled Deployments`,
   description:
     'The application recieved more traffic than the scale settings accomodate.',
   editUrl: 'pages/docs/error/application/V1_NO_SCALED_DEPLOYMENTS.mdx',
-  lastEdited: '2019-11-19T10:41:22.000Z'
+  lastEdited: '2020-04-14T00:02:08.000Z'
 }
 
 #### Application Error
@@ -18,7 +20,7 @@ An error occurred with the application because it received more traffic than the
 <br />
 
 <Note type="warning">
-  This error is from ZEIT Now platform version 1.0.{' '}
+  This error is from <ProductV1Name />.{' '}
   <Link href="https://zeit.co/guides/migrate-to-zeit-now">
     Upgrade to the latest platform version
   </Link>{' '}
@@ -43,7 +45,7 @@ An error occurred with the application because it received more traffic than the
   // scale up to 10 instances
   now scale my-deployment-my-username.now.sh 10
   ```
-- For more help try `now scale --help` or check out the [Now Scaling Documentation](/docs/v1/getting-started/scaling).
+- For more help try `now scale --help` or check out the [<ProductV1Name /> Scaling Documentation](/docs/v1/getting-started/scaling).
 
 export default ({ children }) => <Standard meta={meta}>{children}</Standard>
 

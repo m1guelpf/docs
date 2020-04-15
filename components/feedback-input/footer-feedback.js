@@ -64,6 +64,12 @@ export default class GuidesFeedback extends Component {
     }
   }
 
+  onKeyDown = e => {
+    if (e.keyCode === 27) {
+      this.setState({ focused: false })
+    }
+  }
+
   done = errorMessage => {
     if (!errorMessage) {
       this.setState({ loading: false, success: true })
@@ -90,6 +96,9 @@ export default class GuidesFeedback extends Component {
               : window.location.toString(),
           note: this.textAreaRef ? this.textAreaRef.value : '',
           emotion: getEmoji(this.state.emoji),
+          label: window.location.pathname.includes('guides')
+            ? 'guides'
+            : 'docs',
           ua: `${this.props.uaPrefix || ''} + ${
             navigator.userAgent
           } (${navigator.language || 'unknown language'})`
@@ -106,15 +115,11 @@ export default class GuidesFeedback extends Component {
   }
 
   handleClickOutside = () => {
-    this.setState({ focused: false, emoji: null, value: '' })
-    this.textAreaRef.value = ''
+    this.setState({ focused: false, emoji: null })
   }
 
   onEmojiSelect = emoji => {
     this.setState({ emoji, focused: true })
-    if (this.textAreaRef) {
-      this.textAreaRef.focus()
-    }
   }
 
   handleChange = e => {
@@ -138,35 +143,26 @@ export default class GuidesFeedback extends Component {
       }
 
       if (!prevState.focused) {
-        window.addEventListener('keypress', this.onKeyPress)
+        window.addEventListener('keydown', this.onKeyDown)
+
+        // Wait for CSS appear transition to end before focusing.
+        // Without this, iOS keyboard will cover the text input
+        if (this.textAreaRef) {
+          const listener = () => {
+            this.textAreaRef.focus()
+            this.textAreaRef.removeEventListener('transitionend', listener)
+          }
+          this.textAreaRef.addEventListener('transitionend', listener)
+        }
+      } else if (this.textAreaRef) {
+        this.textAreaRef.focus()
       }
 
       // If a value exists, add it back to the textarea when focused
       this.textAreaRef.value = this.state.value
-
-      if (this.props.hideHeader !== prevProps.hideHeader) {
-        this.textAreaRef.blur()
-
-        if (prevState.errorMessage && this.textAreaRef) {
-          this.setState({ errorMessage: null }) // eslint-disable-line react/no-did-update-set-state
-        }
-
-        // if we had a success message
-        // clear it
-        if (prevState.success) {
-          this.setState({ success: false }) // eslint-disable-line react/no-did-update-set-state
-        }
-
-        this.setState({ focused: false }) // eslint-disable-line react/no-did-update-set-state
-
-        window.removeEventListener('keypress', this.onKeyPress)
-      }
     } else if (prevState.focused && this.textAreaRef) {
       // needed for when we e.g.: unfocus based on pressing escape
       this.textAreaRef.blur()
-
-      // Remove value visibly from textarea while it's unfocused
-      this.textAreaRef.value = ''
 
       // if we unfocused and there was an error before,
       // clear it
@@ -180,7 +176,7 @@ export default class GuidesFeedback extends Component {
         this.setState({ success: false }) // eslint-disable-line react/no-did-update-set-state
       }
 
-      window.removeEventListener('keypress', this.onKeyPress)
+      window.removeEventListener('keydown', this.onKeyDown)
     }
 
     if (this.state.success && this.textAreaRef) {
@@ -211,7 +207,7 @@ export default class GuidesFeedback extends Component {
       this.clearSuccessTimer = null
     }
 
-    window.removeEventListener('keypress', this.onKeyPress)
+    window.removeEventListener('keydown', this.onKeyDown)
   }
 
   render() {
@@ -385,6 +381,7 @@ export default class GuidesFeedback extends Component {
             .textarea-wrapper {
               height: 100%;
               margin-top: 16px;
+              transition: all 150ms ease-out, border-radius 150ms step-start;
             }
 
             .geist-feedback-input.focused .textarea-wrapper {
@@ -397,7 +394,7 @@ export default class GuidesFeedback extends Component {
               border-radius: 4px;
               overflow: hidden;
               position: relative;
-              transition: all 150ms ease-out;
+              transition: all 150ms ease-out, border-radius 150ms step-end;
               z-index: 1000;
             }
 
