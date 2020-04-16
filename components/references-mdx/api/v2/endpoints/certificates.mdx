@@ -10,18 +10,31 @@ export const meta = {
 
 ## Certificates
 
-### List all the certificates
+### List certificates
 
-<Endpoint method="GET" url="/v3/now/certs" />
+<Endpoint method="GET" url="/v4/now/certs" />
 
 Retrieves a list of certificates issued for the authenticating user or
 information about the certificate issued for the common name specified in the URL.
+By default it returns 20 certificates if no `limit` is provided.
+The rest can be retrieved using the pagination options described below.
+
+#### Request Query Parameters
+
+The response of this API can be controlled with the following optional query parameters.
+
+| Key       | Description                                                |
+| --------- | ---------------------------------------------------------- |
+| **limit** | Maximum number of certificates to list from a request.     |
+| **since** | Get certificates created after this JavaScript timestamp.  |
+| **until** | Get certificates created before this JavaScript timestamp. |
 
 #### Response Parameters
 
-| Key       | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                      |
-| --------- | ---------------------------------------------------------- | -------------------------------- |
-| **certs** | <HelpLink href="#api-basics/types">List</HelpLink>         | The list of issued certificates. |
+| Key            | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                      |
+| -------------- | ---------------------------------------------------------- | -------------------------------- |
+| **certs**      | <HelpLink href="#api-basics/types">List</HelpLink>         | The list of issued certificates. |
+| **pagination** | <HelpLink href="#api-basics/types">Map</HelpLink>          | A map with pagination options.   |
 
 #### Certificate
 
@@ -33,11 +46,23 @@ This is the format of each item in the `certs` list.
 | **cns**        | <HelpLink href="#api-basics/types">List&lt;String></HelpLink> | The common names for which domain the certificate was issued. |
 | **created**    | <HelpLink href="#api-basics/types">Date</HelpLink>            | The date when the certificate was created.                    |
 | **expiration** | <HelpLink href="#api-basics/types">Date</HelpLink>            | The date when the certificate is going to expire.             |
+| **createdAt**  | <HelpLink href="#api-basics/types">Date</HelpLink>            | The date when the certificate was created.                    |
+| **expiresAt**  | <HelpLink href="#api-basics/types">Date</HelpLink>            | The date when the certificate is going to expire.             |
 | **autoRenew**  | <HelpLink href="#api-basics/types">Boolean</HelpLink>         | If the certificate is going to be automatically renewed.      |
+
+#### Pagination
+
+This is the format of the `pagination` map.
+
+| Key       | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                         |
+| --------- | ---------------------------------------------------------- | ------------------------------------------------------------------- |
+| **count** | <HelpLink href="#api-basics/types">Number</HelpLink>       | The number of returned certificates.                                |
+| **next**  | <HelpLink href="#api-basics/types">Date</HelpLink>         | The JavaScript timestamp to fetch the next set of certificates.     |
+| **prev**  | <HelpLink href="#api-basics/types">Date</HelpLink>         | The JavaScript timestamp to fetch the previous set of certificates. |
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v3/now/certs" auth />
+<Request url="https://api.zeit.co/v4/now/certs?limit=2" auth />
 
 ##### Example Response
 
@@ -48,9 +73,25 @@ This is the format of each item in the `certs` list.
       "uid": "oAjf6y9pxZgCJyQfrclN",
       "created": "2016-08-23T18:13:09.773Z",
       "expiration": "2016-12-16T16:00:00.000Z",
+      "createdAt": 1471968789000,
+      "expiresAt": 1481900400000,
+      "autoRenew": true
+    },
+    {
+      "cns": ["testing2.zeit.co", "*.zeit.co"],
+      "uid": "tyrf6y9pxZgCJyQfttyu",
+      "created": "2016-08-22T18:13:09.773Z",
+      "expiration": "2016-12-15T16:00:00.000Z",
+      "createdAt": 1471882389000,
+      "expiresAt": 1481814000000,
       "autoRenew": true
     }
-  ]
+  ],
+  "pagination": {
+    "count": 2,
+    "next": 1471882389000,
+    "prev": 1471968789000
+  }
 }`}</Code>
 
 ### Get a single certificate
