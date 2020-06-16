@@ -1,0 +1,290 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import CdnName from '~/components/name/cdn-name'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Create and Deploy a Next.js and Prismic App with ${PRODUCT_NAME}`,
+  description: `Create a Next.js and Prismic app that is deployed with ${PRODUCT_NAME}.`,
+  name: 'Next.js + Prismic',
+  type: 'app',
+  published: '2019-06-26T14:46:50.000Z',
+  authors: ['raulg'],
+  url: '/guides/deploying-next-and-prismic-with-vercel',
+  image: `https://vercel.com/docs/static/guides/deploying-next-prismic-with-vercel/deploying-next-prismic-with-vercel.png`,
+  editUrl: 'pages/guides/deploying-next-and-prismic-with-vercel.mdx',
+  lastEdited: '2020-04-16T03:22:57.000Z'
+}
+
+In this guide, you will create a [Next.js](https://nextjs.org/) blog site from scratch that will show you how to; source the content you have in a Prismic repository, create pages programmatically, handle dynamic routing, and deploy it with [<ProductName />](/docs/v2).
+
+[Next.js](https://nextjs.org/) from [<OrgName />](/) is a **production-ready framework** that helps you create fast React apps. [Prismic](https://prismic.io/) is a Headless Content Management System that **helps developers and content managers to work on websites and apps together**.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-next-prismic-with-vercel/deploying-next-prismic-with-vercel.png`}
+  width={2048 / 2.75}
+  height={1170 / 2.75}
+  oversize
+/>
+
+## Step 1: Set Up Your Prismic + Next.js App
+
+For this guide, you will start with **installing a boilerplate Next.js project that uses Prismic**. Start with installing the [Prismic CLI package](https://github.com/prismicio/prismic-cli), followed by quick-starting your project from the provided git repo.
+
+This process clones the codebase and guides you through setting up the repository that will be used as your blog's content source.
+
+<Snippet dark text="npm i -g prismic-cli" />
+<Caption>Installing the <InlineCode>prismic-cli</InlineCode> command line tool.</Caption>
+
+<Snippet dark text="prismic theme https://github.com/raulg/prismic-next-blog" />
+<Caption>Quickstarting your Prismic boilerplate project.</Caption>
+
+Navigate to the folder you have created and inspect the files and folders that are included in this barebones project. You will find the following:
+
+- `/custom_types`, which details the data modeling for your Prismic repository, in this case the **blog_home** and **post** documents
+- `package.json`, which includes the Next.js and React dependencies, as well as scripts to [develop](/docs/v2/development/basics/) and [deploy](/docs/v2/deployments/basics/) for <ProductName />
+
+You can run your app with the `npm run dev` command, and check at `localhost:3000` that the app is running correctly.
+
+You will notice that for now it is only a simple index page, as defined in `/pages`. This takes care of getting your simple [Next.js](https://nextjs.org/) app started, you can now begin setting up your Prismic repository.
+
+Continue by installing the required packages to integrate your Next.js web app with Prismic.
+
+<Snippet dark text="npm i prismic-javascript prismic-reactjs" />
+<Caption>Adding the <InlineCode>prismic-javascript</InlineCode> and <InlineCode>prismic-reactjs</InlineCode> dependencies to fetch and render documents.</Caption>
+
+If you open the `prismic-configuration.js` file, you might notice that the API endpoint has **already been set up according to the repository you created during the installation process**.
+
+Confirm the name of the repository so you can access the Prismic dashboard to manage your content. Move into the Prismic repository that you started earlier, and [create some content](https://user-guides.prismic.io/browse-documents-and-edit-content/editing-content/create-a-new-document) that you will use in your project.
+
+Just a simple blog home page and a couple of posts will do for now, **but you can get as creative as you wish to**.
+
+<Note>
+  In this case, you will be using a rich text field that will serve as the body
+  of the post, for the sake of simplicity. Normally, the body of a document
+  would be a group of{' '}
+  <Link href="https://user-guides.prismic.io/content-modeling-and-custom-types/field-reference/slices">
+    Slices
+  </Link>{' '}
+  to allow more flexibility when creating your posts.
+</Note>
+
+## Step 2: Sourcing Your Content From Prismic
+
+With the relevant Prismic dependencies installed, you can start building a page that will serve as a blog index. `/pages/index.js` will have a component that will get the **blog_home** document with `getInitialProps` and render it's Rich Text fields.
+
+```js
+import React from 'react'
+import Prismic from 'prismic-javascript'
+import { RichText, Date } from 'prismic-reactjs'
+import { client } from '../prismic-configuration'
+
+const BlogHome = props => (
+  <div>
+    <img src={props.home.data.image.url} alt="avatar image" />
+    <h1>{RichText.asText(props.home.data.headline)}</h1>
+    <p>{RichText.asText(props.home.data.description)}</p>
+  </div>
+)
+
+BlogHome.getInitialProps = async context => {
+  const home = await client.getSingle('blog_home')
+
+  return { home }
+}
+
+export default BlogHome
+```
+
+<Caption>
+  An example <InlineCode>/pages/index.js</InlineCode> file fetching the author
+  data from <b>blog_home</b>.
+</Caption>
+
+The `home` prop now contains the [document object](https://prismic.io/docs/reactjs/rendering/the-document-object) received from the API, including the data fields you set earlier for the blog author's image, title, and short description.
+
+<Note>
+  If you run the app now with <InlineCode>npm run dev</InlineCode>, you will see
+  this information displayed at{' '}
+  <Link href="localhost:3000">
+    <InlineCode>localhost:3000</InlineCode>
+  </Link>
+  .
+</Note>
+
+There are many ways to query the API to get the data you require. For now, use a [Predicate](https://prismic.io/docs/reactjs/query-the-api/query-predicates-reference) to get all the **post** documents you have created and sort them in descending order based on their assigned date.
+
+```js
+const BlogHome = props => (
+  <div>
+    <img src={props.home.data.image.url} alt="avatar image" />
+    <h1>{RichText.asText(props.home.data.headline)}</h1>
+    <p>{RichText.asText(props.home.data.description)}</p>
+
+    <ul>
+      {props.posts.results.map(post => (
+        <li key={post.uid}>{RichText.render(post.data.title)}</li>
+      ))}
+    </ul>
+  </div>
+)
+
+BlogHome.getInitialProps = async context => {
+  const home = await client.getSingle('blog_home')
+  const posts = await client.query(
+    Prismic.Predicates.at('document.type', 'post'),
+    { orderings: '[my.post.date desc]' }
+  )
+
+  return { home, posts }
+}
+
+export default BlogHome
+```
+
+<Caption>
+  An example <InlineCode>/pages/index.js</InlineCode> file that displays a list
+  of all blog posts.
+</Caption>
+
+The `posts` prop contains an array of all the blog posts in your repository, arranged in descending chronological order. The **title** field of each item is rendered in an unordered list.
+
+**That's it for a minimalist blog home page**. Let's move on to rendering the pages for each of your blog posts.
+
+## Step 3: Rendering Dynamic Posts
+
+To create a page for each blog post document, you will set it up so that the page is generated dynamically using the unique individual slug (UID) that identifies each **post** document.
+
+This approach is very similar to that used with the home page, but the API query in `getInitialProps` will instead fetch the document depending on its UID.
+
+```js
+import React from 'react'
+import { RichText, Date } from 'prismic-reactjs'
+import { client } from '../prismic-configuration'
+import Link from 'next/link'
+
+const Post = props => (
+  <div>
+    <Link href="/">
+      <a>back to blog list</a>
+    </Link>
+    {RichText.render(props.post.data.title)}
+    <span>{Date(props.post.data.date).toString()}</span>
+    {RichText.render(props.post.data.post_body)}
+  </div>
+)
+
+Post.getInitialProps = async context => {
+  const { uid } = context.query
+  const post = await client.getByUID('post', uid)
+
+  return { post }
+}
+
+export default Post
+```
+
+<Caption>
+  An example <InlineCode>/pages/post.js</InlineCode> file that generates pages
+  depending on the <b>UID</b> provided by the context.
+</Caption>
+
+## Step 4: Build Client Side Navigation Links
+
+Now that the pages for your blog post documents are accessible, you can modify the index page so that the list of titles actually links to each of the posts. To do this, it's best to use the [`<Link>`](https://nextjs.org/docs/api-reference/next/link) component, included with [Next.js](https://nextjs.org/), to provide client-side navigation without a page refresh.
+
+The `<Link>` component requires **two main props for navigation**: `href`, which will be the path used to route to the page, and `as`, which will be the path as rendered in the browser. To aid in creating these two different paths, you can use the `linkResolver` and `hrefResolver` helper functions, defined within `prismic-configuration.js`.
+
+```js
+// Manages links to internal Prismic documents
+linkResolver: function (doc) {
+  if (doc.type === 'post') {
+    return `/blog/${doc.uid}`
+  }
+  return '/'
+},
+// Additional helper function for Next/Link components
+hrefResolver: function (doc) {
+  if (doc.type === 'post') {
+    return `/post?uid=${doc.uid}`
+  }
+  return '/'
+}
+```
+
+<Caption>
+  Helper functions in the <InlineCode>prismic-configuration.js</InlineCode>{' '}
+  file.
+</Caption>
+
+These helper functions generate both the aesthetic path with `linkResolver`; and the functional path that will correctly pass the UID with `hrefResolver`.
+
+You can adjust the unordered list in `/pages/index.js` so that it wraps a `<Link>` around the title, as well as adding the `Date` value for each of the blog posts.
+
+```diff
++ import { client, linkResolver, hrefResolver } from '../prismic-configuration'
++ import Link from 'next/link'
+
+const BlogHome = (props) => (
+  <div>
+    <img src={props.home.data.image.url} alt='avatar image' />
+    <h1>{RichText.asText(props.home.data.headline)}</h1>
+    <p>{RichText.asText(props.home.data.description)}</p>
+
+    <ul>
+      {props.posts.results.map((post) => (
+        <li key={post.uid}>
+-         {RichText.render(post.data.title)}
++         <Link href={hrefResolver(post)} as={linkResolver(post)} passHref prefetch>
++           <a>{RichText.render(post.data.title)}</a>
++         </Link>
++         <span>{Date(post.data.date).toString()}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)
+```
+
+<Caption>
+  Modifying the <InlineCode>/pages/index.js</InlineCode> file to add the blog
+  posts link list.
+</Caption>
+
+You can now refresh your site at [`localhost:3000`](http://localhost:3000/) and test out the navigation for your blog. It's quite minimalistic, but you've built it from scratch.
+
+## Step 5: Deploying With <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+## Bonus: Serverless Pre-Rendering
+
+For increased performance, you can take advantage of the [Serverless Pre-rendering](/blog/serverless-pre-rendering) feature to serve your dynamic content with static speeds.
+
+All you need to do is add a couple of lines to your `index.js` and `post.js` files in the `getInitialProps` method.
+
+```js
+if (context.res) {
+  context.res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate')
+}
+```
+
+<Caption>
+  Enabling SPR in your <InlineCode>BlogHome.getInitialProps</InlineCode> and{' '}
+  <InlineCode>Post.getInitialProps</InlineCode> functions.
+</Caption>
+
+Deploy this new version to <ProductName /> with `npm run deploy`. You minimal blog is now being served even faster thanks to the [<CdnName />](/edge-network). You can try adding or modifying content in your Prismic repository and it **will be served instantaneously** on your now public site.
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>

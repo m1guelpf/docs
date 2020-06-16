@@ -11,38 +11,38 @@ export const meta = {
   title: `Upgrade Your Existing ${PRODUCT_NAME} Projects With Zero Configuration`,
   description: `Upgrade your existing ${PRODUCT_NAME} projects to use no configuration.`,
   published: '2019-07-31T20:06:26.000Z',
-  authors: ['msweeneydev', 'timothy', 'skllcrn'],
+  authors: ['mcsdev', 'timothy', 'skllcrn'],
   url: '/guides/upgrade-to-zero-configuration',
   editUrl: 'pages/guides/upgrade-to-zero-configuration.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-06-04T20:10:32.000Z'
 }
 
 With zero configuration, it's never been easier to deploy an app with <ProductName />. This guide highlights a set of common scenarios, showing you how to take advantage of these new features.
 
 ## Next.js
 
-In the first example, we will explore how to deploy [a Next.js app](/guides/deploying-nextjs-with-now) with zero configuration.
+In the first example, we will explore how to deploy [a Next.js app](/guides/deploying-nextjs-with-vercel) with zero configuration.
 
-Using [the Next.js example project from the <ProductName /> repository](https://github.com/zeit/now/tree/master/examples/nextjs), the following `now.json` configuration file was previously needed to deploy:
+Using [the Next.js example project from the <ProductName /> repository](https://github.com/vercel/vercel/tree/master/examples/nextjs), the following `vercel.json` configuration file was previously needed to deploy:
 
 ```json
 {
   "version": 2,
   "name": "my-nextjs-project",
   "builds": [
-    { "src": "package.json", "use": "@now/next" },
-    { "src": "backend/**/*.js", "use": "@now/node" }
+    { "src": "package.json", "use": "@vercel/next" },
+    { "src": "backend/**/*.js", "use": "@vercel/node" }
   ]
 }
 ```
 
 <Caption>
-  A previously required <InlineCode>now.json</InlineCode> configuration file.
+  A previously required <InlineCode>vercel.json</InlineCode> configuration file.
 </Caption>
 
 ### Next.js with Zero Configuration
 
-With zero configuration, the `now.json` file is no longer required. You only have to remove the `now.json` file from your project.
+With zero configuration, the `vercel.json` file is no longer required. You only have to remove the `vercel.json` file from your project.
 
 For Next.js projects that have a **JavaScript API**, you can use a `/pages/api/` folder, this will allow Next.js to [handle the building of these files for you](https://nextjs.org/docs/api-routes/introduction).
 
@@ -54,7 +54,7 @@ View this zero configuration deployment on <ProductName />: <https://next-zero-c
 
 Using frameworks other than Next.js with zero configuration is just as straightforward. For example, let's take a look at Gatsby.
 
-Before zero configuration, the [Gatsby default starter](https://github.com/gatsbyjs/gatsby-starter-default) would require a `now.json` file like following:
+Before zero configuration, the [Gatsby default starter](https://github.com/gatsbyjs/gatsby-starter-default) would require a `vercel.json` file like following:
 
 ```json
 {
@@ -63,7 +63,7 @@ Before zero configuration, the [Gatsby default starter](https://github.com/gatsb
   "builds": [
     {
       "src": "package.json",
-      "use": "@now/static-build",
+      "use": "@vercel/static-build",
       "config": { "distDir": "public" }
     }
   ]
@@ -71,7 +71,7 @@ Before zero configuration, the [Gatsby default starter](https://github.com/gatsb
 ```
 
 <Caption>
-  A previously required <InlineCode>now.json</InlineCode> configuration file.
+  A previously required <InlineCode>vercel.json</InlineCode> configuration file.
 </Caption>
 
 ### Frameworks with Zero Configuration
@@ -101,8 +101,8 @@ To check the output directory for your framework, run `npm run build` inside you
 
 <Note>
   Add the build output directory{' '}
-  <Link href="/guides/prevent-uploading-sourcepaths-with-nowignore">
-    to <InlineCode>.nowignore</InlineCode>
+  <Link href="/guides/prevent-uploading-sourcepaths-with-vercelignore">
+    to <InlineCode>.vercelignore</InlineCode>
   </Link>{' '}
   so that your project is rebuilt with each deployment.
 </Note>
@@ -111,7 +111,7 @@ To check the output directory for your framework, run `npm run build` inside you
 
 Zero configuration makes it straightforward to deploy an API alongside a frontend project. Let's look at a [Go example](/docs/v2/serverless-functions/supported-languages#go) to illustrate the differences and see how zero configuration simplifies the process.
 
-The following `now.json` was previously needed to deploy a [Go Serverless Function](/docs/v2/serverless-functions/introduction) in the `api` directory.
+The following `vercel.json` was previously needed to deploy a [Go Serverless Function](/docs/v2/serverless-functions/introduction) in the `api` directory.
 
 ```json
 {
@@ -120,7 +120,7 @@ The following `now.json` was previously needed to deploy a [Go Serverless Functi
   "builds": [
     {
       "src": "/api/date.go",
-      "use": "@now/go"
+      "use": "@vercel/go"
     }
   ],
   "routes": [
@@ -133,7 +133,7 @@ The following `now.json` was previously needed to deploy a [Go Serverless Functi
 ```
 
 <Caption>
-  A previously required <InlineCode>now.json</InlineCode> configuration file.
+  A previously required <InlineCode>vercel.json</InlineCode> configuration file.
 </Caption>
 
 With this setup, requiring a Runtime and Route, all requests made to `/date` will receive a response of the current date and time.
@@ -144,15 +144,15 @@ However, when writing multiple endpoints you will either require RegEx knowledge
 
 Zero configuration for API's has one rule, put everything in a top level `/api` directory. From there, <ProductName /> will handle all of the building and routing for you.
 
-In the example above, all that would be required is to move `/api/date.go` into the project's root directory and then simply deleting the `now.json` file.
+In the example above, all that would be required is to move `/api/date.go` into the project's root directory and then simply deleting the `vercel.json` file.
 
-After deleting the `now.json` file, the date function would then be available at `/api/date`, providing an API with filesystem based routing, all without requiring any configuration.
+After deleting the `vercel.json` file, the date function would then be available at `/api/date`, providing an API with filesystem based routing, all without requiring any configuration.
 
 ### Migrating Route Parameters
 
-In some cases, your app may use route parameters in the `routes` property of a `now.json` file, this too can be done without configuration.
+In some cases, your app may use route parameters in the `routes` property of a `vercel.json` file, this too can be done without configuration.
 
-When using route parameters, a `now.json` file would have contained something similar to the following route:
+When using route parameters, a `vercel.json` file would have contained something similar to the following route:
 
 ```json
 {
@@ -173,7 +173,7 @@ When using route parameters, a `now.json` file would have contained something si
 
 Instead of defining configuration, you can use the filesystem to create the route for you, using Path Segments.
 
-To use Path Segments using the example configuration's structure above, you only need to create a file within the `/api/users` directories called `[user].js` (including the square brackets, with any [supported language](/docs/v2/serverless-functions/supported-languages)). This will act as a Serverless Function that receives a query, but can be accessed through a path such as `my-zeit-domain.com/api/users/my-username`.
+To use Path Segments using the example configuration's structure above, you only need to create a file within the `/api/users` directories called `[user].js` (including the square brackets, with any [supported language](/docs/v2/serverless-functions/supported-languages)). This will act as a Serverless Function that receives a query, but can be accessed through a path such as `my-example.com/api/users/my-username`.
 
 To use the information from a Path Segment, you can use your [languages](/docs/v2/serverless-functions/supported-languages) method for using query strings. For example, a [Node.js Serverless Function](/docs/v2/serverless-functions/supported-languages#node.js) would look like the following:
 

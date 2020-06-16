@@ -3,6 +3,7 @@ import { TerminalInput } from '~/components/text/terminal'
 import Link from '~/components/text/link'
 import { Code } from '~/components/text/code'
 import Quote from '~/components/text/quote'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/api-basics/authentication.mdx',
@@ -22,7 +23,7 @@ If the authentication is unsuccessful, the status code **403** is returned.
     Authorization: Bearer{' '}
     {props.testingToken ? props.testingToken.token : '$TOKEN'}
   </Code>
-  <Code>https://api.zeit.co/example?teamId=team_123</Code>
+  <Code>{`${API_ENDPOINT}/example?teamId=team_123`}</Code>
   <Quote>
     <b>Note:</b>{' '}
     {props.user
@@ -43,7 +44,7 @@ If the authentication is unsuccessful, the status code **403** is returned.
   </Quote>
   <TerminalInput>
     curl -H "Authorization: Bearer{' '}
-    {props.testingToken ? props.testingToken.token : '$TOKEN'}"
-    https://api.zeit.co/v2/now/deployments
+    {props.testingToken ? props.testingToken.token : '$TOKEN'}"{API_ENDPOINT}
+    /v2/now/deployments
   </TerminalInput>
 </Example>

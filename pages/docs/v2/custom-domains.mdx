@@ -13,10 +13,10 @@ export const meta = {
   title: 'Custom Domains',
   description: 'How to add and use a custom domain with your project.',
   editUrl: 'pages/docs/v2/custom-domains.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-06-05T19:24:46.000Z'
 }
 
-By default, all deployments are assigned a `.now.sh` suffixed domain.
+By default, all deployments are assigned a `.vercel.app` suffixed domain.
 
 This domain can be replaced with a **Custom Domain** of your choice. This Custom Domain can be purchased with <OrgName /> or a third-party.
 
@@ -24,11 +24,11 @@ In this document, adding a domain to your <ProductName /> [projects](/docs/v2/pl
 
 ## Adding a Domain
 
-If you don't own a domain yet, you can [purchase it with <OrgName />](https://zeit.co/domains). Then, once you own a domain, adding it to a project is very straightforward:
+If you don't own a domain yet, you can [purchase it with <OrgName />](/domains). Then, once you own a domain, adding it to a project is very straightforward:
 
 ### Step 1: Selecting Your Project
 
-On the [dashboard](https://zeit.co/dashboard), pick the project to which you would like to assign your domain:
+On the [dashboard](/dashboard), pick the project to which you would like to assign your domain:
 
 <Image
   src={`${process.env.ASSETS}/docs/common/select-project.png`}
@@ -74,7 +74,7 @@ From the **Domains** page, enter the domain you wish to add to the project:
 
 ### Step 4: Configuring the Domain
 
-Once the domain has been added, you will be presented with different methods for configuring it, depending on whether it is an [**apex domain**](/docs/v2/platform/glossary#apex-domain) (zeit.co) or **subdomain** (docs.zeit.co).
+Once the domain has been added, you will be presented with different methods for configuring it, depending on whether it is an [**apex domain**](/docs/v2/platform/glossary#apex-domain) (example.com) or **subdomain** (docs.example.com).
 
 Both domain types can be configured using the **Nameservers** method. However, **apex domains** also allow for verification via the **ANAME** record, while **subdomains** allow for verification via the **CNAME** record.
 
@@ -113,6 +113,56 @@ Once the domain has been configured, the card status will change to reflect this
   shadow
 />
 <Caption>A configured domain on the Project Domains page.</Caption>
+
+## DNS Records
+
+Once a Domain has been added, all of its DNS Records can be found in the Advanced Settings page.
+From there, you can view and manage the records.
+
+### Step 1: Selecting your Domain
+
+On the [dashboard](/dashboard), click on the **Domains** tab:
+
+<Image
+  src={`${process.env.ASSETS}/docs/custom-domains/select-domains-tab-2.png`}
+  width={982 / 2}
+  height={732 / 2}
+  shadow
+/>
+<Caption>Selecting the <b>Domains</b> tab from the <OrgName /> Dashboard page.</Caption>
+
+Once on the **Domains** tab, click on a Domain of your choice to view its Advanced Settings page.
+
+<Image
+  src={`${process.env.ASSETS}/docs/custom-domains/deploy-new-domain.png`}
+  width={2158 / 2}
+  height={978 / 2}
+  shadow
+/>
+<Caption>Selecting the Domain to view its Advanced Settings page.</Caption>
+
+### Step 2: Add DNS Record
+
+Once on the Advanced Settings page of your Domain, fill out the DNS Record form and click on the **Add** button.
+
+<Image
+  src={`${process.env.ASSETS}/docs/custom-domains/dns-record-form.png`}
+  width={2068 / 2}
+  height={646 / 2}
+  shadow
+/>
+<Caption>DNS Records form to add a new DNS Record.</Caption>
+
+Using the form mentioned above, you can then add the DNS Record of your choice. The following types are supported:
+
+- `A`
+- `AAAA`
+- `ALIAS`
+- `CAA`
+- `CNAME`
+- `MX`
+- `SRV`
+- `TXT`
 
 ## Wildcard Domains
 
@@ -160,7 +210,7 @@ To add a redirect, click the **Edit** button for the domain you want to redirect
   height={642 / 2.1}
   shadow
 />
-<Caption>A <b>domain redirect</b> that redirects requests made to <InlineCode>www.zeit.rocks</InlineCode> to <InlineCode>zeit.rocks</InlineCode>.</Caption>
+<Caption>A <b>domain redirect</b> that redirects requests made to <InlineCode>www.example.com</InlineCode> to <InlineCode>example.com</InlineCode>.</Caption>
 
 ## Moving Domains
 

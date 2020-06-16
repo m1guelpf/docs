@@ -1,0 +1,432 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import OrgName from '~/components/name/org-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import ProductShortName from '~/components/name/product-short-name'
+
+export const meta = {
+  title: `Create a Next.js App with a MySQL Database That Builds and Deploys with ${PRODUCT_NAME}`,
+  description: `Deploy your Next.js and MySQL app with ${PRODUCT_NAME} in a serverless environment.`,
+  published: '2019-04-26T16:51:04.000Z',
+  authors: ['mcsdev', 'furf'],
+  url: '/guides/deploying-next-and-mysql-with-vercel',
+  image: `https://vercel.com/docs/static/guides/deploying-next-mysql-with-vercel/deploying-next-mysql-with-vercel.png`,
+  editUrl: 'pages/guides/deploying-next-and-mysql-with-vercel.mdx',
+  name: 'Next.js + MySQL',
+  type: 'app',
+  lastEdited: '2020-06-10T18:46:29.000Z'
+}
+
+In this guide, we will walk you through creating and [deploying](/docs/v2/introduction) a [Next.js](https://nextjs.org/) app with the most popular open source database in the world, [MySQL](https://www.mysql.com/), on [<ProductName />](/docs/v2).
+
+[Next.js](https://nextjs.org/) from [<OrgName />](/) is a production-ready framework that can help you create fast React apps. By using it along with MySQL, you can create a fast, modern web app that interacts with customer data in a performant manner.
+
+We demonstrate the set up via an [example app](https://next-mysql.now.sh), that displays a paginated, gallery view of robot profiles, with individual profiles just a click away. The finished app can be found at <https://next-mysql.now.sh>.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-next-mysql-with-vercel/deploying-next-mysql-with-vercel.png`}
+  width={2048 / 2.75}
+  height={1170 / 2.75}
+  oversize
+/>
+
+## Step 1: Populating Your MySQL Database
+
+To use this guide, you will need to setup a remote MySQL database. Many cloud providers offer this service, such as [Amazon Web Services](https://aws.amazon.com/rds/sqlserver/), [Google Cloud](https://cloud.google.com/sql/) and [Microsoft Azure](https://azure.microsoft.com/en-gb/services/sql-database/). Most of them offer a free trial.
+
+<Note>Please read the trial terms and conditions carefully.</Note>
+
+Once you have your remote MySQL database setup, you should make a note of your database credentials:
+
+- Database name
+- Database hostname
+- Database username
+- Database password
+
+Using these credentials, you can connect to your database and insert your data into a new table, named `profiles`.
+
+For this example, a `profile` consists of the following fields:
+
+- **address** `string`
+- **avatar** `string`
+- **email** `string`
+- **id** `number`
+- **name** `string`
+
+For brevity, we do not cover inserting records into a MySQL database. More information on doing this can be found in the [MySQL documentation](https://dev.mysql.com/doc/mysql-getting-started/en/#mysql-getting-started-connecting).
+
+## Step 2: Set Up Your Project
+
+Now that the database is populated, you can create a project directory and `cd` into it:
+
+<Snippet dark text="mkdir next-mysql && cd next-mysql" />
+<Caption>
+  Creating and entering into the <InlineCode>/next-mysql</InlineCode>{' '}directory.
+</Caption>
+
+Next, [initialize](https://docs.npmjs.com/cli/init) the project:
+
+<Snippet dark text="npm init" />
+<Caption>
+  Initializing the project, this creates a <InlineCode>package.json</InlineCode>{' '}file.
+</Caption>
+
+<Note>
+  During the initializing process, npm will ask questions about your project.
+  Answer these how you wish; there are no prerequisites for this example.
+</Note>
+
+When this is complete, add [`serverless-mysql`](https://github.com/jeremydaly/serverless-mysql) and [`sql-template-strings`](https://github.com/felixfbecker/node-sql-template-strings) as [dependencies](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file):
+
+<Snippet dark text="npm i serverless-mysql sql-template-strings" />
+<Caption>
+  Adding <InlineCode>serverless-mysql</InlineCode> and <InlineCode>sql-template-strings</InlineCode> as <Link href="https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file">dependencies</Link> to the project.
+</Caption>
+
+Adding [`serverless-mysql`](https://github.com/jeremydaly/serverless-mysql) to the project will allow you to make connections to your MySQL database. In addition to this, it also **manages connections**, ensuring you do not 'max out' the available connections.
+
+Managing MySQL connections is an essential part of using it **successfully in a serverless environment**. This is because [Serverless Functions](/docs/v2/serverless-functions/introduction) will create multiple database connections as traffic increases. Therefore, all connections can be consumed quickly unless managed correctly - this is **all handled for you** by [`serverless-mysql`](https://github.com/jeremydaly/serverless-mysql).
+
+<Note>
+  Using <InlineCode>sql-template-strings</InlineCode> is strongly recommended to
+  prevent attacks via{' '}
+  <Link href="https://en.wikipedia.org/wiki/SQL_injection">SQL Injection</Link>{' '}
+  by using{' '}
+  <Link href="https://blogs.msdn.microsoft.com/sqlphp/2008/09/30/how-and-why-to-use-parameterized-queries/">
+    parameterized queries
+  </Link>
+  .
+</Note>
+
+Next, add a build script to your `package.json` file:
+
+```json
+{
+  ...
+  "scripts": {
+    "build": "next build"
+  }
+}
+```
+
+<Caption>
+  Adding a build script to your <InlineCode>package.json</InlineCode> file.
+</Caption>
+
+Now, add your database credentials from [step 1](#step-1:-populating-your-mysql-database) to the project as [Secrets](/docs/cli#commands/secrets) using the [<ProductShortName /> CLI](/download) to keep them secure:
+
+<Snippet dark text="vercel secrets add MYSQL_HOST $database-hostname && vercel secrets add MYSQL_USER $database-username && vercel secrets add MYSQL_DATABASE $database-name && vercel secrets add MYSQL_PASSWORD $database-password" />
+<Caption>
+  Adding <Link href="/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets">secrets</Link> to the project.
+</Caption>
+
+## Step 3: Create Your Reusable Database Connection
+
+To ensure all your MySQL connections are managed by [`serverless-mysql`](https://github.com/jeremydaly/serverless-mysql), you should create a helper function to form the connection each time.
+
+Create a `/lib` directory with a `db.js` file inside:
+
+<Snippet dark text="mkdir lib" />
+<Caption>
+  Creating a <InlineCode>/lib</InlineCode>{' '}directory.
+</Caption>
+
+Add the following code to `db.js`:
+
+```js
+const mysql = require('serverless-mysql')
+
+const db = mysql({
+  config: {
+    host: process.env.MYSQL_HOST,
+    database: process.env.MYSQL_DATABASE,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD
+  }
+})
+
+exports.query = async query => {
+  try {
+    const results = await db.query(query)
+    await db.end()
+    return results
+  } catch (error) {
+    return { error }
+  }
+}
+```
+
+<Caption>
+  An example <InlineCode>db.js</InlineCode> file for your project.
+</Caption>
+
+Your `db.js` file performs the following functions:
+
+- Creates a connection to your MySQL database using credentials defined as [Secrets](/docs/cli#commands/secrets)
+- Exports a function that ensures connections are closed once the query has resolved
+
+<Note>
+  The most important line is <InlineCode>await db.end()</InlineCode>. This
+  prevents your app from exhausting all available connections.
+</Note>
+
+Now you have a reusable database connection, perfectly suited for a [serverless](/docs/v2/serverless-functions/introduction) environment.
+
+## Step 4: Creating Your Node.js API
+
+The next step is to create your API. Start off by creating an `/api` directory with a `/profiles` directory inside:
+
+<Snippet dark text="mkdir api && mkdir api/profiles" />
+<Caption>
+  Creating an <InlineCode>/api</InlineCode> directory with a <InlineCode>/profiles</InlineCode> directory inside it.
+</Caption>
+
+Inside your `/profiles` directory create an `index.js` file with the following code:
+
+```js
+const db = require('../../lib/db')
+const escape = require('sql-template-strings')
+
+module.exports = async (req, res) => {
+  let page = parseInt(req.query.page) || 1
+  const limit = parseInt(req.query.limit) || 9
+  if (page < 1) page = 1
+  const profiles = await db.query(escape`
+      SELECT *
+      FROM profiles
+      ORDER BY id
+      LIMIT ${(page - 1) * limit}, ${limit}
+    `)
+  const count = await db.query(escape`
+      SELECT COUNT(*)
+      AS profilesCount
+      FROM profiles
+    `)
+  const { profilesCount } = count[0]
+  const pageCount = Math.ceil(profilesCount / limit)
+  res.status(200).json({ profiles, pageCount, page })
+}
+```
+
+<Caption>
+  An example <InlineCode>index.js</InlineCode> file for your project.
+</Caption>
+
+Your `index.js` file performs the following functions:
+
+- Parses the request query parameters
+- Uses the query parameters to determine which profiles are required
+- Requests **only** the required profiles from the database
+- Queries the database to get the total records
+- Uses the records count to calculate pagination
+- Sends the retrieved profiles and pagination details as a response
+
+<Note>
+  In the code snippet above, you probably noticed that we used{' '}
+  <InlineCode>req.query</InlineCode>, <InlineCode>res.status()</InlineCode> and{' '}
+  <InlineCode>res.json()</InlineCode> . These property and methods are
+  automatically added for you when you use
+  <InlineCode>@vercel/node</InlineCode>. Read more about this in the <Link href="/docs/v2/deployments/official-runtimes/node-js-now-node#helpers">
+    <InlineCode>@vercel/node</InlineCode> Runtime documentation page
+  </Link>.
+</Note>
+
+That is all the API code required to successfully use pagination in a serverless environment.
+
+Next, create a `profile.js` file in your `/profiles` directory containing the code below:
+
+```js
+const db = require('../../lib/db')
+const escape = require('sql-template-strings')
+
+module.exports = async (req, res) => {
+  const [profile] = await db.query(escape`
+    SELECT *
+    FROM profiles
+    WHERE id = ${req.query.id}
+  `)
+  res.status(200).json({ profile })
+}
+```
+
+<Caption>
+  An example <InlineCode>profile.js</InlineCode> file for your project.
+</Caption>
+
+Your `profile.js` file performs the following functions:
+
+- Parses the request query parameter
+- Uses the query parameter to select a single profile from the database
+- Sends the retrieved profile as a response
+
+You now have an API that will give you either all profiles or just a single one, dependent on the [Route](/docs/configuration#routes). You now need to create the app interface to display them.
+
+## Step 5: Creating Your Next.js Client
+
+To add [Next.js](https://nextjs.org/) to your project, you should install the following [dependencies](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file):
+
+<Snippet dark text="npm i isomorphic-unfetch next react react-dom" />
+<Caption>
+  Adding multiple dependencies to the project.
+</Caption>
+
+Next, create a `/pages` directory like so:
+
+<Snippet dark text="mkdir pages" />
+<Caption>
+  Creating a <InlineCode>/pages</InlineCode> directory.
+</Caption>
+
+Now you should create an `index.js` file inside your `/pages` directory with the following code:
+
+```jsx
+import fetch from 'isomorphic-unfetch'
+import Link from 'next/link'
+
+HomePage.getInitialProps = async ({ req, query }) => {
+  const protocol = req
+    ? `${req.headers['x-forwarded-proto']}:`
+    : location.protocol
+  const host = req ? req.headers['x-forwarded-host'] : location.host
+  const pageRequest = `${protocol}//${host}/api/profiles?page=${query.page ||
+    1}&limit=${query.limit || 9}`
+  const res = await fetch(pageRequest)
+  const json = await res.json()
+  return json
+}
+
+function HomePage({ profiles, page, pageCount }) {
+  return (
+    <>
+      <ul>
+        {profiles.map(p => (
+          <li className="profile" key={p.id}>
+            <Link href={`/profile?id=${p.id}`}>
+              <a>
+                <img src={p.avatar} />
+                <span>{p.name}</span>
+              </a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <nav>
+        {page > 1 && (
+          <Link href={`/?page=${page - 1}&limit=9`}>
+            <a>Previous</a>
+          </Link>
+        )}
+        {page < pageCount && (
+          <Link href={`/?page=${page + 1}&limit=9`}>
+            <a className="next">Next</a>
+          </Link>
+        )}
+      </nav>
+    </>
+  )
+}
+
+export default HomePage
+```
+
+<Caption>
+  An example <InlineCode>pages/index.js</InlineCode> file for your project.
+</Caption>
+
+Your `pages/index.js` file performs the following functions:
+
+- Checks whether the request is being made from the server or client side
+- Makes a request to the API for profiles using query parameters
+- Receives the profiles and pagination data, making them available as props
+- Lists the profiles in a gallery view
+- Uses the pagination data to create navigation buttons
+
+The next page you should create in the `/pages` directory is `profile.js`, this will render a more detailed view of an individual profile:
+
+```jsx
+import fetch from 'isomorphic-unfetch'
+import Link from 'next/link'
+
+ProfilePage.getInitialProps = async ({ req, query }) => {
+  const protocol = req
+    ? `${req.headers['x-forwarded-proto']}:`
+    : location.protocol
+  const host = req ? req.headers['x-forwarded-host'] : location.host
+  const pageRequest = `${protocol}//${host}/api/profiles/${query.id}`
+  const res = await fetch(pageRequest)
+  const json = await res.json()
+  return json
+}
+
+function ProfilePage({ profile }) {
+  return (
+    <>
+      <div>
+        <img src={profile.avatar} />
+        <h1>{profile.name}</h1>
+        <p>{profile.address}</p>
+        <p>{profile.email}</p>
+        <Link href="/">
+          <a>← Back to profiles</a>
+        </Link>
+      </div>
+    </>
+  )
+}
+
+export default ProfilePage
+```
+
+<Caption>
+  An example <InlineCode>pages/profile.js</InlineCode> file for your project.
+</Caption>
+
+Your `pages/index.js` file performs the following functions:
+
+- Checks whether the request is being made from the server or client side
+- Makes a request to the API for a single profile using a query parameter
+- Receives the profile data, making it available as a prop
+- Displays the profile with an option to go back to the gallery
+
+You now have a **complete app** with both an API and interface, the next section will show you how to deploy it seamlessly with [<ProductName />](/).
+
+## Step 6: Deploy Your Project with <NameWrapper name={PRODUCT_NAME} />
+
+Getting your project ready to [deploy](/docs/v2/introduction) with [<ProductName />](/) could hardly be simpler, all that's required is the inclusion of [Environment Variables](/docs/v2/build-step#environment-variables).
+
+Create a [`vercel.json` file](/docs/configuration) with the following configuration to make the environment variables available to your Serverless Functions:
+
+```json
+{
+  "env": {
+    "MYSQL_HOST": "@mysql_host",
+    "MYSQL_USER": "@mysql_user",
+    "MYSQL_PASSWORD": "@mysql_password",
+    "MYSQL_DATABASE": "@mysql_database"
+  }
+}
+```
+
+<Caption>
+  An example <InlineCode>vercel.json</InlineCode> file for your project.
+</Caption>
+
+Finally, deploy the app with [<ProductName />](/).
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

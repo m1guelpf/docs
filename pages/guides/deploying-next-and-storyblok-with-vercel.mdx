@@ -1,0 +1,331 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import OrgName from '~/components/name/org-name'
+import ProductName from '~/components/name/product-name'
+import ProductShortName from '~/components/name/product-short-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Create a Next.js and Storyblok App That Builds and Deploys with ${PRODUCT_NAME}`,
+  description: `Use Storyblok as a Headless CMS to power content for your Next.js app deployed with ${PRODUCT_NAME}.`,
+  name: 'Next.js + Storyblok',
+  type: 'app',
+  published: '2019-06-24T16:51:04.000Z',
+  authors: ['mcsdev'],
+  url: '/guides/deploying-next-and-storyblok-with-vercel',
+  image: `https://vercel.com/docs/static/guides/deploying-next-storyblok-with-vercel/deploying-next-storyblok-with-vercel.png`,
+  editUrl: 'pages/guides/deploying-next-and-storyblok-with-vercel.mdx',
+  lastEdited: '2020-06-02T23:37:58.000Z'
+}
+
+In this guide, you will discover how to create a [Next.js](https://nextjs.org/) app that displays links to posts from the [<OrgName /> blog](/blog) by utilizing the [Storyblok](https://www.storyblok.com/) headless CMS, before deploying **with a single command** to [<ProductName />](/docs/v2).
+
+[Next.js](https://nextjs.org/) from [<OrgName />](/) is a **production-ready framework** that helps you create fast React apps. [Storyblok](https://www.storyblok.com/) is a headless CMS with a **visual editor, block system, custom field types and localization built in**.
+
+By following this guide, you will create a clone of the [example app](https://nextjs-storyblok.now-examples.now.sh/), a starting point to get you up and running with your own Next.js + Storyblok app in minutes.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-next-storyblok-with-vercel/deploying-next-storyblok-with-vercel.png`}
+  width={2048 / 2.5}
+  height={1170 / 2.5}
+  oversize
+/>
+
+## Step 1: Create your Storyblok Content
+
+From your **Content Dashboard**, create a new **Entry** with a **Content type** of **Post** by clicking the **+ Entry** button.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-next-storyblok-with-vercel/creating-entry.png`}
+  width={1390/2}
+  height={521/2}
+  oversize
+  shadow
+/>
+<Caption>Creating an Entry for your Next.js + Storyblok project using the Storyblok Content Dashboard.</Caption>
+
+<Note>
+  When you type in the <b>Content type</b> field, you will be given the option
+  to <b>Create new "post"</b>, you should select this option.
+</Note>
+
+After completing the details in the modal, click **Create**, this will take you to a new view. Now, click the **Define schema** button, you should see the following in the sidebar:
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-next-storyblok-with-vercel/define-schema.png`}
+  width={867/2}
+  height={437/2}
+  oversize
+  shadow
+/>
+<Caption>Defining a <b>Post Schema</b> for your Next.js + Storyblok project.</Caption>
+
+Add the following fields to your **Post Schema**, by typing in the input and clicking the **+ Add** button:
+
+- `title`
+- `date`
+- `alt`
+- `image`
+- `url`
+
+Your **Post Schema** should look like this:
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-next-storyblok-with-vercel/defined-schema.png`}
+  width={830/2}
+  height={602/2}
+  oversize
+  shadow
+/>
+<Caption>An example <b>Post Schema</b> for your Next.js + Storyblok project.</Caption>
+
+Next, click the arrow back at the top left of the page to return to the **Content dashboard**. Then, click **+ Entry** once more, this time choosing your **Post Schema** as the **Content Type**.
+
+All that's required is to add the content where requested, then click **Save** at the top right of the screen followed by **Publish** for each post you wish to add.
+
+That's it for creating content! You can edit both the **Post** and **Post Schema** at any time, giving you complete flexibility over your content.
+
+At this point, return back to your **Content Dashboard** and click **Settings** from the sidebar on the left. Select the **API-Keys** tab and create a new **Public** key, you should make a note of this so it can be used later.
+
+## Step 2: Creating your Next.js App
+
+Firstly, create a project directory and `cd` into it like so:
+
+<Snippet dark text="mkdir my-nextjs-storyblok-project && cd my-nextjs-storyblok-project" />
+<Caption>Creating and entering into the project directory.</Caption>
+
+Next, initialize your project, creating a `package.json` file in the process:
+
+<Snippet dark text="npm init -y" />
+<Caption>Initializing your project with a <InlineCode>package.json</InlineCode> file.</Caption>
+
+<Note>
+  Using the <InlineCode>-y</InlineCode> flag will initialize the created{' '}
+  <InlineCode>package.json</InlineCode> file with{' '}
+  <Link href="https://docs.npmjs.com/cli/init">these</Link> default settings.
+</Note>
+
+Next, add the project dependencies:
+
+<Snippet dark text="npm i next react react-dom" />
+<Caption>Adding <InlineCode>next</InlineCode>, <InlineCode>react</InlineCode> and <InlineCode>react-dom</InlineCode> as dependencies to your project.</Caption>
+
+With the project initialized, create a `/pages` directory with a `index.js` file inside that uses the following code:
+
+```jsx
+import { useEffect, useState } from 'react'
+import Head from 'next/head'
+import Post from '../components/post'
+
+function HomePage() {
+  const [posts, setPosts] = useState([])
+  useEffect(() => {
+    async function getPosts() {
+      const res = await fetch(
+        `https://api.storyblok.com/v1/cdn/stories?token=${
+          process.env.API_TOKEN
+        }`
+      )
+      const { stories } = await res.json()
+      setPosts([...stories])
+    }
+    getPosts()
+  }, [])
+  return (
+    <>
+      <Head>
+        <title>Next.js + Storyblok</title>
+        <link
+          rel="stylesheet"
+          href="https://css.zeit.sh/v1.css"
+          type="text/css"
+        />
+      </Head>
+      {posts.length > 0
+        ? posts.map(p => (
+            <Post
+              alt={p.content.alt}
+              date={p.content.date}
+              key={p.content.title}
+              image={p.content.image}
+              title={p.content.title}
+              url={p.content.url}
+            />
+          ))
+        : null}
+    </>
+  )
+}
+
+export default HomePage
+```
+
+<Caption>
+  An example <InlineCode>index.js</InlineCode> page for your Next.js + Storyblok
+  project.
+</Caption>
+
+Let's take look at what this file achieves.
+
+Inside the `useEffect` hook, an asynchronous function, `getPosts`, is defined, this is then called in the `useEffect` hook to retrieve the posts on initial load.
+
+With the posts retrieved, they are then mapped over to be displayed with a `<Post>` component that you will create next.
+
+Create a `/components` directory that contains a `post.js` file with the following content:
+
+```jsx
+function Post({ alt, date, image, title, url }) {
+  return (
+    <div className="container">
+      <a href={url}>
+        <img alt={alt} src={image} />
+      </a>
+      <div className="text">
+        <h2>{title}</h2>
+        <h4>{date}</h4>
+      </div>
+      <style jsx>{`
+        .container {
+          cursor: pointer;
+          height: 453px;
+          margin-bottom: 48px;
+        }
+        a {
+          border-bottom: none;
+        }
+        a:hover {
+          border-bottom: none;
+        }
+        .text {
+          margin-top: -160px;
+          padding: 24px;
+          position: absolute;
+        }
+        h2 {
+          color: white;
+          font-size: 24px;
+          margin-bottom: 0;
+        }
+        h4 {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 16px;
+          font-weight: 500;
+          margin-top: 8px;
+        }
+      `}</style>
+    </div>
+  )
+}
+
+export default Post
+```
+
+<Caption>
+  An example <InlineCode>post.js</InlineCode> component for your Next.js +
+  Storyblok project.
+</Caption>
+
+Now that your page and component files have been created, the next step will show you how to add an [environment variable](/docs/v2/deployments/environment-variables-and-secrets/) to the project.
+
+## Step 3: Adding an Environment Variable
+
+Add a `vercel.json` file at the root of your project directory with the following code:
+
+```json
+{
+  "build": {
+    "env": {
+      "STORYBLOK_API_TOKEN": "@storyblok_api_token"
+    }
+  }
+}
+```
+
+<Caption>
+  An example <InlineCode>vercel.json</InlineCode> file for your Next.js +
+  Storyblok project.
+</Caption>
+
+With your `vercel.json` file created, you should add a `next.config.js` file at the root of your project directory with the code below:
+
+```js
+module.exports = {
+  env: {
+    API_TOKEN: process.env.STORYBLOK_API_TOKEN
+  }
+}
+```
+
+<Caption>
+  An example <InlineCode>next.config.js</InlineCode> file for your Next.js +
+  Storyblok project.
+</Caption>
+
+The `next.config.js` file provides access to [environment variables](/docs/v2/deployments/environment-variables-and-secrets/) inside your Next.js app.
+
+Now, add the following build script to your `package.json` file:
+
+```json
+{
+  ...
+  "scripts": {
+    "build": "next build"
+  }
+}
+```
+
+<Caption>
+  Adding a build script to your <InlineCode>package.json</InlineCode> file for
+  your Next.js + Storyblok project.
+</Caption>
+
+Next, you will make your API keys available to your app during local development by creating a `.env.local` file.
+
+Create a `.env.local` file at the root of your project directory with the following code, adding your API keys where instructed:
+
+```bash
+STORYBLOK_API_TOKEN=your-api-token
+```
+
+<Caption>
+  An example <InlineCode>.env.local</InlineCode> file for your Next.js +
+  Storyblok project.
+</Caption>
+
+Lastly, to make your API key available for [cloud deployment](/docs/v2/deployments/basics/), create a [Secret](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) with the command below:
+
+<Snippet dark text="vercel secrets add STORYBLOK_API_TOKEN your-api-token" />
+<Caption>
+  Adding the <InlineCode>STORYBLOK_API_TOKEN</InlineCode> secret to your project using <Link href="/docs/cli#commands/secrets">Secrets</Link>.
+</Caption>
+
+With those steps out the way you are now able to run your app. You can develop your app locally using the following command:
+
+<Snippet dark text="next dev" />
+<Caption>
+  Using the <InlineCode>next dev</InlineCode> command to run the app locally.
+</Caption>
+
+## Step 4: Deploying the App
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

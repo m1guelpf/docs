@@ -6,7 +6,7 @@ export const meta = {
   title: 'Infinite Loop Detected',
   description: 'An infinite loop was detected within the application.',
   editUrl: 'pages/docs/error/application/INFINITE_LOOP_DETECTED.mdx',
-  lastEdited: '2019-10-14T12:32:29.000Z'
+  lastEdited: '2020-05-09T14:31:59.000Z'
 }
 
 #### Application Error
@@ -26,7 +26,7 @@ An infinite loop was detected within the application.
 #### Troubleshoot
 
 - Check the application's source code for a redirect loop.
-- Check the application's `now.json` [Routes](/docs/configuration#routes) for a redirect loop.
+- Check the application's `vercel.json` [Routes](/docs/configuration#routes) for a redirect loop.
 
 export default ({ children }) => <Standard meta={meta}>{children}</Standard>
 

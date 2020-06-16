@@ -1,0 +1,51 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import { Image } from '~/components/media'
+import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Create and Deploy a Preact App with ${PRODUCT_NAME}`,
+  description: `Create your Preact app and deploy it with ${PRODUCT_NAME}.`,
+  name: 'Preact',
+  type: 'app',
+  published: '2019-08-16T12:00:00.860Z',
+  authors: ['mcsdev'],
+  url: '/guides/deploying-preact-with-vercel',
+  editUrl: 'pages/guides/deploying-preact-with-vercel.mdx',
+  example: 'preact',
+  demo: 'https://preact.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploy%20a%20Preact%20App**%20%3Cbr%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fwww.stickpng.com%2Fassets%2Fimages%2F584815e7cef1014c0b5e4978.png`,
+  lastEdited: '2020-05-05T11:51:28.000Z'
+}
+
+[Preact](https://preactjs.com/) is a fast 3kB alternative to React with the same modern API.
+
+In this guide, we will cover how to set up a Preact app with [Preact CLI](https://github.com/preactjs/preact-cli) and how to deploy it with [<ProductName />](/docs/v2).
+
+## Step 1: Set Up Your Preact Project
+
+If you do not have the Preact CLI installed currently, use the following command to install it globally:
+
+<Snippet dark text="npm i -g preact-cli" />
+<Caption>Installing Preact CLI globally with <Link href="https://www.npmjs.com/">npm</Link>.</Caption>
+
+Get started by setting up a Preact app with Preact CLI and the following command:
+
+<Snippet dark text="preact create default my-preact-app && cd my-preact-app" />
+<Caption>Bootstrapping a Preact app with <Link href="https://github.com/preactjs/preact-cli">Preact CLI</Link>.</Caption>
+
+## Step 2: Deploying Your Preact Project with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

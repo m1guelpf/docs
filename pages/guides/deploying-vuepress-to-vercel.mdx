@@ -1,0 +1,105 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Creating and Deploying a VuePress App with ${PRODUCT_NAME}`,
+  description: `Create your VuePress app and deploy it with ${PRODUCT_NAME}.`,
+  name: 'VuePress',
+  type: 'app',
+  published: '2019-01-26T03:00:00.860Z',
+  authors: ['unicodeveloper'],
+  url: '/guides/deploying-vuepress-to-vercel',
+  demo: 'https://vuepress.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploying%20VuePress%20Sites**%20%3Cbr%20%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fvuepress.vuejs.org%2Fhero.png&widths=250&widths=300&heights=250&heights=300`,
+  editUrl: 'pages/guides/deploying-vuepress-to-vercel.mdx',
+  lastEdited: '2020-04-25T00:32:18.000Z'
+}
+
+VuePress is a vue-powered static generator. It is used for generating static sites with a focus on writing.
+
+This guide will cover how to create and deploy a VuePress app to <ProductName />.
+
+Already have a VuePress project? [Skip to deploying](#step-3:-deploying-your-vuepress-project-with-vercel)!
+
+## Step 1: Getting Started with VuePress
+
+The first step is to create a project and `cd` into it via your terminal.
+
+<Snippet dark text="mkdir vuepress-project && cd vuepress-project" />
+<Caption>Creating and entering into the <InlineCode>vuepress-project</InlineCode> directory.</Caption>
+
+Next, initialize the project and install VuePress as a [local development dependency](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file). Use the following command:
+
+<Snippet dark text="npm init -y && npm i -D vuepress" />
+<Caption>Initializing the project and installing VuePress as a development dependency.</Caption>
+
+Once the dependencies are installed, create a `README.md` with the following contents:
+
+```markdown
+# Hello From Vuepress!
+```
+
+Next, create a `guide` directory within the project and add a `README.md` file with the following code:
+
+```markdown
+# Guides
+
+This page lists and describes your project with guides!
+```
+
+## Step 2: Configure and Run VuePress
+
+We have created a few documentation files. Now, we are ready to configure VuePress.
+
+With a few documentation pages created, you now need to configure VuePress.
+
+Create a `.vuepress` folder inside the project directory with a `config.js` file and insert the following code:
+
+```js
+module.exports = {
+  title: `My VuePress Project',
+  description: `A simple VuePress project deployed with ${PRODUCT_NAME}.`,
+  themeConfig: {
+    nav: [{ text: 'Home', link: '/' }, { text: 'Guide', link: '/guides/' }]
+  },
+  dest: 'public'
+}
+```
+
+<Caption>
+  A <InlineCode>config.js</InlineCode> configuration file.
+</Caption>
+
+Next, add both a development and build script to the `package.json` file in the root project directory.
+
+```js
+{
+    ...
+    "scripts": {
+      "dev": "vuepress dev",
+      "build": "vuepress build"
+    }
+}
+```
+
+<Caption>
+  Adding development and build scripts to the{' '}
+  <InlineCode>package.json</InlineCode> file.
+</Caption>
+
+## Step 3: Deploying Your VuePress Project with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

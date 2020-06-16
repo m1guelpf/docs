@@ -1,0 +1,57 @@
+import Doc from '~/components/layout/docs'
+import ProductName from '~/components/name/product-name'
+import { CDN_NAME, CDN_SHORT_NAME } from '~/lib/constants'
+import CdnName from '~/components/name/cdn-name'
+import CdnShortName from '~/components/name/cdn-short-name'
+
+export const meta = {
+  title: `${CDN_SHORT_NAME}`,
+  description: `The ${CDN_NAME} sits in-between the internet and your deployments. It routes the users requests to the correct files of the requested deployment.`,
+  editUrl: 'pages/docs/v2/edge-network/overview.mdx',
+  lastEdited: '2020-04-15T21:24:16.000Z'
+}
+
+The <CdnName /> sits in-between the internet and your <ProductName /> deployments. This type of network topology is sometimes called a [Content Delivery Network](https://en.wikipedia.org/wiki/Content_delivery_network) or CDN.
+
+The <CdnName /> has many responsibilities, but most importantly, it is responsible for routing requests to the correct **Serverless Function** or **Static File** output of your **Builds**. The <CdnName /> is a CDN with the ability to execute functions at the edge.
+
+## Regions
+
+In order to route requests as fast as possible, the <CdnShortName /> is running in dozens of locations across the world. In all of these locations (called **Regions**), you can create **Deployments** that create [Builds](/docs/v2/build-step) outputting **[Serverless Functions](/docs/v2/serverless-functions/introduction/)** and/or **Static Files.** The full list of regions can be found [here](/docs/v2/platform/regions/).
+
+In turn, the <CdnShortName /> will automatically forward incoming requests to the closest location in which your **Serverless Function** is running (**Static Files** are always distributed across the whole network, thus not location-specific).
+
+In the event that the **Serverless Function** of your deployment is not created in the requested region, the request is forwarded to the closest region that contains your deployed **Serverless Function**.
+
+## Caching
+
+The <CdnName /> has multiple layers of caches to ensure that your <ProductName /> deployments are fast around the world. At a high level, the layers of the cache are as follows:
+
+- L1 - a small per-[process](<https://en.wikipedia.org/wiki/Process_(computing)>) cache
+- L2 - shared cache for processes on a single node
+- L3 - a regional cache that is shared with all nodes in a region
+- Origin - A **Serverless Function** invoked or **Static File** fetched on cache miss
+
+## Additional Responsibilities
+
+Aside from routing your requests to the correct destination, the <CdnShortName /> also takes care of a few other important aspects of a working **Deployment**:
+
+- Terminating SSL
+- [Compressing your responses](/docs/v2/edge-network/compression/)
+
+All of these actions are performed automatically with careful attention to performance (ensured by our choices of technology). In turn, we highly recommend not implementing SSL termination or compression in your own code, as it would be unnecessary.
+
+## Supported Protocols
+
+The <CdnShortName /> supports the following protocols:
+
+- [HTTPS](https://en.wikipedia.org/wiki/HTTPS)
+- [WSS](https://en.wikipedia.org/wiki/WebSocket)\*
+
+Please note that although the <CdnShortName /> supports the WSS protocol, [Serverless Functions](/docs/v2/serverless-functions/introduction) do not. This means you can proxy WSS traffic to a different provider but [Serverless Functions cannot serve WSS](/docs/v2/platform/limits#websockets).
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
+}

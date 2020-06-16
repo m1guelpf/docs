@@ -1,0 +1,54 @@
+import Layout from '~/components/layout/knowledge'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import Snippet from '~/components/snippet'
+
+export const meta = {
+  title: 'How do I send and receive emails with my Vercel purchased domain?',
+  description:
+    'Information on how to send and receive email with a domain purchased from Vercel.',
+  editUrl: 'pages/knowledge/using-email-with-your-vercel-domain.mdx',
+  url: '/knowledge/using-email-with-your-vercel-domain',
+  published: '2020-05-18T18:54:36.000Z',
+  lastEdited: '2020-05-29T11:52:03.000Z'
+}
+
+As Vercel is a platform focused on deployments, it does not provide a mail service for domains purchase with or transferred into it.
+
+## Third-Party Services
+
+Because many domain providers do not offer a mail service, there are a number of third-party services that specifically offer this type of functionality and are enabled by adding DNS records.
+
+Examples of this type of service include [ImproxMX](https://improvmx.com/) and [Forward Email](https://forwardemail.net/en), however there are many more options available. For each provider, different DNS records are required to be added.
+
+## ImprovMX
+
+For ImprovMX, you need to add the following DNS records, replacing `example.com` with your domain:
+
+<Snippet dark text="vercel dns add example.com '@' MX mx1.improvmx.com 10" />
+<Caption>Adding an MX record to a custom domain using the Vercel CLI.</Caption>
+
+<Snippet dark text="vercel dns add example.com '@' MX mx2.improvmx.com 20" />
+<Caption>Adding an MX record to a custom domain using the Vercel CLI.</Caption>
+
+<Snippet dark text="vercel dns add example.com '@' TXT 'v=spf1 include:spf.improvmx.com ~all'" />
+<Caption>Adding a TXT record to a custom domain using the Vercel CLI.</Caption>
+
+## Forward Email
+
+For Forward Email, you need to add the following DNS records, replacing `example.com` with your domain:
+
+<Snippet dark text="vercel dns add example.com '@' MX mx1.forwardemail.net 10" />
+<Caption>Adding an MX record to a custom domain using the Vercel CLI.</Caption>
+
+<Snippet dark text="vercel dns add example.com '@' MX mx2.forwardemail.net 20" />
+<Caption>Adding an MX record to a custom domain using the Vercel CLI.</Caption>
+
+<Snippet dark text="vercel dns add example.com '@' TXT forward-email=example.com" />
+<Caption>Adding a TXT record to a custom domain using the Vercel CLI.</Caption>
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

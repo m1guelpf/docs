@@ -13,13 +13,13 @@ export const meta = {
   date: '10 July 2018',
   editUrl: 'pages/docs/v1/features/cdn.mdx',
   image: process.env.IMAGE_ASSETS_URL + '/docs/cdn/tw-card.png',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-04-16T01:25:09.000Z'
 }
 
 <Note>
   The <ProductShortV1Name /> CDN is now simplified and automatic. Please see the{' '}
-  <Link href="/docs/v2/network/caching/">latest documentation</Link> for more
-  information. If you have not upgraded yet,{' '}
+  <Link href="/docs/v2/edge-network/caching/">latest documentation</Link> for
+  more information. If you have not upgraded yet,{' '}
   <Link href="/guides/migrate-to-zeit-now/">see how</Link>.
 </Note>
 
@@ -33,7 +33,7 @@ For any existing domains, added before the CDN was released, or domains that hav
 
 <TerminalInput>now domains add [your domain] --cdn</TerminalInput>
 
-You can also enable or disable the CDN for a domain by heading to the [dashboard](https://zeit.co/dashboard) of your account or the team that holds the domain you want to enable the CDN for, then heading to the ['Domains' section](https://zeit.co/dashboard/domains). From here, you'll be able to simply click a checkbox to activate the CDN for any domain you want.
+You can also enable or disable the CDN for a domain by heading to the [dashboard](/dashboard) of your account or the team that holds the domain you want to enable the CDN for, then heading to the ['Domains' section](/dashboard/domains). From here, you'll be able to simply click a checkbox to activate the CDN for any domain you want.
 
 <Image
   src={`${process.env.IMAGE_ASSETS_URL}/blog/cdn/activate-cdn.png`}
@@ -41,7 +41,7 @@ You can also enable or disable the CDN for a domain by heading to the [dashboard
   height={226}
 />
 
-If your domain isn't using zeit.world DNS yet, you first need to [migrate to zeit.world](https://zeit.co/world#get-started).
+If your domain isn't using zeit.world DNS yet, you first need to [migrate to zeit.world](/world#get-started).
 
 ## Caching
 
@@ -93,6 +93,6 @@ You can disable the CDN for a given domain by running the following command:
   now domains add [your cdn enabled domain] --no-cdn
 </TerminalInput>
 
-Alternatively, you can head to the [dashboard](https://zeit.co/dashboard) of your account or the team that holds the domain you want to enable the CDN for, then heading to the ['Domains' section](https://zeit.co/dashboard/domains). And deselecting the `CDN` checkbox.
+Alternatively, you can head to the [dashboard](/dashboard) of your account or the team that holds the domain you want to enable the CDN for, then heading to the ['Domains' section](/dashboard/domains). And deselecting the `CDN` checkbox.
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

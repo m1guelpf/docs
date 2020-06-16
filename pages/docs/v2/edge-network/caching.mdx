@@ -1,0 +1,107 @@
+import Doc from '~/components/layout/docs'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+import { PRODUCT_NAME } from '~/lib/constants'
+import CdnName from '~/components/name/cdn-name'
+
+export const meta = {
+  title: 'Caching',
+  description: `A guide for how ${PRODUCT_NAME} caches and how to control that caching.`,
+  editUrl: 'pages/docs/v2/edge-network/caching.mdx',
+  lastEdited: '2020-05-09T14:31:59.000Z'
+}
+
+The [<CdnName />](/edge-network) caches your content at the edge in order to serve data to your users as fast as possible.
+
+**Static caching is automatic for all deployments.** This means that no changes need to be made to headers. You get the best performance possible out of the box with zero configuration required.
+
+## Cacheable Responses
+
+Only responses with HTTP status `200` to a `GET` or `HEAD` request are cached by our CDN. Other status codes or HTTP methods are never cached. In addition to this, there are **various other circumstances where caching does not take place**:
+
+- Responses that exceed `10MB` in content length.
+- Requests that contain the `Range` header.
+- Requests that contain the `Authorization` header.
+- Requests that contain a `_now_no_cache=1` cookie.
+- Requests that contain a `?_now_no_cache=1` request parameter.
+- Responses that contain the `no-cache` directive in their `Cache-Control` header.
+
+## Static Files
+
+Static files are **automatically cached at the edge** after the first request. There are no manual adjustments necessary to make this work.
+
+Static files are cached for 31 days. However, when you redeploy the cache is effectively invalidated so we always serve the latest version.
+
+By default we return a `Cache-Control` header containing `public, max-age=0, must-revalidate` to prevent clients (e.g. browsers) from caching the file locally. This gives you the most flexibility as users get the latest file from our Global CDN immediately after deploying. This can be overridden with the [Routes](/docs/configuration#routes/headers) property in your `vercel.json` file.
+
+## Serverless Functions (Lambdas)
+
+In order for our CDN to cache the response of a Serverless Function, you need to include the response header `Cache-Control` with **any** of the following directives:
+
+- `s-maxage=N`
+- `max-age=N, public`
+- `max-age=N, immutable`
+
+Where `N` is the number of seconds the response should be cached. The response must also be cacheable as detailed above.
+
+You can read more about the suggested way to define the `Cache-Control` header [here](/docs/v2/edge-network/headers/#cache-control-header).
+
+## Stale-While-Revalidate
+
+Our CDN supports a powerful recent extension to the `Cache-Control` header called `stale-while-revalidate`.
+
+The benefit of using `stale-while-revalidate` is that we can serve a resource from our CDN cache while simultaneously updating the cache **in the background** with the response from your Serverless Function.
+
+Some situations where `stale-while-revalidate` is of great value:
+
+- Your content changes frequently but it takes a significant amount of time to regenerate. For example, an expensive database query or upstream API request.
+- Your content changes infrequently but you want to have the flexibility to update it (to fix a typo, for example) and don't wait for the cache to expire.
+
+In both cases, we recommend using:
+
+```
+Cache-Control: s-maxage=1, stale-while-revalidate
+```
+
+<Caption>
+  An example <InlineCode>Cache-Control</InlineCode> header that enables content
+  to be updated in the background.
+</Caption>
+
+This tells our CDN to serve from cache and update in the background at most 1 per second.
+
+When the CDN receives a request with `Pragma: no-cache` (such as when the browser devtools are open), it will bypass the client cache, but will not bypass the CDN cache.
+
+## Cache Invalidation
+
+Every deployment has a unique key used for caching based on the deployment url created at build time. This means that users will never see content from a previous deployment and there's normally no need to invalidate it.
+
+The cache is **automatically purged** upon a new deployment being created. If you ever need to invalidate the CDN cache, you can always re-deploy.
+
+## X-Now-Cache
+
+Responses include a header called `X-Now-Cache` that contain details about the state of the cache for the resource. Possible values are:
+
+| Value         | Description                                                                                                                                                                                                           |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `MISS`        | The response was not found in the edge and thus fetched from an origin server.                                                                                                                                        |
+| `HIT`         | The response was served from the edge.                                                                                                                                                                                |
+| `BYPASS`      | The cache was bypassed and so the response was served from an origin server.                                                                                                                                          |
+| `STALE`       | The response is stale (served from the edge). A background request to the origin was made to get a fresh version. (see [Stale-While-Revalidate](/docs/v2/edge-network/caching/#stale-while-revalidate) for more info) |
+| `REVALIDATED` | A stale response was found in the edge but revalidated synchronously due to `Pragma: no-cache`.                                                                                                                       |
+
+## Limits
+
+These limits apply to both static and Serverless Function responses:
+
+- Max Cacheable Response Size = **10MB**
+- Max Cache Time = 60 \* 60 \* 24 \* 365 (**1 year in seconds**)
+  - `s-maxage`
+  - `max-age`
+  - `stale-while-revalidate`
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
+}

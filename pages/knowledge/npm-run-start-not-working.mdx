@@ -1,0 +1,35 @@
+import Layout from '~/components/layout/knowledge'
+
+export const meta = {
+  title: 'Why does npm run start not work on Vercel?',
+  description:
+    'Information on why commands that start servers may not work with Vercel.',
+  editUrl: 'pages/knowledge/npm-run-start-not-working.mdx',
+  url: '/knowledge/npm-run-start-not-working',
+  published: '2020-05-21T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+When deploying your application with Vercel you are prompted for a build command. This command is intended to build your application to generate frontend assets that can be served by the Vercel CDN.
+
+## No Running Servers
+
+If your build command is `npm run start`, `node app.js`, `nodemon server.js`, or similar, it is likely you are trying to start a server for your application.
+
+The Vercel platform is serverless and designed for static frontends and [Serverless Functions](/docs/v2/serverless-functions/introduction). **There is no running server**.
+
+As a result of this, if you are trying to start a server, you are likely to run into difficulties either with your application not starting, or unexpected behavior.
+
+## Serverless Functions
+
+As an alternative to running a server, Vercel allows you to create Serverless Functions, which can be used to execute logic on the server side.
+
+Serverless Functions are stateless and event-driven, which means that they are created to respond to a request and will no longer exist once the response has been sent.
+
+Therefore, it is not possible to store state in-between requests. Any data that needs to be persisted must be stored in a database.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

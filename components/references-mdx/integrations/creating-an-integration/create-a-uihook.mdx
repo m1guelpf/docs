@@ -47,16 +47,19 @@ This is happening inside the <OrgName /> Dashboard under a configuration page fo
   You can find more complex examples{' '}
   <Link href="/docs/integrations#examples/">later in the documentation</Link> or
   you can view the code on the{' '}
-  <Link href="https://github.com/zeit/integrations">Integrations Gallery</Link>.
+  <Link href="https://github.com/vercel/integrations">
+    Integrations Gallery
+  </Link>
+  .
 </Note>
 
 ### Running the UIHook Locally
 
-With the [help of `now dev`](/docs/v2/development/basics), you can run your UIHook locally inside a **simulation of the <ProductName /> platform**.
+With the [help of `vercel dev`](/docs/v2/development/basics), you can run your UIHook locally inside a **simulation of the <ProductName /> platform**.
 
 By running your UIHook locally, you can test that your Integration, after creating the Integration with <OrgName />, behaves as expected before deploying your Integration to production. This will be explored further in the next section.
 
-To run the UIHook locally, create a `now.json` file and add the following:
+To run the UIHook locally, create a `vercel.json` file and add the following:
 
 ```js
 {
@@ -67,7 +70,7 @@ To run the UIHook locally, create a `now.json` file and add the following:
 ```
 
 <Caption>
-  An example <InlineCode>now.json</InlineCode> config file.
+  An example <InlineCode>vercel.json</InlineCode> config file.
 </Caption>
 
 Then, run the following commands:

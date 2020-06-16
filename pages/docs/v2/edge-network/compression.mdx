@@ -1,0 +1,52 @@
+import Doc from '~/components/layout/docs'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+import Link from '~/components/text/link'
+import { PRODUCT_NAME } from '~/lib/constants'
+import CdnName from '~/components/name/cdn-name'
+
+export const meta = {
+  title: 'Compression',
+  description: `How ${PRODUCT_NAME} serves content with compression and which methods are used.`,
+  editUrl: 'pages/docs/v2/edge-network/compression.mdx',
+  lastEdited: '2020-04-15T21:13:16.000Z'
+}
+
+The <CdnName /> implements two compression methods; [Gzip](https://en.wikipedia.org/wiki/LZ77_and_LZ78#LZ77) and [Brotli](https://en.wikipedia.org/wiki/Brotli). We highly recommend leveraging <CdnName /> compression over a self hosted solution.
+
+Using the provided compression methods will result in the best performance and least maintenance.
+
+Any client that makes requests to your deployment needs to define the [Accept-Encoding](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding) header to opt into compression. Many clients (browsers like Chrome, Firefox and Safari) already do this out of the box. If you're making a request from another type of client make sure you use the `Accept-Encoding` header to take advantage of compression.
+
+As an example, this is how you ask the <CdnName /> to compress using [Brotli](https://en.wikipedia.org/wiki/Brotli):
+
+```
+Accept-Encoding: br
+```
+
+<Caption>
+  An example <InlineCode>Accept-Encoding</InlineCode> header requesting{' '}
+  <Link href="https://en.wikipedia.org/wiki/Brotli">Brotli</Link> compression.
+</Caption>
+
+If your client supports [Brotli](https://en.wikipedia.org/wiki/Brotli), we generally recommend using it over [Gzip](https://en.wikipedia.org/wiki/LZ77_and_LZ78#LZ77), because it [usually performs much better](https://medium.com/oyotech/how-brotli-compression-gave-us-37-latency-improvement-14d41e50fee4).
+
+Nevertheless, some clients might not support it, so to use [Gzip](https://en.wikipedia.org/wiki/LZ77_and_LZ78#LZ77):
+
+```
+Accept-Encoding: gzip
+```
+
+<Caption>
+  An example <InlineCode>Accept-Encoding</InlineCode> header requesting{' '}
+  <Link href="https://en.wikipedia.org/wiki/LZ77_and_LZ78#LZ77">Gzip</Link>{' '}
+  compression.
+</Caption>
+
+Assuming that the program requests deployment resources with the appropriate `Accept-Encoding` header, the response will be compressed automatically.
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
+}

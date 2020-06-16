@@ -9,14 +9,14 @@ export const meta = {
   description: `Managing your DNS records for domains used with ${PRODUCT_SHORT_V1_NAME}`,
   date: '15 Mar 2017',
   editUrl: 'pages/docs/v1/features/dns.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-04-17T15:35:52.000Z'
 }
 
 Thanks to the `now dns` CLI command, managing existing DNS records with <ProductShortV1Name /> is simple.
 
 > However, this only applies to domains you bought via <ProductShortV1Name /> or domains configured with our [global DNS service](/world).
 
-In the examples shown below, the placeholder `zeit.rocks` represents a domain of your choice that was registered with `now domains` or `now alias`. Here are the main sub-commands you can use:
+In the examples shown below, the placeholder `example.com` represents a domain of your choice that was registered with `now domains` or `now alias`. Here are the main sub-commands you can use:
 
 ### now dns ls
 
@@ -53,22 +53,22 @@ This is the syntax for the `now dns` command.
 **Examples**
 
 <TerminalInput>
-  now <b>dns add zeit.rocks ext A 127.0.0.1</b>
+  now <b>dns add example.com ext A 127.0.0.1</b>
 </TerminalInput>
 
-Creates an A record that makes the subdomain `ext.zeit.rocks` resolve to the server located at the IP address `127.0.0.1.`
+Creates an A record that makes the subdomain `ext.example.com` resolve to the server located at the IP address `127.0.0.1.`
 
 <TerminalInput>
-  now <b>dns add zeit.rocks @ MX mail.awesome-now.us 10</b>
+  now <b>dns add example.com @ MX mail.awesome-now.us 10</b>
 </TerminalInput>
 
-Creates an MX record which makes the mail server located at `mail.awesome-now.us` responsible for handling emails sent to an address suffixed with `@zeit.rocks`.
+Creates an MX record which makes the mail server located at `mail.awesome-now.us` responsible for handling emails sent to an address suffixed with `@example.com`.
 
 <TerminalInput>
-  now <b>dns add zeit.rocks @ CAA '0 issue "comodo.com"'</b>
+  now <b>dns add example.com @ CAA '0 issue "comodo.com"'</b>
 </TerminalInput>
 
-Creates a [CAA record](https://letsencrypt.org/docs/caa/) that allows issuing certificates using [Comodo](https://ssl.comodo.com/) for `zeit.rocks` and any subdomain under it.
+Creates a [CAA record](https://letsencrypt.org/docs/caa/) that allows issuing certificates using [Comodo](https://ssl.comodo.com/) for `example.com` and any subdomain under it.
 
 > In this case, you'll be in charge of certificate management for your domain.<br/>
 > Most probably, you'll need to use `CAA` records to:

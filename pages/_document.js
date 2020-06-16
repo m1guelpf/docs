@@ -93,7 +93,7 @@ export default class Document extends Document_ {
                   async
                   dangerouslySetInnerHTML={{
                     __html: `
-              if (window.location.hostname === 'zeit.co'){
+              if (window.location.hostname === 'vercel.com'){
                 window['_fs_debug'] = false;
                 window['_fs_host'] = 'fullstory.com';
                 window['_fs_org'] = 'N63EP';

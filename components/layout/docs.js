@@ -88,9 +88,7 @@ function Doc({
   children
 }) {
   const [navigationActive, setNavigationActive] = useState(false)
-  const [version, setVersion] = useState(
-    router.asPath.split(/(v[0-9])/)[1] || 'v2'
-  )
+  const [version] = useState(router.asPath.split(/(v[0-9])/)[1] || 'v2')
   const versionData = version === 'v2' ? dataV2 : dataV1
   const dataContext = useContext(DataContext)
 
@@ -148,8 +146,7 @@ function Doc({
               {version === 'v1' && (
                 <Note>
                   This documentation is for <b>version 1</b> of the{' '}
-                  {PRODUCT_NAME}
-                  platform. For the latest features, please see{' '}
+                  {PRODUCT_NAME} platform. For the latest features, please see{' '}
                   <Link href="/docs/v2">the version 2 documentation</Link>. If
                   you have yet to upgrade, see the{' '}
                   <Link href="/guides/migrate-to-zeit-now/">upgrade guide</Link>

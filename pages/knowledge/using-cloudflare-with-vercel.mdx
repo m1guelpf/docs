@@ -1,0 +1,97 @@
+import Layout from '~/components/layout/knowledge'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Link from '~/components/text/link'
+import { InlineCode } from '~/components/text/code'
+
+export const meta = {
+  title: 'How do I use a Cloudflare domain with Vercel?',
+  description:
+    'Information on how to use a Cloudflare domain with a Vercel deployment.',
+  editUrl: 'pages/knowledge/using-cloudflare-with-vercel.mdx',
+  url: '/knowledge/using-cloudflare-with-vercel',
+  published: '2020-05-19T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+Using Cloudflare with [custom domains](/docs/v2/custom-domains) on Vercel requires some minor steps to work correctly, this depends on whether the domain is being used with or without a proxy.
+
+## Without Proxy (DNS only)
+
+In this method, you need to insert a CNAME record with the value `cname.vercel-dns.com`.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/knowledge/cloudflare-without-proxy.png`}
+  width={1057}
+  height={332}
+/>
+<Caption>A Cloudflare CNAME record that <strong>is not</strong> using a proxy.</Caption>
+
+Following this method will guarantee the speed and reliability of your domain since Vercel will handle the subdomain.
+
+<Note>
+  CNAME flattening is a supported feature, however, it will impact the
+  performance of your root domain. We recommend users to redirect the root
+  domain (example.com) to the <InlineCode>www</InlineCode> subdomain
+  (www.example.com) when possible.
+</Note>
+
+## With Proxy
+
+If your domain does require the Cloudflare's proxy to be turned on by default, only one requirement is needed:
+
+- The domain **must allow** HTTP requests (without HTTPS) to the path `/.well-known/**`.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/knowledge/cloudflare-with-proxy.png`}
+  width={1055}
+  height={330}
+/>
+<Caption>A Cloudflare CNAME record that <strong>is not</strong> using a proxy.</Caption>
+
+To verify if that is possible with your domain, you can run the following command (notice the `http://` part in the URL):
+
+```bash
+curl http://example.com/.well-known/acme-challenge -I
+```
+
+A configuration that does allow Vercel to run smoothly would return the following:
+
+```bash
+curl http://example.com/.well-known/acme-challenge -I
+HTTP/1.1 404 Not Found
+```
+
+If you run the `curl` command and receive a `3XX` redirect instead, Cloudflare is preventing this route from being accessed, and Vercel will mark the domain as not configured:
+
+```bash
+curl http://example.com/.well-known/acme-challenge -I
+HTTP/1.1 404 Moved Permanently
+```
+
+You need to explore the following configuration in the Cloudflare dashboard:
+
+- [**Page Rules**](https://support.cloudflare.com/hc/en-us/articles/218411427-Understanding-and-Configuring-Cloudflare-Page-Rules-Page-Rules-Tutorial-) — You can disable HTTPS for the path `/.well-known/**`.
+- **[Always use HTTPS](https://support.cloudflare.com/hc/en-us/articles/204144518-SSL-FAQ)** — This configuration is under the "SSL/TLS" tab and it may affect your page rules.
+- **Other Configurations** — Cloudflare can offer multiple settings and this will directly affect Vercel's ability to generate certificates.
+
+<Note>
+  Vercel cannot offer Cloudflare-specific support. If you are facing
+  difficulties with your Cloudflare managed domain, please reach out to their
+  support at{' '}
+  <Link href="https://support.cloudflare.com/">
+    https://support.cloudflare.com
+  </Link>
+  .
+</Note>
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

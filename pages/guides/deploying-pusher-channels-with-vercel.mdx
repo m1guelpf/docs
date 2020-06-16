@@ -1,0 +1,249 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import ProductShortName from '~/components/name/product-short-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Deploying Real-Time Apps with Pusher Channels and ${PRODUCT_NAME}`,
+  description: `How to get started building and deploying real-time apps with Channels on ${PRODUCT_NAME}.`,
+  published: '2019-08-28T19:22:52.039Z',
+  authors: ['coetry'],
+  name: 'Channels',
+  type: 'app',
+  url: '/guides/deploying-pusher-channels-with-vercel',
+  image: `https://og-image.now.sh/**Deploy%20Pusher%20Channels%20Apps**%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=96px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fpusher-icon.now-examples.now.sh&widths=250&widths=300&heights=250&heights=250`,
+  editUrl: 'pages/guides/deploying-pusher-channels-with-vercel.mdx',
+  lastEdited: '2020-06-04T20:10:32.000Z'
+}
+
+[Pusher Channels](https://pusher.com/channels) is a service that makes it easy to add real-time data and functionality to web and mobile apps by using [WebSockets](https://en.wikipedia.org/wiki/WebSocket).
+
+This guide demonstrates how to get started creating and deploying real-time apps with [Channels](https://pusher.com/channels) and [<ProductName />](/).
+
+<Note>
+  This guide is an overview. For the full code, see the linked example at the
+  bottom of this page.
+</Note>
+
+## Step 1: Pusher Account Setup
+
+Start by making an account on [Pusher](https://dashboard.pusher.com/accounts/sign_up) and creating a new app by clicking the **Create new app** button.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-pusher-channels-with-vercel/create-new-channels-app.png`}
+  width={2880 / 3}
+  height={1800 / 3}
+  oversize
+  shadow
+/>
+<Caption>Creating a new app from the Channels dashboard.</Caption>
+
+Next, give your app a name and select a region. Choose a region closest to the majority of your customers to minimize latency.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-pusher-channels-with-vercel/name-channels-app.png`}
+  width={2880 / 3}
+  height={1800 / 3}
+  oversize
+  shadow
+/>
+<Caption>Adding a name and region to the app from the Channels dashboard.</Caption>
+
+From your dashboard, find and click on the Channels app you just created.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-pusher-channels-with-vercel/click-newly-created-channels-app.png`}
+  width={2880 / 3}
+  height={1800 / 3}
+  oversize
+  shadow
+/>
+<Caption>Selecting the app from the Channels dashboard.</Caption>
+
+Next, click the **App Keys** tab. Copy these values so that you can save them as [Secrets](/docs/cli#commands/secrets).
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-pusher-channels-with-vercel/channels-app-keys.png`}
+  width={2880 / 3}
+  height={1800 / 3}
+  oversize
+  shadow
+/>
+<Caption>Viewing the <b>App Keys</b> from the Channels dashboard.</Caption>
+
+## Step 2: Set Up Your Project
+
+With your [Pusher Channels](https://pusher.com/channels) account and app set up, the next step is to create your project to deploy, with only a root directory for static files, and an `/api` directory for Serverless Functions.
+
+<Snippet dark text="mkdir -p pusher-channels/api && cd pusher-channels" />
+<Caption>Creating and entering into a <InlineCode>/pusher-channels</InlineCode> directory that contains an <InlineCode>/api</InlineCode> folder.</Caption>
+
+Create an `index.html` file in your project with the code below.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
+```
+
+<Caption>
+  Adding <InlineCode>script</InlineCode> tags inside the{' '}
+  <InlineCode>body</InlineCode> of your <InlineCode>index.html</InlineCode>{' '}
+  file.
+</Caption>
+
+Create an instance of a [Pusher Channels client](https://pusher.com/docs/channels/using_channels/client-api-overview) that subscribes and reacts to events on the appropriate channel. Additionally, send data to your Serverless Function that will trigger a [push event](https://pusher.com/docs/channels/using_channels/events).
+
+Create a `main.js` file where you will initialize a Channels object with your `app-key`, subscribe to the appropriate channel and bind a callback function to react to events within that channel.
+
+```js
+// Initialize Channels client
+let channels = new Pusher('app-key', {
+  cluster: 'cluster-region'
+})
+
+// Subscribe to the appropriate channel
+let channel = channels.subscribe('channel-name')
+
+// Bind a callback function to an event within the subscribed channel
+channel.bind('event-name', function(data) {
+  // Do what you wish with the data from the event
+})
+```
+
+<Caption>
+  Initializing a <InlineCode>Channels</InlineCode> client, subscribing to a
+  channel, and binding to an event.
+</Caption>
+
+All that's remaining on the client is to create a way to send data to your Serverless Function to trigger push events. To achieve this, add the snippet below to your `main.js` file.
+
+```js
+async function pushData(data) {
+  const res = await fetch('/api/channels-event', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  if (!res.ok) {
+    console.error('failed to push data')
+  }
+}
+```
+
+<Caption>
+  A function in <InlineCode>main.js</InlineCode> to send event data to our{' '}
+  <InlineCode>/api</InlineCode> endpoint.
+</Caption>
+
+Using [<ProductShortName /> CLI](/download), add the following [Secrets](/docs/cli#commands/secrets) to your account and expose them as environment variables.
+
+<Snippet dark text={`vercel secrets add channels-app-id [Your Channel's app ID]`} />
+<Caption>
+  Adding the <InlineCode>channels-app-id</InlineCode> as a Secret.
+</Caption>
+
+<Snippet dark text={`vercel secrets add channels-app-secret [Your Channel's app Secret]`} />
+<Caption>
+  Adding the <InlineCode>channels-app-secret</InlineCode> as a Secret.
+</Caption>
+
+<Note>
+  Since the <InlineCode>app-key</InlineCode> and{' '}
+  <InlineCode>cluster</InlineCode> are already exposed on the client and are not
+  sensitive, you <b>do not need</b> to add them as secrets.
+</Note>
+
+Next, create a minimal `vercel.json` file to expose your secrets as environment variables, replacing `app-key` and `cluster-region` with the values provided by Channels.
+
+```json
+{
+  "version": 2,
+  "env": {
+    "APP_ID": "@channels-app-id",
+    "KEY": "app-key",
+    "SECRET": "@channels-app-secret",
+    "CLUSTER": "cluster-region"
+  }
+}
+```
+
+<Caption>
+  An example <InlineCode>vercel.json</InlineCode> file that provides the app
+  with environment variables.
+</Caption>
+
+Add the dependencies for the Serverless Function from inside the `/api` directory.
+
+<Snippet dark text="cd api && npm init -y && npm i pusher" />
+<Caption>Entering the <InlineCode>/api</InlineCode> directory, initializing the <InlineCode>package.json</InlineCode> file and installing the <InlineCode>pusher</InlineCode> dependency.</Caption>
+
+Create a `channels-event.js` file inside the `/api` directory that initializes a new Channels object and receives data from the [`req.body` helper method](/docs/v2/serverless-functions/supported-languages/#node.js-request-and-response-objects), before invoking [`channels.trigger`](https://github.com/pusher/pusher-http-node#publishing-events) to register the event.
+
+```js
+const Channels = require('pusher')
+
+const {
+  APP_ID: appId,
+  KEY: key,
+  SECRET: secret,
+  CLUSTER: cluster
+} = process.env
+
+const channels = new Channels({
+  appId,
+  key,
+  secret,
+  cluster
+})
+
+module.exports = (req, res) => {
+  const data = req.body
+  channels.trigger('event-channel', 'event-name', data, () => {
+    res.status(200).end('sent event successfully')
+  })
+}
+```
+
+<Caption>
+  An example <InlineCode>channels-event.js</InlineCode> file inside the{' '}
+  <InlineCode>/api</InlineCode> directory.
+</Caption>
+
+When `channels.trigger` is called, an event will be broadcast to all subscribed clients.
+
+## Step 3: Deploying with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+You can find a full code example of an app made with this guide in [the <ProductName /> repository](https://github.com/vercel/vercel/tree/master/examples/vanilla-pusher-functions) on GitHub, along with the [live example](https://pusher-whiteboard.now-examples.now.sh/) deployed with <ProductName />.
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

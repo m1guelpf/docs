@@ -1,0 +1,42 @@
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+import Note from '~/components/text/note'
+import OrgName from '~/components/name/org-name'
+
+export const meta = {
+  lastEdited: '2019-10-15T22:03:42.000Z'
+}
+
+## Teams
+
+The `vercel teams` command is used to manage [teams](/docs/v2/platform/users-and-teams/) under an account, providing functionality to list, add, and invite new members to teams.
+
+<Note type="warning">
+  This command is for <b>advanced use only</b>. You can manage teams with
+  further options and greater control from the <OrgName /> Dashboard.
+</Note>
+
+### Basic Usage
+
+<Snippet dark text="vercel teams list" />
+<Caption>Using the <InlineCode>vercel teams</InlineCode> command to list all teams under an account.</Caption>
+
+### Extended Usage
+
+<Snippet dark text="vercel teams add" />
+<Caption>Using the <InlineCode>vercel teams</InlineCode> command to create a new team.</Caption>
+
+<Snippet dark text="vercel teams invite [email]" />
+<Caption>Using the <InlineCode>vercel teams</InlineCode> command to invite a new member to a team.</Caption>
+
+### Global Options
+
+The following [global options](#options) can be passed when using the `vercel teams` command:
+
+- `--debug`
+- `--global-config`
+- `--help`
+- `--local-config`
+
+For more information on global options and their usage, refer to the [options section](#options).

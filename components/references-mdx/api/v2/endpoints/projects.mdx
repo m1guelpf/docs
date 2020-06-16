@@ -5,6 +5,7 @@ import { P } from '~/components/text'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
 import Example from '~/components/example'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/projects.mdx',
@@ -29,7 +30,7 @@ Create a new project with the `name` request parameter. If the project already e
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v1/projects/"
+  url={`${API_ENDPOINT}/v1/projects/`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -72,7 +73,7 @@ Create a project with the `name` request parameter if it does not already exist.
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v1/projects/ensure-project"
+  url={`${API_ENDPOINT}/v1/projects/ensure-project`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -125,7 +126,7 @@ By default, it returns the last 20 projects. The rest can be retrieved using the
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v4/projects/?limit=2" auth />
+<Request url={`${API_ENDPOINT}/v4/projects/?limit=2`} auth />
 
 ##### Example Response
 
@@ -190,7 +191,7 @@ Get the information for a specific project by passing either the project `id` or
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v1/projects/a-project-name" auth />
+<Request url={`${API_ENDPOINT}/v1/projects/a-project-name`} auth />
 
 ##### Example Response
 
@@ -291,7 +292,7 @@ Update the fields of a project using either its `name` or `id`.
 
 <Request
   method="PATCH"
-  url="https://api.zeit.co/v2/projects/a-project-name"
+  url={`${API_ENDPOINT}/v2/projects/a-project-name`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -341,7 +342,7 @@ Delete a specific project by passing either the project `id` or `name` in the UR
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v1/projects/a-project-name"
+  url={`${API_ENDPOINT}/v1/projects/a-project-name`}
   auth
 />
 
@@ -352,9 +353,11 @@ Delete a specific project by passing either the project `id` or `name` in the UR
 
 ### Get Project Environment Variables
 
-<Endpoint method="GET" url="/v4/projects/:id/env" />
+<Endpoint method="GET" url="/v5/projects/:id/env" />
 
 Retrieve the environment variables for a given project by passing the project `id` in the URL.
+
+By default, it returns the last updated 20 environment variables. The rest can be retrieved using the pagination options described below.
 
 #### URL Parameters
 
@@ -362,26 +365,60 @@ Retrieve the environment variables for a given project by passing the project `i
 | ------ | ---------------------------------------------------------- | -------- | ------------------------------ |
 | **id** | <HelpLink href="#api-basics/types">ID</HelpLink>           | Yes      | The unique project identifier. |
 
+#### Query Parameters
+
+| Key       | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                                                         |
+| --------- | ---------------------------------------------------------- | -------- | ------------------------------------------------------------------- |
+| **limit** | <HelpLink href="#api-basics/types">Number</HelpLink>       | No       | Maximum number of environment variables to list from a request.     |
+| **since** | <HelpLink href="#api-basics/types">Number</HelpLink>       | No       | Get environment variables updated after this JavaScript timestamp.  |
+| **until** | <HelpLink href="#api-basics/types">Number</HelpLink>       | No       | Get environment variables updated before this JavaScript timestamp. |
+
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/env"
+  url={`${API_ENDPOINT}/v5/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/env`}
   auth
 />
 
 ##### Example Response
 
-<Code lang="json">{`[
-  {
-    "key": "API_SECRET",
-    "value": "secret_id_123456789",
-    "target": "production",
-    "system": false,
-    "configurationId": null,
-    "updatedAt": 1557241361455,
-    "createdAt": 1557241361455
+<Code lang="json">{`
+{
+  "envs": [
+    {
+      "key": "API_SECRET_2",
+      "value": "secret_id_123456789",
+      "target": "production",
+      "system": false,
+      "configurationId": null,
+      "updatedAt": 1557241361455,
+      "createdAt": 1557241361455
+    },
+    {
+      "key": "API_SECRET_1",
+      "value": "secret_id_123456788",
+      "target": "production",
+      "system": false,
+      "configurationId": null,
+      "updatedAt": 1557241361445,
+      "createdAt": 1557241361445
+    },
+    {
+      "key": "API_SECRET",
+      "value": "secret_id_123456787",
+      "target": "production",
+      "system": false,
+      "configurationId": null,
+      "updatedAt": 1557241361435,
+      "createdAt": 1557241361435
+    }
+  ], 
+  "pagination": {
+    "count": 3,
+    "next": 1557241361435,
+    "prev": 1557241361455
   }
-]`}</Code>
+}`}</Code>
 
 ### Create a Project Environment Variable
 
@@ -414,7 +451,7 @@ Create a new environment variable for the project by passing the project `id` in
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/env"
+  url={`${API_ENDPOINT}/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/env`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -461,7 +498,7 @@ Delete a specific environment variable for a given project by passing the projec
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/env/API_SECRET?target=production"
+  url={`${API_ENDPOINT}/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/env/API_SECRET?target=production`}
   auth
 />
 
@@ -502,7 +539,7 @@ Add a domain to the project by passing the project `id` in the URL and the `doma
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/alias"
+  url={`${API_ENDPOINT}/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/alias`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -574,7 +611,7 @@ Set redirect from specified domain to a different domain in the same project (st
 
 <Request
   method="PATCH"
-  url="https://api.zeit.co/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/alias"
+  url={`${API_ENDPOINT}/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/alias`}
   auth
   body={{
     domain: 'www.foobar.com',
@@ -639,7 +676,7 @@ Delete a specific production domain configuration from a project by passing the 
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/alias?domain=foobar.com"
+  url={`${API_ENDPOINT}/v1/projects/QmXtXGhXF6mZQ5ete2AwbeV3zAS17wEj7LYM3LuQ3Y45FF/alias?domain=foobar.com`}
   auth
 />
 

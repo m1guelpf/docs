@@ -3,6 +3,7 @@ import { InlineCode, Code } from '~/components/text/code'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
 import ProductName from '~/components/name/product-name'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/api-basics/authentication.mdx',
@@ -29,7 +30,7 @@ To access resources owned by a team, you must first find the team ID. You can do
 
 After you obtained the team ID, append it as a query string at the end of the API endpoint URL:
 
-<Code>https://api.zeit.co/v6/now/deployments?teamId=[team ID]</Code>
+<Code>{`${API_ENDPOINT}/v6/now/deployments?teamId=[team ID]`}</Code>
 <Caption>
     Replace <InlineCode>[team ID]</InlineCode>{' '}with the team ID you obtained.
 </Caption>

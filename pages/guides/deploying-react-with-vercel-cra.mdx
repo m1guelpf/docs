@@ -1,0 +1,49 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Deploy a React App with ${PRODUCT_NAME} and Create React App`,
+  description: `Create your Create React App project and deploy it with ${PRODUCT_NAME}.`,
+  name: 'React',
+  type: 'app',
+  published: '2019-02-06T12:00:00.860Z',
+  authors: ['timothy', 'grovesjoseph'],
+  url: '/guides/deploying-react-with-vercel-cra',
+  example: 'create-react-app',
+  demo: 'https://create-react-app.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploying%20React%20Apps**%20%3Cbr%20%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fcdn.svgporn.com%2Flogos%2Freact.svg&widths=250&widths=300&heights=250&heights=300`,
+  editUrl: 'pages/guides/deploying-react-with-vercel-cra.mdx',
+  lastEdited: '2020-04-25T00:32:18.000Z'
+}
+
+[React](https://reactjs.org/) is a popular open-source JavaScript framework, maintained by Facebook, for easily creating interactive [single-page apps](https://en.wikipedia.org/wiki/Single-page_application) (SPAs).
+
+In this guide, we will cover how to set up a React app with [Create React App](https://facebook.github.io/create-react-app/docs/getting-started) (CRA) and how to deploy it with [<ProductName />](/docs/v2).
+
+## Step 1: Set Up Your React Project
+
+Get started by setting up a React app using the [Create React App (CRA)](https://facebook.github.io/create-react-app/) CLI tool. With this, you can generate a project to get up and running with React.
+
+Using [npm](https://www.npmjs.com), you can setup a React app with CRA with the following command in your terminal:
+
+<Snippet dark text="npm init react-app my-react-app && cd my-react-app" />
+<Caption>Bootstrapping a React app with Create React App through npm.</Caption>
+
+If you would prefer to use another method, see the [Quick Start documentation for CRA](https://facebook.github.io/create-react-app/docs/getting-started#quick-start).
+
+## Step 2: Deploying Your React Project with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

@@ -12,6 +12,7 @@ import {
 } from '~/components/api/table'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/endpoints/teams.mdx',
@@ -42,7 +43,7 @@ Create a new team under your account. You need to send a `POST` request with the
 
 <Request
   method="POST"
-  url="https://api.zeit.co/teams"
+  url={`${API_ENDPOINT}/teams`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -83,7 +84,7 @@ Delete a team under your account. You need to send a `DELETE` request with the d
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v1/teams/team_LLHUOMOoDlqOp8wPE4kFo9pE"
+  url={`${API_ENDPOINT}/v1/teams/team_LLHUOMOoDlqOp8wPE4kFo9pE`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -123,7 +124,7 @@ Get a list of all the team you belong to.
   Example request:
 
 <Request
-  url="https://api.zeit.co/teams"
+  url={`${API_ENDPOINT}/teams`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -196,7 +197,7 @@ Get the information of a specific team, it could be used either passing the `:id
   Example request:
 
 <Request
-  url="https://api.zeit.co/teams/team_ofwUZockJlL53hINUGCc1ONW"
+  url={`${API_ENDPOINT}/teams/team_ofwUZockJlL53hINUGCc1ONW`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -246,7 +247,7 @@ Update the information of the team defined with the id. You need to send a `PATC
 
 <Request
   method="PATCH"
-  url="https://api.zeit.co/teams/team_ofwUZockJlL53hINUGCc1ONW"
+  url={`${API_ENDPOINT}/teams/team_ofwUZockJlL53hINUGCc1ONW`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -307,7 +308,7 @@ Get the list of team members of the team defined in the URL. The response is a l
   Example request:
 
 <Request
-  url="https://api.zeit.co/teams/team_ofwUZockJlL53hINUGCc1ONW/members"
+  url={`${API_ENDPOINT}/teams/team_ofwUZockJlL53hINUGCc1ONW/members`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -372,7 +373,7 @@ Invite a user to join the team specified in the URL. To use it send a `POST` req
 
 <Request
   method="POST"
-  url="https://api.zeit.co/teams/team_ofwUZockJlL53hINUGCc1ONW/members"
+  url={`${API_ENDPOINT}/teams/team_ofwUZockJlL53hINUGCc1ONW/members`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -419,7 +420,7 @@ Change the role of an user inside a team member. To change it send a `PATCH` req
 
 <Request
     method="PATCH"
-    url="https://api.zeit.co/teams/team_ofwUZockJlL53hINUGCc1ONW/members/kr1PsOIzqEL5Xg6M4VZcZosf"
+    url={`${API_ENDPOINT}/teams/team_ofwUZockJlL53hINUGCc1ONW/members/kr1PsOIzqEL5Xg6M4VZcZosf`}
     headers={{
       Authorization: `Bearer ${(props.testingToken ? props.testingToken.token : '$TOKEN')}`,
       'Content-Type': 'application/json'
@@ -443,7 +444,7 @@ Remove the specified user from a team.
 
 <Request
     method="DELETE"
-    url="https://api.zeit.co/teams/team_ofwUZockJlL53hINUGCc1ONW/members/kr1PsOIzqEL5Xg6M4VZcZosf"
+    url={`${API_ENDPOINT}/teams/team_ofwUZockJlL53hINUGCc1ONW/members/kr1PsOIzqEL5Xg6M4VZcZosf`}
     headers={{
       Authorization: `Bearer ${(props.testingToken ? props.testingToken.token : '$TOKEN')}`
     }}

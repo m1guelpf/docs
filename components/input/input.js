@@ -1,6 +1,8 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import { DisabledContext } from '~/lib/with-disabled-context'
+import px from '~/lib/to-pixels'
 
 class Input extends Component {
   static propTypes = {
@@ -9,19 +11,25 @@ class Input extends Component {
     disabled: PropTypes.bool,
     errored: PropTypes.bool,
     icon: PropTypes.node,
+    iconRight: PropTypes.node,
     innerRef: PropTypes.func,
     maxLength: PropTypes.number,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    onInput: PropTypes.func,
     onFocus: PropTypes.func,
     onPaste: PropTypes.func,
     placeholder: PropTypes.string,
-    type: PropTypes.string,
-    value: PropTypes.string
-  }
-
-  static contextTypes = {
-    disabled: PropTypes.bool
+    typeName: PropTypes.string,
+    value: PropTypes.any,
+    defaultValue: PropTypes.string,
+    border: PropTypes.bool,
+    margin: PropTypes.string,
+    max: PropTypes.number,
+    min: PropTypes.number,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    height: PropTypes.number
   }
 
   state = {
@@ -60,120 +68,197 @@ class Input extends Component {
       disabled,
       errored,
       icon,
-      rightIcon,
+      iconRight,
       maxLength,
       placeholder,
       type,
-      value
+      value,
+      defaultValue,
+      tabIndex,
+      spellcheck = 'false',
+      width,
+      height,
+      maxWidth,
+      border = true,
+      onInput,
+      onKeyDown,
+      margin,
+      max,
+      min,
+      onChange,
+      className,
+      onPaste,
+      readOnly,
+      ...props
     } = this.props
+
+    // Don't add this attribute to the DOM element
+    delete props.innerRef
+
     const { focused } = this.state
-    const { disabled: disabledContext } = this.context
-    const className = cn(
-      'wrapper',
-      { errored, focused, disabled },
-      this.props.className
-    )
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600
 
     return (
-      <div className={className}>
-        {icon && <span className="icon">{icon}</span>}
-        <div className="input-wrapper">
-          <input
-            autoCapitalize="off"
-            autoComplete="off"
-            autoCorrect="off"
-            autoFocus={autoFocus}
-            disabled={disabled || disabledContext}
-            maxLength={maxLength}
-            onBlur={this.handleBlur}
-            onChange={this.props.onChange ? this.handleChange : null}
-            onFocus={this.handleFocus}
-            onPaste={this.props.onPaste}
-            placeholder={placeholder}
-            ref={this.handleRef}
-            type={type || 'text'}
-            value={value}
-          />
-          {children}
-        </div>
-        {rightIcon && <span className="icon">{rightIcon}</span>}
-        <style jsx>{`
-          .wrapper {
-            align-items: center;
-            border-radius: 5px;
-            border: 1px solid #e1e1e1;
-            display: inline-flex;
-            height: 37px;
-            position: relative;
-            transition: border 0.2s ease, color 0.2s ease;
-            vertical-align: middle;
-          }
+      <DisabledContext.Consumer>
+        {disabledContext => (
+          <div
+            className={cn(
+              'wrapper',
+              {
+                errored,
+                focused,
+                disabled: disabled || disabledContext
+              },
+              className
+            )}
+            style={{ ...this.props.style }}
+            {...props}
+          >
+            {icon && <span className="icon">{icon}</span>}
+            <div className="input-wrapper">
+              <input
+                autoCapitalize="off"
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck={spellcheck}
+                autoFocus={isMobile ? false : autoFocus}
+                disabled={disabled || disabledContext}
+                maxLength={maxLength}
+                onBlur={this.handleBlur}
+                onChange={onChange ? this.handleChange : null}
+                onFocus={this.handleFocus}
+                onPaste={onPaste}
+                onKeyDown={onKeyDown}
+                onInput={onInput}
+                placeholder={placeholder}
+                ref={this.handleRef}
+                type={type || 'text'}
+                value={value}
+                defaultValue={defaultValue}
+                tabIndex={tabIndex}
+                max={max}
+                min={min}
+                readOnly={readOnly}
+                title={value || placeholder}
+              />
+              {children}
+            </div>
+            {iconRight && <span className="icon right">{iconRight}</span>}
 
-          .wrapper.disabled {
-            background: #fafafa;
-          }
-
-          .wrapper.focused {
-            border: 1px solid #888;
-          }
-
-          .wrapper.errored {
-            border: 1px solid red;
-          }
-
-          .wrapper.errored.focused {
-            border: 1px solid red;
-            color: red;
-          }
-
-          .wrapper.errored input {
-            color: red;
-          }
-
-          .icon {
-            align-items: center;
-            display: flex;
-            height: 100%;
-            padding: 0 14px;
-            vertical-align: middle;
-          }
-
-          .icon ~ .input-wrapper {
-            margin-left: 0;
-          }
-
-          .input-wrapper {
-            display: block;
-            margin: 4px 10px;
-            position: relative;
-            width: 100%;
-          }
-
-          input {
-            background-color: transparent;
-            border-radius: 0;
-            border: none;
-            box-shadow: none;
-            box-sizing: border-box;
-            display: block;
-            font-family: var(--font-sans);
-            font-size: var(--font-size-primary);
-            line-height: var(--line-height-primary);
-            outline: 0;
-            width: 100%;
-          }
-
-          .wrapper input:disabled {
-            background: #fafafa;
-            color: #999;
-            border-radius: 5px;
-          }
-
-          .wrapper input:disabled::placeholder {
-            color: #999;
-          }
-        `}</style>
-      </div>
+            <style jsx>{`
+              .wrapper {
+                align-items: center;
+                ${border ? 'border-radius: 5px;' : ''}
+                ${border
+                  ? `border: 1px solid var(--accents-2);`
+                  : 'border: 1px solid transparent;'}
+                display: inline-flex;
+                position: relative;
+                transition: border 0.2s ease, color 0.2s ease;
+                width: ${width || 'initial'};
+                ${maxWidth ? `max-width: ${maxWidth};` : ''};
+                background: var(--geist-background);
+                height: ${height
+                  ? `${px(height)}`
+                  : 'calc(1.688 * var(--geist-gap));'};
+              }
+              .wrapper.focused {
+                ${border ? `border: 1px solid var(--accents-5);` : ''}
+              }
+              .wrapper.disabled {
+                background: var(--accents-1);
+                border-color: var(--accents-2);
+                cursor: not-allowed;
+              }
+              .wrapper.errored {
+                border: 1px solid var(--geist-error);
+              }
+              .wrapper.errored.focused {
+                border: 1px solid var(--geist-error);
+                color: var(--geist-error);
+              }
+              .wrapper.errored input {
+                color: var(--geist-error);
+              }
+              .wrapper.right {
+                flex-direction: row-reverse;
+              }
+              .icon {
+                align-items: center;
+                display: flex;
+                height: 100%;
+                padding: 0 var(--geist-gap-half);
+                vertical-align: middle;
+              }
+              /* Use flex order so that we can use the sibling selector */
+              .icon.right {
+                order: 2;
+                border-bottom-right-radius: 5px;
+                border-top-right-radius: 5px;
+              }
+              .icon.right ~ .input-wrapper {
+                margin-right: 0;
+              }
+              .icon:not(.right) ~ .input-wrapper {
+                margin-left: 0;
+              }
+              .input-wrapper {
+                margin-right: 0;
+              }
+              .icon :global(svg path) {
+                transition: fill 0.2s ease, stroke 0.2s ease;
+              }
+              .input-wrapper {
+                display: block;
+                margin: ${margin ? margin : '4px 10px'};
+                position: relative;
+                width: 100%;
+              }
+              input {
+                border-radius: 0;
+                border: none;
+                box-shadow: none;
+                box-sizing: border-box;
+                display: block;
+                padding: 0;
+                font-family: var(--font-sans);
+                font-size: 14px;
+                line-height: 26px;
+                outline: 0;
+                width: 100%;
+                color: var(--geist-foreground);
+                background-color: transparent;
+                caret-color: var(--geist-foreground);
+                text-overflow: ellipsis;
+                -webkit-appearance: none;
+                appearance: none;
+              }
+              .wrapper input:disabled {
+                color: var(--accents-3);
+                cursor: not-allowed;
+              }
+              .wrapper input::placeholder,
+              .wrapper input::-webkit-input-placeholder {
+                color: var(--accents-3);
+              }
+              .wrapper input:disabled::placeholder {
+                color: var(--accents-3);
+              }
+              @media only screen and (max-device-width: 780px) and (-webkit-min-device-pixel-ratio: 0) {
+                // on iOS, the browser zooms on input if the text size is less than 16px
+                // see https://stackoverflow.com/questions/2989263/disable-auto-zoom-in-input-text-tag-safari-on-iphone
+                input {
+                  font-size: 16px;
+                  line-height: 1;
+                }
+                .wrapper {
+                  height: calc(2 * var(--geist-gap));
+                }
+              }
+            `}</style>
+          </div>
+        )}
+      </DisabledContext.Consumer>
     )
   }
 }

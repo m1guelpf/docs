@@ -4,15 +4,22 @@ import Note from '~/components/text/note'
 import ProductName from '~/components/name/product-name'
 import { PRODUCT_NAME } from '~/lib/constants'
 import EmailLink from '~/components/text/email-link'
+import Link from '~/components/text/link'
 
 export const meta = {
   title: 'Limits',
   description: `A list of limits and limitations that apply on the ${PRODUCT_NAME} platform.`,
   editUrl: 'pages/docs/v2/platform/limits.mdx',
-  lastEdited: '2020-04-15T04:12:15.000Z'
+  lastEdited: '2020-05-27T09:23:46.000Z'
 }
 
 This page outlines all relevant limits and limitations present when using the <ProductName /> platform.
+
+<Note>
+  If your project is likely to exceed these limits, please{' '}
+  <Link href="/support/request">contact Vercel Support</Link> to discuss an
+  increase.
+</Note>
 
 ## General Limits
 
@@ -26,20 +33,21 @@ To prevent abuse of our platform, we apply the following limits to all accounts.
 | Serverless Functions per Deployment    | 12    | 24   | Custom     |
 | Serverless Functions per Month         | 160   | 640  | Custom     |
 | Serverless Function Duration (Seconds) | 10    | 60   | 900        |
-| Deployments created from CLI per week  | 25    | 25   | Custom     |
+| Deployments created from CLI per week  | 2000  | 2000 | Custom     |
+| Team members per Team                  | -     | 10   | Custom     |
 
 <Note>
   Next.js Static Site Generation and Next.js Preview Serverless Functions are
-  excluded from the count for "Maximum Functions per Deployment".
+  excluded from the count for "Serverless Functions per Deployment".
 </Note>
 
 ## Logs
 
 All log types - **Build Time**, **Edge Network**, and **Runtime** - have differing behavior when it comes to storing logs.
 
-During the [Build Step](/docs/v2/platform/glossary#build-step), all logs are stored and **persisted**.
+During the [Build Step](/docs/v2/platform/glossary#build-step), the last 2,000 log lines are stored and persisted.
 
-For [Edge Network requests](/docs/v2/network/regions-and-providers#automatic-edge-cdn), all logs are **not persisted**.
+For [Edge Network requests](/docs/v2/edge-network/regions#automatic-edge-cdn), all logs are **not persisted**.
 
 For [Serverless Functions](/docs/v2/serverless-functions/introduction/), only logs from failed requests are **persisted**.
 
@@ -47,9 +55,12 @@ All other logs are stored in memory only and are **not persisted** between page 
 
 ## Environment Variables
 
-The total size of [Environment Variables](/docs/v2/build-step#environment-variables) is **limited to 4kb**.
+The maximum number of [Environment Variables](/docs/v2/build-step#environment-variables) per Environment per [Project](/docs/v2/platform/glossary#project)
+is **100**. For example, you can not have more than 100 Production Environment Variables.
 
-[Deployments](/docs/v2/platform/deployments) made with environment variables exceeding the 4kb limit will fail at the [build step](/docs/v2/build-step/).
+Moreover, the total size of [Environment Variables](/docs/v2/build-step#environment-variables) applied to a Deployment
+(including all the Environment Variables Names and Values) is **limited to 4kb**. [Deployments](/docs/v2/platform/deployments)
+made with Environment Variables exceeding the 4kb limit will fail during the [Build Step](/docs/v2/build-step/).
 
 ## Domains
 
@@ -69,7 +80,7 @@ The <ProductName /> platform does not currently support HTTP/2 Push.
 
 [Serverless Functions](/docs/v2/serverless-functions/introduction) do not support WebSockets.
 
-Instead of pushing data, you can intelligently fetch data on-demand. For example, the `zeit.co` dashboard delivers real-time updates using [SWR](https://swr.now.sh).
+Instead of pushing data, you can intelligently fetch data on-demand. For example, the <ProductName /> dashboard delivers real-time updates using [SWR](https://swr.now.sh).
 
 If you need persistent connections to push data to the client, consider using third party pub/sub services. See the [Pusher Channels Guide](/guides/deploying-pusher-channels-with-zeit-now) for an example.
 
@@ -113,10 +124,13 @@ When attempting to deploy Serverless Functions to multiple regions on the Hobby 
 
 ​<ProductName /> does not support streaming responses from Serverless Functions due to an upstream limitation from AWS.
 
+This means that background tasks, also known as "fire-and-forget" is not supported. Once the function returns the response payload, it stops processing including any pending background tasks.
+
 ## Reserved Variables
 
 The following environment variable names are [reserved](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#lambda-environment-variables) and therefore unavailable for use:
 
+- Names starting with `VERCEL_`
 - Names starting with `NOW_`
 - `AWS_REGION`
 - `AWS_DEFAULT_REGION`

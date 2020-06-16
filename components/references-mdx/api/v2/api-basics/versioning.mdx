@@ -1,6 +1,7 @@
 import { Code, InlineCode } from '~/components/text/code'
 import Link from '~/components/text/link'
 import Caption from '~/components/text/caption'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/api-basics/versioning.mdx',
@@ -19,7 +20,7 @@ Old versions of each endpoint are supported for as long as possible. When we int
 
 Endpoint versions follow the base URL and come before the endpoint. For example:
 
-<Code>https://api.zeit.co/v6/now/deployments</Code>
+<Code>{`${API_ENDPOINT}/v6/now/deployments`}</Code>
 <Caption>
   Using version <InlineCode>6</InlineCode> of the{' '}
   <Link href="#endpoints/deployments">

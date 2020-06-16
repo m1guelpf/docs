@@ -1,21 +1,21 @@
-# Contributing to the ZEIT Documentation
+# Contributing to the Vercel Documentation
 
-Thank you for your interest in contributing to the ZEIT Docs!
+Thank you for your interest in contributing to the Vercel Docs!
 
-The following describes how to contribute to the ZEIT documentation, API reference, guides and code examples.
+The following describes how to contribute to the Vercel documentation, API reference, guides and code examples.
 
 ## What Does this Document Contain?
 
-This document contains all the required information and links to resources needed to contribute to the ZEIT documentation:
+This document contains all the required information and links to resources needed to contribute to the Vercel documentation:
 
 - [Code of Conduct](#code-of-conduct) - our Code of Conduct, adapted from the [Contributor Covenant](http://contributor-covenant.org)
-- [Reporting an Issue](#reporting-issues) - guidance on how to raise an issue or provide feedback on the ZEIT documentation
+- [Reporting an Issue](#reporting-issues) - guidance on how to raise an issue or provide feedback on the Vercel documentation
 - [Contributing Content](#contributing-content) - a collection of all information required for contributing
   - [Forking Workflow](#forking-workflow) - a guide on how to keep your fork in sync with `master`
   - [Platform and Usage Documentation](#platform-and-usage-documentation) - information on contributing to `pages/docs`
   - [Guides](#guides) - information on contributing to `pages/guides`
   - [API Reference](#api-reference) - information on contributing to `pages/docs/api`
-  - [Examples](#examples) - information on contributing to the [examples](https://github.com/zeit/now/tree/master/examples) repository
+  - [Examples](#examples) - information on contributing to the [examples](https://github.com/vercel/vercel/tree/master/examples) repository
   - [Using Components](#using-components) - how to make the most out of pre-built component library
   - [Static Assets](#static-assets) - where to put static assets and how the naming convention works
 
@@ -28,7 +28,7 @@ available at [http://contributor-covenant.org/version/1/4](http://contributor-co
 
 ## Reporting Issues
 
-If you have found a bug, spelling mistake, missing information, or anything related to the ZEIT documentation that you feel is an issue that should be reported, please create a new issue here on GitHub. For issues relating to examples, please [create an issue on the ZEIT Now repository](https://github.com/zeit/now/issues/new).
+If you have found a bug, spelling mistake, missing information, or anything related to the Vercel documentation that you feel is an issue that should be reported, please create a new issue here on GitHub. For issues relating to examples, please [create an issue on the Vercel repository](https://github.com/vercel/vercel/issues/new).
 
 An issue can be raised by clicking the 'Issues' tab at the top of the repository, followed by the Green 'New issue' button. To make this process as easy as possible we have created a few basic templates to choose from, there are, however, often cases that will fall outside of the templates provided.
 
@@ -36,7 +36,7 @@ If your issue doesn't fit with any of the templates then that's okay, please sub
 
 ## Contributing Content
 
-There are multiple sections of the ZEIT Docs, including: the main [ZEIT platform and usage documentation](https://zeit.co/docs), [guides](https://zeit.co/guides), [ZEIT API reference](https://zeit.co/docs/api), and [examples](https://zeit.co/examples).
+There are multiple sections of the Vercel Docs, including: the main [Vercel platform and usage documentation](https://vercel.com/docs), [guides](https://vercel.com/guides), [Vercel API reference](https://vercel.com/docs/api), and [examples](https://vercel.com/examples).
 
 When contributing content to any of the previously mentioned sections, please fork this repository and then edit the content for the section that you want to contribute to, if you are not sure how to do this then please take a look at the [Forking Workflow](#forking-workflow) below.
 
@@ -70,7 +70,7 @@ With the dependencies installed, you should now add a remote path to the officia
 
 To add the remote path for the official git repository, enter the following:
 
-`git remote add upstream git@github.com:zeit/docs.git`
+`git remote add upstream git@github.com:vercel/docs.git`
 
 This command adds a new remote branch, with the name 'upstream'. If you ever want to pull the recent changes to update your local fork you can use the following command:
 
@@ -98,7 +98,7 @@ To the right of the branch you will see a button that says 'New pull request', c
 - Your reason for making them
 - A request for feedback if required (add [WIP] to your title)
 
-Congratulations, you've just made your first pull request to the ZEIT Documentation!
+Congratulations, you've just made your first pull request to the Vercel Documentation!
 
 The rest of this section relates to other scenarios you may encounter whilst contributing and may not be applicable just yet, so feel free to [read ahead](#platform-and-usage-documentation). If you want to know what you should do in the event changes are requested to your pull request, or your master branch becomes out of sync with the official repository, read on below:
 
@@ -124,11 +124,11 @@ All you need to do is make the changes on the same branch locally, commit and pu
 
 ## Platform and Usage Documentation
 
-The content for this section can be found in the `pages/docs` directory, under its respective version tag. The latest documentation for ZEIT Now 2.0 can be found within the `pages/docs/v2` directory.
+The content for this section can be found in the `pages/docs` directory.
 
-Each `.mdx` file within the docs directory, aside from the API files, is an independent page; as [enabled by Next.js](https://nextjs.org/docs/#configuring-extensions-looked-for-when-resolving-pages-in-pages). You can edit existing files or create a new file under the section the content belongs to.
+Each `.mdx` file within the docs directory, aside from the API files, is an independent page. You can edit existing files or create a new file under the section the content belongs to.
 
-As suggested by the `.mdx` extension, the ZEIT documentation uses [MDX](https://mdxjs.com), a markdown parser mixed with JSX. This allows us to use React components within markdown to nicely render our content.
+As suggested by the `.mdx` extension, the Vercel documentation uses [MDX](https://mdxjs.com), a markdown parser mixed with JSX. This allows us to use React components within markdown to nicely render our content.
 
 An example of a docs MDX file:
 
@@ -159,9 +159,9 @@ When adding a new page to the v2 docs, make sure to add it to the appropriate se
 The content for this section can be found in the `pages/guides` directory.
 Just like [Platform and Usage Docs](#platform-and-usage-documentation), our Guides use the same MDX system to generate top-level pages.
 
-A guide can be written on many topics and will commonly focus on the creation and deployment of a project using ZEIT Now. We strongly encourage you to take a look at the existing guides, these illustrate the right level of detail required for each step, from initial creation through to deployment.
+A guide can be written on many topics and will commonly focus on the creation and deployment of a project using Vercel. We strongly encourage you to take a look at the existing guides, these illustrate the right level of detail required for each step, from initial creation through to deployment.
 
-Guides are not limited to project creation and deployment however. The ZEIT Now platform is incredibly powerful and feature-rich, as a result there are many topics you could contribute to, our advice would be to take a feature you enjoy and use that as a starting point for your guide.
+Guides are not limited to project creation and deployment however. The Vercel platform is incredibly powerful and feature-rich, as a result there are many topics you could contribute to, our advice would be to take a feature you enjoy and use that as a starting point for your guide.
 
 An example of a guides MDX file:
 
@@ -195,19 +195,19 @@ When adding a new guide, make sure to import and export the meta of the guide in
 
 The content for this section can be found in the `pages/docs/api` directory. It uses the same versioning structure as `pages/docs`.
 
-We are currently focused on expanding the documentation for the ZEIT Now platform 2.0 API reference which can be found in `pages/docs/api/v2`.
+We are currently focused on expanding the documentation for the Vercel platform 2.0 API reference which can be found in `pages/docs/api/v2`.
 
 As with the [Platform and Usage Docs](#platform-and-usage-documentation), the API uses MDX, although each file is not an independent page but instead is compiled into a single page, listing the file in the `lib/data/v2/api.js` file.
 
-An example API Reference MDX file: https://github.com/zeit/docs/blob/master/pages/docs/api/v2/api-docs-mdx/api-basics/rate-limits.mdx
+An example API Reference MDX file: https://github.com/vercel/docs/blob/master/pages/docs/api/v2/api-docs-mdx/api-basics/rate-limits.mdx
 
 ## Examples
 
-The content for the examples section is not contained within this repository. To contribute an example, please head over to the [now](https://github.com/zeit/now/) repository where you will find all the relevant information to do so.
+The content for the examples section is not contained within this repository. To contribute an example, please visit the [Vercel Examples](https://github.com/vercel/vercel/tree/master/examples#readme) repository where you will find all the relevant information to do so.
 
 ## Using Components
 
-To make the creation of documentation and guides as simple as possible, we have developed a [component library](https://github.com/zeit/docs/tree/master/components). This library allows us to keep the format and appearance of our documentation and guides consistent, making creating new content a breeze!
+To make the creation of documentation and guides as simple as possible, we have developed a [component library](https://github.com/vercel/docs/tree/master/components). This library allows us to keep the format and appearance of our documentation and guides consistent, making creating new content a breeze!
 
 You can find multiple examples in each page of how to import and use these components, below is an example import statement:
 
@@ -219,6 +219,6 @@ We believe that these components should be enough to cover usage in nearly all s
 
 A picture is worth a thousand words. Using graphics such as images in guides and documentation can really help the reader understand new concepts, if you'd like to include images, or any other static asset, you should follow this advice.
 
-All static assets should be filed under `public/static` along with their type, docs or guide, and if specific to a particular page, the name of that page. For example, `public/static/guides/deploying-angular-with-now` would be the place to store static assets for a guide on deploying Angular with ZEIT Now.
+All static assets should be filed under `public/static` along with their type, docs or guide, and if specific to a particular page, the name of that page. For example, `public/static/guides/deploying-angular-with-vercel` would be the place to store static assets for a guide on deploying Angular with Vercel.
 
 By following this convention, you will be helping us keep this repository organized and easy to find things within, making life easier for everyone.

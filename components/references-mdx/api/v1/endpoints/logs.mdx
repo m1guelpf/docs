@@ -12,6 +12,7 @@ import {
 } from '~/components/api/table'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/endpoints/logs.mdx',
@@ -197,7 +198,7 @@ These are the possible types of logs and what they mean.
   Example request:
 
 <Request
-  url="https://api.zeit.co/v2/now/deployments/Cm6WigEH9EBI4Uzs2WA6qOGe/events"
+  url={`${API_ENDPOINT}/v2/now/deployments/Cm6WigEH9EBI4Uzs2WA6qOGe/events`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'

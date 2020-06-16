@@ -5,6 +5,7 @@ import Request from '~/components/api/request'
 import ProductName from '~/components/name/product-name'
 import OrgName from '~/components/name/org-name'
 import CdnName from '~/components/name/cdn-name'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/domains.mdx',
@@ -51,7 +52,7 @@ The response of this API can be controlled with the following optional query par
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v5/domains" auth />
+<Request url={`${API_ENDPOINT}/v5/domains`} auth />
 
 ##### Example Response
 
@@ -59,7 +60,7 @@ The response of this API can be controlled with the following optional query par
   "domains": [
     {
       "id": "EmTbe5CEJyTk2yVAHBUWy4A3sRusca3GCwRjTC1bpeVnt1",
-      "name": "my-zeit-domain.website",
+      "name": "example.com",
       "serviceType": "external",
       "nsVerifiedAt": null,
       "txtVerifiedAt": null,
@@ -99,7 +100,7 @@ The response of this API can be controlled with the following optional query par
 Register a new domain name with <ProductName /> for the authenticating
 user. The field `serviceType` selects whether the domains are going to use
 zeit.world DNS or an external nameserver. In the latter case a `CNAME/ALIAS`
-record(s) are expected to point towards `alias.zeit.co`.
+record(s) are expected to point towards `cname.vercel-dns.com`.
 
 If an external nameserver is used the user must verify the domain name
 by creating a TXT record for `_now` subdomain containing a
@@ -138,13 +139,13 @@ been created, the user may retry the same POST and the endpoint shall return
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v4/domains"
+  url={`${API_ENDPOINT}/v4/domains`}
   headers={{
     'Content-Type': 'application/json'
   }}
   auth
   body={{
-    name: 'my-zeit-domain.website'
+    name: 'example.com'
   }}
 />
 
@@ -153,7 +154,7 @@ been created, the user may retry the same POST and the endpoint shall return
 <Code lang="json">{`{
   "domain": {
     "id": "EmTbe5CEJyTk2yVAHBUWy4A3sRusca3GCwRjTC1bpeVnt1",
-    "name": "my-zeit-domain.website",
+    "name": "example.com",
     "serviceType": "external",
     "nsVerifiedAt": null,
     "txtVerifiedAt": null,
@@ -221,14 +222,14 @@ Initiate a domain transfer request from an external Registrar to <OrgName />.
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v4/domains"
+  url={`${API_ENDPOINT}/v4/domains`}
   headers={{
     'Content-Type': 'application/json'
   }}
   auth
   body={{
     method: 'transfer-in',
-    name: 'my-zeit-domain.website',
+    name: 'example.com',
     authCode: 'fdhfr820ad#@FAdlj$$',
     expectedPrice: 8
   }}
@@ -239,7 +240,7 @@ Initiate a domain transfer request from an external Registrar to <OrgName />.
 <Code lang="json">{`{
   "domain": {
     "id": "EmTbe5CEJyTk2yVAHBUWy4A3sRusca3GCwRjTC1bpeVnt1",
-    "name": "my-zeit-domain.website",
+    "name": "example.com",
     "serviceType": "external",
     "nsVerifiedAt": null,
     "txtVerifiedAt": null,
@@ -300,7 +301,7 @@ Verify a domain after adding either the intended nameservers or DNS TXT verifica
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v4/domains/my-zeit-domain.website/verify"
+  url={`${API_ENDPOINT}/v4/domains/example.com/verify`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -313,7 +314,7 @@ Verify a domain after adding either the intended nameservers or DNS TXT verifica
 <Code lang="json">{`{
   "domain": {
     "id": "EmTbe5CEJyTk2yVAHBUWy4A3sRusca3GCwRjTC1bpeVnt1",
-    "name": "my-zeit-domain.website",
+    "name": "example.com",
     "serviceType": "external",
     "nsVerifiedAt": null,
     "txtVerifiedAt": 1546869733102,
@@ -346,10 +347,10 @@ Verify a domain after adding either the intended nameservers or DNS TXT verifica
 <Code lang="json">{`{
   "error": {
     "code": "verification_failed",
-    "message": "The domain my-zeit-domain.website couldn't be verified. Both nameservers and TXT verification methods failed",
-    "name": "my-zeit-domain.website",
+    "message": "The domain example.com couldn't be verified. Both nameservers and TXT verification methods failed",
+    "name": "example.com",
     "nsVerification": {
-      "name": "my-zeit-domain.website",
+      "name": "example.com",
       "nameservers": [
         "ns1.nameserver.net",
         "ns2.nameserver.net"
@@ -362,7 +363,7 @@ Verify a domain after adding either the intended nameservers or DNS TXT verifica
       ]
     },
     "txtVerification": {
-      "name": "my-zeit-domain.website",
+      "name": "example.com",
       "values": [],
       "verificationRecord": "YMc9dEJKbAncYtTqSH8dp1j5NXycfEzyjkzBJ3m3UGwR43"
     }
@@ -399,14 +400,14 @@ Get information for a single domain in an account or team.
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v4/domains/my-zeit-domain.website" auth />
+<Request url={`${API_ENDPOINT}/v4/domains/example.com`} auth />
 
 ##### Example Response (successful)
 
 <Code lang="json">{`{
   "domain": {
     "id": "EmTbe5CEJyTk2yVAHBUWy4A3sRusca3GCwRjTC1bpeVnt1",
-    "name": "my-zeit-domain.website",
+    "name": "example.com",
     "serviceType": "external",
     "nsVerifiedAt": null,
     "txtVerifiedAt": null,
@@ -463,11 +464,7 @@ Deleting a domain will automatically remove any associated aliases.
 
 ##### Example Request
 
-<Request
-  method="DELETE"
-  url="https://api.zeit.co/v4/domains/my-zeit-domain.website"
-  auth
-/>
+<Request method="DELETE" url={`${API_ENDPOINT}/v4/domains/example.com`} auth />
 
 ##### Example Response
 
@@ -489,10 +486,7 @@ Check if a domain name _may_ be available to buy or not. The response is a JSON 
 
 ##### Example Request
 
-<Request
-  url="https://api.zeit.co/v4/domains/status?name=my-zeit-domain.website"
-  auth
-/>
+<Request url={`${API_ENDPOINT}/v4/domains/status?name=example.com`} auth />
 
 ##### Example Response
 
@@ -515,7 +509,7 @@ Check the price to purchase a domain and how long a single purchase period is. T
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v4/domains/price?name=zeit.rocks" auth />
+<Request url={`${API_ENDPOINT}/v4/domains/price?name=example.com`} auth />
 
 ##### Example Response
 
@@ -543,7 +537,7 @@ In case of a successful purchase the returns with code 200 and an empty body.
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v4/domains/buy"
+  url={`${API_ENDPOINT}/v4/domains/buy`}
   headers={{
     Authorization: `Bearer ${
       props.testingtoken ? props.testingtoken.token : '<TOKEN>'
@@ -552,7 +546,7 @@ In case of a successful purchase the returns with code 200 and an empty body.
   }}
   auth
   body={{
-    name: 'zeit.rocks'
+    name: 'example.com'
   }}
 />
 

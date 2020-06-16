@@ -1,0 +1,64 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import Link from '~/components/text/link'
+import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Deploying a Vue.js App with ${PRODUCT_NAME}`,
+  description: `Create your Vue.js app and deploy it with ${PRODUCT_NAME}.`,
+  name: 'Vue.js',
+  type: 'app',
+  published: '2019-01-26T03:00:00.860Z',
+  authors: ['unicodeveloper'],
+  url: '/guides/deploying-vuejs-to-vercel',
+  example: 'vue',
+  demo: 'https://vue.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploy%20a%20Vue.js%20App**%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=96px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fv1551318573%2Ffront%2Fdocs%2Fogp%2Fvue-logo.svg`,
+  editUrl: 'pages/guides/deploying-vuejs-to-vercel.mdx',
+  lastEdited: '2020-04-25T00:32:18.000Z'
+}
+
+Vue.js is an open source JavaScript framework for building user interfaces. It is popularly known for its gentle learning curve and is adopted by a lot of developers for crafting single-page apps (SPAs) globally.
+
+In this guide, we will cover how to deploy a Vue.js app with [<ProductName />](/docs/v2).
+
+## Step 1: Set Up Your Vue.js Project
+
+First, set up a Vue.js project using the [official Vue CLI](https://cli.vuejs.org/guide/) to quickly scaffold a batteries-included Vue.js SPA.
+
+If you don't have the Vue CLI installed globally, use the following command to install it globally:
+
+<Snippet dark text="npm i -g @vue/cli" />
+<Caption>Installing Vue CLI global to the system user with <Link href="https://www.npmjs.com">npm</Link>.</Caption>
+
+After a successful installation, create a new project and `cd` into the project folder. Use the following command in your terminal to do so:
+
+<Snippet dark text="vue create vue-project && cd vue-project" />
+<Caption>Creating a bootstrapped Vue.js project and moving into the directory within a terminal.</Caption>
+
+An option to choose a preset will be presented to you after running the command above.
+
+After choosing an option, Vue CLI installs all the required dependencies and provisions a new project for you.
+
+Next, to extend the project with client-side routing; install the [official Vue.js router](https://router.vuejs.org/) by running the following command in your terminal:
+
+<Snippet dark text="vue add router" />
+<Caption>Installing the Vue.js router with Vue CLI.</Caption>
+
+Vue CLI adds the router to the project and automatically updates the project files with basic routing functionality.
+
+## Step 2: Deploying Your Vue.js Project with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

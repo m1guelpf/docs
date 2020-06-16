@@ -9,7 +9,7 @@ export const meta = {
   description: `SSL Certificates for your ${PRODUCT_SHORT_V1_NAME} deployments and how you can easily manage them`,
   date: '15 Mar 2017',
   editUrl: 'pages/docs/v1/features/certs.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-04-17T15:35:52.000Z'
 }
 
 Each time you create a new deployment, you will get a new unique subdomain. For this address (just like for the custom domains you've added using `now alias` or `now alias`), we're automatically provisioning an SSL certificate for you.
@@ -20,13 +20,13 @@ You can read more about how exactly the certificate provisioning works [here](ht
 
 ## Using the CLI
 
-Let's take a look at how you can use <ProductShortV1Name />'s command line interface to manage your existing certificates and even upload new ones. In the following examples, `zeit.rocks` represents the domain you'd like to modify.
+Let's take a look at how you can use <ProductShortV1Name />'s command line interface to manage your existing certificates and even upload new ones. In the following examples, `example.com` represents the domain you'd like to modify.
 
 ### now certs ls
 
 Lists all certificates owned and created by the user. All certificate entries ever created will remain there in the list, as long as the user still owns the domain associated with the certificate. The actual certificates may, however, change over time. For example, we periodically renew all the certificates created with the API.
 
-### now certs create zeit.rocks
+### now certs create example.com
 
 Allows you to create a new certificate for any domain you have access to and have registered with now. There shouldn't be much real use for this command and it's mainly provided for symmetry, though you may want to use it for creating a certificate entry for a subdomain in advance, before creating an alias using the domain.
 
@@ -36,7 +36,7 @@ The command can be used to upload a certificate issued by a 3rd party Certificat
 
 <TerminalInput>
   <b>now certs replace</b> --crt domain.crt --key domain.key --ca ca_chain.crt
-  zeit.rocks
+  example.com
 </TerminalInput>
 
 **Keep in mind**: `--ca ca_chain.crt` is optional but needed if your certificate provider is not considered as a root Certificate Authority by web browsers and operating systems (which is usually the case). This file is usually provided by the Certificate Authority you're using.

@@ -1,0 +1,117 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import Link from '~/components/text/link'
+import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import OrgName from '~/components/name/org-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Deploy a Next.js App with Analytics Using Fathom and ${PRODUCT_NAME}`,
+  description: `Create a Next.js app and add Fathom for analytics to get started with your new website or app.`,
+  name: 'Next.js with Fathom Analytics',
+  type: 'project',
+  published: '2020-06-09T02:00:05.464Z',
+  authors: ['timothy'],
+  url: '/guides/deploying-nextjs-using-fathom-analytics-with-vercel',
+  image: `https://og-image.now.sh/Deploy%20a%20**Next.js%20app%20with%20Fathom%20Analytics**.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fassets.usefathom.com%2Ffathom-analytics.svg`,
+  editUrl:
+    'pages/guides/deploying-nextjs-using-fathom-analytics-with-vercel.mdx',
+  lastEdited: '2020-06-12T22:46:35.000Z'
+}
+
+When it comes to creating a successful website or app, you will need to add analytics in order to track and understand visitor behaviour and improve based on the data you receive.
+
+This guide will take you through creating an app with [Next.js](https://nextjs.org), adding analytics with [Fathom](https://usefathom.com), a simple, lightweight, fast, and privacy-focused alternative to Google Analytics.
+
+## Step 1: Creating Your App
+
+Next.js is a framework, created by Vercel, for creating production-ready and lightning-fast React apps with a lot of handy features built-in.
+
+To create your new Next.js application, run the following [npm](http://npmjs.com/) command, with [`create-next-app`](https://nextjs.org/blog/create-next-app), from your terminal and follow the installation steps:
+
+<Snippet dark text="npm init next-app my-next-app && cd my-next-app" />
+<Caption>Initializing a Next.js project with create-next-app and npm, then moving into the project directory.</Caption>
+
+To run your new app locally, run the following command in your terminal, from your new project directory:
+
+<Snippet dark text="npm run dev" />
+<Caption>Starting a local Next.js development server.</Caption>
+
+For more information on how to build your Next.js app and what you can do with it, see the [Next.js website](https://nextjs.org) and [documentation](https://nextjs.org/docs).
+
+## Step 2: Adding Fathom
+
+To add Fathom Analytics to your new Next.js app, firstly [create an account with Fathom](https://app.usefathom.com/register). You will be asked to add a site when logged in. If you plan on using a [Custom Domain](/docs/v2/custom-domains), enter that as your site URL. Alternatively, if you want to use a free production URL from Vercel, you can go to the Deploy step to deploy your application and get a URL to add before this step.
+
+Click "Get site code" to then get the code for your app's analytics.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-nextjs-using-fathom-analytics-with-vercel/add-site-fathom.png`}
+  width={1740 / 2}
+  height={662 / 2}
+  oversize
+  borderRadius
+  shadow
+/>
+<Caption>Adding a Site with Fathom.</Caption>
+
+Next, add the `fathom-client` package to your project using npm:
+
+<Snippet dark text="npm install fathom-client" />
+<Caption>Adding the <InlineCode>fathom-client</InlineCode> dependency to the app.</Caption>
+
+Create an `_app.js` file within the `/pages` directory of your app and add the following code as its contents. Use the site code you received previously and replace `YOUR_FATHOM_TRACKING_CODE` with it, then replace `YOUR_SITE_URL` with the Site URL that you chose.
+
+```jsx
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import * as Fathom from 'fathom-client'
+
+function App({ Component, pageProps }) {
+  const router = useRouter()
+
+  useEffect(() => {
+    // Initialize Fathom when the app loads
+    Fathom.load('YOUR_FATHOM_TRACKING_CODE', {
+      includedDomains: ['YOUR_SITE_URL']
+    })
+
+    function onRouteChangeComplete() {
+      Fathom.trackPageview()
+    }
+    // Record a pageview when route changes
+    router.events.on('routeChangeComplete', onRouteChangeComplete)
+
+    // Unassign event listener
+    return () => {
+      router.events.off('routeChangeComplete', onRouteChangeComplete)
+    }
+  }, [])
+
+  return <Component {...pageProps} />
+}
+
+export default App
+```
+
+<Caption>
+  The contents of a custom <InlineCode>_app.js</InlineCode> file that loads
+  Fathom on page load.
+</Caption>
+
+## Step 3: Deploying Your App with <ProductName />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

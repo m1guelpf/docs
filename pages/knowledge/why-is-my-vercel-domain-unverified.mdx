@@ -1,0 +1,58 @@
+import Layout from '~/components/layout/knowledge'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import Snippet from '~/components/snippet'
+
+export const meta = {
+  title: 'Why is my Vercel domain not verified?',
+  description:
+    'Information on why a Vercel domain may not be verified and how to verify it.',
+  editUrl: 'pages/knowledge/why-is-my-vercel-domain-unverified.mdx',
+  url: '/knowledge/why-is-my-vercel-domain-unverified',
+  published: '2020-05-17T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+When adding a [custom domain](/docs/v2/custom-domains) to Vercel, it must go through a process of verification. This process involves changing DNS records.
+
+Once DNS records have been changed, they can take a while to propagate, which means global DNS providers recognise they have been changed. A custom domain added to Vercel will appear as unverified until this process is complete and full propagation has been achieved.
+
+## Nameserver Changes
+
+If you have changed the nameservers with your current domain registrar then it usually takes up to 48 hours for these to be reflected globally. This is not something that Vercel have any control over and for certain registrars, this can can slower.
+
+Once nameservers have been changed, you may wish to check the progress of the propagation. There are many third-party tools that do this, such as [DNS Checker](https://dnschecker.org/) and [DNS Map](https://dnsmap.io/) - these show the state of your DNS records in different regions of the world.
+
+You can also use the terminal to check the nameservers for your domain according by specific DNS providers, some examples are found below:
+
+<Snippet dark text="dig @8.8.8.8 +short NS vercel.com" />
+<Caption>Querying Google DNS for the <InlineCode>vercel.com</InlineCode> nameservers.</Caption>
+
+<Snippet dark text="dig @1.1.1.1 +short NS vercel.com" />
+<Caption>Querying Cloudflare DNS for the <InlineCode>vercel.com</InlineCode> nameservers.</Caption>
+
+<Snippet dark text="dig @ns1.vercel-dns.com +short NS vercel.com" />
+<Caption>Querying Vercel DNS for the <InlineCode>vercel.com</InlineCode> nameservers.</Caption>
+
+## CNAME Changes
+
+Unlike nameserver changes, propagation of CNAME records is usually very quick.
+
+You can check the propagation progress of CNAME records for your domain with third-party tools like [DNS Checker](https://dnschecker.org/) and [DNS Map](https://dnsmap.io/) in the same way you can for nameservers.
+
+You can also use the terminal to check the CNAME record for your domain according by specific DNS providers, some examples are found below:
+
+<Snippet dark text="dig @8.8.8.8 +short CNAME www.vercel.com" />
+<Caption>Querying Google DNS for the <InlineCode>www.vercel.com</InlineCode> CNAME record value.</Caption>
+
+<Snippet dark text="dig @1.1.1.1 +short CNAME www.vercel.com" />
+<Caption>Querying Cloudflare DNS for the <InlineCode>www.vercel.com</InlineCode> CNAME record value.</Caption>
+
+<Snippet dark text="dig @ns1.vercel-dns.com +short CNAME www.vercel.com" />
+<Caption>Querying Vercel DNS for the <InlineCode>www.vercel.com</InlineCode> CNAME record value.</Caption>
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

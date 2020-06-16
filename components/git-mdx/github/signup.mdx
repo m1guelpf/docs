@@ -1,0 +1,17 @@
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+To sign up on <ProductName /> with a different GitHub account, sign out of your current GitHub account:
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/github-logout.png`}
+  width={356 / 2}
+  height={846 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Sign out of GitHub.</Caption>
+
+Then, restart the <ProductName /> [signup process](/signup).

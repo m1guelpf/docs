@@ -4,6 +4,7 @@ import Caption from '~/components/text/caption'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
 import OrgName from '~/components/name/org-name'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/webhooks.mdx',
@@ -53,14 +54,14 @@ Creates a new webhook subscription.
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v1/integrations/webhooks"
+  url={`${API_ENDPOINT}/v1/integrations/webhooks`}
   headers={{
     'Content-Type': 'application/json'
   }}
   auth
   body={{
     name: 'My first webhook',
-    url: 'https://my-webhook-handler.com/zeit'
+    url: 'https://my-webhook-handler.com/example'
   }}
 />
 
@@ -68,7 +69,7 @@ Creates a new webhook subscription.
 
 <Code lang="json">{`{
   "id": "hook_XCG7t7AIHuO2SBA8667zNUiM",
-  "url": "https://my-webhook-handler.com/zeit",
+  "url": "https://my-webhook-handler.com/example",
   "name": "My first webhook",
   "ownerId": "kr1PsOIzqEL5Xg6M4VZcZosf",
   "createdAt": 1558531915505,

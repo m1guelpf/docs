@@ -1,6 +1,7 @@
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
 import Caption from '~/components/text/caption'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl:
@@ -20,7 +21,7 @@ You must also provide an authorization token in the requests, further informatio
 
 <Endpoint
   method="GET"
-  url="https://api.zeit.co/v1/integrations/configuration/:configurationId/metadata"
+  url={`${API_ENDPOINT}/v1/integrations/configuration/:configurationId/metadata`}
 />
 
 The response type is a JSON string, the structure of this is determined by the Integration's Metadata, below is en example:
@@ -46,7 +47,7 @@ The response type is a JSON string, the structure of this is determined by the I
 
 <Endpoint
   method="POST"
-  url="https://api.zeit.co/v1/integrations/configuration/:configurationId/metadata"
+  url={`${API_ENDPOINT}/v1/integrations/configuration/:configurationId/metadata`}
 />
 
 This endpoint, using the POST method and a JSON body, sets metadata for a [UIHook](#creating-an-integration/step-2-creating-a-uihook).
@@ -55,7 +56,7 @@ The body to submit with the POST request should be a valid JSON object containin
 
 <Request
   type="js"
-  url="https://api.zeit.co/v1/integrations/configuration/:configurationId/metadata"
+  url={`${API_ENDPOINT}/v1/integrations/configuration/:configurationId/metadata`}
   method="POST"
   body={'{"mydata": "a value for mydata"}'}
 />

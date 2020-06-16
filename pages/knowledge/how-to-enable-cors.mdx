@@ -1,0 +1,65 @@
+import Layout from '~/components/layout/knowledge'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+
+export const meta = {
+  title: 'How can I enable CORS on Serverless Functions?',
+  description:
+    'Information on how to enable CORS on Vercel Serverless Functions.',
+  editUrl: 'pages/knowledge/how-to-enable-cors.mdx',
+  url: '/knowledge/how-to-enable-cors',
+  published: '2020-06-02T17:45:25.312Z',
+  lastEdited: '2020-06-02T17:45:25.312Z'
+}
+
+The Vercel platform allows developers to specificy headers when using [Serverless Functions](/docs/v2/serverless-functions/introduction), this can be done with minimal knowledge of the language being used.
+
+## Understanding CORS
+
+Before enabling this feature for your website, it is important to understand what "Cross-Origin Resource Sharing" is. It is highly recommended that you take a look at the following articles:
+
+- [Mozilla Documentation on CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+- [Code Academy: What is CORS?](https://www.codecademy.com/articles/what-is-cors)
+- [Wikipedia entry on CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing).
+
+## Enabling CORS on a Deployment
+
+Once you understand what CORS is and the potential risks of enabling it, you can do so by following this Node.js example:
+
+```js
+const allowCors = fn => async (req, res) => {
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  // another option
+  // res.setHeader('Access-Control-Allow-Origin', req.header.origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+  if (req.method === 'OPTIONS') {
+    res.status(200).end()
+    return
+  }
+  return await fn(req, res)
+}
+
+const handler = (req, res) => {
+  const d = new Date()
+  res.end(d.toString())
+}
+
+module.exports = allowCors(handler)
+```
+
+<Caption>An example of implementing CORS using Node.js.</Caption>
+
+In this example, the `allowCors` function acts as a wrapper, enabling CORS for the Serverless Function passed to it. This is a common pattern when using middleware in Serverless Functions and can be applied to multiple scenarios.
+
+Alternatively, you can use the [headers](https://vercel.com/docs/configuration#project/headers) configuration to enable CORS in multiple paths.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

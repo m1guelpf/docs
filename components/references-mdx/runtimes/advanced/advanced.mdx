@@ -28,7 +28,7 @@ In order to customize the Memory or Maximum Execution Duration of your Serverles
 
 ## Community Runtimes
 
-If you would like to use a language that <ProductName /> does not support by default, you can use a Community Runtime by setting the [`functions` property](/docs/configuration#project/functions) in `now.json`:
+If you would like to use a language that <ProductName /> does not support by default, you can use a Community Runtime by setting the [`functions` property](/docs/configuration#project/functions) in `vercel.json`:
 
 ```json
 {
@@ -63,7 +63,7 @@ In order to use this Runtime, no configuration is needed. You only need to creat
 
 ### Disabling Helpers for Node.js
 
-Within a `now.json` configuration file at your project's root, use the following build environment variable to disable [helpers](#official-runtimes/node-js/node-js-request-and-response-objects).
+Within a `vercel.json` configuration file at your project's root, use the following build environment variable to disable [helpers](#official-runtimes/node-js/node-js-request-and-response-objects).
 
 ```json
 {
@@ -76,13 +76,13 @@ Within a `now.json` configuration file at your project's root, use the following
 ```
 
 <Caption>
-  An example <InlineCode>now.json</InlineCode> file that will turn off the
+  An example <InlineCode>vercel.json</InlineCode> file that will turn off the
   default helpers for your Node.js Serverless Function.
 </Caption>
 
 ### Private npm Modules for Node.js
 
-To install private npm modules, define `NPM_TOKEN` as a [build environment variable](/docs/configuration#project/build-env) in `now.json`.
+To install private npm modules, define `NPM_TOKEN` as a [build environment variable](/docs/configuration#project/build-env) in `vercel.json`.
 
 Alternatively, define `NPM_RC` as a [build environment variable](/docs/configuration#project/build-env) with the contents of `~/.npmrc`.
 
@@ -107,7 +107,7 @@ Along with build script named `build.js`:
 
 ```js
 const fs = require('fs')
-fs.writeFile('built-time.js', (module.exports = '${new Date()}'), err => {
+fs.writeFile('built-time.js', `module.exports = '${new Date()}'`, err => {
   if (err) throw err
   console.log('Build time file created successfully!')
 })
@@ -177,7 +177,7 @@ In order to use this Runtime, no configuration is needed. You only need to creat
 
 ### Private Packages for Go
 
-To install private packages with `go get`, define `GIT_CREDENTIALS` as a [build environment variable](/docs/configuration#project/build-env) in `now.json`.
+To install private packages with `go get`, define `GIT_CREDENTIALS` as a [build environment variable](/docs/configuration#project/build-env) in `vercel.json`.
 
 All major Git providers are supported including GitHub, GitLab, Bitbucket, as well as a self-hosted Git server.
 
@@ -194,7 +194,7 @@ With GitHub, you will need to [create a personal token](https://github.com/setti
 ```
 
 <Caption>
-  An example <InlineCode>now.json</InlineCode> file containing a build
+  An example <InlineCode>vercel.json</InlineCode> file containing a build
   environment variable with the value of GitHub credentials.
 </Caption>
 
@@ -211,7 +211,7 @@ In order to use this Runtime, no configuration is needed. You only need to creat
 
 The Web Server Gateway Interface (WSGI) is a calling convention for web servers to forward requests to web applications written in Python. You can use WSGI with frameworks such as Flask or Django.
 
-Instead of defining a `handler`, define an `app` variable in your Python file, when using `now.json` config. For example, define a `index.py` file inside your project as follows:
+Instead of defining a `handler`, define an `app` variable in your Python file, when using `vercel.json` config. For example, define a `index.py` file inside your project as follows:
 
 ```python
 from flask import Flask, Response
@@ -279,7 +279,7 @@ sanic==19.6.0
 
 Extending the feature-set of a <ProductName /> deployment is as simple as creating a Runtime that takes a list of files and outputs either static files or dynamic [Serverless Functions](/docs/v2/serverless-functions/introduction/).
 
-[A full API reference is available to help with creating Runtimes.](https://github.com/zeit/now/blob/master/DEVELOPING_A_RUNTIME.md)
+[A full API reference is available to help with creating Runtimes.](https://github.com/vercel/vercel/blob/master/DEVELOPING_A_RUNTIME.md)
 
 ---
 
@@ -294,7 +294,7 @@ A runtime can retain an archive of up to `100mb` of the filesystem at `build` ti
 - Entrypoint path (e.g., `api/users/index.go`).
 - Runtime identifier including version (e.g.: `@now/go@0.0.1`).
 
-The cache will be invalidated if any of those items changes. The user can bypass the cache by running `now -f`.
+The cache will be invalidated if any of those items changes. The user can bypass the cache by running `vercel -f`.
 
 ### Limits
 
@@ -320,7 +320,7 @@ const file = readFileSync(join(__dirname, 'config', 'ci.yml'), 'utf8');
     to the current file.
   </Caption>
 
-In some cases, you may wish to include templates or views that are not able to be statically analyzed. Runtimes provide a configuration for `includeFiles` that accepts an array of globs that will always be included in the Serverless Functions output.
+In some cases, you may wish to include templates or views that are not able to be statically analyzed. Runtimes provide a configuration for `includeFiles` that accepts a glob of files that will always be included in the Serverless Functions output.
 
 <Code lang="json">{`{
   "functions": {
@@ -336,7 +336,7 @@ In some cases, you may wish to include templates or views that are not able to b
   </Link>{' '}
   and configuring the <InlineCode>includeFiles</InlineCode> within a{' '}
   <Link href="/docs/configuration#project/builds">
-    now.json configuration file
+    vercel.json configuration file
   </Link>
   .
 </Caption>

@@ -1,0 +1,25 @@
+import Layout from '~/components/layout/knowledge'
+
+export const meta = {
+  title: 'Why am I unable to signup to the Vercel platform?',
+  description:
+    'Information on what to do if you are experiencing issues signing up to the Vercel platform.',
+  editUrl: 'pages/knowledge/why-can-i-not-signup.mdx',
+  url: '/knowledge/why-can-i-not-signup',
+  published: '2020-05-14T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+To protect against platform abuse, Vercel employs multiple layers of security and verification during the account signup process.
+
+If you are receiving an error message during signup that tells you your email is invalid, it is likely that your email has been flagged during the verification process and needs to be approved manually.
+
+## Contact Vercel Support
+
+To resolve this, contact Vercel Support by emailing [support@vercel.com](mailto:support@vercel.com). When contacting support, please include the details of the project you are looking to deploy with Vercel, this will help to speed up the account approval process.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

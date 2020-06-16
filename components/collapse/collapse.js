@@ -1,4 +1,7 @@
-import { memo, useState, useCallback, useMemo, useRef, useEffect } from 'react'
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react'
+import { useSpring, animated } from 'react-spring'
+import useMeasure from 'react-use-measure'
+import { ResizeObserver } from '@juggle/resize-observer'
 import cn from 'classnames'
 
 import Icon from '../icons/chevron-down'
@@ -7,11 +10,10 @@ import { useCollapse } from './collapse-context'
 import useMediaQuery from '~/lib/use-media-query'
 
 const Collapse = ({ title, subtitle, id, onToggle, card, children }) => {
+  const [ref, { height }] = useMeasure({ polyfill: ResizeObserver })
   const [active, setActive] = useState(false)
-  const initialScrollRef = useRef() // Do initial scroll only once
-  const [contentHeight, setContentHeight] = useState(null)
-  const contentRef = useRef()
   const collapseContext = useCollapse()
+  const immediateAnimation = useRef(false)
 
   // Trigger re-render when window size changes
   useMediaQuery(960)
@@ -43,34 +45,31 @@ const Collapse = ({ title, subtitle, id, onToggle, card, children }) => {
     }
   }, [])
 
-  // Update the size of the container on every re-render
-  useEffect(() => {
-    // Wait for paint to read the DOM height
-    window.requestAnimationFrame(() => {
-      if (contentRef && contentRef.current) {
-        setContentHeight(contentRef.current.offsetHeight + 1)
-      }
-    })
-  }, [contentRef])
+  const props = useSpring({
+    height: open ? height : 0,
+    immediate: immediateAnimation.current,
+    config: { tension: 250, friction: 32, clamp: true }
+  })
 
   useEffect(() => {
-    if (
-      contentRef &&
-      contentRef.current &&
-      collapseContext.initialScrollTarget === title &&
-      !initialScrollRef.current
-    ) {
-      // Wait for the animation to finish
-      setTimeout(() => {
-        if (contentRef.current) {
-          window.scroll({
-            top: contentRef.current.offsetTop
-          })
-        }
-      }, 200)
-      initialScrollRef.current = true
+    let timeout
+    const hash = location.hash.slice(1)
+    if (id === hash) {
+      immediateAnimation.current = true
+      if (collapseContext) {
+        collapseContext.onChange(title)
+      } else {
+        setActive(true)
+      }
+      timeout = setTimeout(() => {
+        immediateAnimation.current = false
+      }, 1000)
     }
-  }, [contentRef, initialScrollRef, collapseContext.initialScrollTarget, title])
+
+    return () => {
+      if (timeout) clearTimeout(timeout)
+    }
+  }, [])
 
   return (
     <div className={cn('collapse', { card })} id={id}>
@@ -98,14 +97,16 @@ const Collapse = ({ title, subtitle, id, onToggle, card, children }) => {
         )}
       </div>
 
-      <div
-        className={cn('collapse-content', { open })}
+      <animated.div
         style={{
-          height: open && contentHeight ? contentHeight : 0
+          overflow: 'hidden',
+          ...props
         }}
       >
-        <div ref={contentRef}>{children}</div>
-      </div>
+        <div ref={ref} className={cn('collapse-content', { open })}>
+          {children}
+        </div>
+      </animated.div>
 
       <style jsx>{`
         .collapse {
@@ -146,7 +147,6 @@ const Collapse = ({ title, subtitle, id, onToggle, card, children }) => {
           font-size: 16px;
           line-height: 26px;
           overflow-y: hidden;
-          transition: height 0.2s ease;
         }
 
         .collapse-content > div {
@@ -174,4 +174,4 @@ const Collapse = ({ title, subtitle, id, onToggle, card, children }) => {
   )
 }
 
-export default memo(Collapse)
+export default Collapse

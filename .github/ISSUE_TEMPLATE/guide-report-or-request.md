@@ -1,6 +1,6 @@
 ---
 name: Guide Report or Request
-about: Create a report or request for a guide (zeit.co/guides)
+about: Create a report or request for a guide (vercel.com/guides)
 title: ''
 labels: 'Section: Guides'
 assignees: ''

@@ -1,0 +1,85 @@
+import Doc from '~/components/layout/docs'
+import { ORG_NAME } from '~/lib/constants'
+import OrgName from '~/components/name/org-name'
+
+export const meta = {
+  title: 'Frequently Asked Questions',
+  description: `A list of common questions and answers related to the ${ORG_NAME} Network.`,
+  editUrl: 'pages/docs/v2/edge-network/frequently-asked-questions.mdx',
+  lastEdited: '2020-05-09T14:31:59.000Z'
+}
+
+### What are the CDN defaults?
+
+- Static files are cached by all Regions for 31 days by default. If you need to configure this duration, you can set a `Cache-Control` header in your `vercel.json` file.
+- Dynamic responses (from Serverless Functions) are not cached unless they contain a `Cache-Control` header with specific directives (e.g. `s-maxage`).
+- Read more about this in the [caching documentation](/docs/v2/edge-network/caching).
+
+### How can I control the CDN and what caching headers (and values) it accepts?
+
+- Your Serverless Functions have total control on how the [CDN](/docs/v2/edge-network/caching) caches your responses using the `Cache-Control` header.
+
+### What if I have an existing CDN like Akamai, Fastly, Cloudflare?
+
+The transition is painless. All you have to do is point your NS records to our [DNS infrastructure](/docs/v2/custom-domains#adding-a-domain).
+
+### How do I purge the CDN cache?
+
+- You can create a new deployment to invalidate the cache for your preview and production deployments.
+- Content will remain cached for preview URLs until it expires.
+
+### What are the limits of the CDN cache?
+
+- You can find caching limits in the [caching documentation](/docs/v2/edge-network/caching#limits).
+
+### Can I run the CDN logic on my local development machine?
+
+- `vercel dev` allows you to run your applications locally just like it does in production, but make sure to install your project's dependencies first.
+
+### How exactly does `stale-while-revalidate` work for the first and subsequent requests?
+
+- The very first request is served synchronously.
+- Subsequent requests are served from cache, and if stale, revalidated asynchronously in the background.
+- Read more in the [`stale-while-revalidate` documentation](/docs/v2/edge-network/caching#Stale-While-Revalidate).
+
+### What is the relation between the seconds on `s-maxage` and `stale-while-revalidate` ?
+
+- `s-maxage` is the number of seconds a response is considered "fresh" by the CDN.
+- After this period ends, the CDN will continue to serve the response from the edge but it's now considered "stale" so it will be requested again to your Serverless Function in the background to get a "fresh" one.
+
+### Is my browser aware of `stale-while-revalidate`? Should I expect content-flash if yes?
+
+- We strip the `stale-while-revalidate` directive from your `Cache-Control` so browsers don't get it.
+- This allows you to always deliver the latest content to your visitors right after creating a new deployment (as opposed to waiting for browser cache to expire).
+
+### Can I redirect users to a specific Region?
+
+- Users who visit your deployments will automatically use the CDN Region that is geographically closest to them.
+
+### What locations do the CDN cache in?
+
+- You can find the full list of regions in the [regions and providers documentation](/docs/v2/edge-network/regions).
+
+### Do I get billed for CDN traffic?
+
+- On the Hobby plan there is no charge for bandwidth.
+- See our [pricing page](/pricing) for more details.
+
+### What if there is a DDoS? Will we get charged for the CDN traffic?
+
+- In the event of a DDoS we have measures in place to detect and mitigate bad actors.
+
+### Is there any image optimization service on your CDN?
+
+- We don't currently have an image optimization service in place, if you'd like to see this feature then please [let us know](/feedback).
+
+### How do I use Cloudflare over your CDN (disable it)?
+
+- Use `Origin Control: Off` along with other custom caching rules in Cloudflare, in a `vercel.json` file, set `s-maxage` to 0 on your routes to disable any caching from <OrgName /> CDN.
+- When a new deployment is made, you will have to find a way to purge the Cloudflare cache.
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
+}

@@ -12,6 +12,7 @@ import {
 } from '~/components/api/table'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/endpoints/dns.mdx',
@@ -74,7 +75,7 @@ Get a list of DNS records created for a domain name specified in the URL.
   Example request:
 
 <Request
-  url="https://api.zeit.co/v2/domains/zeit.rocks/records"
+  url={`${API_ENDPOINT}/v2/domains/example.com/records`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -88,19 +89,19 @@ Example successful (**200**) response:
     "records": [
       {
         "id": "rec_38OtX1f51szRA03atCybBuZ3",
-        "slug": "zeit.rocks.-address",
+        "slug": "example.com.-address",
         "type": "ALIAS",
         "name": "",
-        "value": "alias.zeit.co",
+        "value": "cname.vercel-dns.com",
         "created": "1474631621542",
         "updated": null
       },
       {
         "id": "rec_Pxo2HEfutmlIYECtTE4SpDzY",
-        "slug": "*.zeit.rocks.-address",
+        "slug": "*.example.com.-address",
         "type": "CNAME",
         "name": "*",
-        "value": "alias.zeit.co",
+        "value": "cname.vercel-dns.com",
         "created": "1474631619960",
         "updated": null
       }
@@ -171,7 +172,7 @@ field should be set for MX records and left out otherwise.
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v2/domains/zeit.rocks/records"
+  url={`${API_ENDPOINT}/v2/domains/example.com/records`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -181,7 +182,7 @@ field should be set for MX records and left out otherwise.
   body={{
     name: 'subdomain',
     type: 'MX',
-    value: 'mail.zeit.rocks',
+    value: 'mail.example.com',
     mxPriority: 10
   }}
 />
@@ -206,7 +207,7 @@ successfully the endpoint returns with code 200 and an empty body.
 
 <Request
     method="DELETE"
-    url="https://api.zeit.co/v2/domains/zeit.rocks/records/rec_V0fra8eEgQwEpFhYG2vTzC3K"
+    url={`${API_ENDPOINT}/v2/domains/example.com/records/rec_V0fra8eEgQwEpFhYG2vTzC3K`}
     headers={{
       Authorization: `Bearer ${(props.testingToken ? props.testingToken.token : '$TOKEN')}`
     }}

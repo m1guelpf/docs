@@ -19,6 +19,7 @@ const Content = ({ children, center, small }) => {
 
         .content.small {
           flex: 0 0 672px;
+          max-width: 672px;
         }
 
         .content.center {

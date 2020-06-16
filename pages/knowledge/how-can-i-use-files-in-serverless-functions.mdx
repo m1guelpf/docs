@@ -1,0 +1,58 @@
+import Layout from '~/components/layout/knowledge'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+
+export const meta = {
+  title: 'How can I use files in Serverless Functions on Vercel?',
+  description:
+    'Information on how to import files at runtime when using Serverless Functions on Vercel.',
+  editUrl: 'pages/knowledge/how-can-i-use-files-in-serverless-functions.mdx',
+  url: '/knowledge/how-can-i-use-files-in-serverless-functions',
+  published: '2020-06-02T17:29:25.312Z',
+  lastEdited: '2020-06-02T17:29:25.312Z'
+}
+
+When using [Serverless Functions](/docs/v2/serverless-functions/introduction), you may wish to include files at runtime. Given the serverless nature of the Vercel platform, this is handled differently than in a traditional running server environment.
+
+## Node.js
+
+To import files at runtime in a Node.js Serverless Function, create a `vercel.json` file and include the following configuration:
+
+```json
+{
+  "functions": {
+    "api/hello.js": {
+      "includeFiles": "_files/**"
+    }
+  }
+}
+```
+
+<Caption>
+  An example <InlineCode>vercel.json</InlineCode> file that imports files into
+  Serverless Functions at runtime.
+</Caption>
+
+You can the edit the `api/hello.js` Serverless Function to use the imported files like so:
+
+```js
+const { readFileSync } = require('fs')
+const { join } = require('path')
+const file = readFileSync(join(__dirname, '_files', 'ci.yml'), 'utf8')
+```
+
+<Caption>
+  An example Serverless Function that reads from the filesystem.
+</Caption>
+
+For further information, please refer to the [advanced Node.js usage section](https://vercel.com/docs/runtimes#advanced-usage/technical-details/including-additional-files) in the Vercel documentation.
+
+## Next.js
+
+At present, it is not possible to import files in a Next.js SSR page or function given [this issue](https://github.com/vercel/next.js/issues/8251).
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

@@ -15,7 +15,7 @@ export const meta = {
   title: 'Deployments',
   description: `Understanding and making deployments with ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/platform/deployments.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-05-30T04:40:07.000Z'
 }
 
 A deployment is the result of building your [Project](/docs/v2/platform/projects/) and making it available through a live URL.
@@ -24,7 +24,7 @@ This section contains information about making, managing, and understanding the 
 
 ## Making Deployments
 
-There are multiple ways to make deployments with <ProductName />; these include via a [<ProductName /> for Git Integration](#git-integration), [Deploy Hooks](#deploy-hooks), [<ProductShortName /> CLI](#now-cli), and the [<ProductName /> API](#now-api).
+There are multiple ways to make deployments with <ProductName />; these include via a [<ProductName /> for Git Integration](#git-integration), [Deploy Hooks](#deploy-hooks), [<ProductShortName /> CLI](#vercel-cli), and the [<ProductName /> API](#vercel-api).
 
 When making deployments, the [Project](/docs/v2/platform/projects/) will be uploaded and transformed into a production-ready output through the use of a [Build Step](/docs/v2/build-step).
 
@@ -32,7 +32,7 @@ Once the build step has completed successfully, a new, [immutable](https://en.wi
 
 ### Git Integration
 
-You can make deployments with Git by using either the [<ProductName /> for GitHub](/docs/v2/git-integrations/zeit-now-for-github), [<ProductName /> for GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), or [<ProductName /> for Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) integrations.
+You can make deployments with Git by using either the [<ProductName /> for GitHub](/docs/v2/git-integrations/vercel-for-github), [<ProductName /> for GitLab](/docs/v2/git-integrations/vercel-for-gitlab), or [<ProductName /> for Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket) integrations.
 
 When using these integrations, every push to a branch will provide you with a [preview deployment](/docs/v2/platform/deployments/#preview) to view your changes.
 
@@ -57,10 +57,10 @@ You can find more information about Deploy Hooks in the [documentation](/docs/v2
 
 By using [<ProductShortName /> CLI](/download), you can deploy [Projects](/docs/v2/platform/projects/) with **a single command** from your terminal.
 
-To make a [preview deployment](/docs/v2/platform/deployments/#preview), use the `now` command:
+To make a [preview deployment](/docs/v2/platform/deployments/#preview), use the `vercel` command:
 
-<Snippet dark text="now" />
-<Caption>Making a preview deployment with the <InlineCode>now</InlineCode> command.</Caption>
+<Snippet dark text="vercel" />
+<Caption>Making a preview deployment with the <InlineCode>vercel</InlineCode> command.</Caption>
 
 <Note>
   The first deployment for a <strong>Project</strong> is always both a{' '}
@@ -69,10 +69,10 @@ To make a [preview deployment](/docs/v2/platform/deployments/#preview), use the 
   deployment.
 </Note>
 
-To make a [production deployment](/docs/v2/platform/deployments/#preview), use the `now --prod` command:
+To make a [production deployment](/docs/v2/platform/deployments/#preview), use the `vercel --prod` command:
 
-<Snippet dark text="now --prod" />
-<Caption>Making a production deployment with the <InlineCode>now</InlineCode> command.</Caption>
+<Snippet dark text="vercel --prod" />
+<Caption>Making a production deployment with the <InlineCode>vercel</InlineCode> command.</Caption>
 
 ### <NameWrapper name={PRODUCT_SHORT_NAME} /> API
 
@@ -86,7 +86,7 @@ There are two types of deployment on the <ProductName /> platform: **preview** a
 
 ### Preview
 
-**Preview deployments** are the default for all deployments. Each time you push to a branch or make a deployment using the `now` command, this is a **preview deployment**.
+**Preview deployments** are the default for all deployments. Each time you push to a branch or make a deployment using the `vercel` command, this is a **preview deployment**.
 
 By making a **preview deployment**, the **preview URL** will be updated to reflect that of the latest deployment made.
 
@@ -96,7 +96,7 @@ If you request a **preview URL**, the `X-Robots-Tag` HTTP header will be set as 
 
 ### Production
 
-**Production deployments** are made in two different circumstances. Each time you merge to the default branch (commonly `master`) or make a deployment using the `now --prod` command, this is a **production deployment**.
+**Production deployments** are made in two different circumstances. Each time you merge to the default branch (commonly `master`) or make a deployment using the `vercel --prod` command, this is a **production deployment**.
 
 By making a **production deployment**, the **production domain(s)** will be updated to reflect that of the latest deployment.
 
@@ -118,7 +118,7 @@ Through the <OrgName /> Dashboard, you can find a variety of settings; including
 
 The [<ProductShortName /> CLI](/download) and [<ProductShortName /> API](/docs/api/) provide alternative ways to manage your deployments.
 
-You can find a full list of the commands available in the [<ProductShortName /> CLI Reference](/docs/now-cli/), along with the deployments section of the [<ProductShortName /> API Reference](/docs/api/#endpoints/deployments).
+You can find a full list of the commands available in the [<ProductShortName /> CLI Reference](/docs/cli/), along with the deployments section of the [<ProductShortName /> API Reference](/docs/api/#endpoints/deployments).
 
 ## Logs
 
@@ -166,7 +166,7 @@ By appending `/_logs` to a deployment URL or [custom domain](/docs/v2/custom-dom
 
 ### Security Considerations
 
-These pathnames redirect to `https://zeit.co` and **require logging in** to access any sensitive information. By default, a 3rd-party can **never** access your source or logs by crafting a deployment URL with one of these paths.
+These pathnames redirect to `https://vercel.com` and **require logging in** to access any sensitive information. By default, a 3rd-party can **never** access your source or logs by crafting a deployment URL with one of these paths.
 
 However, you can configure project settings to make these paths public. [Learn more here](/docs/v2/platform/projects#logs-and-source-access).
 
@@ -178,7 +178,7 @@ The URL structure of each preview deployment contains the name of the applicatio
 
 ​<ProductName /> generates a new UID (and therefore a new deployment), by combining the following information into an internal digest that is looked up within the deployment database:
 
-- The entire deployment configuration from `now.json`.
+- The entire deployment configuration from `vercel.json`.
 - The owner ID (either the user ID or team ID, if deploying within a team).
 - The description of the filesystem. This includes symlinks, [modes](<https://en.wikipedia.org/wiki/Modes_(Unix)>), pathnames, and the [checksum](https://en.wikipedia.org/wiki/Checksum) of each file's contents.
 
@@ -192,7 +192,7 @@ There are two ways to force a **new** deployment to be created when our system w
 
 - **Make any change** to any of the parameters considered by the algorithm, listed above. For example, even changing one character in a comment of a source file yields a new deployment.
 - **Force a new deployment** by instructing your client to do so.
-  - For [<ProductShortName /> CLI](/download) you can run `now --force`
+  - For [<ProductShortName /> CLI](/download) you can run `vercel --force`
   - If using our API, include the [`forceNew` query parameter](/docs/api/v2#endpoints/deployments/create-a-new-deployment)
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

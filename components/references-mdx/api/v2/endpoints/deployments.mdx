@@ -4,7 +4,7 @@ import Link, { HelpLink } from '~/components/text/link'
 import { P, Span } from '~/components/text'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
-import { PRODUCT_NAME } from '~/lib/constants'
+import { PRODUCT_NAME, API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/deployments.mdx',
@@ -27,11 +27,12 @@ Before creating a deployment, [upload any required files](#endpoints/deployments
 | ------------------- | ---------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **name**            | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | A string with the project name used in the deployment URL. The name string has a maximum length of `52` characters.                                                                                                             |
 | **files**           | <HelpLink href="#api-basics/types">List</HelpLink>         | Yes      | A list of objects with the files to be deployed.                                                                                                                                                                                |
+| **project**         | <HelpLink href="#api-basics/types">ID</HelpLink>           | No       | The target project identifier in which the deployment will be created. When defined, this parameter overrides **name**.                                                                                                         |
 | **meta**            | <HelpLink href="#api-basics/types">Map</HelpLink>          | No       | An object containing the deployment's metadata. Multiple key-value pairs can be attached to a deployment. For example, <InlineCode>{ "foo": "bar" }</InlineCode>.                                                               |
 | **env**             | <HelpLink href="#api-basics/types">Map</HelpLink>          | No       | An object containing the deployment's environment variable names and values. _Secrets can be referenced by prefixing the value with `@`_.                                                                                       |
 | **build.env**       | <HelpLink href="#api-basics/types">Map</HelpLink>          | No       | An object containing the deployment's environment variable names and values to be passed to Builds. _Secrets can be referenced by prefixing the value with `@`_.                                                                |
 | **functions**       | <HelpLink href="#api-basics/types">Map</HelpLink>          | No       | A list of objects used to configure your Serverless Functions. For example, <InlineCode noWrap>{ "api/test.js": { "memory": 3008 } }</InlineCode>.                                                                              |
-| **routes**          | <HelpLink href="#api-basics/types">List</HelpLink>         | No       | A list of routes objects used to rewrite paths to point towards other internal or external paths. For example; `[{ "src": "/docs", "dest": "https://docs.zeit.co" }]`.                                                          |
+| **routes**          | <HelpLink href="#api-basics/types">List</HelpLink>         | No       | A list of routes objects used to rewrite paths to point towards other internal or external paths. For example; `[{ "src": "/docs", "dest": "https://docs.example.com" }]`.                                                      |
 | **regions**         | <HelpLink href="#api-basics/types">List</HelpLink>         | No       | An array of the regions the deployment's Serverless Functions should be deployed to. For example, `["sfo", "bru"]`.                                                                                                             |
 | **public**          | <HelpLink href="#api-basics/types">Boolean</HelpLink>      | No       | Whether a deployment's source and logs are available publicly.                                                                                                                                                                  |
 | **target**          | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | Either not defined, `staging`, or `production`. If `staging`, a staging alias in the format `<project>.<team>.now.sh` will be assigned. If `production`, any aliases defined in `alias` will be assigned.                       |
@@ -80,7 +81,7 @@ They can be changed on the dashboard or through the projects API.
 | **outputDirectory** | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The name of a directory or relative path to the output of the build.                                   |
 | **rootDirectory**   | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The path of a directory that contains the source code if your deployment or `null` for auto detection. |
 
-If the `projectSettings` property is not set for the first deployment, the API will return an error containing information about the detected framework from <Link href="https://github.com/zeit/now/tree/master/packages/frameworks">`@now/frameworks`</Link>, which can be used for the next request to complete the deployment.
+If the `projectSettings` property is not set for the first deployment, the API will return an error containing information about the detected framework from <Link href="https://github.com/vercel/vercel/tree/master/packages/frameworks">`@now/frameworks`</Link>, which can be used for the next request to complete the deployment.
 
 <Code lang="json">{`{
   "error": {
@@ -90,7 +91,7 @@ If the `projectSettings` property is not set for the first deployment, the API w
       "name": "Next.js",
       "slug": "nextjs",
       "demo": "https://nextjs.now-examples.now.sh",
-      "logo": "https://raw.githubusercontent.com/zeit/now/master/packages/frameworks/logos/next.svg",
+      "logo": "https://raw.githubusercontent.com/vercel/vercel/master/packages/frameworks/logos/next.svg",
       "tagline": "Next.js makes you productive with React instantly — whether you want to build static or dynamic sites. ",
       "description": "A Next.js app and a Serverless Function API.",
       "website": "https://nextjs.org",
@@ -117,7 +118,7 @@ If the `projectSettings` property is not set for the first deployment, the API w
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v12/now/deployments"
+  url={`${API_ENDPOINT}/v12/now/deployments`}
   method="POST"
   headers={{
     'Content-Type': 'application/json'
@@ -128,7 +129,7 @@ If the `projectSettings` property is not set for the first deployment, the API w
     files: [
       {
         file: 'index.html',
-        data: `<!doctype html>\n<html>\n  <head>\n    <title>A simple deployment with the ${PRODUCT_NAME} API!</title>\n  </head>\n  <body>\n    <h1>Welcome to a simple static file</h1>\n    <p>Deployed with <a href="https://zeit.co/docs/api">the ${PRODUCT_NAME} API</a>!</p>\n    </body>\n</html>`
+        data: `<!doctype html>\n<html>\n  <head>\n    <title>A simple deployment with the ${PRODUCT_NAME} API!</title>\n  </head>\n  <body>\n    <h1>Welcome to a simple static file</h1>\n    <p>Deployed with <a href="/docs/api">the ${PRODUCT_NAME} API</a>!</p>\n    </body>\n</html>`
       }
     ],
     projectSettings: {
@@ -159,7 +160,7 @@ In the case you want to first [upload each file](#endpoints/deployments/upload-d
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v12/now/deployments"
+  url={`${API_ENDPOINT}/v12/now/deployments`}
   method="POST"
   headers={{
     'Content-Type': 'application/json'
@@ -216,7 +217,7 @@ In the case you want to attach metadata to a new deployment, you need to pass th
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v12/now/deployments"
+  url={`${API_ENDPOINT}/v12/now/deployments`}
   method="POST"
   headers={{
     'Content-Type': 'application/json'
@@ -280,7 +281,7 @@ To create a new deployment, with a new ID and URL, etc. if nothing has changed w
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v12/now/deployments?forceNew=1"
+  url={`${API_ENDPOINT}/v12/now/deployments?forceNew=1`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -290,7 +291,7 @@ To create a new deployment, with a new ID and URL, etc. if nothing has changed w
     files: [
       {
         file: 'index.html',
-        data: `<!doctype html>\n<html>\n  <head>\n    <title>A simple deployment with the ${PRODUCT_NAME} API!</title>\n  </head>\n  <body>\n    <h1>Welcome to a simple static file</h1>\n    <p>Deployed with <a href="https://zeit.co/docs/api">the ${PRODUCT_NAME} API</a>!</p>\n    </body>\n</html>`
+        data: `<!doctype html>\n<html>\n  <head>\n    <title>A simple deployment with the ${PRODUCT_NAME} API!</title>\n  </head>\n  <body>\n    <h1>Welcome to a simple static file</h1>\n    <p>Deployed with <a href="/docs/api">the ${PRODUCT_NAME} API</a>!</p>\n    </body>\n</html>`
       }
     ]
   }}
@@ -329,7 +330,7 @@ To create a new deployment, with a new ID and URL, etc. if nothing has changed w
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v12/now/deployments?forceNew=1"
+  url={`${API_ENDPOINT}/v12/now/deployments?forceNew=1`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -339,7 +340,7 @@ To create a new deployment, with a new ID and URL, etc. if nothing has changed w
     files: [
       {
         file: 'index.html',
-        data: `<!doctype html>\n<html>\n  <head>\n    <title>A simple deployment with the ${PRODUCT_NAME} API!</title>\n  </head>\n  <body>\n    <h1>Welcome to a simple static file</h1>\n    <p>Deployed with <a href="https://zeit.co/docs/api">the ${PRODUCT_NAME} API</a>!</p>\n    </body>\n</html>`
+        data: `<!doctype html>\n<html>\n  <head>\n    <title>A simple deployment with the ${PRODUCT_NAME} API!</title>\n  </head>\n  <body>\n    <h1>Welcome to a simple static file</h1>\n    <p>Deployed with <a href="/docs/api">the ${PRODUCT_NAME} API</a>!</p>\n    </body>\n</html>`
       }
     ],
     projectSettings: {
@@ -386,7 +387,7 @@ To create a new deployment, with a new ID and URL, etc. if nothing has changed w
 | **name**          | <HelpLink href="#api-basics/types">String</HelpLink>       | The name of the deployment.                                                                                                                                                                               |
 | **meta**          | <HelpLink href="#api-basics/types">Map</HelpLink>          | An object containing the deployment's metadata. For example, <InlineCode>{ "foo": "bar" }</InlineCode>.                                                                                                   |
 | **regions**       | <HelpLink href="#api-basics/types">List</HelpLink>         | The regions the deployment exists in, e.g. `sfo1`.                                                                                                                                                        |
-| **routes**        | <HelpLink href="#api-basics/types">List</HelpLink>         | A list of routes objects used to rewrite paths to point towards other internal or external paths. For example; `[{ "src": "/docs", "dest": "https://docs.zeit.co" }]`.                                    |
+| **routes**        | <HelpLink href="#api-basics/types">List</HelpLink>         | A list of routes objects used to rewrite paths to point towards other internal or external paths. For example; `[{ "src": "/docs", "dest": "https://docs.example.com" }]`.                                |
 | **functions**     | <HelpLink href="#api-basics/types">Map</HelpLink>          | A list of objects used to configure your Serverless Functions. For example, <InlineCode noWrap>{ "api/test.js": { "memory": 3008 } }</InlineCode>.                                                        |
 | **plan**          | <HelpLink href="#api-basics/types">String</HelpLink>       | The pricing plan the deployment was made under.                                                                                                                                                           |
 | **public**        | <HelpLink href="#api-basics/types">Boolean</HelpLink>      | A boolean representing if the deployment is public or not. By default this is `false`.                                                                                                                    |
@@ -405,7 +406,7 @@ To create a new deployment, with a new ID and URL, etc. if nothing has changed w
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v12/now/deployments"
+  url={`${API_ENDPOINT}/v12/now/deployments`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -415,7 +416,7 @@ To create a new deployment, with a new ID and URL, etc. if nothing has changed w
     files: [
       {
         file: 'index.html',
-        data: `<!doctype html>\n<html>\n  <head>\n    <title>A simple deployment with the ${PRODUCT_NAME} API!</title>\n  </head>\n  <body>\n    <h1>Welcome to a simple static file</h1>\n    <p>Deployed with <a href="https://zeit.co/docs/api">the ${PRODUCT_NAME} API</a>!</p>\n    </body>\n</html>`
+        data: `<!doctype html>\n<html>\n  <head>\n    <title>A simple deployment with the ${PRODUCT_NAME} API!</title>\n  </head>\n  <body>\n    <h1>Welcome to a simple static file</h1>\n    <p>Deployed with <a href="/docs/api">the ${PRODUCT_NAME} API</a>!</p>\n    </body>\n</html>`
       }
     ],
     projectSettings: {
@@ -483,7 +484,7 @@ The file content must be placed inside the body of the request. In the case of a
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v2/now/files"
+  url={`${API_ENDPOINT}/v2/now/files`}
   headers={{
     'x-now-digest': '6938e4ed47a23f17ceb6dbd880ab18d2787e7946'
   }}
@@ -558,7 +559,7 @@ One way to obtain a deployment ID is to [list all deployments](#endpoints/deploy
 | **name**          | <HelpLink href="#api-basics/types">String</HelpLink>       | The name of the deployment.                                                                                                                                                    |
 | **meta**          | <HelpLink href="#api-basics/types">Map</HelpLink>          | An object containing the deployment's metadata. For example, <InlineCode>{ "foo": "bar" }</InlineCode>.                                                                        |
 | **regions**       | <HelpLink href="#api-basics/types">List</HelpLink>         | The regions the deployment exists in, e.g. `sfo1`.                                                                                                                             |
-| **routes**        | <HelpLink href="#api-basics/types">List</HelpLink>         | A list of routes objects used to rewrite paths to point towards other internal or external paths. For example; `[{ "src": "/docs", "dest": "https://docs.zeit.co" }]`.         |
+| **routes**        | <HelpLink href="#api-basics/types">List</HelpLink>         | A list of routes objects used to rewrite paths to point towards other internal or external paths. For example; `[{ "src": "/docs", "dest": "https://docs.example.com" }]`.     |
 | **functions**     | <HelpLink href="#api-basics/types">Map</HelpLink>          | A list of objects used to configure your Serverless Functions. For example, <InlineCode noWrap>{ "api/test.js": { "memory": 3008 } }</InlineCode>.                             |
 | **plan**          | <HelpLink href="#api-basics/types">String</HelpLink>       | The pricing plan the deployment was made under.                                                                                                                                |
 | **public**        | <HelpLink href="#api-basics/types">Boolean</HelpLink>      | A boolean representing if the deployment is public or not. By default this is `false`.                                                                                         |
@@ -577,7 +578,7 @@ One way to obtain a deployment ID is to [list all deployments](#endpoints/deploy
 
 <Request
   method="GET"
-  url="https://api.zeit.co/v12/now/deployments/dpl_89qyp1cskzkLrVicDaZoDbjyHuDJ"
+  url={`${API_ENDPOINT}/v12/now/deployments/dpl_89qyp1cskzkLrVicDaZoDbjyHuDJ`}
   auth
 />
 
@@ -632,7 +633,7 @@ You can obtain the ID, for example, by [listing all deployments](#endpoints/depl
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v12/now/deployments/dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd"
+  url={`${API_ENDPOINT}/v12/now/deployments/dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd`}
   auth
 />
 
@@ -663,7 +664,7 @@ The body will contain entries for each child and directory, coupled with an ID o
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v11/now/deployments/dpl_BRGyoU2Jzzwx7myBnqv3xjRDD2GnHTwUWyFybnrUvjDD/files"
+  url={`${API_ENDPOINT}/v11/now/deployments/dpl_BRGyoU2Jzzwx7myBnqv3xjRDD2GnHTwUWyFybnrUvjDD/files`}
   auth
 />
 
@@ -702,7 +703,7 @@ The body will contain the raw content of the file.
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v11/now/deployments/dpl_BRGyoU2Jzzwx7myBnqv3xjRDD2GnHTwUWyFybnrUvjDD/files/2d4aad419917f15b1146e9e03ddc9bb31747e4d0"
+  url={`${API_ENDPOINT}/v11/now/deployments/dpl_BRGyoU2Jzzwx7myBnqv3xjRDD2GnHTwUWyFybnrUvjDD/files/2d4aad419917f15b1146e9e03ddc9bb31747e4d0`}
   auth
 />
 
@@ -760,7 +761,7 @@ These are the keys of the `output` Map of the Build.
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v11/now/deployments/dpl_BRGyoU2Jzzwx7myBnqv3xjRDD2GnHTwUWyFybnrUvjDD/builds"
+  url={`${API_ENDPOINT}/v11/now/deployments/dpl_BRGyoU2Jzzwx7myBnqv3xjRDD2GnHTwUWyFybnrUvjDD/builds`}
   auth
 />
 
@@ -809,7 +810,7 @@ This API allows you to cancel a deployment, by supplying its `:id` in the URL.
 
 <Request
   method="PATCH"
-  url="https://api.zeit.co/v12/now/deployments/dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd/cancel"
+  url={`${API_ENDPOINT}/v12/now/deployments/dpl_5WJWYSyB7BpgTj3EuwF37WMRBXBtPQ2iTMJHJBJyRfd/cancel`}
   auth
 />
 

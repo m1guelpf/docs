@@ -15,17 +15,17 @@ export const meta = {
   title: 'Deploy Button',
   description: `The Deploy Button can be used to deploy GitHub repositories and GitLab projects to ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/more/deploy-button.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-06-04T20:10:32.000Z'
 }
 
 Use the deploy button to create a <OrgName /> Project from any GitHub repository or GitLab project, including branches and subdirectories, and optionally create a copy of the original repository in your Git account.
 
 ## Example
 
-The example below shows how the deploy button looks when rendered, clicking it allows you to deploy the [Gatsby example](https://github.com/zeit/now/tree/master/examples/gatsby) from the [<ProductName /> repository](https://github.com/zeit/now/tree/master/examples).
+The example below shows how the deploy button looks when rendered, clicking it allows you to deploy our [Gatsby example](https://github.com/vercel/vercel/tree/master/examples/gatsby).
 
-<Link href="https://zeit.co/import/project?template=https://github.com/zeit/now/tree/master/examples/gatsby">
-  <Image src="https://zeit.co/button" width={104} height={36} align="left" />
+<Link href="/import/project?template=https://github.com/vercel/vercel/tree/master/examples/gatsby">
+  <Image src="https://vercel.com/button" width={104} height={36} align="left" />
 </Link>
 
 ## Usage
@@ -34,7 +34,7 @@ Consisting of an `.svg` asset and an associated link to a public GitHub reposito
 
 When implementing the deploy button, provide a link with it to the `/import/project` endpoint and pass a GitHub repository or GitLab project as the template query parameter like so:
 
-<Snippet dark text="https://zeit.co/import/project?template=https://github.com/zeit/now/tree/master/examples/gatsby" />
+<Snippet dark text="https://vercel.com/import/project?template=https://github.com/vercel/vercel/tree/master/examples/gatsby" />
 <Caption>The URL for deploying GitHub repositories to <ProductName />.</Caption>
 
 The template parameter can be either a repository URL, or alternatively, a URL for a folder within that repository, both are supported.
@@ -46,7 +46,7 @@ By combining both the button and the `/import/project` endpoint, you can provide
 To render the deploy button in a [Markdown](https://en.wikipedia.org/wiki/Markdown) file, for example a Git `README.md`, use the following code, changing only the template parameter:
 
 ```
-[![Deploy with <ProductName />](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/zeit/now/tree/master/examples/gatsby)
+[![Deploy to Vercel](/button)](/import/project?template=https://github.com/vercel/vercel/tree/master/examples/gatsby)
 ```
 
 <Caption>The code required to add a deploy button in Markdown.</Caption>
@@ -57,9 +57,9 @@ To use the Deploy to <ProductShortName /> button with HTML, add the button as an
 
 ```html
 <a
-  href="https://zeit.co/import/project?template=https://github.com/zeit/now/tree/master/examples/gatsby"
+  href="/import/project?template=https://github.com/vercel/vercel/tree/master/examples/gatsby"
 >
-  <img src="https://zeit.co/button" alt="Deploy" />
+  <img src="https://vercel.com/button" alt="Deploy" />
 </a>
 ```
 

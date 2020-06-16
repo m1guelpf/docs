@@ -1,0 +1,17 @@
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+To sign up on <ProductName /> with a different Bitbucket account, sign out of your current Bitbucket account:
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/bitbucket-logout.png`}
+  width={229}
+  height={262}
+  shadow
+  borderRadius
+/>
+<Caption>Sign out of Bitbucket.</Caption>
+
+Then, restart the <ProductName /> [signup process](/signup).

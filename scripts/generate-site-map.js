@@ -4,18 +4,19 @@ const path = require('path')
 const prettier = require('prettier')
 const productNames = require('../lib/name-constants.json')
 
-const DOMAIN = 'https://zeit.co'
+const DOMAIN = 'https://vercel.com'
 const SITE_PATHS = [
   '/docs',
   '/docs/api',
   '/docs/integrations',
-  '/docs/now-cli',
+  '/docs/cli',
   '/docs/configuration',
   '/docs/runtimes'
 ]
 const META = /export\s+const\s+meta\s+=\s+({[\s\S]*?\n})/
 const SITEMAP_PATH = 'public/sitemap.xml'
 const GUIDES_PATH = 'lib/data/guides.json'
+const KNOWLEDGE_PATH = 'lib/data/knowledge.json'
 
 // Set the header
 const xmlHeader = `<?xml version="1.0" encoding="UTF-8"?>
@@ -75,6 +76,7 @@ function xmlUrlNode(pagePath) {
           .replace(/\${PRODUCT_NAME}/g, productNames.productName)
           .replace(/\${ORG_NAME}/g, productNames.orgName)
           .replace(/\${CDN_NAME}/g, productNames.cdnName)
+          .replace(/\${CDN_SHORT_NAME}/g, productNames.cdnShortName)
           .replace(/\${PRODUCT_SHORT_NAME}/g, productNames.productShortName)
           .replace(/\${PRODUCT_V1_NAME}/g, productNames.productV1Name)
           .replace(/\${ORG_V1_NAME}/g, productNames.orgV1Name)
@@ -112,6 +114,8 @@ function generateSiteMap() {
   const docs = recursiveReadDirSync('pages/docs', [], 'pages')
   const guides = recursiveReadDirSync('pages/guides', [], 'pages')
   const guidesMeta = []
+  const knowledge = recursiveReadDirSync('pages/knowledge', [], 'pages')
+  const knowledgeMeta = []
 
   const nodes = docs
     .reduce((carry, filePath) => {
@@ -144,6 +148,18 @@ function generateSiteMap() {
         return node
       })
     )
+    .concat(
+      knowledge.map(filePath => {
+        const pagePath = filePath.replace(/\\/g, '/')
+        const { node, meta } = xmlUrlNode(pagePath)
+
+        if (meta) {
+          knowledgeMeta.push(meta)
+        }
+
+        return node
+      })
+    )
 
   const sitemap = `${xmlUrlWrapper(nodes.join('\n'))}`
 
@@ -160,12 +176,28 @@ function generateSiteMap() {
   })
   const guidesJson = JSON.stringify(sortedGuides, null, 2)
 
+  const sortedKnowledge = knowledgeMeta.sort((a, b) => {
+    if (a.published === b.published) return a.url.localeCompare(b.url)
+
+    return new Date(b.published) - new Date(a.published)
+  })
+  const knowledgeJson = JSON.stringify(sortedKnowledge, null, 2)
+
   fs.writeFileSync(GUIDES_PATH, prettier.format(guidesJson, { parser: 'json' }))
+  fs.writeFileSync(
+    KNOWLEDGE_PATH,
+    prettier.format(knowledgeJson, { parser: 'json' })
+  )
 
   console.log(
     `guides.json with ${
       guidesMeta.length
     } entries was written to ${GUIDES_PATH}`
+  )
+  console.log(
+    `knowledge.json with ${
+      knowledgeMeta.length
+    } entries was written to ${KNOWLEDGE_PATH}`
   )
 }
 

@@ -1,0 +1,43 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import Link from '~/components/text/link'
+import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Create an Ember App and Deploy It with ${PRODUCT_NAME}`,
+  description: `Create and deploy an Ember app with ${PRODUCT_NAME}.`,
+  published: '2019-10-11T12:00:00.860Z',
+  authors: ['mcsdev'],
+  url: '/guides/deploying-ember-with-vercel',
+  example: 'ember',
+  demo: 'https://ember.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploy%20Ember%20Apps**%20%20%3Cbr%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Femberjs.com%2Fimages%2Fbrand%2Fember_Tomster-Lockup-b368131eb80ecbcbaf2d23fd4cb27295.png&widths=300&widths=350&heights=300&heights=350`,
+  editUrl: 'pages/guides/deploying-ember-with-vercel.mdx',
+  name: 'Ember',
+  type: 'app',
+  lastEdited: '2020-05-05T11:51:28.000Z'
+}
+
+[Ember](https://emberjs.com/) is a JavaScript framework for creating ambitious web applications.
+
+## Step 1: Set Up Your Ember Project
+
+[Set up an Ember project](https://guides.emberjs.com/release/getting-started/quick-start/) with [`npx`](https://www.npmjs.com/package/npx) and move into the project directory:
+
+<Snippet dark text="npx ember-cli new my-ember-project && cd my-ember-project" />
+<Caption>Initializing an Ember project with <Link href="https://ember-cli.com/">ember-cli</Link> and moving into the project directory.</Caption>
+
+## Step 2: Deploying Your Ember App with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

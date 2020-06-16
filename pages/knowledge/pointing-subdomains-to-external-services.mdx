@@ -1,0 +1,46 @@
+import Layout from '~/components/layout/knowledge'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import Snippet from '~/components/snippet'
+
+export const meta = {
+  title: 'How do I point a subdomain to a service outside of Vercel?',
+  description:
+    'Information on how to make a subdomain available to an service outside of Vercel.',
+  editUrl: 'pages/knowledge/pointing-subdomains-to-external-services.mdx',
+  url: '/knowledge/pointing-subdomains-to-external-services',
+  published: '2020-05-13T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+If your domain is managed by Vercel, meaning it is using Vercel nameservers, then you are able to point a subdomain to an external service by adding DNS records with the Vercel CLI.
+
+## Adding an A Record
+
+Locate the `value` and the `name` arguments requested by the external provider and use them in the following Vercel CLI command, replacing `example.com` with your domain, `name` with the name provided, and `127.0.0.1` with the value:
+
+<Snippet dark text="vercel dns add example.com name A 127.0.0.1" />
+<Caption>Adding an A record to a custom domain using the Vercel CLI.</Caption>
+
+## Adding a CNAME Record
+
+Locate the `value` and the `name` arguments requested by the external provider and use them in the following Vercel CLI command, replacing `example.com` with your domain, `name` with the name provided, and `domain.com` with the value:
+
+<Snippet dark text="vercel dns add example.com name CNAME domain.com" />
+<Caption>Adding an A record to a custom domain using the Vercel CLI.</Caption>
+
+## Other Records
+
+Any record, except for nameservers, can be added by using the `vercel dns` command. For further information, see the [Vercel CLI documentation](/docs/now-cli#commands/dns).
+
+## Common Errors
+
+The most common error made when setting these records is to include the full domain where prompted for the domain `name`. The `name` part should be only the subdomain section, not the full domain.
+
+If the full domain is included, you end up with an incorrect record location, for example, `name.example.com.example.com`.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

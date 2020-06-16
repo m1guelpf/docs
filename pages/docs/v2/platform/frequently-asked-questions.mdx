@@ -13,7 +13,7 @@ export const meta = {
   title: 'Frequently Asked Questions',
   description: 'A list of frequently asked questions relating to deployments.',
   editUrl: 'pages/docs/v2/platform/frequently-asked-questions.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-06-11T18:32:05.000Z'
 }
 
 ## Platform Version Detection
@@ -21,13 +21,13 @@ export const meta = {
 [<ProductShortName /> CLI](/download) will automatically upgrade your deployment to the latest platform version if you import a project or if your project meets certain criteria. In order for this to work, you must:
 
 - Remove any Dockerfile.
-- Remove the `type` property from your `now.json` file.
+- Remove the `type` property from your `vercel.json` file.
 - Remove the `start` script from your `package.json` file.
 - Remove the `server.js` file from the root of your project.
 
-It is possible to opt out of this behavior by creating a `now.json` file with a `version` property.
+It is possible to opt out of this behavior by creating a `vercel.json` file with a `version` property.
 
-If you are yet to upgrade to the latest platform version, please read our [upgrade guide](https://zeit.co/guides/migrate-to-zeit-now/).
+If you are yet to upgrade to the latest platform version, please read our [upgrade guide](/guides/migrate-to-zeit-now/).
 
 ## Green Energy Policy
 
@@ -72,7 +72,7 @@ The [build step](/docs/v2/build-step) will result in an error if the output dire
   older.
 </Note>
 
-If your project contains a `package.json` file, no `api` directory, and no `now.json` configuration, it is expected to provide a `build` [script](https://docs.npmjs.com/misc/scripts) that performs a static build of your frontend and outputs it to a `public` directory at the root of your project.
+If your project contains a `package.json` file, no `api` directory, and no `vercel.json` configuration, it is expected to provide a `build` [script](https://docs.npmjs.com/misc/scripts) that performs a static build of your frontend and outputs it to a `public` directory at the root of your project.
 
 When properly configured, your `package.json` file would look similar to this:
 
@@ -103,3 +103,104 @@ In order for this feature to function properly, the custom domain you configured
 - Backed by an active wildcard certificate
 
 The easiest way to satisfy all of these constraints is to ensure the domain is also added to a project located within the same team. This project would ideally contain a single `index.html` that would display when someone visits the bare domain.
+
+## Maximum Team Member Requests
+
+No more than 10 requests of users wanting to join a team can be open at the same time. In order to allow for more requests, the existing ones have to be approved or declined by an owner of the team.
+
+This ensures the list always remains managable and protected against spam.
+
+## Inviting Users to Team Who Requested Access
+
+If a user already requested access to a team, it's not possible to invite them. Instead, their request must be approved by an owner of the team in order for the user to gain acess.
+
+This ensures no requests are accidentally accepted.
+
+## Unused Build & Development Settings
+
+A [Project](/docs/v2/platform/projects) has several settings that can be found in the dashboard. One of those sections is called "Build & Development Settings" and is used to change the way a Project is built.
+
+However, the Build & Development Settings are only applied to [zero-configuration](/guides/upgrade-to-zero-configuration) Deployments.
+
+If a Deployment defines the [`builds`](/docs/configuration#project/builds) configuration property, the Build & Development Settings are ignored.
+
+## Invalid Route Source Pattern
+
+The `source` property follows the syntax from [path-to-regexp](https://github.com/pillarjs/path-to-regexp/tree/v6.1.0), not the `RegExp` syntax.
+
+For example, negative lookaheads must be wrapped in a group.
+
+**Before**
+
+```json
+{
+  "source": "/feedback/(?!general)",
+  "destination": "/api/feedback/general"
+}
+```
+
+**After**
+
+```json
+{
+  "source": "/feedback/((?!general).*)",
+  "destination": "/api/feedback/general"
+}
+```
+
+## Invalid Route Destination Segment
+
+The `source` property follows the syntax from [path-to-regexp](https://github.com/pillarjs/path-to-regexp/tree/v6.1.0).
+
+This means that a colon (`:`) defines the start of a [named segment parameter](https://github.com/pillarjs/path-to-regexp/tree/v6.1.0#named-parameters).
+
+A named segment parameter defined in the `destination` property must also be defined in the `source` property.
+
+**Before**
+
+```json
+{
+  "source": "/feedback/:type",
+  "destination": "/api/feedback/:id"
+}
+```
+
+**After**
+
+```json
+{
+  "source": "/feedback/:id",
+  "destination": "/api/feedback/:id"
+}
+```
+
+## Failed to Install Dependencies in Development
+
+When running the `vercel dev` command, you may experience an `npm install` error. This happens when `npm` is invoked to install Runtimes that are defined in your `vercel.json` file.
+
+`npm install` may fail if:
+
+- `npm` is not installed (retrieve it from [here](https://www.npmjs.com/get-npm))
+- Your internet connection is unavailable
+- The Runtime that is defined in your configuration is not published to the npm registry
+
+Please double-check that the name and version of the Runtime you are requesting is correct.
+
+## Mixed Routing Properties
+
+If you have [`rewrites`](/docs/configuration#project/rewrites), [`redirects`](/docs/configuration#project/redirects), [`headers`](/docs/configuration#project/headers), [`cleanUrls`](/docs/configuration#project/cleanurls) or [`trailingSlash`](/docs/configuration#project/trailingslash) defined in your [configuration](/docs/configuration) file, then [`routes`](/docs/configuration#project/routes) cannot be defined.
+
+This is a necessary limitation because `routes` is a lower-level primitive that contains all of the other types. Therefore, it cannot be merged safely with the new properties.
+
+See the [Advanced Routing](/docs/configuration#routes/advanced) section for examples of `routes` compared to the new properties.
+
+## Conflicting Configuration Files
+
+For backwards compatability purposes, there are two naming conventions for configuration files used by Vercel CLI (for example `vercel.json` and `now.json`). Both naming conventions are supported, however only _one_ may be defined at a time. The CLI will output an error message if both naming conventions are used at the same time.
+
+These conflicting configuration errors occur if:
+
+- Both `vercel.json` and `now.json` exist in your project.<br />**Solution:** Delete the `now.json` file.
+- Both `.vercel` and `.now` directories exist in your project.<br />**Solution:** Delete the `.now` directory.
+- Both `.vercelignore` and `.nowignore` files exist in your project.<br />**Solution:** Delete the `.nowignore` file.
+- Environment Variables that begin with `VERCEL_` have a conflicting Environment Variable that begins with `NOW_`.<br />**Solution:** Only define the `VERCEL_` prefixed Environment Variable.

@@ -13,6 +13,9 @@ const Main = ({ children }) => (
         display: flex;
         min-height: calc(100vh - 84px);
       }
+      :global(.subheader) + .main {
+        padding-top: 40px;
+      }
     `}</style>
   </main>
 )

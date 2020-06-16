@@ -1,0 +1,193 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Create a Charge App That Builds and Deploys with ${PRODUCT_NAME}`,
+  description: `Deploy your Charge app with ${PRODUCT_NAME} in 3 easy steps.`,
+  published: '2019-04-09T03:00:00.860Z',
+  authors: ['mcsdev'],
+  url: '/guides/deploying-charge-with-vercel',
+  demo: 'https://charge.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploy%20a%20Charge%20site**%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fd33wubrfki0l68.cloudfront.net%2F25151dcf9878a3c40b686628cc84c9292d95ca0e%2F9e22f%2Fimages%2Flogomark.svg`,
+  editUrl: 'pages/guides/deploying-charge-with-vercel.mdx',
+  name: 'Charge',
+  type: 'app',
+  lastEdited: '2020-05-08T23:58:00.000Z'
+}
+
+[Charge](https://charge.js.org/) is an opinionated, zero-config static site generator written in JavaScript. Charge is fast, simple and behaves the way you expect it to.
+
+In this guide, we will walk you through creating and [deploying](/docs/v2/deployments/basics/) a basic Charge website with [<ProductName />](/docs/v2).
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-charge-with-vercel/deploying-charge-with-vercel.png`}
+  width={2048 / 2.75}
+  height={1170 / 2.75}
+  oversize
+/>
+
+## Step 1: Set Up Your Charge Project
+
+[Charge](https://charge.js.org/) focuses on simplicity and provides no boilerplate as a result. To get started with Charge create your project directory, let's call it `charge-app`, and `cd` into it:
+
+<Snippet dark text="mkdir charge-app && cd charge-app" />
+<Caption>
+  Creating and entering into the <InlineCode>/charge-app</InlineCode>{' '}directory.
+</Caption>
+
+Next, [initialize](https://docs.npmjs.com/cli/init) the project:
+
+<Snippet dark text="npm init" />
+<Caption>
+  Initializing the project, this creates a <InlineCode>package.json</InlineCode>{' '}file.
+</Caption>
+
+<Note>
+  During the initializing process, npm will ask questions about your project.
+  Answer these how you wish; there are no prerequisites for this example.
+</Note>
+
+When this is complete, add Charge as a [development dependency](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file):
+
+<Snippet dark text="npm i -D @static/charge" />
+<Caption>
+  Adding Charge as a development dependency to our project.
+</Caption>
+
+Now, make an addition to `package.json`, as recommended by the [Charge documentation](https://charge.js.org/usage), by adding the following `scripts` object:
+
+```json
+{
+  "scripts": {
+    "dev": "charge serve src",
+    "build": "charge build src public"
+  }
+}
+```
+
+<Caption>
+  Adding development and build scripts to the{' '}
+  <InlineCode>package.json</InlineCode> file.
+</Caption>
+
+These scripts enable you to run a local development environment and build your Charge site when [deploying](/docs/v2/deployments/basics/) with `vercel`.
+
+## Step 2: Add Content To Your Charge Project
+
+The following example content setup demonstrates a few of Charge's key features, notably the use of `.jsx`, `.mdx`, and using a layout component.
+
+Firstly, create two directories, `/src` and `/src/pages` within your project directory:
+
+<Snippet dark text="mkdir src && mkdir src/pages" />
+<Caption>
+  Creating a <InlineCode>/src</InlineCode>{' '}directory with a <InlineCode>/pages</InlineCode>{' '} directory inside of it.
+</Caption>
+
+By keeping your components inside of the `/src` directory and our content inside of the `/pages` directory, this will help keep your project organized.
+
+Next, create an `index.html.jsx` file inside the `/src` directory that will serve as the entrypoint to your Charge-powered website.
+
+<Note>
+  During the build process, Charge will remove <InlineCode>jsx</InlineCode> and
+  <InlineCode>mdx</InlineCode>
+  extensions, leaving you with just static <InlineCode>html</InlineCode>files.
+</Note>
+
+Now, you will need to add some some content to your index file. Use the example below, or add your own:
+
+```jsx
+export default () => {
+  return <h1>Welcome to my new Charge site!</h1>
+}
+```
+
+<Caption>
+  An example <InlineCode>index.html.jsx</InlineCode> file in a Charge project.
+</Caption>
+
+Like many static site generators, Charge encourages the use of a layout component. This component will be used to define the layout of your `.mdx` pages later on.
+
+<Note>
+  Charge automatically imports React into <InlineCode>jsx</InlineCode> files so
+  you don't have to.
+</Note>
+
+Create a simple `layout.html.jsx` file inside of the `/src` directory with the following content:
+
+```jsx
+export default ({ children }) => {
+  return children
+}
+```
+
+<Caption>
+  An example <InlineCode>layout.html.jsx</InlineCode> file in a Charge project.
+</Caption>
+
+If, at any point, you want to see how your changes look, you can serve them locally with the script you added in the first step:
+
+<Snippet dark text="npm run dev" />
+<Caption>
+  Starting up a local development server using a <InlineCode>package.json</InlineCode> script.
+</Caption>
+
+Charge will open a new tab for you, if not you can navigate to `localhost:2468` to see the changes you make.
+
+Now that you have a layout component, use it to wrap a `.mdx` file. Create a file named `about.html.mdx` inside of your `/pages` directory.
+
+Add some content to your about page and export it inside of the layout component you created above. Your `about.html.mdx` should look similar to this:
+
+```jsx
+import Layout from '../layout.html.jsx'
+
+Everything between the import and export in the source is **just markdown** using [MDX](https://mdxjs.com/)!
+
+export default ({ children }) => <Layout>{children}</Layout>
+```
+
+<Caption>
+  An example <InlineCode>about.html.mdx</InlineCode> file in a Charge project.
+</Caption>
+
+Before deploying your project, import the about page you just created by modifying your `index.html.jsx` to look like this:
+
+```jsx
+import About from './pages/about.html.mdx'
+
+export default () => {
+  return (
+    <>
+      <h1>Welcome to my new Charge site!</h1>
+      <About />
+    </>
+  )
+}
+```
+
+<Caption>
+  An example <InlineCode>index.html.jsx</InlineCode> file in a Charge project
+  that imports the About content component and uses it in the page.
+</Caption>
+
+Now that you have a simple Charge site created, you're ready to deploy with [<ProductName />](/docs/v2).
+
+## Step 3: Deploy Your Charge Project with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

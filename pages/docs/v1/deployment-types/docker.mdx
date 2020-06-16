@@ -7,7 +7,7 @@ export const meta = {
   description: `Docker apps with ${PRODUCT_SHORT_V1_NAME} and all about the deployments`,
   date: '09 March 2017',
   editUrl: 'pages/docs/v1/deployment-types/docker.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-04-16T01:25:09.000Z'
 }
 
 If your project contains a `Dockerfile` file, it will always be treated as a [Docker](https://www.docker.com/) deployment.
@@ -66,6 +66,6 @@ All in all, sleeping deployments are here to reduce the effort the system has to
 
 Sleeping deployments will wake up in a matter of seconds once a request comes in. The visitor won't experience any errors, because the request will be kept alive until the deployment has woken up.
 
-You can prevent sleep if the number of minimum instances is set to a value larger than zero, as described in [App Lifecycle and Scalability](https://zeit.co/docs/guides/app-lifecycle-and-scalability).
+You can prevent sleep if the number of minimum instances is set to a value larger than zero, as described in [App Lifecycle and Scalability](/docs/guides/app-lifecycle-and-scalability).
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

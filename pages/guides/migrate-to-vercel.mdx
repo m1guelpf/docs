@@ -1,0 +1,173 @@
+import Guide from '~/components/layout/guide'
+import { InlineCode } from '~/components/text/code'
+import Link from '~/components/text/link'
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Migrate to ${PRODUCT_NAME}`,
+  description: `Migrate your websites and APIs to the ${PRODUCT_NAME} Platform with zero configuration.`,
+  published: '2019-07-31T03:00:00.860Z',
+  authors: ['mcsdev', 'timothy', 'skllcrn'],
+  url: '/guides/migrate-to-vercel',
+  editUrl: 'pages/guides/migrate-to-vercel.mdx',
+  lastEdited: '2020-05-08T23:58:00.000Z'
+}
+
+## Frontend Frameworks
+
+​<ProductName /> tries to automatically detect the frontend framework you’re using for your project and configure the project settings for you. If you’d like to override the settings or specify a different framework, take a look at [our documentation on build settings](/docs/v2/build-step).
+
+## Custom Domains
+
+To migrate your domains to <ProductName />, refer to the following documentation:
+
+- [Custom Domains](/docs/v2/custom-domains)
+- [Zero-Downtime Domain Migration with <ProductName />](/guides/zero-downtime-domain-migration)
+
+## Serverful vs. Serverless APIs
+
+Serverful apps need to run consistently, watching for requests. Then, when requested, the app handles the request itself.
+
+In serverful monolith style apps, routing is commonly handled by a single file. Let's look at an Express.js example to illustrate this:
+
+```js
+app.get('/', function(req, res) {
+  res.send('GET homepage.')
+})
+
+app.post('/teams', function(req, res) {
+  res.send('POST teams data.')
+})
+
+app.get('/teams/data', function(req, res) {
+  res.send('GET teams data.')
+})
+```
+
+<Caption>A common routes configuration for serverful Express.js.</Caption>
+
+### Moving to <NameWrapper name={PRODUCT_NAME} /> and Serverless
+
+With serverless, functionality is split into separate files, called [Serverless Functions](/docs/v2/serverless-functions/introduction). Instead of a file or process growing monolithically, this gives us the ability to break down the app into independently scalable parts.
+
+When a path is requested, the Serverless Function for that path is [invoked](/docs/v2/serverless-functions/introduction/). This avoids the whole app from having to wait and watch for requests, saving on time and resources.
+
+#### Step 1: Creating an API Directory
+
+The only requirement for Serverless Functions on <ProductName />, without advanced configuration, is that you place your files inside of an `/api` directory. By doing this, <ProductName /> will be able to handle both the routing and building of these files – dramatically simplifying the process of developing an API.
+
+When using the `/api` directory, routing is based on the filesystem, making it easy to keep track of endpoints simply by looking at the file tree. For example, the file `/api/teams/example.js` would be available at the endpoint `/api/teams/example`.
+
+<Note>
+  When making calls to the <InlineCode>/api</InlineCode> directory, no file
+  extensions are required.
+</Note>
+
+For the above example, you would only need to place the `/teams` directory within the `/api` directory.
+
+#### Step 2: Creating Files for Routes
+
+With the `/api` directory created and the structure added, the next step is to add the required files for the endpoints.
+
+As an example the first file – `index.js` – would sit at the root of the `/api` directory. This is equivalent to `app.get('/'`, and the contents of the file would be:
+
+```js
+module.exports = (req, res) => {
+  res.send('Hello world from the /api route!')
+}
+```
+
+<Caption>
+  A Serverless Function in an example <InlineCode>index.js</InlineCode> file,
+  within the <InlineCode>/api</InlineCode> directory.
+</Caption>
+
+The next file would be placed inside the `/teams` directory inside of the `/api` directory, also named `index.js`. This is equivalent to `app.post('/teams')` and could be used to create a new team. The contents of the file would be:
+
+```js
+module.exports = (req, res) => {
+  const { name } = req.body
+  res.send(
+    `This response would create a new team called ${name}, using a POST request.`
+  )
+}
+```
+
+<Caption>
+  A Serverless Function in an example <InlineCode>index.js</InlineCode> file,
+  within the <InlineCode>/api/teams</InlineCode> directories.
+</Caption>
+
+The last route would also be placed in the `/teams` directory, however, it would be named `data.js` - this is equivalent to `app.get('/teams/data')`. The contents of the file would be:
+
+```js
+module.exports = (req, res) => {
+  res.send('This response would send information about teams.')
+}
+```
+
+<Caption>
+  A Serverless Function in an example <InlineCode>data.js</InlineCode> file,
+  within the <InlineCode>/api/teams</InlineCode> directories.
+</Caption>
+
+<Note>
+  The endpoint for an <InlineCode>index.js</InlineCode> file can be invoked
+  through the parent folder's path. You can opt-out of this behavior by not
+  using the <InlineCode>index.js</InlineCode> filename for API endpoints.
+</Note>
+
+#### Bonus: Dynamic Routes
+
+Using route parameters with your Serverless Functions is made easy with <ProductName />. Let's first take a look at another serverful Express.js example that uses a dynamic route.
+
+```js
+app.get('/teams/:member', function(req, res) {
+  res.send(`GET details about the ${req.query.member}.`)
+})
+```
+
+<Caption>
+  A common routes configuration, that receives and uses a route parameter, for
+  serverful Express.js.
+</Caption>
+
+The above route uses the route parameter _member_, with Express.js making it available as part of the `req.query` object.
+
+To convert this route for use inside of the `/api` directory with <ProductName />, we will once again place it inside the `/teams` directory. However, this time we will name it `[member].js` - this is called a _Path Segment_.
+
+Path Segments allow your endpoints to receive route parameters and, just like Express, they are made available on the `req.query` object with the key specified in the filename.
+
+Taking this into account, we can convert the above Express route for <ProductName /> with the following code:
+
+```js
+// api/teams/[member].js
+module.exports = (req, res) => {
+  res.send(`This response will send details about the ${req.query.member}.`)
+}
+```
+
+<Caption>
+  A Serverless Function in an example <InlineCode>[member].js</InlineCode> file,
+  within the <InlineCode>/api/teams</InlineCode> directories.
+</Caption>
+
+<Note>
+  When using Serverless Functions in your project, or advanced functionality,
+  you need to{' '}
+  <Link href="/docs/v2/serverless-functions/introduction#local-development">
+    use <InlineCode>vercel dev</InlineCode>
+  </Link>{' '}
+  to replicate the <ProductName /> Platform environment locally.
+</Note>
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

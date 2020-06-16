@@ -1,0 +1,36 @@
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+import Note from '~/components/text/note'
+import ProductShortName from '~/components/name/product-short-name'
+
+export const meta = {
+  lastEdited: '2019-10-15T22:03:42.000Z'
+}
+
+## Whoami
+
+The `vercel whoami` command is used to show the username of the user currently logged into [<ProductShortName /> CLI](/download).
+
+<Note type="warning">
+  This command is for <b>advanced use only</b>. You can see the name of the
+  currently active account with the <InlineCode>vercel switch</InlineCode>{' '}
+  command.
+</Note>
+
+### Basic Usage
+
+<Snippet dark text="vercel whoami" />
+<Caption>Using the <InlineCode>vercel whoami</InlineCode> command to view the username of the user currently logged into <ProductShortName /> CLI.</Caption>
+
+### Global Options
+
+The following [global options](#options) can be passed when using the `vercel whoami` command:
+
+- `--debug`
+- `--global-config`
+- `--help`
+- `--local-config`
+- `--token`
+
+For more information on global options and their usage, refer to the [options section](#options).

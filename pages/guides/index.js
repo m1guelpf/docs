@@ -2,7 +2,7 @@ import formatDate from 'date-fns/format'
 
 import Head from '~/components/layout/head'
 import Wrapper from '~/components/layout/wrapper'
-import { H1, H4, P } from '~/components/text'
+import { H1, H3, P } from '~/components/text'
 import { AvatarGroup } from '~/components/avatar'
 import Link from '~/components/text/link'
 import Button from '~/components/buttons'
@@ -27,7 +27,7 @@ const Guides = () => (
           <div className="actions">
             <span className="caption">Sorted by Newest</span>
             <Link
-              href="https://github.com/zeit/docs/issues/new?labels=Section%3A+Guides&template=guide-report-or-request.md"
+              href="https://github.com/vercel/docs/issues/new?labels=Section%3A+Guides&template=guide-report-or-request.md"
               underlineOnHover={false}
             >
               <Button secondary small>
@@ -44,7 +44,7 @@ const Guides = () => (
             <Link href={guide.url} key={`${guide.title}.${i}`}>
               <article className="guide">
                 <div className="titles">
-                  <H4>{guide.title}</H4>
+                  <H3>{guide.title}</H3>
                   <P>{guide.description}</P>
                 </div>
                 <div className="meta">
@@ -62,10 +62,10 @@ const Guides = () => (
             </Link>
           ))}
 
-          <Link href="https://github.com/zeit/docs/blob/master/CONTRIBUTING.md#guides">
+          <Link href="https://github.com/vercel/docs/blob/master/CONTRIBUTING.md#guides">
             <article className="guide contribute">
               <div className="titles">
-                <H4>Write Your Guide →</H4>
+                <H3>Write Your Guide →</H3>
                 <P>
                   Write about using {PRODUCT_NAME} in combination with a
                   technology of your choosing and get featured!
@@ -162,9 +162,9 @@ const Guides = () => (
         position: relative;
       }
 
-      .guide :global(h4) {
-        margin-top: 0;
+      .guide :global(h3) {
         color: #000;
+        margin: 0;
       }
 
       .guide :global(p) {
@@ -177,7 +177,7 @@ const Guides = () => (
         width: auto;
       }
 
-      .guide:hover :global(h4) {
+      .guide:hover :global(h3) {
         text-decoration: underline;
       }
 
@@ -185,7 +185,7 @@ const Guides = () => (
         margin-top: 24px;
       }
 
-      .guide.contribute :global(h4) {
+      .guide.contribute :global(h3) {
       }
 
       .guide.contribute :global(p) {

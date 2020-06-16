@@ -4,6 +4,7 @@ import Note from '~/components/text/note'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
 import OrgName from '~/components/name/org-name'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/log-drains.mdx',
@@ -57,7 +58,7 @@ See the [Format and Transport](#endpoints/log-drains/format-and-transport) secti
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v1/integrations/log-drains"
+  url={`${API_ENDPOINT}/v1/integrations/log-drains`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -65,7 +66,7 @@ See the [Format and Transport](#endpoints/log-drains/format-and-transport) secti
   body={{
     name: 'My first Log Drain',
     type: 'json',
-    url: 'https://user:pass@my-log-drain-handler.com/zeit',
+    url: 'https://user:pass@my-log-drain-handler.com/example',
     projectId: 'abcdefgdufoJxB6b9b1fEqr1jUtFkyavUURbnDCFCnZxgs'
   }}
 />
@@ -74,7 +75,7 @@ See the [Format and Transport](#endpoints/log-drains/format-and-transport) secti
 
 <Code lang="json">{`{
   "id": "ld_XCG7t7AIHuO2SBA8667zNUiM",
-  "url": "https://user:pass@my-log-drain-handler.com/zeit",
+  "url": "https://user:pass@my-log-drain-handler.com/example",
   "name": "My first Log Drain",
   "type": "json",
   "ownerId": "kr1PsOIzqEL5Xg6M4VZcZosf",

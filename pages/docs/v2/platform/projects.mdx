@@ -7,16 +7,17 @@ import Note from '~/components/text/note'
 import { Image } from '~/components/media'
 import ProductName from '~/components/name/product-name'
 import OrgName from '~/components/name/org-name'
+import DollarSign from '~/components/name/dollar-sign'
 import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
   title: 'Projects',
   description: `Setting up projects with a list of deployments on ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/platform/projects.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-06-01T15:15:27.000Z'
 }
 
-To deploy on <ProductName />, you need to create a **Project**. A Project is a logical structure that groups [deployments](/docs/v2/platform/deployments) and [custom domains](/docs/v2/custom-domains). Each project can be associated to a [GitHub](/docs/v2/git-integrations/zeit-now-for-github), [GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), or [Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) repository.
+To deploy on <ProductName />, you need to create a **Project**. A Project is a logical structure that groups [deployments](/docs/v2/platform/deployments) and [custom domains](/docs/v2/custom-domains). Each project can be associated to a [GitHub](/docs/v2/git-integrations/vercel-for-github), [GitLab](/docs/v2/git-integrations/vercel-for-gitlab), or [Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket) repository.
 
 ## Creating a Project
 
@@ -34,7 +35,7 @@ You can either [import from an existing Git repository](/docs/v2/git-integration
 
 ## Project Settings
 
-To edit project settings, choose a project from the [dashboard](https://zeit.co/dashboard):
+To edit project settings, choose a project from the [dashboard](/dashboard):
 
 <Image
   src={`${process.env.ASSETS}/docs/common/select-project.png`}
@@ -55,6 +56,8 @@ Then, select the **Settings** tab:
 />
 <Caption>Selecting the <b>Settings</b> tab from the Project Overview page.</Caption>
 
+## General Settings
+
 ### Build & Development Settings and Root Directory
 
 You can edit build and development settings as well as the root directory settings. Check out [our Build Step documentation](/docs/v2/build-step) to learn more.
@@ -63,19 +66,7 @@ You can edit build and development settings as well as the root directory settin
 
 You can configure Environment Variables directly from Project Settings. Check out [the Environment Variables section of our Build Step documentation](/docs/v2/build-step#environment-variables) to learn more.
 
-### Logs and Source Access
-
-If you turn on **Logs and Source Access**, the following paths for your project will be publicly accessible. Even if this setting is disabled, you can still access these paths by logging in.
-
-- `/_src`: Displays the source code and build output.
-- `/_logs`: Displays the build logs.
-
-<Note type="warning">
-  Do not edit this setting if you don’t want your source code or logs to be
-  publicly accessible.
-</Note>
-
-#### Ony applied starting from your next deployment
+#### Only applied starting from your next deployment
 
 As with other project settings, the changes you make to this setting will only be applied starting from your **next deployment**.
 
@@ -85,23 +76,23 @@ As with other project settings, the changes you make to this setting will only b
   existing deployments, the only option is to delete them.
 </Note>
 
-### Custom Domains
+## Custom Domains
 
 You can add **custom domains** for each project. Check out [our Custom Domains documentation](/docs/v2/custom-domains) to learn more.
 
-### Git Integration
+## Git Integration
 
 To edit your project’s Git Integration settings, select the **Git Integration** menu item from your project settings page.
 
 <Image
   src={`${process.env.ASSETS}/docs/advanced/deploy-hooks/select-git.png`}
-  width={384 / 2}
-  height={352 / 2}
+  width={490 / 2}
+  height={420 / 2}
   shadow
 />
 <Caption>Selecting the <b>Git Integration</b> menu item from the project settings page.</Caption>
 
-If you haven’t set up your Git Integration for [GitHub](/docs/v2/git-integrations/zeit-now-for-github), [GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), or [Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) yet, you can do so from here.
+If you haven’t set up your Git Integration for [GitHub](/docs/v2/git-integrations/vercel-for-github), [GitLab](/docs/v2/git-integrations/vercel-for-gitlab), or [Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket) yet, you can do so from here.
 
 <Image
   src={`${process.env.ASSETS}/docs/platform/projects/git-integration-not-connected.png`}
@@ -127,13 +118,213 @@ If you’d like to disconnect your project from a Git repository, **empty the fi
 
 If you’d like to disconnect your **personal account** or **team** from GitHub, GitLab, or Bitbucket, follow the directions here:
 
-- [Disconnect from GitHub](/docs/v2/git-integrations/zeit-now-for-github#disconnect-from-github)
-- [Disconnect from GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab#disconnect-from-gitlab)
-- [Disconnect from Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket#disconnect-from-bitbucket)
+- [Disconnect from GitHub](/docs/v2/git-integrations/vercel-for-github#disconnect-from-github)
+- [Disconnect from GitLab](/docs/v2/git-integrations/vercel-for-gitlab#disconnect-from-gitlab)
+- [Disconnect from Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket#disconnect-from-bitbucket)
 
 ### Deploy Hooks
 
 ​<ProductName /> supports **deploy hooks**, which are unique URLs that accept HTTP POST requests and trigger deployments. Check out [our Deploy Hooks documentation](/docs/v2/more/deploy-hooks) to learn more.
+
+## Security Settings
+
+To edit your project’s security settings, select the **Security** menu item from your project settings page.
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/security.png`}
+  width={522 / 2}
+  height={424 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Selecting the <b>Security</b> menu item from the Project Settings page.</Caption>
+
+### Logs and Source Protection
+
+<Note>
+  The changes you make to this setting will only be applied starting from your{' '}
+  <b>next deployment</b>.
+</Note>
+
+By default, the paths mentioned below can only be accessed by you and members of your Vercel team. Turning off **Logs and Source Protection** will make them publicly accessible.
+
+- `/_src`: Displays the source code and build output.
+- `/_logs`: Displays the build logs.
+
+<Note type="warning">
+  Do not edit this setting if you don’t want your source code or logs to be
+  publicly accessible.
+</Note>
+
+### Password Protection
+
+<Note>
+  This feature is <em>not</em> available for personal accounts. Only{' '}
+  <b>teams</b> can opt into this feature, and the team must be on the{' '}
+  <b>
+    <Link href="/pricing">Pro</Link>
+  </b>{' '}
+  or{' '}
+  <b>
+    <Link href="/pricing">Enterprise</Link>
+  </b>{' '}
+  plan.
+</Note>
+
+By using **Password Protection**, you can ensure that visitors of your Preview Deployments must enter a password in order to gain access.
+
+Teams can opt into using this feature by enabling it from the "Optional" badge and paying <DollarSign />150 per month. Once you opt in, you can use it across other projects in the same team:
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/enable-password-protection.png`}
+  width={790 / 2}
+  height={380 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Enabling <b>Password Protection</b>.</Caption>
+
+<Note type="warning">
+  After enabling the feature, <b>one month</b> has to pass before it can be
+  disabled again.
+</Note>
+
+#### Protecting Preview Deployments
+
+To use this feature, turn on the toggle and specify the visitor password.
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/adding-visitor-password.png`}
+  width={1304 / 2}
+  height={452 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Turning on the toggle and specifying the visitor password.</Caption>
+
+After clicking **Save**, all Preview Deployments (existing and future ones) of this project will immediately be protected with a password. If you try to access the page, you’ll be presented with this screen:
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/password-required.png`}
+  width={677 / 2}
+  height={613 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Password is required.</Caption>
+
+After entering the password, the visitor will be redirected to the deployment. Also, a cookie will be set in the visitor’s browser, giving them access to all Preview Deployments of the project.
+
+#### Protecting Production Deployments
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/password-protect-production.png`}
+  width={624 / 2}
+  height={92 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Protecting Production Deployment.</Caption>
+
+To protect Production Deployments in addition to Preview Deployments, check **“Also protect my Production Deployment"** and click **Save**.
+
+#### Details
+
+- If you change the password, visitors who have previously entered the password (and therefore have the cookie set) will need to re-enter the password.
+- If you disable the protection, all existing deployments of the project will become unprotected.
+- If you disable the protection and then enable it, visitors who have the cookie set will continue to be able to access the deployments without re-entering the password.
+- You can use Password Protection in conjunction with [SSO Protection](#sso-protection).
+
+#### Disabling the Feature
+
+To opt out from this feature, you can do so from your team’s **Settings** → **Billing** page. Click **Edit** next to **Password Protection** and follow the instructions:
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/cancel-password-protection.png`}
+  width={538 / 2}
+  height={108 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Disable the Password Protection Feature.</Caption>
+
+### SSO Protection
+
+<Note>
+  This feature is <em>not</em> available for personal accounts. <b>Teams</b> can
+  opt into this feature by{' '}
+  <Link href="/contact/sales">contacting our sales team</Link>.
+</Note>
+
+By using **SSO Protection**, you can ensure that visitors of your Preview Deployments must log in with a personal Vercel account that is a member of your team to gain access.
+
+Teams can opt into using this feature by clicking the "Optional" badge and contacting [our sales team](/contact/sales).
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/enable-sso-protection.png`}
+  width={686 / 2}
+  height={440 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Enabling <b>SSO Protection</b>.</Caption>
+
+#### Protecting Preview Deployments
+
+Once your team has access to the feature, turn on the toggle to enable it.
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/adding-sso-protection.png`}
+  width={1220 / 2}
+  height={334 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Turning on the toggle.</Caption>
+
+After clicking **Save**, all Preview Deployments (existing and future ones) will immediately require logging in with a personal Vercel account, and the account must be a member of your team. If you try to access the page, you’ll be presented with this screen:
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/sso-required.png`}
+  width={684 / 2}
+  height={462 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Logging in with Vercel is required.</Caption>
+
+If a visitor logs in with a personal Vercel account that’s a member of your team, the visitor will be redirected to the deployment. Also, a cookie will be set in the visitor’s browser, giving them access to Preview Deployments.
+
+**Note**: If you’ve also enabled Password Protection, the login UI will look like this:
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/password-or-sso-required.png`}
+  width={692 / 2}
+  height={912 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Logging in using a password or with Vercel is required.</Caption>
+
+#### Protecting Production Deployments
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/password-protect-production.png`}
+  width={624 / 2}
+  height={92 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Protecting Production Deployment.</Caption>
+
+To protect Production Deployments in addition to Preview Deployments, check **“Also protect my Production Deployment"** and click **Save**.
+
+#### Details
+
+- If you disable the protection, all existing deployments of the project will become unprotected.
+- If you disable the protection and then enable it, visitors who previously logged into the deployment with Vercel will continue to be able to access the page without logging in again.
+- If an account is removed from the team, then that account can no longer be used to access the deployment. The cookie will also become invalid.
+- You can use SSO Protection in conjunction with [Password Protection](#password-protection).
 
 ## Deleting a Project
 
@@ -144,7 +335,7 @@ If you’d like to disconnect your **personal account** or **team** from GitHub,
   domain under a different project first.
 </Note>
 
-To delete a project, choose a project from the [dashboard](https://zeit.co/dashboard):
+To delete a project, choose a project from the [dashboard](/dashboard):
 
 <Image
   src={`${process.env.ASSETS}/docs/common/select-project.png`}
@@ -169,8 +360,8 @@ Next, select **Advanced** from the menu.
 
 <Image
   src={`${process.env.ASSETS}/docs/platform/projects/advanced-menu.png`}
-  width={362 / 2}
-  height={350 / 2}
+  width={476 / 2}
+  height={418 / 2}
   shadow
   borderRadius
 />

@@ -1,0 +1,45 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { Image } from '~/components/media'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Deploy Gridsome Sites with ${PRODUCT_NAME}`,
+  description: `Create your Gridsome site and deploy it with ${PRODUCT_NAME}.`,
+  published: '2019-08-26T16:05:32.000Z',
+  authors: ['developerayo'],
+  url: '/guides/deploying-gridsome-with-vercel',
+  example: 'gridsome',
+  demo: 'https://gridsome.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploying%20Gridsome%20Sites**%20%3Cbr%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fgridsome.org%2Flogos%2Fonly-logo.svg&widths=auto&widths=auto`,
+  editUrl: 'pages/guides/deploying-gridsome-with-vercel.mdx',
+  name: 'Gridsome',
+  type: 'site',
+  lastEdited: '2020-04-25T00:32:18.000Z'
+}
+
+[Gridsome](https://gridsome.org/) is an open source Vue.js site generator which gives developers the power to build sites that are fast by default.
+
+In this guide, you will discover how to create a Gridsome site and deploy it with [<ProductName />](/).
+
+## Step 1: Set Up Your Gridsome Project
+
+Set up a Gridsome project using the [Gridsome CLI](https://gridsome.org/docs/gridsome-cli/#gridsome-cli) and move into the project directory.
+
+<Snippet dark text="gridsome create gridsome-project && cd gridsome-project" />
+<Caption>Creating a Gridsome project and moving into the project directory.</Caption>
+
+## Step 2: Deploying Your Gridsome Project with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

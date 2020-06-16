@@ -1,0 +1,22 @@
+import Layout from '~/components/layout/knowledge'
+
+export const meta = {
+  title: 'Can I upgrade to a paid plan on my personal account?',
+  description: 'Information on upgrading to a paid plan on a personal account.',
+  editUrl: 'pages/knowledge/upgrading-personal-account.mdx',
+  url: '/knowledge/upgrading-personal-account',
+  published: '2020-06-04T18:54:36.000Z',
+  lastEdited: '2020-06-04T18:54:36.000Z'
+}
+
+A personal account, which is on the **Hobby** plan by default, cannot be upgraded to a paid plan. If you would like be on a paid plan such as **Pro** or **Enterprise**, you will have to create a Vercel team. For **Enterprise** inquiries, please contact our [sales team](https://vercel.com/contact/sales).
+
+## Vercel Plans
+
+For more information on our **Hobby**, **Pro**, and **Enterprise** plans, please check out our [Simpler Pricing](https://vercel.com/blog/simpler-pricing) blog post and also our [Pricing](https://vercel.com/pricing) page. For any further information regarding our plans, please contact Vercel Support using the [support form](https://vercel.com/support/request) available from the Vercel dashboard. You can also directly email [support@vercel.com](mailto:support@vercel.com).
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

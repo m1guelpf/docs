@@ -9,6 +9,141 @@ const withMDX = require('@next/mdx')({
   }
 })
 
+const docsRedirects = [
+  [
+    'v2/git-integrations/zeit-now-for-bitbucket',
+    'v2/git-integrations/vercel-for-bitbucket'
+  ],
+  [
+    'v2/git-integrations/zeit-now-for-github',
+    'v2/git-integrations/vercel-for-github'
+  ],
+  [
+    'v2/git-integrations/zeit-now-for-gitlab',
+    'v2/git-integrations/vercel-for-gitlab'
+  ],
+  [
+    'error/application/NO_STATUS_CODE_FROM_FUNCTION',
+    'error/application/NO_RESPONSE_FROM_FUNCTION'
+  ]
+].map(([before, after]) => ({
+  source: `/docs/${before}{/}?`,
+  destination: `/docs/${after}`,
+  permanent: true
+}))
+
+const guidesRedirects = [
+  [
+    'client-side-error-reports-with-uriports-zeit-now',
+    'client-side-error-reports-with-uriports-vercel'
+  ],
+  [
+    'deploying-a-faunadb-powered-guestbook-with-zeit-now',
+    'deploying-a-faunadb-powered-guestbook-with-vercel'
+  ],
+  [
+    'deploying-a-mongodb-powered-api-with-node-and-now',
+    'deploying-a-mongodb-powered-api-with-node-and-vercel'
+  ],
+  ['deploying-angular-with-now', 'deploying-angular-with-vercel'],
+  ['deploying-aurelia-with-zeit-now', 'deploying-aurelia-with-vercel'],
+  ['deploying-charge-with-now', 'deploying-charge-with-vercel'],
+  ['deploying-crystallize-with-zeit-now', 'deploying-crystallize-with-vercel'],
+  ['deploying-docusaurus-with-zeit-now', 'deploying-docusaurus-with-vercel'],
+  ['deploying-dojo-with-zeit-now', 'deploying-dojo-with-vercel'],
+  ['deploying-eleventy-with-zeit-now', 'deploying-eleventy-with-vercel'],
+  ['deploying-ember-with-zeit-now', 'deploying-ember-with-vercel'],
+  ['deploying-foundation-with-zeit-now', 'deploying-foundation-with-vercel'],
+  ['deploying-gatsby-with-now', 'deploying-gatsby-with-vercel'],
+  ['deploying-gridsome-with-zeit-now', 'deploying-gridsome-with-vercel'],
+  ['deploying-hexo-with-zeit-now', 'deploying-hexo-with-vercel'],
+  ['deploying-hugo-with-now', 'deploying-hugo-with-vercel'],
+  [
+    'deploying-ionic-angular-with-zeit-now',
+    'deploying-ionic-angular-with-vercel'
+  ],
+  ['deploying-ionic-react-with-zeit-now', 'deploying-ionic-react-with-vercel'],
+  ['deploying-mdx-deck-with-zeit-now', 'deploying-mdx-deck-with-vercel'],
+  [
+    'deploying-next-and-buttercms-with-now',
+    'deploying-next-and-buttercms-with-vercel'
+  ],
+  [
+    'deploying-next-and-contentful-with-now',
+    'deploying-next-and-contentful-with-vercel'
+  ],
+  ['deploying-next-and-mysql-with-now', 'deploying-next-and-mysql-with-vercel'],
+  [
+    'deploying-next-and-prismic-with-now',
+    'deploying-next-and-prismic-with-vercel'
+  ],
+  [
+    'deploying-next-and-storyblok-with-now',
+    'deploying-next-and-storyblok-with-vercel'
+  ],
+  [
+    'deploying-nextjs-nodejs-and-faunadb-with-zeit-now',
+    'deploying-nextjs-nodejs-and-faunadb-with-vercel'
+  ],
+  [
+    'deploying-nextjs-nodejs-and-sendgrid-with-zeit-now',
+    'deploying-nextjs-nodejs-and-sendgrid-with-vercel'
+  ],
+  ['deploying-nextjs-with-now', 'deploying-nextjs-with-vercel'],
+  ['deploying-nuxtjs-with-zeit-now', 'deploying-nuxtjs-with-vercel'],
+  ['deploying-polymer-with-zeit-now', 'deploying-polymer-with-vercel'],
+  ['deploying-preact-with-zeit-now', 'deploying-preact-with-vercel'],
+  [
+    'deploying-pusher-channels-with-zeit-now',
+    'deploying-pusher-channels-with-vercel'
+  ],
+  [
+    'deploying-react-forms-using-formspree-with-zeit-now',
+    'deploying-react-forms-using-formspree-with-vercel'
+  ],
+  ['deploying-react-with-now-cra', 'deploying-react-with-vercel-cra'],
+  ['deploying-saber-with-zeit-now', 'deploying-saber-with-vercel'],
+  ['deploying-sanity-studio-with-now', 'deploying-sanity-studio-with-vercel'],
+  ['deploying-scully-with-zeit-now', 'deploying-scully-with-vercel'],
+  ['deploying-statickit-with-zeit-now', 'deploying-statickit-with-vercel'],
+  ['deploying-stencil-with-zeit-now', 'deploying-stencil-with-vercel'],
+  ['deploying-storybook-with-zeit-now', 'deploying-storybook-with-vercel'],
+  ['deploying-svelte-with-zeit-now', 'deploying-svelte-with-vercel'],
+  ['deploying-takeshape-with-zeit-now', 'deploying-takeshape-with-vercel'],
+  ['deploying-umijs-with-zeit-now', 'deploying-umijs-with-vercel'],
+  ['deploying-vuejs-to-now', 'deploying-vuejs-to-vercel'],
+  ['deploying-vuepress-to-now', 'deploying-vuepress-to-vercel'],
+  [
+    'getting-started-with-now-for-gitlab',
+    'getting-started-with-vercel-for-gitlab'
+  ],
+  ['migrate-to-zeit-now', 'migrate-to-vercel'],
+  [
+    'monitor-frontend-performance-with-debugbear-and-zeit-now',
+    'monitor-frontend-performance-with-debugbear-and-vercel'
+  ],
+  [
+    'monitoring-performance-with-calibre-and-zeit-now',
+    'monitoring-performance-with-calibre-and-vercel'
+  ],
+  ['setup-godaddy-domain-now', 'setup-godaddy-domain-vercel'],
+  ['setup-namecheap-domain-now', 'setup-namecheap-domain-vercel'],
+  ['transferring-domains-to-zeit-now', 'transferring-domains-to-vercel'],
+  ['updating-now-cli', 'updating-vercel-cli'],
+  [
+    'vue-js-html-forms-with-formcarry-zeit-now',
+    'vue-js-html-forms-with-formcarry-vercel'
+  ],
+  [
+    'prevent-uploading-sourcepaths-with-nowignore',
+    'prevent-uploading-sourcepaths-with-vercelignore'
+  ]
+].map(([before, after]) => ({
+  source: `/guides/${before}{/}?`,
+  destination: `/guides/${after}`,
+  permanent: true
+}))
+
 module.exports = withMDX({
   target: 'serverless',
 
@@ -36,6 +171,8 @@ module.exports = withMDX({
 
     redirects() {
       return [
+        ...guidesRedirects,
+        ...docsRedirects,
         {
           source: '/:path+/',
           permanent: true,
@@ -126,7 +263,17 @@ module.exports = withMDX({
         {
           source: '/docs/v2/routing/:path*',
           permanent: true,
-          destination: '/docs/v2/network/:path*'
+          destination: '/docs/v2/edge-network/:path*'
+        },
+        {
+          source: '/docs/v2/network/:path*',
+          permanent: true,
+          destination: '/docs/v2/edge-network/:path*'
+        },
+        {
+          source: '/docs/v2/edge-network/regions-and-providers/:path*',
+          permanent: true,
+          destination: '/docs/v2/edge-network/regions/:path*'
         },
         {
           source: '/docs/features/:path*',
@@ -168,7 +315,7 @@ module.exports = withMDX({
             '/docs/v2/((?:deployments|advanced))/builders/developer-guide(.*)',
           permanent: true,
           destination:
-            'https://github.com/zeit/now/blob/master/DEVELOPING_A_RUNTIME.md'
+            'https://github.com/vercel/vercel/blob/master/DEVELOPING_A_RUNTIME.md'
         },
         {
           source: '/docs/v2/deployments/((?:builders|official-builders))/(.*)',
@@ -238,12 +385,12 @@ module.exports = withMDX({
         {
           source: '/examples(.*)',
           permanent: true,
-          destination: 'https://github.com/zeit/now/tree/master/examples'
+          destination: 'https://github.com/vercel/vercel/tree/master/examples'
         },
         {
           source: '/docs/v1/examples/(.*)',
           permanent: true,
-          destination: 'https://github.com/zeit/now/tree/master/examples'
+          destination: 'https://github.com/vercel/vercel/tree/master/examples'
         },
         {
           source: '/docs/v2/platform/global-configuration(.*)',
@@ -296,6 +443,11 @@ module.exports = withMDX({
           source: '/docs/v2/serverless-functions/env-and-secrets',
           permanent: true,
           destination: '/docs/v2/build-step#environment-variables'
+        },
+        {
+          source: '/docs/now-cli/:path*',
+          permanent: true,
+          destination: '/docs/cli/:path*'
         }
       ]
     }
@@ -308,10 +460,9 @@ module.exports = withMDX({
 
   env: {
     NOW_GITHUB_COMMIT_SHA: process.env.NOW_GITHUB_COMMIT_SHA,
-    API_URL: process.env.API_URL,
-    IMAGE_ASSETS_URL: 'https://assets.zeit.co/image/upload/front',
-    VIDEO_ASSETS_URL: 'https://assets.zeit.co/video/upload/front',
-    RAW_ASSETS_URL: 'https://assets.zeit.co/raw/upload/front',
+    IMAGE_ASSETS_URL: 'https://assets.vercel.com/image/upload/front',
+    VIDEO_ASSETS_URL: 'https://assets.vercel.com/video/upload/front',
+    RAW_ASSETS_URL: 'https://assets.vercel.com/raw/upload/front',
     ASSETS: isProd ? '/docs/static' : '/static'
   },
 

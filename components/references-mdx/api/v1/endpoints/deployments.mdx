@@ -16,6 +16,7 @@ import Request from '~/components/api/request'
 import Note from '~/components/text/note'
 import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import CliV1Name from '~/components/name/cli-v1-name'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/endpoints/deployments.mdx',
@@ -171,8 +172,7 @@ In the case you want to inline each file inside the create deployment request ea
     <BooleanCell status={false} />
     <Cell>
       The file encoding, it must be <InlineCode>base64</InlineCode> or{' '}
-      <InlineCode>utf-8</InlineCode>. Defaults to <InlineCode>utf-8</InlineCode>
-      .
+      <InlineCode>utf-8</InlineCode>. Defaults to <InlineCode>utf-8</InlineCode>.
     </Cell>
   </Row>
 </InputTable>
@@ -211,7 +211,7 @@ In the case you want to first [upload each file](#endpoints/deployments/upload-d
   Example request:
 
 <Request
-  url="https://api.zeit.co/v3/now/deployments"
+  url={`${API_ENDPOINT}/v3/now/deployments`}
   method="GET"
   headers={{
     Authorization: `Bearer ${
@@ -301,7 +301,7 @@ The file content must be placed inside the body of the request. In the case of a
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v2/now/files"
+  url={`${API_ENDPOINT}/v2/now/files`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -324,7 +324,7 @@ The file content must be placed inside the body of the request. In the case of a
 
 <Request
     method="POST"
-    url="https://api.zeit.co/v2/now/files"
+    url={`${API_ENDPOINT}/v2/now/files`}
     headers={{
       Authorization: `Bearer ${(props.testingToken ? props.testingToken.token : '$TOKEN')}`,
       'Content-Type': 'application/octet-stream',
@@ -380,7 +380,8 @@ Each deployment is an object with the following keys:
     <TypeCell>String</TypeCell>
     <Cell>
       A string with the unique URL of the deployment. If it hasn't finished
-      uploading (is incomplete), the value will be <InlineCode>null</InlineCode>.
+      uploading (is incomplete), the value will be <InlineCode>null</InlineCode>
+      .
     </Cell>
   </Row>
   <Row>
@@ -402,10 +403,9 @@ Each deployment is an object with the following keys:
     <Cell>
       A string with the current deployment state, it could be one of the
       following <InlineCode>DEPLOYING</InlineCode>,{' '}
-      <InlineCode>DEPLOYMENT_ERROR</InlineCode>, <InlineCode>BOOTED</InlineCode>,{' '}
-      <InlineCode>BUILDING</InlineCode>, <InlineCode>READY</InlineCode>, <InlineCode>
-        BUILD_ERROR
-      </InlineCode>, or <InlineCode>FROZEN</InlineCode>.
+      <InlineCode>DEPLOYMENT_ERROR</InlineCode>, <InlineCode>BOOTED</InlineCode>
+      , <InlineCode>BUILDING</InlineCode>, <InlineCode>READY</InlineCode>,{' '}
+      <InlineCode>BUILD_ERROR</InlineCode>, or <InlineCode>FROZEN</InlineCode>.
     </Cell>
   </Row>
   <Row>
@@ -459,7 +459,7 @@ The scale configuration object always have the following structure:
 Example request:
 
 <Request
-  url="https://api.zeit.co/v2/now/deployments"
+  url={`${API_ENDPOINT}/v2/now/deployments`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -547,8 +547,7 @@ You can obtain this, for example, by [listing all deployments](#endpoints/deploy
     <TypeCell>String</TypeCell>
     <Cell>
       A string with the unique URL of the deployment. If it hasn't finished
-      uploading (is incomplete), the value will be <InlineCode>null</InlineCode>
-      .
+      uploading (is incomplete), the value will be <InlineCode>null</InlineCode>.
     </Cell>
   </Row>
   <Row>
@@ -557,10 +556,9 @@ You can obtain this, for example, by [listing all deployments](#endpoints/deploy
     <Cell>
       A string with the current deployment state, it could be one of the
       following: <InlineCode>DEPLOYING</InlineCode>,{' '}
-      <InlineCode>DEPLOYMENT_ERROR</InlineCode>, <InlineCode>BOOTED</InlineCode>,{' '}
-      <InlineCode>BUILDING</InlineCode>, <InlineCode>READY</InlineCode>, <InlineCode>
-        BUILD_ERROR
-      </InlineCode>, or <InlineCode>FROZEN</InlineCode>.
+      <InlineCode>DEPLOYMENT_ERROR</InlineCode>, <InlineCode>BOOTED</InlineCode>
+      , <InlineCode>BUILDING</InlineCode>, <InlineCode>READY</InlineCode>,{' '}
+      <InlineCode>BUILD_ERROR</InlineCode>, or <InlineCode>FROZEN</InlineCode>.
     </Cell>
   </Row>
   <Row>
@@ -614,7 +612,7 @@ The scale configuration object will always be an object with the following struc
 Example request:
 
 <Request
-  url="https://api.zeit.co/v2/now/deployments/ChbZiZe84CKtod6rmCIRRvYR"
+  url={`${API_ENDPOINT}/v2/now/deployments/ChbZiZe84CKtod6rmCIRRvYR`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -649,7 +647,7 @@ You can obtain the ID, for example, by [listing all deployments](#endpoints/depl
 
 <Request
     method="DELETE"
-    url="https://api.zeit.co/v2/now/deployments/ChbZiZe84CKtod6rmCIRRvYR"
+    url={`${API_ENDPOINT}/v2/now/deployments/ChbZiZe84CKtod6rmCIRRvYR`}
     headers={{
       Authorization: `Bearer ${(props.testingToken ? props.testingToken.token : '$TOKEN')}`
     }}
@@ -702,7 +700,7 @@ The body will contain entries for each child and directory, coupled with an ID o
   Example request:
 
 <Request
-  url="https://api.zeit.co/v2/now/deployments/ChbZiZe84CKtod6rmCIRRvYR/files"
+  url={`${API_ENDPOINT}/v2/now/deployments/ChbZiZe84CKtod6rmCIRRvYR/files`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -744,7 +742,7 @@ The body will contain the raw content of the file
   Example request:
 
 <Request
-  method="https://api.zeit.co/v2/now/deployments/ChbZiZe84CKtod6rmCIRRvYR/files/2d4aad419917f15b1146e9e03ddc9bb31747e4d0"
+  method={`${API_ENDPOINT}/v2/now/deployments/ChbZiZe84CKtod6rmCIRRvYR/files/2d4aad419917f15b1146e9e03ddc9bb31747e4d0`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -789,7 +787,8 @@ Get the list of instances unique URL of a deployment.
     <TypeCell>String</TypeCell>
     <Cell>
       The instance unique url. Is the deployment unique URL with the instance{' '}
-      <InlineCode>uid</InlineCode> added before <InlineCode>.now.sh</InlineCode>.
+      <InlineCode>uid</InlineCode> added before <InlineCode>.now.sh</InlineCode>
+      .
     </Cell>
   </Row>
 </OutputTable>
@@ -798,7 +797,7 @@ Get the list of instances unique URL of a deployment.
   Example request:
 
 <Request
-  url="https://api.zeit.co/v1/now/deployments/DguxFCKb5RdNmTw20KGwb42H/instances"
+  url={`${API_ENDPOINT}/v1/now/deployments/DguxFCKb5RdNmTw20KGwb42H/instances`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -862,7 +861,7 @@ Configure the minimum and maximum amount of instances desired for the given depl
   Example request:
 
 <Request
-  url="https://api.zeit.co/v1/now/deployments/2sS6QiQppD9moBzhmX34Y21H/instances"
+  url={`${API_ENDPOINT}/v1/now/deployments/2sS6QiQppD9moBzhmX34Y21H/instances`}
   method="POST"
   headers={{
     Authorization: `Bearer ${

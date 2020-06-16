@@ -2,6 +2,7 @@ import { Code } from '~/components/text/code'
 import { HelpLink } from '~/components/text/link'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/logs.mdx',
@@ -50,7 +51,7 @@ These are the keys of the `payload` key of the logs.
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v2/now/deployments/Cm6WigEH9EBI4Uzs2WA6qOGe/events"
+  url={`${API_ENDPOINT}/v2/now/deployments/Cm6WigEH9EBI4Uzs2WA6qOGe/events`}
   auth
 />
 
@@ -185,7 +186,7 @@ These are the available log types with an explanation of what they mean.
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v2/now/deployments/Cm6WigEH9EBI4Uzs2WA6qOGe/events?follow=1&name=team_nLlpyC6REAzxudGFKbrMDlud-5916ac0d61abdb050d45f579aaa77c70a7"
+  url={`${API_ENDPOINT}/v2/now/deployments/Cm6WigEH9EBI4Uzs2WA6qOGe/events?follow=1&name=team_nLlpyC6REAzxudGFKbrMDlud-5916ac0d61abdb050d45f579aaa77c70a7`}
   auth
 />
 
@@ -236,6 +237,6 @@ These are the available log types with an explanation of what they mean.
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v2/now/deployments/Cm6WigEH9EBI4Uzs2WA6qOGe/events?name=team_nLlpyC6REAzxudGFKbrMDlud-5916ac0d61abdb050d45f579aaa77c70a7&statusCode=5xx"
+  url={`${API_ENDPOINT}/v2/now/deployments/Cm6WigEH9EBI4Uzs2WA6qOGe/events?name=team_nLlpyC6REAzxudGFKbrMDlud-5916ac0d61abdb050d45f579aaa77c70a7&statusCode=5xx`}
   auth
 />

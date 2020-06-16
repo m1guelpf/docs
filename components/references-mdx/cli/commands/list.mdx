@@ -1,0 +1,50 @@
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+
+export const meta = {
+  lastEdited: '2019-10-15T22:03:42.000Z'
+}
+
+## List
+
+The `vercel list` command, which can be shortened to `vercel ls`, is used to provide a list of your deployments along with information about them.
+
+### Basic Usage
+
+<Snippet dark text="vercel list" />
+<Caption>Using the <InlineCode>vercel list</InlineCode> command to retrieve information about multiple deployments.</Caption>
+
+### Extended Usage
+
+<Snippet dark text="vercel list [project-name]" />
+<Caption>Using the <InlineCode>vercel list</InlineCode> command to retrieve information about deployments for a specific project.</Caption>
+
+<Snippet dark text="vercel list [project-name] [--meta foo=bar]" />
+<Caption>Using the <InlineCode>vercel list</InlineCode> command to retrieve information about deployments filtered by metadata.</Caption>
+
+### Global Options
+
+The following [global options](#options) can be passed when using the `vercel list` command:
+
+- `--debug`
+- `--global-config`
+- `--help`
+- `--local-config`
+- `--scope`
+- `--token`
+
+For more information on global options and their usage, refer to the [options section](#options).
+
+### Unique Options
+
+These are options that only apply to the `vercel list` command, therefore, more information is provided.
+
+#### Listen
+
+The `--meta` option, shorthand `-m`, can be used to filter results based on project metadata.
+
+##### Usage Example
+
+<Snippet dark text="vercel list --meta key1=value1 key2=value2" />
+<Caption>Using the <InlineCode>vercel list</InlineCode> command with the <InlineCode>--meta</InlineCode> option.</Caption>

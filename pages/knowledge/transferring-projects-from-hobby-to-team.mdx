@@ -1,0 +1,44 @@
+import Layout from '~/components/layout/knowledge'
+
+export const meta = {
+  title:
+    'How do I transfer my Vercel project from a personal account to a team?',
+  description:
+    'Information on how to transfer a Vercel project from a hobby account to a team.',
+  editUrl: 'pages/knowledge/transferring-projects-from-hobby-to-team.mdx',
+  url: '/knowledge/transferring-projects-from-hobby-to-team',
+  published: '2020-05-13T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+Moving a project from a personal account to a team requires a few short steps and can be completed in a matter of minutes.
+
+## Disconnect Git Integration
+
+If you are using a [Vercel for Git integration](/docs/v2/git-integrations), disconnect it from your Hobby account - this is done from the settings of your Git provider, no action is required on the Vercel side.
+
+This will not impact the status of your deployments, but will allow you to connect it to your team account. This is required because Git accounts can only be connected to a single Vercel account at any time.
+
+## Connect Git integration
+
+Connect your team account to the Git account used previously with your Hobby account with a Vercel for Git integration.
+
+## Import Project
+
+Import the project you wanted to move to the team account via the Vercel for Git integration. If your deployment is dependent on environment variables, now is the right time to add them to the project.
+
+Ensure that the project deploys correctly and works as expected before proceeding to the next step.
+
+## Move a Custom Domain
+
+If your project was using a [custom domain](/docs/v2/custom-domains), remove this from the existing project on the Hobby account. Once removed from the project, use the "Move" functionality from the Domains tab on the Vercel dashboard, entering the `slug` of the new team.
+
+## Add a Custom Domain
+
+Once the domain has been transferred to the team account, add it to the project. Vercel will issue a new certificate for the domain and the team project will be available at the domain immediately.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

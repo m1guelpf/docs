@@ -1,0 +1,50 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import Link from '~/components/text/link'
+import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Create a Gatsby Website and Deploy It with ${PRODUCT_NAME}`,
+  description: `Create a simple Gatsby website and deploy it live with ${PRODUCT_NAME}.`,
+  published: '2019-01-31T12:00:00.860Z',
+  authors: ['timothy'],
+  url: '/guides/deploying-gatsby-with-vercel',
+  example: 'gatsby',
+  demo: 'https://gatsby.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploying%20Gatsby%20Sites**%20%3Cbr%20%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fcdn.svgporn.com%2Flogos%2Fgatsby.svg`,
+  editUrl: 'pages/guides/deploying-gatsby-with-vercel.mdx',
+  name: 'Gatsby',
+  type: 'app',
+  lastEdited: '2020-04-25T00:32:18.000Z'
+}
+
+[Gatsby](https://www.gatsbyjs.org) is a popular front-end framework that helps you create static apps and websites with React.
+
+## Step 1: Set Up Your Gatsby Project
+
+Firstly, [set up a Gatsby project](https://www.gatsbyjs.org/docs/quick-start) by installing Gatsby CLI globally from your terminal:
+
+<Snippet dark text="npm i -g gatsby-cli" />
+<Caption>Installing <Link href="https://www.gatsbyjs.org/docs/gatsby-cli/">gatsby-cli</Link> globally with <Link href="https://www.npmjs.com/">npm</Link>.</Caption>
+
+Then you can run the following command to create a Gatsby project locally:
+
+<Snippet dark text="gatsby new my-gatsby-project" />
+<Caption>Creating a Gatsby project with the Gatsby CLI.</Caption>
+
+Next, move into the directory from your terminal with `cd my-gatsby-project`. You can see your new project in a local development environment by using the `npm develop` command, set in the `package.json` by Gatsby CLI.
+
+## Step 2: Deploying Your Gatsby Website with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

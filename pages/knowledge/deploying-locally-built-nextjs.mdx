@@ -1,0 +1,21 @@
+import Layout from '~/components/layout/knowledge'
+
+export const meta = {
+  title: 'Can I deploy a locally built Next.js app to Vercel?',
+  description:
+    'Information on deploying a locally built Next.js app to Vercel.',
+  editUrl: 'pages/knowledge/deploying-locally-built-nextjs.mdx',
+  url: '/knowledge/deploying-locally-built-nextjs',
+  published: '2020-05-21T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+A pre-built Next.js application **cannot be deployed to the Vercel platform**. This is because it will be missing information necessary for Vercel to automatically configure the application’s routing.
+
+The Vercel platform will automatically handle building, configuring, and deploying your Next.js application for you. If you have customized your build command, be sure it includes `next build`.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

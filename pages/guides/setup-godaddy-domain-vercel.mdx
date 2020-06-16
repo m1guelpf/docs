@@ -1,0 +1,159 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Link from '~/components/text/link'
+import OrgName from '~/components/name/org-name'
+import ProductName from '~/components/name/product-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import { PRODUCT_NAME } from '~/lib/constants'
+import ProductShortName from '~/components/name/product-short-name'
+
+export const meta = {
+  title: `Setup a GoDaddy Domain with ${PRODUCT_NAME}`,
+  description: `Use your GoDaddy registered domain for your ${PRODUCT_NAME} deployments.`,
+  published: '2019-01-23T17:00:00.860Z',
+  authors: ['timothy'],
+  url: '/guides/setup-godaddy-domain-vercel',
+  editUrl: 'pages/guides/setup-godaddy-domain-vercel.mdx',
+  lastEdited: '2020-05-14T23:00:11.000Z'
+}
+
+With <ProductName />, you can [assign a domain name](/docs/v2/custom-domains#deploying-with-your-domain) to any of your [deployments](/docs/v2/deployments/basics/) in. If you have a domain registered on another service, such as GoDaddy, you must first [point your domain to <ProductName />](/guides/zero-downtime-domain-migration/) in order to use it for your deployments.
+
+This guide will cover **how to point your GoDaddy registered domain towards <ProductName />** in order to use your domain for your deployments.
+
+## Step 1: Adding and Verifying Your Domain
+
+The first step of pointing an external domain to <ProductName /> is to add your domain to your <OrgName /> account or team and verifying ownership.
+
+To add a domain with [<ProductShortName /> CLI](/download), use the following command in your terminal:
+
+<Snippet dark text="vercel domains add <domain>" />
+
+Once you have added the domain, <ProductShortName /> CLI will present you with some information about verifying it.
+
+You will have two options. Either to verify your domain [with nameservers](#verifying-with-nameservers) for immediate migration or [with a TXT record](#verifying-with-a-txt-record) for thorough zero-downtime migration. The method you use is entirely optional.
+
+<Image
+  src="https://assets.vercel.com/image/upload/v1548370520/front/guides/godaddy-migration/now-cli-add-domain.png"
+  width={1562/2}
+  height={1318/2}
+  oversize
+/>
+<Caption style={{marginTop: '-64px'}}>Adding a domain with <ProductShortName /> CLI.</Caption>
+
+### Verifying with Nameservers
+
+This is the fastest method of getting started with your domain on <ProductName />. When using nameservers, you are both verifying and pointing to <ProductName /> all at once.
+
+When using this method, however, if the domain was previously pointing to another host and if you have not yet configured <ProductName /> for your domain, e.g. generating SSL certificates; when it does point to <ProductName />, it will invoke downtime until the configuration is done. To avoid this, use [the `TXT` verification method](#verifying-with-a-txt-record).
+
+If you want to verify with nameservers, you must use the intended set of nameservers given to you when you [added the domain with <ProductShortName /> CLI](/docs/v2/custom-domains). If you need to be reminded of these nameservers, you can use the [following command](/docs/v2/custom-domains):
+
+<Snippet dark text="vercel domains inspect <domain>" />
+
+With the intended set of nameservers, you shall need to apply them to your domain through the GoDaddy through their account dashboard and clicking through to manage your domain.
+
+Going to GoDaddy.com and logging in will result in a page like this:
+
+<Image
+  src="https://assets.vercel.com/image/upload/v1548370520/front/guides/godaddy-migration/godaddy-dashboard.png"
+  width={1946/2}
+  height={1350/2}
+  oversize
+/>
+<Caption style={{marginTop: '-48px'}}>The GoDaddy domains dashboard.</Caption>
+
+Next, click on the "DNS" button on the domain you want to migrate to <ProductName />. You will be brought to a page with the two uppermost sections being "Records" and "Nameservers".
+
+Apply the nameservers you received from adding your domain or from the inspect command in the order they are given and then save the configuration.
+
+After GoDaddy has propagated the changed DNS for your domain, your domain is ready to be verified. <OrgName /> will automatically check the domain periodically for verification, though if you want to verify it yourself, use the following command:
+
+<Snippet dark text="vercel domains verify <domain>" />
+
+### Verifying with a TXT Record
+
+This method is used when you want to verify your domain but you do not yet want to point to <ProductName />, for example if you need to configure <ProductName /> beforehand in order for [zero-downtime](/guides/zero-downtime-domain-migration/).
+
+You can add the TXT record by going to your GoDaddy domains dashboard, as in the [nameservers method](#verifying-with-nameservers), and clicking on `DNS` on the domain you want to migrate, then clicking add in the "Records" section.
+
+Select `TXT` as the record type to add, `_now` as the host, and the value you were given for the record when adding your domain or when using the [`vercel domains inspect <domain>` <ProductShortName /> CLI command](/docs/v2/custom-domains).
+
+<Image
+  src="https://assets.vercel.com/image/upload/v1548370520/front/guides/godaddy-migration/godaddy-dns-add.png"
+  width={1946/2}
+  height={1350/2}
+  oversize
+/>
+<Caption style={{marginTop: '-48px'}}>Adding a TXT record with GoDaddy's domain DNS management settings.</Caption>
+
+Once you have added the TXT record, your domain can be verified. <OrgName /> will periodically check your domain to see if it is verified, but if you do not want to wait and want to start using your domain with <ProductName /> immediately, use the following command to force a verification check:
+
+<Snippet dark text="vercel domains verify <domain>" />
+
+<Image
+  src="https://assets.vercel.com/image/upload/v1548370520/front/guides/godaddy-migration/now-cli-verify-domain.png"
+  width={1562/2}
+  height={808/2}
+  oversize
+/>
+<Caption style={{marginTop: '-64px'}}>Verifying a domain with <ProductShortName /> CLI</Caption>
+
+## Step 2: Configuring Your Domain on <NameWrapper name={PRODUCT_NAME} />
+
+If you have used either verification method, the next step may be to configure your domain with DNS records and to use it for a deployment.
+
+### Adding DNS Records
+
+Whether you are matching a previous configuration for your domain for a zero-downtime migration or just want to set up DNS records, <ProductName /> provides an easy to use command that allows you to add DNS records from the CLI.
+
+For example, adding a set of Gmail MX records with the `vercel dns add` command:
+
+<Snippet
+  dark
+  text="vercel dns add <domain> @ MX ASPMX.L.GOOGLE.COM 1 && vercel dns add <domain> @ MX ALT1.ASPMX.L.GOOGLE.COM 5 && vercel dns add <domain> @ MX ALT2.ASPMX.L.GOOGLE.COM 5 && vercel dns add <domain> @ MX ALT3.ASPMX.L.GOOGLE.COM 10 && vercel dns add <domain> @ MX ALT4.ASPMX.L.GOOGLE.COM 10"
+/>
+
+[Read more about `vercel dns` to learn about the format of the command](/docs/cli#commands/dns).
+
+### Adding a Domain to Deployments
+
+​<ProductName /> is dedicated to making deployment easy. If you have not yet deployed an app, take a look at the [Deployment Basics](/docs/v2/deployments/basics) documentation or at some other [guides](/guides) or [examples](/examples) to get started.
+
+Adding your production domain to a project can be done from the [<OrgName /> Dashboard](/dashboard) by selecting the project's **Domains** tab and entering it there, you can find more information on this in the [custom domains documentation](/docs/v2/custom-domains/#adding-a-domain).
+
+You can then deploy to your production domain with **a single command**:
+
+<Snippet dark text="vercel --prod" />
+<Caption>Deploying a project to a production domain.</Caption>
+
+We highly recommend using either the [<ProductName /> for GitHub](/docs/v2/git-integrations/vercel-for-github), [<ProductName /> for GitLab](/docs/v2/git-integrations/vercel-for-gitlab), or [<ProductName /> for Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket) apps which will allow your app to be deployed to your production on push to your GitHub repository, GitLab project, or Bitbucket repository.
+
+## Step 3: Pointing to <NameWrapper name={PRODUCT_NAME} />
+
+As with the ["Verifying with Nameservers"](#verifying-with-nameservers) step, this final part of the migration process will point your domain to <OrgName /> DNS with the intended nameservers set. If you did not save them when you added your domain, you can see the intended list by running the `vercel domains inspect <domain>` command.
+
+If you verified with nameservers, this step is already complete!
+
+To set your nameservers, on the DNS management page as you added the TXT record, at the bottom of that page will be a section that allows you to enter custom nameservers
+
+<Image
+  src="https://assets.vercel.com/image/upload/v1548388022/front/guides/godaddy-migration/godaddy-ns-add.png"
+  width={1946/2}
+  height={1350/2}
+  oversize
+/>
+<Caption style={{marginTop: '-48px'}}>Changing nameservers with GoDaddy's DNS management settings.</Caption>
+
+Once GoDaddy propagates the changes to the domain with the updated nameservers, your domain will then point to the [app you deployed](#adding-a-domain-to-deployments) before.
+
+That's all. Your domain is successfully migrated to using <OrgName /> DNS and pointing to your <ProductName /> deployed app.
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

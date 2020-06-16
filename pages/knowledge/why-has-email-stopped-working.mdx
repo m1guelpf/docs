@@ -1,0 +1,40 @@
+import Layout from '~/components/layout/knowledge'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import Snippet from '~/components/snippet'
+import Note from '~/components/text/note'
+
+export const meta = {
+  title: 'Why am I no longer receiving email after verifying my Vercel domain?',
+  description:
+    'Information on why you may not be receiving email after verifying your domain with Vercel.',
+  editUrl: 'pages/knowledge/why-has-email-stopped-working.mdx',
+  url: '/knowledge/why-has-email-stopped-working',
+  published: '2020-05-26T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+When adding a [custom domain](/docs/v2/custom-domains) to Vercel and [verifying it](/docs/v2/custom-domains#step-4:-configuring-the-domain) by changing nameservers, you may also need to add [MX records](https://en.wikipedia.org/wiki/MX_record) to ensure you continue to receive email.
+
+By adding MX records, you are providing Vercel with the instructions for where to send email sent to your domain. Your domain registrar will be able to provide you with a list of records that need to be added.
+
+## Adding MX Records
+
+You can add MX records for your domain by using [Vercel CLI](/download) and the `vercel dns add` command.
+
+To do this, amend the command below, replacing `example.com` with your domain, `mail.example.com` with the record value, and `10` with the priority value, these will be clearly labelled in the registrar instructions:
+
+<Snippet dark text="vercel dns add example.com '@' MX mail.example.com 10" />
+<Caption>Adding an MX record to a custom domain with a record value of <InlineCode>mail.vercel.rocks</InlineCode>.</Caption>
+
+You will likely need to repeat this step multiple times, depending on the number of records your provider requires you to add.
+
+<Note type="warning">
+  It can take a few minutes for the added records to become globally available.
+</Note>
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

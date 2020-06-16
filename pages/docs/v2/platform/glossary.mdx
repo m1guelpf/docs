@@ -7,7 +7,7 @@ export const meta = {
   title: 'Glossary',
   description: `A list of the terms used in context of ${PRODUCT_NAME} and what those terms mean or describe.`,
   editUrl: 'pages/docs/v2/platform/glossary.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-05-13T14:57:56.000Z'
 }
 
 ### Deployment
@@ -16,39 +16,13 @@ A collection of files that were uploaded to **<ProductName />**.
 
 #### Preview Deployments
 
-Preview Deployments are the default type of deployment. They are made available by pushing to a git branch through a Git Integration, or by using the `now` command from <ProductShortName /> CLI.
+Preview Deployments are the default type of deployment. They are made available by pushing to a git branch through a Git Integration, or by using the `vercel` command from <ProductShortName /> CLI.
 
 Learn more about [Preview Deployments from the Deployments Concept documentation](/docs/v2/platform/deployments#preview).
 
 #### Production Deployments
 
-Production Deployments are a promoted type of Deployment, made available by merging into a default branch through a Git Integration, or by using the `now --prod` command from <ProductShortName /> CLI
-
-Learn more about [Production Deployments from the Deployments Concept documentation](/docs/v2/platform/deployments#production).
-
-#### Build Step
-
-The Build Step is the process, before a deploymment is made publically available, in which a deployment's source files are constructed to be production-ready output.
-
-Read more about the Build Step in the [Build Step documentation](/docs/v2/build-step).
-
-#### Run Time
-
-Run Time is the process in the deployment lifecycle that the deployment's code is being executed, after successfully being built through during [the Build Step](#build-step).
-
-### Custom Domains
-
-A Custom Domain is a domain that has been added to a user or team for use with a project. Custom Domains are automatically updated when the project they are assigned to gains a new [Production Deployment](#production-deployments).
-
-#### Preview Deployments
-
-Preview Deployments are the default type of deployment. They are made available by pushing to a git branch through a Git Integration, or by using the `now` command from <ProductShortName /> CLI.
-
-Learn more about [Preview Deployments from the Deployments Concept documentation](/docs/v2/platform/deployments#preview).
-
-#### Production Deployments
-
-Production Deployments are a promoted type of Deployment, made available by merging into a default branch through a Git Integration, or by using the `now --prod` command from <ProductShortName /> CLI
+Production Deployments are a promoted type of Deployment, made available by merging into a default branch through a Git Integration, or by using the `vercel --prod` command from <ProductShortName /> CLI
 
 Learn more about [Production Deployments from the Deployments Concept documentation](/docs/v2/platform/deployments#production).
 
@@ -84,7 +58,7 @@ A [structured group of deployments](/docs/v2/platform/projects), categorized by 
 
 ### Apex Domain
 
-An Apex Domain is a custom domain without an included subdomain. For example, "my-zeit-domain.com" is an Apex Domain, but "docs.my-zeit-domain.com" is not.
+An Apex Domain is a custom domain without an included subdomain. For example, "my-example.com" is an Apex Domain, but "docs.my-example.com" is not.
 
 Apex Domains are sometimes referred to as "naked", "bare", "base", "root", or "zone apex" domains.
 

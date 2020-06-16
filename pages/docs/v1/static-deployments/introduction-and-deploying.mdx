@@ -8,7 +8,7 @@ export const meta = {
   description: `All about Static App deployments on ${PRODUCT_SHORT_V1_NAME}`,
   date: '09 March 2017',
   editUrl: 'pages/docs/v1/static-deployments/introduction-and-deploying.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-06-04T20:10:32.000Z'
 }
 
 ​<ProductShortV1Name /> comes with built-in support for static deployments. It considers all projects that don't have a `Dockerfile` that launches a server, nor a `package.json`, a static deployment.
@@ -60,8 +60,8 @@ Unlike [dynamic deployments](/docs/deployment-types/docker), static deployments 
 
 ## Developing in the Same Environment Locally
 
-Static deployments running on <ProductShortV1Name /> have the same rules as [serve-handler](https://github.com/zeit/serve-handler), which is available and open to download, fork, extend, and operate locally during development by importing the module itself into an [existing server](https://github.com/zeit/serve#api) or
-using its [command line interface](https://github.com/zeit/serve).
+Static deployments running on <ProductShortV1Name /> have the same rules as [serve-handler](https://github.com/vercel/serve-handler), which is available and open to download, fork, extend, and operate locally during development by importing the module itself into an [existing server](https://github.com/vercel/serve#api) or
+using its [command line interface](https://github.com/vercel/serve).
 
 This gives the ability to preview how static apps will work, using `now.json` configuration or the same defaults, when deployed to <ProductShortV1Name /> without needing to deploy first, leaving no room for unexpected behavior.
 

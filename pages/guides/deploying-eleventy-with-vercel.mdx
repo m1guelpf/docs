@@ -1,0 +1,43 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import Link from '~/components/text/link'
+import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Deploy Eleventy with ${PRODUCT_NAME}`,
+  description: `Create an Eleventy website and deploy it live with ${PRODUCT_NAME}.`,
+  published: '2019-10-22T12:00:00.860Z',
+  authors: ['mcsdev'],
+  url: '/guides/deploying-eleventy-with-vercel',
+  example: 'eleventy',
+  demo: 'https://eleventy.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploy%20Eleventy%20Sites**%20%3Cbr%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fcamo.githubusercontent.com%2Ff1a9a3921ae3ea9bd2b024d763bdddd8c931be6f%2F68747470733a2f2f7777772e313174792e696f2f696d672f6c6f676f2d6769746875622e706e67&widths=undefined&widths=250`,
+  editUrl: 'pages/guides/deploying-eleventy-with-vercel.mdx',
+  name: 'Eleventy',
+  type: 'site',
+  lastEdited: '2020-05-05T11:51:28.000Z'
+}
+
+[Eleventy](https://www.11ty.io/) is a simpler static site generator, created to be a JavaScript alternative to Jekyll.
+
+## Step 1: Set Up Your Eleventy Project
+
+Set up an Eleventy site with [`npx`](https://www.npmjs.com/package/npx) and move into the project directory:
+
+<Snippet dark text="npx degit 11ty/eleventy-base-blog my-11ty-project && cd my-11ty-project" />
+<Caption>Initializing an Eleventy site with <Link href="https://www.npmjs.com/package/npx">npx</Link> and moving into the project directory.</Caption>
+
+## Step 2: Deploying Your Eleventy Site with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

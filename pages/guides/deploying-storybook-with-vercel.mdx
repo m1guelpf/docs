@@ -1,0 +1,73 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Create a Svelte Component Library Using Storybook and Deploy It with ${PRODUCT_NAME}`,
+  description: `Create a Svelte Component Library using Storybook and deploy it with ${PRODUCT_NAME}.`,
+  name: 'Storybook',
+  type: 'component library',
+  published: '2019-08-21T12:00:00.860Z',
+  authors: ['mcsdev'],
+  url: '/guides/deploying-storybook-with-vercel',
+  demo: 'https://storybook.now-examples.now.sh',
+  editUrl: 'pages/guides/deploying-storybook-with-vercel.mdx',
+  image: `https://og-image.now.sh/**Deploy%20a%20Storybook%20Library**%20%3Cbr%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1100804485616566273%2FsOct-Txm_400x400.png`,
+  lastEdited: '2020-05-05T11:51:28.000Z'
+}
+
+[Storybook](https://storybook.js.org/) is an open source tool for developing JavaScript UI components in isolation. [Svelte](https://svelte.dev/) is a component framework that allows you to write highly-efficient, imperative code, that surgically updates the DOM to maintain performance.
+
+In this guide, you will discover how to set up a Svelte Storybook component library with [Storybook CLI](https://github.com/storybookjs/storybook/tree/master/lib/cli) and how to deploy it with [<ProductName />](/).
+
+## Step 1: Set Up Your Storybook Project
+
+Get started by creating and moving into a `/svelte-stories` directory, then initializing the project:
+
+<Snippet dark text="mkdir svelte-stories && cd svelte-stories && npm init -y" />
+<Caption>Creating and entering into the <InlineCode>/svelte-stories</InlineCode> directory, then initializing a project.</Caption>
+
+Next, use the [Storybook CLI](https://github.com/storybookjs/storybook/tree/master/lib/cli) to bootstrap the project, providing an initial setup to work from:
+
+<Snippet dark text="npx -p @storybook/cli sb init --type svelte" />
+<Caption>Bootstrapping a Svelte Storybook project with <Link href="https://github.com/storybookjs/storybook/tree/master/lib/cli">Storybook CLI</Link>.</Caption>
+
+Now, add `@storybook/svelte`, `@babel/core`, and `babel-loader` as development dependencies:
+
+<Snippet dark text="npm i -D @storybook/svelte @babel/core babel-loader" />
+<Caption>Adding <InlineCode>@storybook/svelte</InlineCode>, <InlineCode>@babel/core</InlineCode>, and <InlineCode>babel-loader</InlineCode> to the project as a development dependencies.</Caption>
+
+With the development dependencies added, extend your `package.json` file by adding the scripts below:
+
+```json
+{
+  "scripts": {
+    ...
+    "storybook": "start-storybook",
+    "build": "build-storybook -c .storybook -o public"
+  }
+}
+```
+
+<Caption>
+  Adding <InlineCode>storybook</InlineCode> and <InlineCode>build</InlineCode>{' '}
+  scripts to the <InlineCode>package.json</InlineCode> file.
+</Caption>
+
+By adding these scripts you are able to start a development server from inside your project directory with `npm storybook`. You are also able to deploy the Storybook component library with [<ProductName />](/) with no additional configuration.
+
+## Step 2: Deploying with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

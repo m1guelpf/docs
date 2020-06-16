@@ -1,0 +1,274 @@
+[
+  {
+    "title": "Can I Connect a Pro Team to a Personal Git Account?",
+    "description": "Information on connecting personal Git accounts to a Vercel team.",
+    "editUrl": "pages/knowledge/connecting-teams-with-personal-git-accounts.mdx",
+    "url": "/knowledge/connecting-teams-with-personal-git-accounts",
+    "published": "2020-06-15T07:54:36.000Z",
+    "lastEdited": "2020-06-15T07:54:36.000Z"
+  },
+  {
+    "title": "Where can I submit Vercel feature requests?",
+    "description": "Information on how to make feature requests for the Vercel platform.",
+    "editUrl": "pages/knowledge/where-to-submit-feature-requests.mdx",
+    "url": "/knowledge/where-to-submit-feature-requests",
+    "published": "2020-06-15T07:54:36.000Z",
+    "lastEdited": "2020-06-15T07:54:36.000Z"
+  },
+  {
+    "title": "Can I Get a Fixed IP Address for My Vercel Deployments?",
+    "description": "Information on fixed IP support on Vercel.",
+    "editUrl": "pages/knowledge/can-i-get-a-fixed-ip-address.mdx",
+    "url": "/knowledge/can-i-get-a-fixed-ip-address",
+    "published": "2020-06-12T07:54:36.000Z",
+    "lastEdited": "2020-06-12T07:54:36.000Z"
+  },
+  {
+    "title": "How do I use a domain from a recently deleted account or team?",
+    "description": "Information on reusing a domain after recently deleting it from a Hobby account or team.",
+    "editUrl": "pages/using-domain-after-deleting-account.mdx",
+    "url": "/knowledge/using-domain-after-deleting-account",
+    "published": "2020-06-10T18:54:36.000Z",
+    "lastEdited": "2020-06-10T18:54:36.000Z"
+  },
+  {
+    "title": "How do I identify my Vercel deployment IP address?",
+    "description": "Information on how to handle IP allowlisting for a Vercel deployment.",
+    "editUrl": "pages/knowledge/how-to-allowlist-deployment-ip-address.mdx",
+    "url": "/knowledge/how-to-allowlist-deployment-ip-address",
+    "published": "2020-06-04T18:54:36.000Z",
+    "lastEdited": "2020-05-24T18:54:36.000Z"
+  },
+  {
+    "title": "Can I upgrade to a paid plan on my personal account?",
+    "description": "Information on upgrading to a paid plan on a personal account.",
+    "editUrl": "pages/knowledge/upgrading-personal-account.mdx",
+    "url": "/knowledge/upgrading-personal-account",
+    "published": "2020-06-04T18:54:36.000Z",
+    "lastEdited": "2020-06-04T18:54:36.000Z"
+  },
+  {
+    "title": "How can I move a domain to a Vercel team?",
+    "description": "Information on how to move domains between accounts on Vercel.",
+    "editUrl": "pages/knowledge/how-can-i-move-a-domain-to-a-team.mdx",
+    "url": "/knowledge/how-can-i-move-a-domain-to-a-team",
+    "published": "2020-06-02T17:56:25.312Z",
+    "lastEdited": "2020-06-02T17:56:25.312Z"
+  },
+  {
+    "title": "How can I enable CORS on Serverless Functions?",
+    "description": "Information on how to enable CORS on Vercel Serverless Functions.",
+    "editUrl": "pages/knowledge/how-to-enable-cors.mdx",
+    "url": "/knowledge/how-to-enable-cors",
+    "published": "2020-06-02T17:45:25.312Z",
+    "lastEdited": "2020-06-02T17:45:25.312Z"
+  },
+  {
+    "title": "How can I use files in Serverless Functions on Vercel?",
+    "description": "Information on how to import files at runtime when using Serverless Functions on Vercel.",
+    "editUrl": "pages/knowledge/how-can-i-use-files-in-serverless-functions.mdx",
+    "url": "/knowledge/how-can-i-use-files-in-serverless-functions",
+    "published": "2020-06-02T17:29:25.312Z",
+    "lastEdited": "2020-06-02T17:29:25.312Z"
+  },
+  {
+    "title": "Can I use SMTP with Vercel?",
+    "description": "Information on SMTP and email usage in Serverless Functions.",
+    "editUrl": "pages/knowledge/serverless-functions-and-smtp.mdx",
+    "url": "/knowledge/serverless-functions-and-smtp",
+    "published": "2020-06-02T17:29:25.312Z",
+    "lastEdited": "2020-06-02T17:29:25.312Z"
+  },
+  {
+    "title": "What is the status of the Vercel platform?",
+    "description": "Information on the status of the Vercel platform.",
+    "editUrl": "pages/knowledge/what-is-the-vercel-platform-status.mdx",
+    "url": "/knowledge/what-is-the-vercel-platform-status",
+    "published": "2020-06-02T17:24:25.312Z",
+    "lastEdited": "2020-06-02T17:24:25.312Z"
+  },
+  {
+    "title": "Can Vercel sponsor my project?",
+    "description": "Information on how Vercel can sponsor your project and how to apply.",
+    "editUrl": "pages/knowledge/can-vercel-sponsor-my-project.mdx",
+    "url": "/knowledge/can-vercel-sponsor-my-project",
+    "published": "2020-05-27T18:54:36.000Z",
+    "lastEdited": "2020-05-24T18:54:36.000Z"
+  },
+  {
+    "title": "Why am I no longer receiving email after verifying my Vercel domain?",
+    "description": "Information on why you may not be receiving email after verifying your domain with Vercel.",
+    "editUrl": "pages/knowledge/why-has-email-stopped-working.mdx",
+    "url": "/knowledge/why-has-email-stopped-working",
+    "published": "2020-05-26T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How do I host my WordPress site with Vercel?",
+    "description": "Information on how to host a WordPress site with Vercel.",
+    "editUrl": "pages/knowledge/wordpress-with-vercel.mdx",
+    "url": "/knowledge/wordpress-with-vercel",
+    "published": "2020-05-26T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How do I choose which region to deploy my Serverless Functions in?",
+    "description": "Information on selecting a region to deploy your Serverless Functions to.",
+    "editUrl": "pages/knowledge/choosing-deployment-regions.mdx",
+    "url": "/knowledge/choosing-deployment-regions",
+    "published": "2020-05-25T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How do I reverse a Vercel account deletion?",
+    "description": "Information on reversing a recent account deletion.",
+    "editUrl": "pages/knowledge/how-to-reverse-account-deletion.mdx",
+    "url": "/knowledge/how-to-reverse-account-deletion",
+    "published": "2020-05-24T18:54:36.000Z",
+    "lastEdited": "2020-05-24T18:54:36.000Z"
+  },
+  {
+    "title": "Can I deploy a locally built Next.js app to Vercel?",
+    "description": "Information on deploying a locally built Next.js app to Vercel.",
+    "editUrl": "pages/knowledge/deploying-locally-built-nextjs.mdx",
+    "url": "/knowledge/deploying-locally-built-nextjs",
+    "published": "2020-05-21T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "Why does npm run start not work on Vercel?",
+    "description": "Information on why commands that start servers may not work with Vercel.",
+    "editUrl": "pages/knowledge/npm-run-start-not-working.mdx",
+    "url": "/knowledge/npm-run-start-not-working",
+    "published": "2020-05-21T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How long will it take for my Vercel DNS records to update?",
+    "description": "Information on the length of time it may take for Vercel DNS changes to take place.",
+    "editUrl": "pages/knowledge/how-long-to-update-dns-records.mdx",
+    "url": "/knowledge/how-long-to-update-dns-records",
+    "published": "2020-05-20T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "Does Vercel offer a free trial?",
+    "description": "Information on Vercel pricing and how your team can get started free of charge.",
+    "editUrl": "pages/knowledge/does-vercel-offer-free-trial.mdx",
+    "url": "/knowledge/does-vercel-offer-free-trial",
+    "published": "2020-05-19T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How do I use a Cloudflare domain with Vercel?",
+    "description": "Information on how to use a Cloudflare domain with a Vercel deployment.",
+    "editUrl": "pages/knowledge/using-cloudflare-with-vercel.mdx",
+    "url": "/knowledge/using-cloudflare-with-vercel",
+    "published": "2020-05-19T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How do I send and receive emails with my Vercel purchased domain?",
+    "description": "Information on how to send and receive email with a domain purchased from Vercel.",
+    "editUrl": "pages/knowledge/using-email-with-your-vercel-domain.mdx",
+    "url": "/knowledge/using-email-with-your-vercel-domain",
+    "published": "2020-05-18T18:54:36.000Z",
+    "lastEdited": "2020-05-29T11:52:03.000Z"
+  },
+  {
+    "title": "Why is my Vercel domain not verified?",
+    "description": "Information on why a Vercel domain may not be verified and how to verify it.",
+    "editUrl": "pages/knowledge/why-is-my-vercel-domain-unverified.mdx",
+    "url": "/knowledge/why-is-my-vercel-domain-unverified",
+    "published": "2020-05-17T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "What is the best way to get support from Vercel?",
+    "description": "Information on how to get help from Vercel Support through the available channels.",
+    "editUrl": "pages/knowledge/how-to-get-vercel-support.mdx",
+    "url": "/knowledge/how-to-get-vercel-support",
+    "published": "2020-05-16T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How can I manage my Vercel DNS records?",
+    "description": "Information on how to view, add, and remove Vercel DNS records.",
+    "editUrl": "pages/knowledge/how-to-manage-vercel-dns-records.mdx",
+    "url": "/knowledge/how-to-manage-vercel-dns-records",
+    "published": "2020-05-15T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How do I use private dependencies with Vercel?",
+    "description": "Information on how to use private dependencies with a Vercel deployment.",
+    "editUrl": "pages/knowledge/using-private-dependencies-with-vercel.mdx",
+    "url": "/knowledge/using-private-dependencies-with-vercel",
+    "published": "2020-05-15T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "Where can I find my logs on Vercel?",
+    "description": "Information on where to find Vercel logs and how they work.",
+    "editUrl": "pages/knowledge/where-are-vercel-logs.mdx",
+    "url": "/knowledge/where-are-vercel-logs",
+    "published": "2020-05-14T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "Why am I unable to signup to the Vercel platform?",
+    "description": "Information on what to do if you are experiencing issues signing up to the Vercel platform.",
+    "editUrl": "pages/knowledge/why-can-i-not-signup.mdx",
+    "url": "/knowledge/why-can-i-not-signup",
+    "published": "2020-05-14T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How do I create a minimal reproducible example for Vercel Support?",
+    "description": "Information on how to create a minimal reproducible example for Vercel Support.",
+    "editUrl": "pages/knowledge/creating-a-minimal-reproducible-example.mdx",
+    "url": "/knowledge/creating-a-minimal-reproducible-example",
+    "published": "2020-05-13T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How do I debug a 502 error from a Vercel Serverless Function?",
+    "description": "Information on how to debug a 502 error from a Vercel Serverless Function.",
+    "editUrl": "pages/knowledge/how-to-debug-a-502-error.mdx",
+    "url": "/knowledge/how-to-debug-a-502-error",
+    "published": "2020-05-13T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How do I point a subdomain to a service outside of Vercel?",
+    "description": "Information on how to make a subdomain available to an service outside of Vercel.",
+    "editUrl": "pages/knowledge/pointing-subdomains-to-external-services.mdx",
+    "url": "/knowledge/pointing-subdomains-to-external-services",
+    "published": "2020-05-13T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How do I transfer my Vercel project from a personal account to a team?",
+    "description": "Information on how to transfer a Vercel project from a hobby account to a team.",
+    "editUrl": "pages/knowledge/transferring-projects-from-hobby-to-team.mdx",
+    "url": "/knowledge/transferring-projects-from-hobby-to-team",
+    "published": "2020-05-13T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "How long does it take to get a response from Vercel Support?",
+    "description": "Information on how long it might take Vercel Support to respond to your request.",
+    "editUrl": "pages/knowledge/vercel-support-queue-time.mdx",
+    "url": "/knowledge/vercel-support-queue-time",
+    "published": "2020-05-13T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  },
+  {
+    "title": "Why has my account or deployment been blocked?",
+    "description": "Information on why a Vercel account or deployment may have been blocked.",
+    "editUrl": "pages/knowledge/why-is-my-account-deployment-blocked.mdx",
+    "url": "/knowledge/why-is-my-account-deployment-blocked",
+    "published": "2020-05-13T18:54:36.000Z",
+    "lastEdited": "2020-05-13T18:54:36.000Z"
+  }
+]

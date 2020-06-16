@@ -1,0 +1,35 @@
+import Layout from '~/components/layout/knowledge'
+
+export const meta = {
+  title: 'What is the best way to get support from Vercel?',
+  description:
+    'Information on how to get help from Vercel Support through the available channels.',
+  editUrl: 'pages/knowledge/how-to-get-vercel-support.mdx',
+  url: '/knowledge/how-to-get-vercel-support',
+  published: '2020-05-16T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+Vercel Support is available to help answer questions and resolve any issues relation to deployments made on the platform, in addition to this, there is also the option to receive support from the community.
+
+## Direct Channels
+
+Vercel offers a number of channels for reaching out to the team directly:
+
+- **Support** — If you are facing any issues while using the platform, please reach out to Vercel Support using the [support form](https://vercel.com/support/request) available from the Vercel dashboard. If you need to submit attachments with your request, you can also email [support@vercel.com](mailto:support@vercel.com).
+- **Sales** — We want all teams using our platform to succeed. If you want to discuss an enterprise plan for your projects, you can contact our enterprise department [here](https://vercel.com/contact/sales).
+- **Abuse** — If you believe that a Vercel deployment contains malicious or illegal content, please email [abuse@vercel.com](mailto:abuse@vercel.com) where the request will be dealt with immediately. When doing this, please provide as much relevant information as possible.
+- **Sponsorship** — Do you have a hackathon or event that you would like Vercel to sponsor? Email [sponsorship@vercel.com](mailto:sponsorship@vercel.com) and we will be happy to discuss ways in which we can help.
+
+## Community Channels
+
+You can exchange ideas with other Vercel customers in the following channels:
+
+- [GitHub Discussions - Vercel](https://github.com/vercel/vercel/discussions) — A community forum to discuss the platform, ask questions, help other members of the community, and get answers.
+- [GitHub Discussions - Next.js](https://github.com/vercel/next.js/discussions) — A Next.js specific community forum to discuss Next.js with members of the community.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

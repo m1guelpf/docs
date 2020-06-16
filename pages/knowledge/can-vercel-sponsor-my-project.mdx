@@ -1,0 +1,36 @@
+import Layout from '~/components/layout/knowledge'
+import Note from '~/components/text/note'
+
+export const meta = {
+  title: 'Can Vercel sponsor my project?',
+  description:
+    'Information on how Vercel can sponsor your project and how to apply.',
+  editUrl: 'pages/knowledge/can-vercel-sponsor-my-project.mdx',
+  url: '/knowledge/can-vercel-sponsor-my-project',
+  published: '2020-05-27T18:54:36.000Z',
+  lastEdited: '2020-05-24T18:54:36.000Z'
+}
+
+Vercel is committed to enabling the creation, adoption, and development of open-source projects. As such, Vercel offers the option to sponsor these projects, covering the costs of hosting them in full.
+
+To obtain sponsorship for a project, contact Vercel Support either via the [support form](/support/request) available from the Vercel dashboard, or by emailing directly at [support@vercel.com](mailto:support@vercel.com).
+
+## Sponsorship Criteria
+
+There are some minor criteria that are required to be fulfilled before Vercel can sponsor your project, these are listed below:
+
+- The project should be open-source.
+- The project should be static rather than server-rendered.
+- A Vercel banner in the footer of each site page.
+- A Vercel banner in the source repository's `README.md` file.
+- All links back to Vercel should use a UTM tag with the format: `?utm_source=[project-name]`.
+
+The Vercel banner will be provided by Vercel Support. Alternatively, you can also use the [Vercel logo](/design#dark-logotype) prefixed with the words "Powered by".
+
+Vercel sponsorship is primarily for, but not limited to, open-source projects. We sponsor a number of educational and charitable projects as well. If your project falls under these categories, please [get in touch](mailto:support@vercel.com) and we will be glad to discuss this with you.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

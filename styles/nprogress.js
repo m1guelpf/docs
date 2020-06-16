@@ -11,10 +11,7 @@ export default css.global`
   top: 0;
   left: 0;
   width: 100%;
-  height: 2px;
-}
-
-#nprogress .bar {
+  height: 8px;
   background: var(--geist-foreground);
 }
 

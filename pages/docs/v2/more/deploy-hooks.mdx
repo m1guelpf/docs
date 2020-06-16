@@ -5,13 +5,14 @@ import Note from '~/components/text/note'
 import { Code } from '~/components/text/code'
 import Link from '~/components/text/link'
 import ProductName from '~/components/name/product-name'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   title: 'Deploy Hooks',
   description:
     'Deploy Hooks allow you to create URLs that accept HTTP POST requests to trigger deployments. Each URL correspond to a branch of a GitHub or GitLab repository linked to the project.',
   editUrl: 'pages/docs/v2/more/deploy-hooks.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-04-20T22:46:28.000Z'
 }
 
 Deploy Hooks allow you to create URLs that accept HTTP POST requests in order to trigger deployments and re-run the [Build Step](/docs/v2/build-step). These URLs are uniquely linked to your project, repository, and branch, so there is no need to use any authentication mechanism or provide any payload to the POST request.
@@ -70,7 +71,7 @@ To trigger a Deploy Hook, send a POST request to the provided URL. Here's an exa
 
 #### Example Request
 
-<Code>{`curl -X POST https://api.zeit.co/v1/integrations/deploy/QmcwKGEbAyFtfybXBxvuSjFT54dc5dRLmAYNB5jxxXsbeZ/hUg65Lj4CV`}</Code>
+<Code>{`curl -X POST ${API_ENDPOINT}/v1/integrations/deploy/QmcwKGEbAyFtfybXBxvuSjFT54dc5dRLmAYNB5jxxXsbeZ/hUg65Lj4CV`}</Code>
 
 #### Example Response
 

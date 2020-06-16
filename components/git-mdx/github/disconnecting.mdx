@@ -2,7 +2,7 @@ import { Image } from '~/components/media'
 import Caption from '~/components/text/caption'
 import ProductName from '~/components/name/product-name'
 import NameWrapper from '~/components/name/name-wrapper'
-import { PRODUCT_NAME } from '~/lib/constants'
+import { PRODUCT_NAME, GITHUB_APP_NAME } from '~/lib/constants'
 import GithubAppName from '~/components/name/github-app-name'
 
 To disconnect your personal account or team on <ProductName /> from GitHub, take the following steps:
@@ -42,28 +42,28 @@ Then, click on **Installed GitHub Apps**:
 />
 <Caption>Organization Application Settings on GitHub.</Caption>
 
-#### Uninstall <NameWrapper name={PRODUCT_NAME} />
+#### Uninstall <NameWrapper name={GITHUB_APP_NAME} />
 
 Then, find the "<GithubAppName />" application and select the **Configure** button next to it.
 
 <Image
-  src={`${process.env.ASSETS}/docs/git-integrations/configure-now-github.png`}
+  src={`${process.env.ASSETS}/docs/git-integrations/configure-github.png`}
   width={1510 / 2}
   height={160 / 2}
   shadow
   borderRadius
 />
-<Caption>Configure <ProductName /> on GitHub.</Caption>
+<Caption>Configure <GithubAppName /> on GitHub.</Caption>
 
 Finally, scroll to the bottom of the page and click **Uninstall**.
 
 <Image
-  src={`${process.env.ASSETS}/docs/git-integrations/uninstall-now-github.png`}
+  src={`${process.env.ASSETS}/docs/git-integrations/uninstall-github.png`}
   width={1328 / 2}
   height={310 / 2}
   shadow
   borderRadius
 />
-<Caption>Uninstall <ProductName /> from GitHub.</Caption>
+<Caption>Uninstall <GithubAppName /> from GitHub.</Caption>
 
 After disconnecting, you can always reconnect your <ProductName /> account to a GitHub account again.

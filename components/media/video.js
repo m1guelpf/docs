@@ -385,7 +385,7 @@ class Video extends Component {
                 figure.oversize {
                   width: ${width}px;
                   margin: ${margin}px 0 ${margin}px
-                    calc(((${width}px - 650px) / 2) * -1);
+                    calc(((${width}px - 768px) / 2) * -1);
                 }
               }
             `}</style>

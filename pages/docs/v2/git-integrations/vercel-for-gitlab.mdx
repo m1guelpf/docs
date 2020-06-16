@@ -1,0 +1,81 @@
+import Doc from '~/components/layout/docs'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Collapse, { CollapseGroup } from '~/components/collapse'
+import GitLabDefaultBehaviour from '~/components/git-mdx/gitlab/default-behaviour.mdx'
+import GitLabEnvironmentVariables from '~/components/git-mdx/gitlab/environment-variables.mdx'
+import GitLabDisconnecting from '~/components/git-mdx/gitlab/disconnecting.mdx'
+import GitLabSignup from '~/components/git-mdx/gitlab/signup.mdx'
+import ProductName from '~/components/name/product-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `${PRODUCT_NAME} for GitLab`,
+  description: `Deploy each change in your GitLab projects with ${PRODUCT_NAME} to share and test with your colleagues. Instant share-able links to your work with each push. Automatically make your changes available from production domains.`,
+  editUrl: 'pages/docs/v2/git-integrations/vercel-for-gitlab.mdx',
+  lastEdited: '2020-05-25T18:39:59.000Z'
+}
+
+The <ProductName /> for GitLab integration automatically deploys your GitLab projects with [<ProductName />](/), providing [Preview Deployment URLs](/docs/v2/platform/deployments#preview), and automatic [Custom Domain](/docs/v2/custom-domains) updates.
+
+<Image
+  src={`${process.env.ASSETS}/guides/getting-started-with-vercel-for-gitlab/deploy-comment.png`}
+  width={2080/2.5}
+  height={1392/2.5}
+/>
+<Caption style={{marginTop: '-40px'}}>A deployment from a <ProductName /> for GitLab push.</Caption>
+
+### Connecting with GitLab
+
+Link your GitLab account with your personal account or team on <ProductName /> from your dashboard by clicking ["Import Project"](/import) followed by ["From Git Repository"](/import/git). Then, click the "GitLab" tab and click "Connect with GitLab".
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/connect-gitlab.png`}
+  width={966 / 2}
+  height={614 / 2}
+  shadow
+  borderRadius
+/>
+<Caption><ProductName /> for GitLab, ready to connect.</Caption>
+
+Once you have authorized the GitLab integration, you will be redirected back to the "Import Git Repository" page where you can import a project from an existing repository by clicking the "Import Project from GitLab" button under the "GitLab" tab.
+
+For more information on deploying projects, read [the <ProductName /> introduction documentation](/docs).
+
+### Change or Disconnect from your GitLab Repository
+
+If you’d like to:
+
+- Change the GitLab repository your project is connected to
+- Disconnect your project from your GitLab repository
+
+You can do so from [the "Git Integration" fieldset](/docs/v2/platform/projects#git-integration) on [Project Settings](/docs/v2/platform/projects#project-settings).
+
+### More Information About <NameWrapper name={PRODUCT_NAME} /> for GitLab
+
+For more information, such as a reference for default environment variables, expand the relevant details view below.
+
+<CollapseGroup>
+  <Collapse title="Default Behaviour">
+    <GitLabDefaultBehaviour />
+  </Collapse>
+
+<Collapse title="System Environment Variables">
+  <GitLabEnvironmentVariables />
+</Collapse>
+
+<Collapse title="Disconnect from GitLab" id="disconnect-from-gitlab">
+  <GitLabDisconnecting />
+</Collapse>
+
+<Collapse title="Sign up with another GitLab account" id="signup-with-another-gitlab-account">
+    <GitLabSignup />
+  </Collapse>
+</CollapseGroup>
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
+}

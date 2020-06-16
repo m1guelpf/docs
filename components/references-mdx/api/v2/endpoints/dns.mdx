@@ -2,6 +2,7 @@ import { Code } from '~/components/text/code'
 import { HelpLink } from '~/components/text/link'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/dns.mdx',
@@ -12,25 +13,56 @@ export const meta = {
 
 ### List all the DNS records of a domain
 
-<Endpoint method="GET" url="/v2/domains/:domain/records" />
+<Endpoint method="GET" url="/v4/domains/:domain/records" />
 
-Get a list of DNS records created for a domain name specified in the URL.
+Get a list of DNS records created for a domain name specified in the URL. By default it returns 20 records if no `limit` is provided. The rest can be retrieved using the pagination options described below.
+
+#### Request Query Parameters
+
+The response of this API can be controlled with the following optional query parameters.
+
+| Key       | Description                                           |
+| --------- | ----------------------------------------------------- |
+| **limit** | Maximum number of records to list from a request.     |
+| **since** | Get records created after this JavaScript timestamp.  |
+| **until** | Get records created before this JavaScript timestamp. |
 
 #### Response Parameters
 
-| Key         | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                                                                     |
-| ----------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| **id**      | <HelpLink href="#api-basics/types">ID</HelpLink>           | The unique ID of the DNS record. Always prepended with `rec_`.                                                  |
-| **type**    | <HelpLink href="#api-basics/types">Enum</HelpLink>         | The type of record, it could be [any valid DNS record](https://en.wikipedia.org/wiki/List_of_DNS_record_types). |
-| **name**    | <HelpLink href="#api-basics/types">String</HelpLink>       | A subdomain name or an empty string for the root domain.                                                        |
-| **value**   | <HelpLink href="#api-basics/types">String</HelpLink>       | The record value.                                                                                               |
-| **creator** | <HelpLink href="#api-basics/types">String</HelpLink>       | The ID of the user who created the record or `system` if the record is an automatic record.                     |
-| **created** | <HelpLink href="#api-basics/types">String</HelpLink>       | A timestamp with the date when the record was created.                                                          |
-| **updated** | <HelpLink href="#api-basics/types">String</HelpLink>       | A timestamp with the date when we created the deployment.                                                       |
+| Key            | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                    |
+| -------------- | ---------------------------------------------------------- | ------------------------------ |
+| **records**    | <HelpLink href="#api-basics/types">List</HelpLink>         | The list of active records.    |
+| **pagination** | <HelpLink href="#api-basics/types">Map</HelpLink>          | A map with pagination options. |
+
+#### Record
+
+This is the format of each item in the `records` list.
+
+| Key           | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                                                                     |
+| ------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| **id**        | <HelpLink href="#api-basics/types">ID</HelpLink>           | The unique ID of the DNS record. Always prepended with `rec_`.                                                  |
+| **type**      | <HelpLink href="#api-basics/types">Enum</HelpLink>         | The type of record, it could be [any valid DNS record](https://en.wikipedia.org/wiki/List_of_DNS_record_types). |
+| **name**      | <HelpLink href="#api-basics/types">String</HelpLink>       | A subdomain name or an empty string for the root domain.                                                        |
+| **value**     | <HelpLink href="#api-basics/types">String</HelpLink>       | The record value.                                                                                               |
+| **creator**   | <HelpLink href="#api-basics/types">String</HelpLink>       | The ID of the user who created the record or `system` if the record is an automatic record.                     |
+| **created**   | <HelpLink href="#api-basics/types">Date</HelpLink>         | The date when the record was created.                                                                           |
+| **updated**   | <HelpLink href="#api-basics/types">Date</HelpLink>         | The date when the record was updated.                                                                           |
+| **createdAt** | <HelpLink href="#api-basics/types">Date</HelpLink>         | The date when the record was created in milliseconds since the UNIX epoch.                                      |
+| **updatedAt** | <HelpLink href="#api-basics/types">Date</HelpLink>         | The date when the record was updated in milliseconds since the UNIX epoch.                                      |
+
+#### Pagination
+
+This is the format of the `pagination` map.
+
+| Key       | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                    |
+| --------- | ---------------------------------------------------------- | -------------------------------------------------------------- |
+| **count** | <HelpLink href="#api-basics/types">Number</HelpLink>       | The number of returned records.                                |
+| **next**  | <HelpLink href="#api-basics/types">Date</HelpLink>         | The JavaScript timestamp to fetch the next set of records.     |
+| **prev**  | <HelpLink href="#api-basics/types">Date</HelpLink>         | The JavaScript timestamp to fetch the previous set of records. |
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v2/domains/zeit.rocks/records" auth />
+<Request url={`${API_ENDPOINT}/v4/domains/example.com/records`} auth />
 
 ##### Example Response
 
@@ -38,25 +70,34 @@ Get a list of DNS records created for a domain name specified in the URL.
   "records": [
     {
       "id": "rec_38OtX1f51szRA03atCybBuZ3",
-      "slug": "zeit.rocks.-address",
+      "slug": "example.com.-address",
       "type": "ALIAS",
       "name": "",
-      "value": "alias.zeit.co",
+      "value": "cname.vercel-dns.com",
       "creator": "EvQtLv2F0FvfB5Vx4eK0R3Mf",
       "created": "1474631621542",
-      "updated": null
+      "createdAt": "1474631621542",
+      "updated": null,
+      "updatedAt": null
     },
     {
       "id": "rec_Pxo2HEfutmlIYECtTE4SpDzY",
       "slug": "",
       "type": "CNAME",
       "name": "*",
-      "value": "alias.zeit.co",
+      "value": "cname.vercel-dns.com",
       "creator": "system",
       "created": "1474631619960",
-      "updated": null
+      "createdAt": "1474631619960",
+      "updated": null,
+      "updatedAt": null
     }
-  ]
+  ],
+  "pagination": {
+    "count": 2,
+    "next": 1474631619960,
+    "prev": 1474631621542
+  }
 }`}</Code>
 
 ### Create a new DNS record
@@ -72,21 +113,22 @@ Create a DNS record for a domain specified in the URL.
 | **name**  | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | A subdomain name or an empty string for the root domain.                                                        |
 | **type**  | <HelpLink href="#api-basics/types">Enum</HelpLink>         | Yes      | The type of record, it could be [any valid DNS record](https://en.wikipedia.org/wiki/List_of_DNS_record_types). |
 | **value** | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The record value.                                                                                               |
+| **ttl**   | <HelpLink href="#api-basics/types">Number</HelpLink>       | No       | The TTL value. Must be a number between 60 and 2147483647. Default value is 60.                                 |
 
 ##### Value
 
 The following table defines the format of the `value` property for supported record types.
 
-| Type      | Description                                                                                                     | Format                        | Example                     |
-| --------- | --------------------------------------------------------------------------------------------------------------- | ----------------------------- | --------------------------- |
-| **A**     | An `A` record pointing to an IPv4 address.                                                                      | `address`                     | `192.0.2.42`                |
-| **AAAA**  | An `AAAA` record pointing to an IPv6 address.                                                                   | `address`                     | `2001:DB8::42`              |
-| **ALIAS** | An `ALIAS` virtual record pointing to a hostname resolved to an `A` record on server side.                      | `host`                        | `alias.zeit.co`             |
-| **CAA**   | A `CAA` record to specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain. | `flags tag value`             | `0 issue "letsencrypt.org"` |
-| **CNAME** | A `CNAME` record mapping to another domain name.                                                                | `domain`                      | `alias.zeit.co`             |
-| **MX**    | An `MX` record specifying the mail server responsible for accepting messages on behalf of the domain name.      | `priority host`               | `10 mail.zeit.rocks.`       |
-| **SRV**   | A `SRV` record defining servers for specified services.                                                         | `priority weight port target` | `10 10 500 sip.zeit.rocks.` |
-| **TXT**   | A `TXT` record containing arbitrary text.                                                                       | `text`                        | `hello`                     |
+| Type      | Description                                                                                                     | Format                        | Example                      |
+| --------- | --------------------------------------------------------------------------------------------------------------- | ----------------------------- | ---------------------------- |
+| **A**     | An `A` record pointing to an IPv4 address.                                                                      | `address`                     | `192.0.2.42`                 |
+| **AAAA**  | An `AAAA` record pointing to an IPv6 address.                                                                   | `address`                     | `2001:DB8::42`               |
+| **ALIAS** | An `ALIAS` virtual record pointing to a hostname resolved to an `A` record on server side.                      | `host`                        | `cname.vercel-dns.com`       |
+| **CAA**   | A `CAA` record to specify which Certificate Authorities (CAs) are allowed to issue certificates for the domain. | `flags tag value`             | `0 issue "letsencrypt.org"`  |
+| **CNAME** | A `CNAME` record mapping to another domain name.                                                                | `domain`                      | `cname.vercel-dns.com`       |
+| **MX**    | An `MX` record specifying the mail server responsible for accepting messages on behalf of the domain name.      | `priority host`               | `10 mail.example.com.`       |
+| **SRV**   | A `SRV` record defining servers for specified services.                                                         | `priority weight port target` | `10 10 500 sip.example.com.` |
+| **TXT**   | A `TXT` record containing arbitrary text.                                                                       | `text`                        | `hello`                      |
 
 #### Response Parameters
 
@@ -98,7 +140,7 @@ The following table defines the format of the `value` property for supported rec
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v2/domains/zeit.rocks/records"
+  url={`${API_ENDPOINT}/v2/domains/example.com/records`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -106,7 +148,8 @@ The following table defines the format of the `value` property for supported rec
   body={{
     name: 'subdomain',
     type: 'MX',
-    value: '10 mail.zeit.rocks'
+    value: '10 mail.example.com',
+    ttl: 3600
   }}
 />
 
@@ -128,6 +171,6 @@ successfully the endpoint returns with code 200 and an empty body.
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v2/domains/zeit.rocks/records/rec_V0fra8eEgQwEpFhYG2vTzC3K"
+  url={`${API_ENDPOINT}/v2/domains/example.com/records/rec_V0fra8eEgQwEpFhYG2vTzC3K`}
   auth
 />

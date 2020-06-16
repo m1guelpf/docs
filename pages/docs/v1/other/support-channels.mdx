@@ -2,13 +2,14 @@ import Doc from '~/components/layout/docs'
 import OrgV1Name from '~/components/name/org-v1-name'
 import { ORG_NAME, PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
 import EmailLink from '~/components/text/email-link'
+import SupportLink from '~/components/text/support-link'
 
 export const meta = {
   title: 'Support Channels',
   description: `Finding help beyond documentation for ${ORG_NAME} and ${PRODUCT_SHORT_V1_NAME}`,
   date: '21 Jul 2017',
   editUrl: 'pages/docs/v1/other/support-channels.mdx',
-  lastEdited: '2020-04-15T00:52:04.000Z'
+  lastEdited: '2020-06-04T21:08:15.000Z'
 }
 
 We have a few support channels you can use to clarify doubts and solve issues.
@@ -23,15 +24,11 @@ Check the [documentation](/docs). There we have a lot of information about how y
 
 ### API Documentation
 
-We also have a [documentation for our API](https://zeit.co/docs/api). If you want to build something on top of our platform you will find a lot of information about how to do so there.
+We also have a [documentation for our API](/docs/api). If you want to build something on top of our platform you will find a lot of information about how to do so there.
 
 ## GitHub
 
-We have many [GitHub repositories](https://github.com/zeit) for almost every service or product we have. You can create issues in those repositories and the team or community will help you as soon as possible. Some repositories you can access are [now](https://github.com/zeit/now), [next.js](https://github.com/zeit/next.js), [hyper](https://github.com/zeit/hyper), [pkg](https://github.com/zeit/pkg), [micro](https://github.com/zeit/micro) and [more](https://github.com/zeit).
-
-## zeit.chat
-
-​<OrgV1Name /> has a community which is hosted on Spectrum. There, you will be able to ask for help and get a response from either the community or the <OrgV1Name /> team. [Join the community](/chat) to get involved, ask for help, or give advice!
+We have many [GitHub repositories](https://github.com/vercel) for almost every service or product we have. You can create issues in those repositories and the team or community will help you as soon as possible. Some repositories you can access are [now](https://github.com/vercel/vercel), [next.js](https://github.com/vercel/next.js), [hyper](https://github.com/vercel/hyper), [pkg](https://github.com/vercel/pkg), [micro](https://github.com/vercel/micro) and [more](https://github.com/vercel).
 
 ## Twitter
 
@@ -39,6 +36,6 @@ You can use Twitter to send a DM to, or mention [@zeithq](https://twitter.com/ze
 
 ## Email
 
-Last but not least, you can reach out to us by email at <EmailLink type="support" />. If you have very in-depth questions or queries related to private information (eg. billing issues) that you don't want to share in our other support channels, or you would just prefer to use email you can contact us and we will happily help you.
+Last but not least, you can reach out to us at <SupportLink /> or by email at <EmailLink type="support" />. If you have very in-depth questions or queries related to private information (eg. billing issues) that you don't want to share in our other support channels, or you would just prefer to use email you can contact us and we will happily help you.
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>

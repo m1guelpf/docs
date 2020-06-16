@@ -12,6 +12,7 @@ import {
 } from '~/components/api/table'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/endpoints/aliases.mdx',
@@ -100,7 +101,7 @@ This is the format of the `deployment` described above.
   Example request:
 
 <Request
-  url="https://api.zeit.co/v2/now/aliases"
+  url={`${API_ENDPOINT}/v2/now/aliases`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -193,7 +194,7 @@ Get the information for a specific alias by passing either the alias `id` or `na
 
 <Request
   method="GET"
-  url="https://api.zeit.co/v2/now/aliases/2WjyKQmM8ZnGcJsPWMrHRHrE"
+  url={`${API_ENDPOINT}/v2/now/aliases/2WjyKQmM8ZnGcJsPWMrHRHrE`}
   auth
 />
 
@@ -234,7 +235,7 @@ You can obtain this id from the list of aliases.
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v2/now/aliases/2WjyKQmM8ZnGcJsPWMrHRHrE"
+  url={`${API_ENDPOINT}/v2/now/aliases/2WjyKQmM8ZnGcJsPWMrHRHrE`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -296,7 +297,7 @@ This is the format of each item in the `aliases` list.
   Example request:
 
 <Request
-  url="https://api.zeit.co/v2/now/deployments/7Npest0z1zW5QVFfNDBId4BW/aliases"
+  url={`${API_ENDPOINT}/v2/now/deployments/7Npest0z1zW5QVFfNDBId4BW/aliases`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -368,7 +369,7 @@ If the desired alias was used before it will be removed from the old deployment 
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v2/now/deployments/7Npest0z1zW5QVFfNDBId4BW/aliases"
+  url={`${API_ENDPOINT}/v2/now/deployments/7Npest0z1zW5QVFfNDBId4BW/aliases`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'

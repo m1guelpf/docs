@@ -1,0 +1,30 @@
+import Layout from '~/components/layout/knowledge'
+import Note from '~/components/text/note'
+
+export const meta = {
+  title: 'What is the status of the Vercel platform?',
+  description: 'Information on the status of the Vercel platform.',
+  editUrl: 'pages/knowledge/what-is-the-vercel-platform-status.mdx',
+  url: '/knowledge/what-is-the-vercel-platform-status',
+  published: '2020-06-02T17:24:25.312Z',
+  lastEdited: '2020-06-02T17:24:25.312Z'
+}
+
+The Vercel platform is static first and backed by the [Vercel Edge Network](/edge-network), providing the highest levels of availability, reliability, and performance.
+
+If there is any degradation in the service provided either via the Vercel dashboard or API, this information is made available on the [Vercel status page](https://vercel-status.com).
+
+## Status Updates
+
+All service degradation and issues impacting the platform will be reported on the following channels:
+
+- [https://vercel-status.com/](https://vercel-status.com/)
+- [https://twitter.com/vercel_status](https://twitter.com/vercel_status?lang=en)
+
+If you believe there is a problem that has not been discovered yet, please contact us at [https://vercel.com/contact](https://vercel.com/contact) providing as much information as possible about the issue.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

@@ -13,12 +13,12 @@ export const meta = {
   date: '12 July 2018',
   editUrl: 'pages/docs/v1/static-deployments/builds/building-with-now.mdx',
   image: process.env.IMAGE_ASSETS_URL + '/docs/static-builds/tw-card.png',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-06-04T21:08:15.000Z'
 }
 
 With <ProductShortV1Name />, you can build static apps when deploying using a `Dockerfile`. You can build a static app however you wish and then output the content in a directory called `/public` for <ProductShortV1Name /> to upload after the build.
 
-This works incredibly well with our [GitHub integration](/github). You can use this method to build your static apps and then deploy them automatically for review or staging. For example, see this [pull request](https://github.com/zeit/now-static-build-starter/pull/1). For each and every push, you can access the built and deployed static app.
+This works incredibly well with our [GitHub integration](/github). You can use this method to build your static apps and then deploy them automatically for review or staging. For example, see this [pull request](https://github.com/vercel/now-static-build-starter/pull/1). For each and every push, you can access the built and deployed static app.
 
 ## Quickstart
 
@@ -28,7 +28,7 @@ Now let's take a look at a more in-depth example.
 
 ## An example of building and deploying a Static Next.js App to <NameWrapper name={PRODUCT_SHORT_V1_NAME} />
 
-For this example, we are going to use a [simple Next.js app](https://github.com/zeit/now-static-build-starter) that exports as static HTML.
+For this example, we are going to use a [simple Next.js app](https://github.com/vercel/now-static-build-starter) that exports as static HTML.
 
 ### Step 1: Preparing the app for export
 
@@ -131,7 +131,7 @@ _The above deployment is [public](</docs/features/configuration#public(boolean)>
 
 You can see the source code of the deployment here: <https://github.com/now-examples/nextjs-static>
 
-> Make sure you have the latest version of the <CliV1Name /> to utilize static builds.<br/> You can get it from [zeit.co/download](https://zeit.co/download).
+> Make sure you have the latest version of the <CliV1Name /> to utilize static builds.<br/> You can get it from [zeit.co/download](/download).
 
 ### Whitelisting files for deployment with `.dockerignore`
 
@@ -198,8 +198,6 @@ RUN bundle install && \
   A `Dockerfile` that utilizes Ruby and other packages to build a static Jekyll
   app and export it to `/public`
 </Caption>
-
-Take a look at the live example: <https://zeit.co/zeit/now-jekyll/slxipttlce>
 
 View the source code for the complete example: <https://github.com/now-examples/jekyll-static>
 

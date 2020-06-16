@@ -1,0 +1,134 @@
+import Guide from '~/components/layout/guide'
+import Link from '~/components/text/link'
+import Note from '~/components/text/note'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import { IconCard } from '~/components/card'
+import { List } from '~/components/list'
+import GitHubIcon from '~/components/icons/github'
+import OrgName from '~/components/name/org-name'
+import ProductName from '~/components/name/product-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Monitor Performance with Calibre and ${PRODUCT_NAME}`,
+  description: `Receive performance reports directly in your GitHub Pull Requests, following a ${PRODUCT_NAME} deployment.`,
+  published: '2020-02-24T03:50:35Z',
+  authors: ['thefoxis'],
+  url: '/guides/monitoring-performance-with-calibre-and-vercel',
+  image: `https://og-image.now.sh/**Performance%20Monitoring**%20for%20${PRODUCT_NAME}%20Deployments%20with%20Calibre.png?theme=light&md=1&fontSize=88px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1103494136768847873%2FM6AGVCx4_400x400.png`,
+  editUrl: 'pages/guides/monitoring-performance-with-calibre-and-vercel.mdx',
+  lastEdited: '2020-04-25T00:32:18.000Z'
+}
+
+[Calibre](https://calibreapp.com/) is a comprehensive monitoring platform that makes it easy to uncover and address performance issues. In this guide, you will learn how to receive performance [Pull Request Reviews](https://calibreapp.com/pull-request-reviews) directly in your pull requests following [<OrgName /> Deployment Previews](/features/deployment-previews).
+
+## Step 1: Deploy with <NameWrapper name={PRODUCT_NAME} />
+
+To deploy your project with the [<ProductName /> for GitHub Integration](/docs/v2/git-integrations/vercel-for-github), make sure your created project has been pushed to a Git repository.
+
+[Import the project](/import) into <ProductName /> from GitHub:
+
+<List columnsDesktop={3} columnsTablet={3} columnsMobile={1}>
+  <IconCard
+    label="GitHub"
+    icon={<GitHubIcon />}
+    href="/import?tab=github"
+    plus
+  />
+</List>
+
+After your project has been imported, all subsequent pushes to branches will generate [Preview Deployments](/docs/v2/platform/deployments#preview), and all changes made to the default branch (commonly `master`) will result in a [Production Deployment](/docs/v2/platform/deployments#production).
+
+<Note type="warning">
+  While <ProductName /> supports GitHub, Bitbucket, and GitLab, Calibre Pull
+  Request Reviews currently work with <OrgName /> and GitHub only. GitLab and
+  Bitbucket are not supported.
+</Note>
+
+## Step 2: Add Your Site to Calibre
+
+To receive performance metrics and reports, start by [creating a Calibre account](https://calibreapp.com/sign-up) and adding sites to monitor. You will be prompted to add a name, provide a URL, choose from 14 global test locations, and set a testing schedule.
+
+Calibre allows you to **check unlimited sites and pages**. Each site can be connected to a repository to receive Pull Request Reviews.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/monitoring-performance-with-calibre-and-vercel/calibre-add-site.png`}
+  width={1536 / 2}
+  height={892 / 2}
+  shadow
+/>
+<Caption>Creating a new Site in Calibre.</Caption>
+
+If you’d like to learn more about how to successfully set up a performance monitoring system, read the Calibre [Getting Started](https://calibreapp.com/docs/get-started/guide) guide.
+
+## Step 3: Connect Calibre to GitHub
+
+To enable Pull Request Reviews, from the Calibre Dashboard, go to **Site → Settings → Integrations** tab and click **Install** next to the GitHub logo. You will be redirected to GitHub to enable the integration for your organization.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/monitoring-performance-with-calibre-and-vercel/calibre-github-integration.png`}
+  width={1536 / 2}
+  height={198 / 2}
+  shadow
+/>
+
+<Caption>Installing the Calibre GitHub integration.</Caption>
+
+<Note type="success" label="hint">
+  Calibre requires access to commit statuses, deployments, checks, and pull
+  requests. We strongly recommend only granting access to selected repositories
+  you’re interested in tracking.
+</Note>
+
+### Select a Comparison Branch
+
+After confirming the link between GitHub and Calibre, you will have to select a primary branch that will be the base for performance comparisons. This branch should be either deploying to production or a staging environment. In most cases, this might be the `master` branch.
+
+<Note type="success" label="hint">
+  For the most accurate results, 
+  <strong>make sure you compare two very similar environments</strong>. Some of the
+  common differentiators producing unreliable results can be using a CDN on production,
+  but not on Pull Request deployments, or the presence of ads or other third parties.
+</Note>
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/monitoring-performance-with-calibre-and-vercel/calibre-select-github-comparison-branch.png`}
+  width={1536 / 2}
+  height={608 / 2}
+  shadow
+/>
+<Caption>Confirming GitHub repository and the comparison branch for performance tests.</Caption>
+
+When the selected branch is successfully deployed, Calibre [creates a deployment marker](https://calibreapp.com/docs/get-started/deploys) on your charts and takes a new snapshot of your site. That way, you always know how releases affect your performance metrics.
+
+### Create a Pull Request
+
+Calibre will compare each Pull Request to the median of your site metrics since the last deploy. Each report highlights critical measurements (Lighthouse Performance Score, Time to Interactive and First Contentful Paint) overall and across [Test Profiles](https://calibreapp.com/test-profiles) to highlight top-level changes.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/monitoring-performance-with-calibre-and-vercel/calibre-pr-review-example.png`}
+  width={1536 / 2}
+  height={1330 / 2}
+  shadow
+/>
+<Caption>Viewing a Pull Request Review report in GitHub.</Caption>
+
+You can analyze each page to see browser previews for specific Test Profiles and most significant changes, including any [Performance Budgets](https://calibreapp.com/performance-budgets) that have changed.
+
+Performance metrics highlighted in Pull Request Reviews can be customized in `/.calibre/config.yml`. Find out more about [configuration options](https://calibreapp.com/docs/features/pull-request-reviews#configure-metrics).
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

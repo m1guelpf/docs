@@ -1,0 +1,280 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import { Image } from '~/components/media'
+import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Deploying React Forms Using Formspree with ${PRODUCT_NAME}`,
+  description: `Create and deploy a React form with the help of Formspree and ${PRODUCT_NAME}.`,
+  published: '2019-09-12T12:00:00.860Z',
+  authors: ['mcsdev'],
+  name: 'React + Formspree',
+  type: 'app',
+  url: '/guides/deploying-react-forms-using-formspree-with-vercel',
+  image: `https://og-image.now.sh/**Deploying%20React%20and%20Formspree%20Forms**%20%3Cbr%20%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fformspree-icon.msweeneydev.now.sh%2Fformspree.svg&widths=250&widths=250&heights=200&heights=250`,
+  editUrl: 'pages/guides/deploying-react-forms-using-formspree-with-vercel.mdx',
+  lastEdited: '2020-05-05T11:51:28.000Z'
+}
+
+[Formspree](https://formspree.io/) is a form backend that sends submissions via email which can connect to several third-party services such as Google Sheets, MailChimp, Slack, and more. Formspree also provides spam mitigation and filtering, file upload, automatic responses, and other tools to help you manage your forms.
+
+In this guide, you will discover how to create a "contact us" form using [React](https://reactjs.org/), similar to the [example app](https://react-formspree.now-examples.now.sh/), handle the form submission with [Formspree](https://formspree.io/) and deploy it with <ProductName />.
+
+## Step 1: Creating a New Formspree form
+
+Get started integrating Formspree with <ProductName /> by using the [Create a Form with <ProductName /> page](https://formspree.io/create/zeit). Add the email you would like to receive form submissions at and create your form.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-react-forms-using-formspree-with-vercel/formspree-create.png`}
+  width={780}
+  height={777}
+  oversize
+  shadow
+/>
+<Caption>The <b>Create a Form with <ProductName /></b> page on Formspree.</Caption>
+
+Formspree will first ask you to provide a password, then you will be redirected to an integration page where you can get your form URL.
+
+Make a note of your form's endpoint. This will be used later to submit the form you build.
+
+Go to your form's **Settings** to find the reCAPTCHA setting and toggle it off. To use AJAX on Formspree you must either disable reCAPTCHA or provide your own reCAPTCHA key.
+
+<Note>
+  You can find more information on using reCAPTCHA with AJAX in the Formspree{' '}
+  <Link href="https://help.formspree.io/hc/en-us/articles/360022811154-Adding-a-custom-reCAPTCHA-key">
+    documentation
+  </Link>
+  .
+</Note>
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-react-forms-using-formspree-with-vercel/formspree-recaptcha.png`}
+  width={2001 / 2}
+  height={399 / 2}
+  oversize
+  shadow
+/>
+<Caption>The <b>Settings</b> page on Formspree.</Caption>
+
+## Step 2: Building Your Form
+
+Create a React app from your terminal with [Create React App](https://reactjs.org/docs/create-a-new-react-app.html):
+
+<Snippet dark text="npm init react-app my-formspree-app && cd my-formspree-app" />
+<Caption>
+  Creating and entering into a React app.
+</Caption>
+
+Add the `axios` dependency to your project:
+
+<Snippet dark text="npm install axios" />
+<Caption>
+  Adding the <InlineCode>axios</InlineCode> dependency to the project.
+</Caption>
+
+Create a `ContactForm.js` file in the `/src` directory with the code below:
+
+```jsx
+import React, { useState } from 'react'
+import axios from 'axios'
+
+export default () => {
+  const [status, setStatus] = useState({
+    submitted: false,
+    submitting: false,
+    info: { error: false, msg: null }
+  })
+  const [inputs, setInputs] = useState({
+    email: '',
+    message: ''
+  })
+  const handleServerResponse = (ok, msg) => {
+    if (ok) {
+      setStatus({
+        submitted: true,
+        submitting: false,
+        info: { error: false, msg: msg }
+      })
+      setInputs({
+        email: '',
+        message: ''
+      })
+    } else {
+      setStatus({
+        info: { error: true, msg: msg }
+      })
+    }
+  }
+  const handleOnChange = e => {
+    e.persist()
+    setInputs(prev => ({
+      ...prev,
+      [e.target.id]: e.target.value
+    }))
+    setStatus({
+      submitted: false,
+      submitting: false,
+      info: { error: false, msg: null }
+    })
+  }
+  const handleOnSubmit = e => {
+    e.preventDefault()
+    setStatus(prevStatus => ({ ...prevStatus, submitting: true }))
+    axios({
+      method: 'POST',
+      url: 'https://formspree.io/[your-formspree-endpoint]',
+      data: inputs
+    })
+      .then(response => {
+        handleServerResponse(
+          true,
+          'Thank you, your message has been submitted.'
+        )
+      })
+      .catch(error => {
+        handleServerResponse(false, error.response.data.error)
+      })
+  }
+  return (
+    <main>
+      <h1>React and Formspree</h1>
+      <hr />
+      <form onSubmit={handleOnSubmit}>
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="_replyto"
+          onChange={handleOnChange}
+          required
+          value={inputs.email}
+        />
+        <label htmlFor="message">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          onChange={handleOnChange}
+          required
+          value={inputs.message}
+        />
+        <button type="submit" disabled={status.submitting}>
+          {!status.submitting
+            ? !status.submitted
+              ? 'Submit'
+              : 'Submitted'
+            : 'Submitting...'}
+        </button>
+      </form>
+      {status.info.error && (
+        <div className="error">Error: {status.info.msg}</div>
+      )}
+      {!status.info.error && status.info.msg && <p>{status.info.msg}</p>}
+    </main>
+  )
+}
+```
+
+<Caption>
+  Adding a <InlineCode>ContactForm.js</InlineCode> file to the project.
+</Caption>
+
+This form takes two inputs, the user email and message, using `axios` to make the [POST request](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST) with the submission data to the Formspree endpoint received earlier on.
+
+<Note>
+  Make sure to replace <InlineCode>your-formspree-endpoint</InlineCode> with the
+  endpoint received in{' '}
+  <Link href="#step-1:-creating-a-new-formspree-form">Step 1</Link>.
+</Note>
+
+Now you just need to use the form in your app. Change the contents of the `App.js` file to the following:
+
+```jsx
+import React from 'react'
+import ContactForm from './ContactForm'
+
+export default function App() {
+  return (
+    <div>
+      <ContactForm />
+    </div>
+  )
+}
+```
+
+<Caption>
+  Using the <InlineCode>ContactForm</InlineCode> component in the{' '}
+  <InlineCode>App.js</InlineCode> file.
+</Caption>
+
+<Note>
+  If you wish to use the same styles as our{' '}
+  <Link href="https://react-formspree.now-examples.now.sh/">example app</Link>,
+  you can find them{' '}
+  <Link href="https://react-formspree.now-examples.now.sh/styles/index.css">
+    here
+  </Link>
+  .
+</Note>
+
+## Step 3: Deploy With <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+Form submissions received from either your localhost or production environments will be emailed, and show up in your form submissions list. If you want to restrict where the form can be embedded, set your production URL in the authorized domains setting in Formspree.
+
+## Bonus: Special Formspree Names
+
+Formspree allows you to provide specially named inputs to **control how form submissions are processed**.
+
+Below is a list some of the most commonly used values, but you can find all of them in the [Form Setup section](https://help.formspree.io/hc/en-us/sections/115002389908-Form-setup) of the Formspree [help guide](https://help.formspree.io/hc/en-us).
+
+### `name="_replyto"`
+
+Use this name to set the Reply-To email address of the submission notification emails.
+
+This allows you to quickly reply to form submissions in your inbox and is shown in the example below.
+
+```
+<input type="email" name="_replyto" placeholder="your email address">
+```
+
+<Caption>
+  An example <InlineCode>input</InlineCode> element that uses the{' '}
+  <InlineCode>name="_subject"</InlineCode> attribute to set the Reply-To of the
+  email.
+</Caption>
+
+### `name="_subject"`
+
+Use this name to set the subject of notification emails. This will override the default **New submission from …** subject.
+
+<Note type="warning">
+  You should place this in a hidden input as done in the example below.
+</Note>
+
+```
+<input type="hidden" name="_subject" value="New lead on mysite.com">
+```
+
+<Caption>
+  An example <InlineCode>input</InlineCode> element that uses the{' '}
+  <InlineCode>name="_subject"</InlineCode> attribute to set the subject of the
+  email.
+</Caption>
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

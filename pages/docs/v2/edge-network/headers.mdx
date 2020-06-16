@@ -1,0 +1,137 @@
+import Doc from '~/components/layout/docs'
+import Note from '~/components/text/note'
+import { InlineCode } from '~/components/code'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+import OrgName from '~/components/name/org-name'
+
+export const meta = {
+  title: 'Headers',
+  description: `The list of headers included with deployments with ${PRODUCT_NAME}.`,
+  editUrl: 'pages/docs/v2/edge-network/headers.mdx',
+  lastEdited: '2020-06-10T14:22:52.000Z'
+}
+
+[HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) can be found in both the HTTP Request and HTTP Response.
+
+## Request Headers
+
+The following headers are sent to each <ProductName /> deployment and can be used to process the request before sending back a response. These headers can be read from the [Request](https://nodejs.org/api/http.html#http_message_headers) object in your [Serverless Function](/docs/v2/serverless-functions/introduction/).
+
+### `host`
+
+This header represents the domain name as it was accessed by the client. If the deployment has been assigned to a preview URL or production domain and the client visits the domain URL, it contains the custom domain instead of the underlying deployment URL.
+
+### `x-vercel-id`
+
+A unique identifier for each request. Contains a list of [regions](/docs/v2/platform/regions/) through which the request has traversed, usually the region closest to the visitor.
+
+### `x-forwarded-host`
+
+This header is identical to the `host` header.
+
+### `x-forwarded-proto`
+
+This header represents the protocol of the forwarded server, typically `https` in production and `http`in development.
+
+### `x-forwarded-for`
+
+The public `ip address` of the client that made the request.
+
+### `x-vercel-deployment-url`
+
+This header represents the unique deployment, not the preview URL or production domain. For example, `test-5uyfnapzg.now.sh`.
+
+### `x-real-ip`
+
+This header is identical to the `x-forwarded-for` header.
+
+## Response Headers
+
+The following headers are included in <ProductName /> deployment responses and indicate certain factors of the environment. These headers can be viewed from the Browser's Dev Tools or using an HTTP client such as `curl -I <DEPLOYMENT_URL>`.
+
+### `cache-control`
+
+Used to specify directives for caching mechanisms in both the [Network layer cache](/docs/v2/edge-network/caching/) and the browser cache. See the [Cache Control Headers](/docs/v2/edge-network/headers/#cache-control-header) section for more detail. The default value is `cache-control: public, max-age=0, must-revalidate` which instructs the network layer and the browser not to cache.
+
+### `content-length`
+
+An integer that indicates the number of bytes in the response.
+
+### `content-type`
+
+The [media type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types) that describes the nature and format of the response.
+
+### `date`
+
+A timestamp indicating when the response was generated.
+
+### `server: Vercel`
+
+Shows where the request came from. This header can be overridden by other proxies (e.g., Cloudflare).
+
+### `strict-transport-security`
+
+A header often abbreviated as [HSTS](https://developer.mozilla.org/en-US/docs/Glossary/HSTS) that tells browsers that the resource should only be requested over HTTPS. The default value is `strict-transport-security: max-age=63072000` (2 years)
+
+### `x-robots-tag`
+
+This header is automatically added with `noindex` to [Preview Deployments](/docs/v2/platform/deployments#preview) to prevent search engines from crawling them. A deployment without this header can be created by [pointing a production domain to it](https://vercel.com/docs/v2/custom-domains#adding-a-domain). If this is not desired, one can always disable the header manually using the [headers configuration](https://vercel.com/docs/configuration#project/headers).
+
+### `x-vercel-cache`
+
+This header's value indicates whether the response was served from <OrgName />'s edge cache.
+
+The following values are possible when the content being served [is static](/docs/v2/edge-network/caching/#caching-static-files) or uses [a `Cache-Control` header](/docs/v2/edge-network/caching).
+
+| Value         | Description                                                                                                                                                                                                           |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `MISS`        | The response was not found in the edge and thus fetched from an origin server.                                                                                                                                        |
+| `HIT`         | The response was served from the edge.                                                                                                                                                                                |
+| `BYPASS`      | The cache was bypassed and so the response was served from an origin server.                                                                                                                                          |
+| `STALE`       | The response is stale (served from the edge). A background request to the origin was made to get a fresh version. (see [Stale-While-Revalidate](/docs/v2/edge-network/caching/#stale-while-revalidate) for more info) |
+| `REVALIDATED` | A stale response was found in the edge but revalidated synchronously due to `Pragma: no-cache`.                                                                                                                       |
+
+### `x-vercel-id`
+
+The unique identifier for each request. Contains a list of [regions](/docs/v2/platform/regions/) through which the request has traversed, usually the region center closest to the visitor.
+
+## Cache-Control Header
+
+There are a few methods to enable the Network Layer cache with the `Cache-Control` header.
+
+### `s-maxage`
+
+Setting the directive to `s-maxage=60` will instruct the Network Layer to cache the response for 60 seconds. A request can be cached anywhere from 1-31,536,000 seconds (max 1 year). When `s-maxage` is set, the Network Layer strips the `s-maxage` directive and does not return it to the client.
+
+### `stale-while-revalidate`
+
+In addition to setting `s-maxage` the cache control directive can be combined with `stale-while-revalidate` in order to serve a stale response from the cache and update the cache in the background:
+
+```
+cache-control: s-maxage=1, stale-while-revalidate
+```
+
+This instructs the Network Layer cache to:
+
+- Serve from the cache for 1 second.
+- Return a stale request (if requested after 1 second).
+- Update the cache in the background asynchronously (if requested after 1 second).
+
+If you need to do a synchronous revalidation you can set the `pragma: no-cache` header along with the `cache-control` header. This can be used to get an idea of how long the background revalidation is taking and sets the `x-vercel-cache` header to `REVALIDATED`.
+
+<Note>
+  Many browser developer tools set <InlineCode>pragma: no-cache</InlineCode> by
+  default, which reveals the true load time of the page with the synchronous
+  update to the cache.
+</Note>
+
+## Custom Headers
+
+Custom headers can be added dynamically to the [Response](https://nodejs.org/api/http.html#http_response_setheader_name_value) object in your [Serverless Function](/docs/v2/serverless-functions/introduction/) or they can be added statically to the [Routes](/docs/configuration#routes/headers) property in your `vercel.json` file.
+
+export default ({ children }) => <Doc meta={meta}>{children}</Doc>
+
+export const config = {
+  amp: 'hybrid'
+}

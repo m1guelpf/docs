@@ -1,0 +1,39 @@
+import Layout from '~/components/layout/knowledge'
+
+export const meta = {
+  title: 'How do I use private dependencies with Vercel?',
+  description:
+    'Information on how to use private dependencies with a Vercel deployment.',
+  editUrl: 'pages/knowledge/using-private-dependencies-with-vercel.mdx',
+  url: '/knowledge/using-private-dependencies-with-vercel',
+  published: '2020-05-15T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+The Vercel platform allows you to install private dependencies in your project by assigning a special [Environment Variable](/docs/v2/build-step#environment-variables) at [build time](/docs/v2/build-step).
+
+## Private npm Dependencies
+
+To provide your deployments with access to private npm dependencies, add your private npm token as an Environment Variable to your project from the Vercel dashboard. This can be found by selecting the project, and viewing the general tab under the project settings.
+
+Select the desired Environment tab (Production or Preview) and add the key `NPM_TOKEN` with the your private token for the npm registry as the value.
+
+## Other Package Registries
+
+To use private packages from registries other than npm, add the contents of your `.npmrc` file as an Environment Variable to your project from the Vercel dashboard. This can be found by selecting the project, and viewing the general tab under the project settings.
+
+Select the desired Environment tab (Production or Preview) and add the key `NPM_RC` with the contents of your `.npmrc` file as the value. Since this file typically has newlines, it might be easier to use the CLI: `vc env add NPM_RC production < ~/.npmrc`
+
+Also note that Vercel Runtimes are installed from the canonical npm registry so [`registry.npmjs.org`](http://registry.npmjs.org/) must be one of the lines in your `.npmrc` file.
+
+## How this Works
+
+At build time, Vercel will dynamically create a `.npmrc` file and then install your dependencies from `package.json`.
+
+This allows you access to private packages without having to commit your own `.npmrc` file to source control.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

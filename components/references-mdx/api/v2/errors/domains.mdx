@@ -1,5 +1,6 @@
 import { Code } from '~/components/text/code'
 import EmailLink from '~/components/text/email-link'
+import SupportLink from '~/components/text/support-link'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/errors/domains.mdx',
@@ -92,7 +93,7 @@ When trying to add a domain the name wasn't present in the request body.
 <Code lang="json">{`{
   "error": {
     "code": "missing_name",
-    "message": "The \`name\` field in the body was expected but is not present in the body payload. Example value: \`zeit.co\`"
+    "message": "The \`name\` field in the body was expected but is not present in the body payload. Example value: \`example.com\`"
   }
 }`}</Code>
 
@@ -149,12 +150,12 @@ The domain name can't be created. Most probably it couldn't be verified.
 
 ### Failed to Add Domain after Purchase
 
-We were able to purchase a domain for you but we had an error when trying to add it to your account. Please contact us on [zeit.chat](/chat) or via <EmailLink type="support" />.
+We were able to purchase a domain for you but we had an error when trying to add it to your account. Please contact us on <SupportLink /> or via <EmailLink type="support" />.
 
 <Code lang="json">{`{
   "error": {
     "code": "failed_to_add_domain",
-    "message": "The domain was bought but couldn't be added. Please contact us on https://zeit.chat"
+    "message": "The domain was bought but couldn't be added.
   }
 }`}</Code>
 

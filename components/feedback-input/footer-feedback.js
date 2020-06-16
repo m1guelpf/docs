@@ -1,12 +1,15 @@
 // Packages
 import React, { Component } from 'react'
 import fetchAPI from '~/lib/fetch-api'
-import { getToken } from '~/lib/authenticate'
-import { API_DOCS_FEEDBACK } from '~/lib/constants'
+import { readToken } from '~/lib/authenticate'
+import { API_DOCS_FEEDBACK, PRODUCT_DOMAIN } from '~/lib/constants'
 import cn from 'classnames'
+import { UserContext } from '~/lib/user-context'
 
 // Components
 import Button from '~/components/buttons'
+import Input from '~/components/input'
+import Textarea from '~/components/textarea'
 import ClickOutside from '~/components/click-outside'
 import { H5 } from '~/components/text'
 
@@ -35,14 +38,22 @@ export default class GuidesFeedback extends Component {
     success: false,
     emojiShown: false,
     errorMessage: null,
-    value: ''
+    value: '',
+    emailValue: null,
+    dryRun: false,
+    inputFocused: null
   }
 
   clearSuccessTimer = null
   textAreaRef = null
+  emailInputRef = null
 
   handleTextAreaRef = node => {
     this.textAreaRef = node
+  }
+
+  handleEmailRef = node => {
+    this.emailInputRef = node
   }
 
   setError = error => {
@@ -59,9 +70,6 @@ export default class GuidesFeedback extends Component {
 
   setSuccessState = state => {
     this.setState({ success: state })
-    if (state === true) {
-      this.setState({ feedbackSent: true })
-    }
   }
 
   onKeyDown = e => {
@@ -78,7 +86,9 @@ export default class GuidesFeedback extends Component {
     }
   }
 
-  onSubmit = () => {
+  onSubmit = event => {
+    event.preventDefault()
+
     if (this.textAreaRef && this.textAreaRef.value.trim() === '') {
       this.setState({
         errorMessage: "Your feedback can't be empty"
@@ -87,19 +97,25 @@ export default class GuidesFeedback extends Component {
     }
 
     this.setState({ loading: true }, () => {
-      fetchAPI(API_DOCS_FEEDBACK, getToken(), {
+      if (this.state.dryRun) {
+        this.setState({ loading: false, success: true, value: '' })
+        return
+      }
+
+      fetchAPI(API_DOCS_FEEDBACK, readToken(), {
         method: 'POST',
         body: JSON.stringify({
           url:
             window.location.hostname === 'localhost'
-              ? this.props.devLocation || null
+              ? `https://${PRODUCT_DOMAIN}/dev-mode${window.location.pathname}`
               : window.location.toString(),
           note: this.textAreaRef ? this.textAreaRef.value : '',
+          email: this.state.emailValue || '',
           emotion: getEmoji(this.state.emoji),
           label: window.location.pathname.includes('guides')
             ? 'guides'
             : 'docs',
-          ua: `${this.props.uaPrefix || ''} + ${
+          ua: `docs ${process.env.NEXT_PUBLIC_VERSION} + ${
             navigator.userAgent
           } (${navigator.language || 'unknown language'})`
         }),
@@ -125,7 +141,23 @@ export default class GuidesFeedback extends Component {
   handleChange = e => {
     if (this.state.focused) {
       this.setState({
-        value: e.target.value
+        value: e
+      })
+    }
+  }
+
+  handleEmailChange = e => {
+    if (this.state.focused) {
+      this.setState({
+        emailValue: e
+      })
+    }
+  }
+
+  handleFocusedInput = inputRef => {
+    if (this.state.focused) {
+      this.setState({
+        inputFocused: inputRef
       })
     }
   }
@@ -135,27 +167,26 @@ export default class GuidesFeedback extends Component {
       // textarea was hidden if we were showing an error message and
       // now we hide it
       if (
-        prevState.errorMessage != null &&
+        prevState.errorMessage !== null &&
         this.state.errorMessage == null &&
-        this.textAreaRef
+        this.state.inputFocused
       ) {
-        this.textAreaRef.focus()
+        this.state.inputFocused.focus({ preventScroll: true })
       }
 
       if (!prevState.focused) {
         window.addEventListener('keydown', this.onKeyDown)
 
-        // Wait for CSS appear transition to end before focusing.
-        // Without this, iOS keyboard will cover the text input
-        if (this.textAreaRef) {
+        if (this.emailInputRef) {
+          // this.emailInputRef.focus({ preventScroll: true })
+          // Wait for CSS appear transition to end before focusing.
+          // Without this, iOS keyboard will cover the text input
           const listener = () => {
-            this.textAreaRef.focus()
-            this.textAreaRef.removeEventListener('transitionend', listener)
+            this.emailInputRef.removeEventListener('transitionend', listener)
           }
-          this.textAreaRef.addEventListener('transitionend', listener)
+          this.emailInputRef.focus({ preventScroll: true })
+          this.emailInputRef.addEventListener('transitionend', listener)
         }
-      } else if (this.textAreaRef) {
-        this.textAreaRef.focus()
       }
 
       // If a value exists, add it back to the textarea when focused
@@ -221,9 +252,10 @@ export default class GuidesFeedback extends Component {
           active={focused}
           onClick={this.handleClickOutside}
           render={({ innerRef }) => (
-            <div
+            <form
               ref={innerRef}
               title="Share any feedback about our products and services"
+              onSubmit={this.onSubmit}
               className={cn(
                 'geist-feedback-input',
                 {
@@ -244,30 +276,53 @@ export default class GuidesFeedback extends Component {
                 />
               </span>
               <div className="textarea-wrapper">
-                <textarea
-                  style={textAreaStyle}
-                  ref={this.handleTextAreaRef}
-                  value={value}
-                  placeholder="Please enter your feedback..."
-                  onFocus={this.onFocus}
-                  onKeyDown={e => {
-                    if (e.key === 'Enter' && e.metaKey) {
-                      this.onSubmit()
-                    }
-                  }}
-                  onChange={this.handleChange}
-                  aria-label="Feedback input"
-                  disabled={
-                    this.state.loading === true ||
-                    this.state.errorMessage != null
+                <UserContext.Consumer>
+                  {({ user }) =>
+                    !user && (
+                      <div className="input">
+                        <label>Email</label>
+                        <Input
+                          innerRef={this.handleEmailRef}
+                          onFocus={() =>
+                            this.handleFocusedInput(this.emailInputRef)
+                          }
+                          type="email"
+                          placeholder="Your email address..."
+                          width="100%"
+                          disabled={
+                            this.state.loading === true ||
+                            this.state.errorMessage != null
+                          }
+                          onChange={this.handleEmailChange}
+                        />
+                      </div>
+                    )
                   }
-                />
+                </UserContext.Consumer>
+
+                <div className="input">
+                  <label>Feedback</label>
+                  <Textarea
+                    style={textAreaStyle}
+                    innerRef={this.handleTextAreaRef}
+                    onFocus={() => this.handleFocusedInput(this.textAreaRef)}
+                    value={value}
+                    width="100%"
+                    placeholder="Your feedback..."
+                    onChange={this.handleChange}
+                    aria-label="Feedback input"
+                    disabled={
+                      this.state.loading === true ||
+                      this.state.errorMessage != null
+                    }
+                  />
+                </div>
 
                 {this.state.errorMessage != null && (
                   <div className="error-message">
                     <span>{this.state.errorMessage}</span>
                     <Button
-                      small
+                      medium
                       onClick={e => {
                         e.preventDefault()
                         this.onErrorDismiss()
@@ -293,12 +348,7 @@ export default class GuidesFeedback extends Component {
                           this.state.emojiShown ? 'hidden' : ''
                         }`}
                       >
-                        <Button
-                          small
-                          loading={this.state.loading}
-                          onClick={this.onSubmit}
-                          width={60}
-                        >
+                        <Button medium loading={this.state.loading} width={60}>
                           Send
                         </Button>
                       </span>
@@ -306,7 +356,7 @@ export default class GuidesFeedback extends Component {
                   </div>
                 )}
               </div>
-            </div>
+            </form>
           )}
         />
 
@@ -332,7 +382,7 @@ export default class GuidesFeedback extends Component {
               width: 408px;
             }
 
-            textarea {
+            .textarea-wrapper {
               appearance: none;
               border-width: 0;
               background: #f9f9f9;
@@ -346,7 +396,6 @@ export default class GuidesFeedback extends Component {
               font-family: var(--font-sans);
               resize: none;
               vertical-align: top;
-              transition: all 150ms ease-out;
               /* fixes a bug in ff where the animation of the chat
                     * counter appears on top of our input during its transition */
               z-index: 100;
@@ -355,53 +404,59 @@ export default class GuidesFeedback extends Component {
               overflow-y: hidden;
               text-rendering: optimizeLegibility;
               -webkit-font-smoothing: antialiased;
-            }
-
-            .geist-feedback-input.error.focused .textarea-wrapper textarea,
-            .geist-feedback-input.loading.focused .textarea-wrapper textarea,
-            .geist-feedback-input.success.focused .textarea-wrapper textarea {
-              pointer-events: none;
-              opacity: 0;
-            }
-
-            .geist-feedback-input.error textarea,
-            .geist-feedback-input.success textarea {
-              color: transparent;
-              user-select: none;
-            }
-
-            .geist-feedback-input.loading textarea {
-              color: #ccc;
-            }
-
-            textarea::placeholder {
-              color: #666;
-            }
-
-            .textarea-wrapper {
-              height: 100%;
               margin-top: 16px;
               transition: all 150ms ease-out, border-radius 150ms step-start;
             }
 
+            .geist-feedback-input .input {
+              margin-bottom: var(--geist-gap-half);
+            }
+
+            .geist-feedback-input .input label {
+              margin: 0;
+              display: block;
+              text-align: left;
+              font-weight: 500;
+              font-size: 12px;
+              text-transform: uppercase;
+              margin-top: 0px;
+              margin-bottom: var(--geist-gap-half);
+              line-height: normal;
+              color: var(--accents-5);
+            }
+
+            .geist-feedback-input.error.focused .textarea-wrapper .input,
+            .geist-feedback-input.success.focused .textarea-wrapper .input {
+              pointer-events: none;
+              opacity: 0;
+            }
+
+            .geist-feedback-input.error .input,
+            .geist-feedback-input.success .input {
+              color: transparent;
+              user-select: none;
+            }
+
+            .geist-feedback-input.loading .input {
+              color: #ccc;
+            }
+
+            .geist-feedback-input .input > *::placeholder {
+              color: var(--accents-5);
+              transition: color 0.2s ease-in-out;
+            }
+
             .geist-feedback-input.focused .textarea-wrapper {
               display: block;
-              height: 140px;
               width: 100%;
-              background: #fff;
               padding-bottom: 40px;
-              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
               border-radius: 4px;
               overflow: hidden;
               position: relative;
               transition: all 150ms ease-out, border-radius 150ms step-end;
-              z-index: 1000;
-            }
-
-            .geist-feedback-input.focused .textarea-wrapper textarea {
+              z-index: 999;
               background: #fff;
-              overflow-y: visible;
-              height: 100px;
+              height: 272px;
               opacity: 1;
             }
 
@@ -454,9 +509,7 @@ export default class GuidesFeedback extends Component {
 
             .controls {
               pointer-events: none;
-              position: absolute;
               visibility: hidden;
-              top: -2000px;
               opacity: 0;
               width: 100%;
               background-color: white;
@@ -490,10 +543,7 @@ export default class GuidesFeedback extends Component {
               animation-fill-mode: forwards;
               pointer-events: inherit;
               z-index: 1001;
-              padding: 8px;
               visibility: visible;
-              bottom: 0;
-              top: auto;
             }
 
             @keyframes appear {
@@ -608,12 +658,14 @@ class EmojiSelector extends Component {
             .geist-emoji-selector > button.option {
               opacity: 0;
               transition: all ease 100ms;
+              transform-origin: center center;
               pointer-events: none;
+              will-change: transform, filter;
             }
 
             .geist-emoji-selector > button:hover,
             .geist-emoji-selector > button.active {
-              transform: scale(1.3);
+              transform: scale(1.35);
               filter: grayscale(0);
               -webkit-filter: grayscale(0);
             }
@@ -632,9 +684,9 @@ class EmojiSelector extends Component {
 const Emoji = React.memo(({ code }) => (
   <img
     decoding="async"
-    width={code === 'f600' || code === 'f62d' || code === 'f615' ? 24.5 : 22}
-    height={code === 'f600' || code === 'f62d' || code === 'f615' ? 24.5 : 22}
-    src={`https://assets.zeit.co/twemoji/1${code}.svg`}
+    width={code === 'f600' || code === 'f62d' || code === 'f615' ? 24 : 22}
+    height={code === 'f600' || code === 'f62d' || code === 'f615' ? 24 : 22}
+    src={`https://assets.vercel.com/twemoji/1${code}.svg`}
     alt="emoji"
     style={{
       transform:

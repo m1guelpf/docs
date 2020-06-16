@@ -1,0 +1,224 @@
+import Guide from '~/components/layout/guide'
+import { Image } from '~/components/media'
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import DeploySection from '~/components/guides/deploy-section'
+import { InlineCode } from '~/components/text/code'
+import Link from '~/components/text/link'
+import OrgName from '~/components/name/org-name'
+import ProductName from '~/components/name/product-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Create and Deploy Vue.js Forms using Formcarry with ${PRODUCT_NAME}`,
+  description: `Create and deploy a project to recieve form submissions using Vue.js, Formcarry, and ${PRODUCT_NAME}.`,
+  published: '2020-02-10T18:06:39.170Z',
+  authors: ['nusualabuga'],
+  name: 'Vue.js + Formcarry',
+  type: 'app',
+  demo: 'https://my-formcarry-site.now.sh',
+  image: `https://og-image.now.sh/Create%20**Vue.js%20Forms**%20with%20Formcarry%20and%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=90px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fzeit.co%2Fdocs%2Fstatic%2Fguides%2Fvue-js-html-forms-with-formcarry-vercel%2Flogo.png`,
+  url: '/guides/vue-js-html-forms-with-formcarry-vercel',
+  editUrl: 'pages/guides/vue-js-html-forms-with-formcarry-vercel.mdx',
+  lastEdited: '2020-04-25T00:32:18.000Z'
+}
+
+[Formcarry](https://formcarry.com) provides HTML Form processing for front-end developers and designers.
+
+In this guide, you will discover how to process a simple contact form on your [Vue.js](https://vuejs.org) project using Formcarry and then deploy your project with [<ProductName />](/).
+
+Before getting started, sign up for a free [<OrgName />](/signup) and [Formcarry](https://formcarry.com/register) account.
+
+## Step 1: Set Up Your Vue.js Project
+
+Create a Vue.js project using [npm](https://npmjs.org), then move into the directory, with the following command:
+
+<Snippet
+  dark
+  text="npx @vue/cli create -d my-formcarry-project && cd my-formcarry-project"
+/>
+
+After the initialization, run the following command to start a local Vue.js development server:
+
+<Snippet dark text="npm run serve" />
+
+## Step 2: Create Your Form on Formcarry
+
+Visit your [Formcarry Dashboard](https://formcarry.com/login) and create a new form.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/vue-js-html-forms-with-formcarry-vercel/add-form.png`}
+  width={1984 / 2}
+  height={1104 / 2}
+  oversize
+  shadow
+  borderRadius
+/>
+<Caption>The Formcarry dashboard with a button to add a new form.</Caption>
+
+With your form created, you can then copy the form's endpoint from the form overview page. This will be used in your project as a place to send form data.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/vue-js-html-forms-with-formcarry-vercel/form-endpoint.png`}
+  width={1984 / 2}
+  height={1144 / 2}
+  oversize
+  shadow
+  borderRadius
+/>
+<Caption>The Formcarry form overview page showing the form endpoint.</Caption>
+
+## Step 3: Create Your First Form Component
+
+Now that you have a Formcarry form, create a `/src/components/Form.vue` file in your Vue.js project with the following contents.
+
+<Note>
+  Make sure to replace <InlineCode>Your-Form-Endpoint</InlineCode> with the
+  endpoint that you have copied in{' '}
+  <Link href="#step-2:-create-your-form-on-formcarry">Step 2</Link>.
+</Note>
+
+```html
+<template>
+  <div class="form">
+    <h1 v-if="!status">Send a message!</h1>
+
+    <form v-if="!status" @submit="sendForm">
+      <input
+        type="email"
+        name="email"
+        v-model="email"
+        placeholder="Enter your email..."
+        required
+      />
+      <input
+        type="text"
+        name="message"
+        v-model="message"
+        placeholder="Leave a message..."
+        required
+      />
+      <button type="submit">Send</button>
+    </form>
+
+    <h1 v-if="status === 'success'">Thank you, we got your submission!</h1>
+    <h1 v-if="status === 'error'">
+      Oops, something went wrong. Please try again.
+    </h1>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'Form',
+    data: function() {
+      return {
+        status: null,
+        email: null,
+        message: null
+      }
+    },
+    methods: {
+      sendForm: function(event) {
+        event.preventDefault()
+
+        fetch('Your-Form-Endpoint', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify({ email: this.email, message: this.message })
+        })
+          .then(response => response.json())
+          .then(response => {
+            if (response.code === 200) {
+              this.status = 'success'
+            } else {
+              // Formcarry error
+              this.status = 'error'
+            }
+          })
+          // network error
+          .catch(() => (this.status = 'error'))
+      }
+    }
+  }
+</script>
+
+<style>
+  .form form {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    width: 480px;
+    padding: 24px;
+    margin: 0 auto;
+  }
+
+  .form input {
+    margin-bottom: 16px;
+  }
+</style>
+```
+
+<Caption>Creating a Form component in a Vue.js project.</Caption>
+
+Next, replace your `App.vue` file's contents with the following:
+
+```html
+<template>
+  <div id="app">
+    <form />
+  </div>
+</template>
+
+<script>
+  import Form from './components/Form.vue'
+
+  export default {
+    name: 'App',
+    components: {
+      Form
+    }
+  }
+</script>
+
+<style>
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
+</style>
+```
+
+<Caption>
+  An <InlineCode>App.vue</InlineCode> file using the previously created{' '}
+  <InlineCode>Form.vue</InlineCode> component.
+</Caption>
+
+<Note>
+  Alternatively, use your new Form component in an existing Vue.js file.
+</Note>
+
+You are now ready to deploy your project live and start recieving form submissions.
+
+## Step 3: Deploy With <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

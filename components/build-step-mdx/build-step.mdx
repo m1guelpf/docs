@@ -10,20 +10,13 @@ import ProductName from '~/components/name/product-name'
 import OrgName from '~/components/name/org-name'
 import ProductShortName from '~/components/name/product-short-name'
 import { SYSTEM_ENVS } from '~/lib/data/v2/system-env-variables'
-import {
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableRowCell,
-  TableHeadCell
-} from '~/components/table'
+import SystemEnvVariablesTable from '~/components/env-variables/system-env-variables-table'
 
 When you trigger a deploy, <ProductName /> **builds** your project. For many frontend frameworks, <ProductName /> automatically configures the build settings, but you can also [customize](#customizing-build-settings) them. You can also use [environment variables](#environment-variables) to avoid hardcoding values.
 
 ## Customizing Build Settings
 
-To customize the build settings for your project, choose a project from the [dashboard](https://zeit.co/dashboard):
+To customize the build settings for your project, choose a project from the [dashboard](/dashboard):
 
 <Image
   src={`${process.env.ASSETS}/docs/common/select-project.png`}
@@ -92,12 +85,17 @@ If you’d like to override the Build Command, you can turn on the **Override** 
   deployment.
 </Note>
 
-**If build is not required**: Some projects do not require building. An example of this would be a website with basic HTML/CSS/JS/assets that can be deployed directly without building (For example, you might just have a single `index.html` file).
+##### Skip Build Step
+
+Some static projects do not require building. An example of this would be a website with only HTML/CSS/JS source files that can be served as-is (For example, you might just have a single `index.html` file).
 
 In such cases, you should:
 
 - Specify "Other" as the framework preset, and
-- Override the Build Command and leave it empty. This will make <ProductName /> to skip the build step.
+- Enable the Override option for the Build Command, and
+- Leave the Build Command empty.
+
+This will prevent the build from being attempted and serve your content as-is.
 
 #### Output Directory
 
@@ -135,10 +133,10 @@ In some cases, your project might not require building, and you might just want 
 <Caption>The Development Command setting.</Caption>
 
 <Note>
-  This setting is relevant only if you’re using <InlineCode>now dev</InlineCode>{' '}
-  locally to develop your project. You should be using{' '}
-  <InlineCode>now dev</InlineCode> only if you need to use a <ProductName />{' '}
-  platform feature like{' '}
+  This setting is relevant only if you’re using{' '}
+  <InlineCode>vercel dev</InlineCode> locally to develop your project. You
+  should be using <InlineCode>vercel dev</InlineCode> only if you need to use a{' '}
+  <ProductName /> platform feature like{' '}
   <Link href="/docs/v2/serverless-functions/introduction">
     Serverless Functions
   </Link>
@@ -146,13 +144,13 @@ In some cases, your project might not require building, and you might just want 
   (such as <InlineCode>next dev</InlineCode> for Next.js).
 </Note>
 
-The Development Command setting allows you to customize the behavior of <InlineCode>now dev</InlineCode>. If <ProductName /> detects a framework, the development command will automatically be configured.
+The Development Command setting allows you to customize the behavior of <InlineCode>vercel dev</InlineCode>. If <ProductName /> detects a framework, the development command will automatically be configured.
 
-If you’d like to use a custom command for <InlineCode>now dev</InlineCode>, you can turn on the **Override** toggle. Please note the following:
+If you’d like to use a custom command for <InlineCode>vercel dev</InlineCode>, you can turn on the **Override** toggle. Please note the following:
 
 - If you specify a custom command, your command must pass the `$PORT` variable (which contains the port number) to your framework. For example, for [Next.js](https://nextjs.org/), you should use: `next dev --port $PORT`.
-- If the development command is not specified, `now dev` will fail. If you selected "Other" as the framework preset, the development command will be empty by default.
-- You must create a deployment and have your local project be linked to the project on <ProductName /> (using `now`). Otherwise, `now dev` won’t work correctly.
+- If the development command is not specified, `vercel dev` will fail. If you selected "Other" as the framework preset, the development command will be empty by default.
+- You must create a deployment and have your local project be linked to the project on <ProductName /> (using `vercel`). Otherwise, `vercel dev` won’t work correctly.
 
 ### Root Directory
 
@@ -169,7 +167,7 @@ In some projects, the top-level directory of the repository may not be the root 
 In cases like this, you can specify the project root directory. If you do so, please note the following:
 
 - If you specify a root directory, then your app won’t be able to access files outside of that directory. You also cannot use `..` to move up a level.
-- This setting also applies to [<ProductShortName /> CLI](/download). Instead of running `now <directory-name>` to deploy, specify `<directory-name>` here so you can just run `now`.
+- This setting also applies to [<ProductShortName /> CLI](/download). Instead of running `vercel <directory-name>` to deploy, specify `<directory-name>` here so you can just run `vercel`.
 
 <Note>
   If you update this setting, it will be applied starting with your next
@@ -194,11 +192,11 @@ To declare an Environment Variable for your deployment, head to the **General** 
 
 First, choose between the following **Environments**:
 
-| Environment     | Description                                                                                                                                                                                     |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Production**  | When selected, the Environment Variable will be applied to your next Production Deployment. To create a Production Deployment, push a commit to the default branch or run `now --prod`.         |
-| **Preview**     | The Environment Variable is applied to your next Preview Deployment. Preview Deployments are created when you push to a branch (for example, `my-new-feature`) or run `now`.                    |
-| **Development** | The Environment Variable is for use when running your project locally, with `now dev` or your preferred development command. To download Development Environment Variables, run `now env pull`. |
+| Environment     | Description                                                                                                                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Production**  | When selected, the Environment Variable will be applied to your next Production Deployment. To create a Production Deployment, push a commit to the default branch or run `vercel --prod`.            |
+| **Preview**     | The Environment Variable is applied to your next Preview Deployment. Preview Deployments are created when you push to a branch (for example, `my-new-feature`) or run `vercel`.                       |
+| **Development** | The Environment Variable is for use when running your project locally, with `vercel dev` or your preferred development command. To download Development Environment Variables, run `vercel env pull`. |
 
 Enter the **Name** of the Environment Variable. For example, if you are using Node.js and you create an Environment Variable named `SENTRY_KEY`, it will be available under `process.env.SENTRY_KEY` in your code.
 
@@ -224,17 +222,17 @@ It can then be consumed during **Build Step** by the framework of your choice, o
 
 ### Development Environment Variables
 
-Environment Variables created for the Development Environment can be downloaded into a local development setup using the `now env pull` command provided by [<ProductShortName /> CLI](/download):
+Environment Variables created for the Development Environment can be downloaded into a local development setup using the `vercel env pull` command provided by [<ProductShortName /> CLI](/download):
 
-<Snippet clipboard={false} dark text={`now env pull
+<Snippet clipboard={false} dark text={`vercel env pull
 Downloading Development Environment Variables for project my-lovely-project
 ✅ Created .env file [510ms]`} />
-<Caption>Downloading Development Environment Variables with `now env pull`.</Caption>
+<Caption>Downloading Development Environment Variables with `vercel env pull`.</Caption>
 
-Running the command will create a `.env` file in your project folder. The `.env` file can then be consumed by `now dev` or
+Running the command will create a `.env` file in your project folder. The `.env` file can then be consumed by `vercel dev` or
 your preferred development command.
 
-Check out the [<ProductShortName /> CLI reference](/docs/now-cli#commands/env) to learn more about `now env` commands.
+Check out the [<ProductShortName /> CLI reference](/docs/cli#commands/env) to learn more about `vercel env` commands.
 
 ### Integration Environment Variables
 
@@ -271,24 +269,7 @@ To apply a System Environment Variable to your Deployment, enter its **Name**, l
 
 The following System Environment Variables are available:
 
-<Table>
-  <TableHead>
-    <TableRow>
-      <TableHeadCell className="head-cell">Name</TableHeadCell>
-      <TableHeadCell className="head-cell">Description</TableHeadCell>
-    </TableRow>
-  </TableHead>
-  <TableBody>
-    {SYSTEM_ENVS.map(systemEnv => (
-      <TableRow key={systemEnv.name}>
-        <TableRowCell>
-          <InlineCode>{systemEnv.name}</InlineCode>
-        </TableRowCell>
-        <TableRowCell>{systemEnv.description}</TableRowCell>
-      </TableRow>
-    ))}
-  </TableBody>
-</Table>
+<SystemEnvVariablesTable envs={SYSTEM_ENVS} />
 
 ### Reserved Environment Variables
 
@@ -299,13 +280,14 @@ The <ProductName /> platform reserves the usage of some Environment Variable nam
 By default, <ProductName /> ignores certain files and folders for security and performance reasons, preventing them from being uploaded during the deployment process.
 
 ```bash
-.hg
-.git
+.hg/
+.git/
 .gitmodules
-.svn
+.svn/
 .cache
-.next
-.now
+.next/
+.now/
+.vercel/
 .npmignore
 .dockerignore
 .gitignore
@@ -313,12 +295,12 @@ By default, <ProductName /> ignores certain files and folders for security and p
 .DS_Store
 .wafpicke-*
 .lock-wscript
-.env
-.env.*
+.env.local
+.env.*.local
 .venv
 npm-debug.log
 config.gypi
-node_modules
+node_modules/
 __pycache__/
 venv/
 CVS
@@ -331,7 +313,7 @@ CVS
 
 <Note>
   You do not need to add any of the above files and folders to your{' '}
-  <InlineCode>.nowignore</InlineCode> file.
+  <InlineCode>.vercelignore</InlineCode> file.
 </Note>
 
 ## Technical Details
@@ -352,7 +334,7 @@ If a deployment fails, a cache may still be established for successfully built f
 
 ### Private npm Modules for Static Builds
 
-To install private npm modules, define `NPM_TOKEN` as a [build environment variable](/docs/configuration#project/build-env) in a `now.json` file.
+To install private npm modules, define `NPM_TOKEN` as a [build environment variable](/docs/configuration#project/build-env) in a `vercel.json` file.
 
 Alternatively, define `NPM_RC` as a [build environment variable](/docs/configuration#project/build-env) with the contents of `~/.npmrc`.
 
@@ -366,20 +348,20 @@ This is equivalent to `npm install --only=production` or `yarn install --product
 
 ### Prevent Cache Usage
 
-If you need to ignore the cache for a deployment, you can do so by using the [`-f` flag for <ProductShortName /> CLI](/docs/now-cli/#commands/now/global-options). This prevents the cache from being used in the deployment and ensures a fresh install for all dependencies.
+If you need to ignore the cache for a deployment, you can do so by using the [`-f` flag for <ProductShortName /> CLI](/docs/cli/#commands/overview/global-options). This prevents the cache from being used in the deployment and ensures a fresh install for all dependencies.
 
 ### Framework Versioning
 
 Some frameworks do not use `package.json` to select a specific version to install during build time.
 
-By including [a `build.env` configuration property](/docs/configuration#project/build-env) in [a `now.json` file](/docs/configuration) at your project's root, you can define your framework's version with one of the following keys:
+By including [a `build.env` configuration property](/docs/configuration#project/build-env) in [a `vercel.json` file](/docs/configuration) at your project's root, you can define your framework's version with one of the following keys:
 
 | Framework | Build Env Key  |
 | --------- | -------------- |
 | Hugo      | `HUGO_VERSION` |
 | Zola      | `ZOLA_VERSION` |
 
-For example, defining the Hugo version in a `now.json` file would look like the following snippet:
+For example, defining the Hugo version in a `vercel.json` file would look like the following snippet:
 
 ```json
 {
@@ -393,7 +375,7 @@ For example, defining the Hugo version in a `now.json` file would look like the 
 
 <Caption>
   An example of defining a version for Hugo with a{' '}
-  <InlineCode>now.json</InlineCode> configuration.
+  <InlineCode>vercel.json</InlineCode> configuration.
 </Caption>
 
 <Note>

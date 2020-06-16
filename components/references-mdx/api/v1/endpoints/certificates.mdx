@@ -11,6 +11,7 @@ import {
 } from '~/components/api/table'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/endpoints/certificates.mdx',
@@ -72,7 +73,7 @@ This is the format of each item in the `certs` list.
   Example request:
 
 <Request
-  url="https://api.zeit.co/v3/now/certs"
+  url={`${API_ENDPOINT}/v3/now/certs`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -85,7 +86,7 @@ Example successful (**200**) response:
 <Code lang="json">{`{
     "certs": [
       {
-        "cns": ["testing.zeit.co", "*.zeit.co"],
+        "cns": ["testing.example.com", "*.example.com"],
         "uid": "oAjf6y9pxZgCJyQfrclN",
         "created": "2016-08-23T18:13:09.773Z",
         "expiration": "2016-12-16T16:00:00.000Z",
@@ -136,7 +137,7 @@ certificate id specified in the URL.
   Example request:
 
 <Request
-  url="https://api.zeit.co/v3/now/certs/oAjf6y9pxZgCJyQfrclN"
+  url={`${API_ENDPOINT}/v3/now/certs/oAjf6y9pxZgCJyQfrclN`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -147,7 +148,7 @@ certificate id specified in the URL.
 Example successful (200) response:
 
 <Code lang="json">{`{
-    "cns": ["wow.zeit.co"],
+    "cns": ["wow.example.com"],
     "uid": "oAjf6y9pxZgCJyQfrclN",
     "created": "2016-08-23T18:13:09.773Z",
     "expiration": "2016-12-16T16:00:00.000Z",
@@ -197,7 +198,7 @@ The body should contain <InlineCode>domains</InlineCode> array and it may contai
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v3/now/certs"
+  url={`${API_ENDPOINT}/v3/now/certs`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -205,7 +206,7 @@ The body should contain <InlineCode>domains</InlineCode> array and it may contai
     'Content-Type': 'application/json'
   }}
   body={{
-    domains: ['testing.zeit.co'],
+    domains: ['testing.example.com'],
     renew: true
   }}
 />
@@ -264,7 +265,7 @@ The body should contain `cert`, private `key`, and `ca` chain fields in PEM form
 
 <Request
   method="PUT"
-  url="https://api.zeit.co/v3/now/certs"
+  url={`${API_ENDPOINT}/v3/now/certs`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -298,7 +299,7 @@ an empty body; Otherwise an error object is returned.
 
 <Request
     method="DELETE"
-    url="https://api.zeit.co/v3/now/certs/zWsFytQUFlkUWaR7nWdwS7xR"
+    url={`${API_ENDPOINT}/v3/now/certs/zWsFytQUFlkUWaR7nWdwS7xR`}
     headers={{
       Authorization: `Bearer ${(props.testingToken ? props.testingToken.token : '$TOKEN')}`
     }}

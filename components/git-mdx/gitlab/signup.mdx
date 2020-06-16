@@ -1,0 +1,17 @@
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+To sign up on <ProductName /> with a different GitLab account, sign out of your current GitLab account:
+
+<Image
+  src={`${process.env.ASSETS}/docs/git-integrations/gitlab-logout.png`}
+  width={476 / 2}
+  height={592 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Sign out of GitLab.</Caption>
+
+Then, restart the <ProductName /> [signup process](/signup).

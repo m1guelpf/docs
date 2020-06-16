@@ -1,0 +1,45 @@
+import Layout from '~/components/layout/knowledge'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+
+export const meta = {
+  title: 'Where can I find my logs on Vercel?',
+  description: 'Information on where to find Vercel logs and how they work.',
+  editUrl: 'pages/knowledge/where-are-vercel-logs.mdx',
+  url: '/knowledge/where-are-vercel-logs',
+  published: '2020-05-14T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+Logs can be found on the Vercel dashboard for both [deployment builds](/docs/v2/build-step) and [Serverless Function](/docs/v2/serverless-functions/introduction) executions. They can be accessed by selecting either "View Build Logs" or "View Function Logs" from the Project page.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/knowledge/logs-buttons.png`}
+  width={358}
+  height={80}
+/>
+<Caption>The view logs buttons available on every Vercel project.</Caption>
+
+## Build Logs
+
+Build logs are generated at build time for all [deployments](/docs/v2/platform/deployments), the output is very similar to your frameworks build command, with a few minor additions from the Vercel build system. **Once a build has completed, no further logs will be added to this page.**
+
+If any errors or warnings are present in the build logs, these will be highlighted with different colours, Yellow for warnings, Red for errors. This helps you easily identify the cause of any failed builds and areas you may wish to look into further.
+
+Build logs are stored indefinitely on each deployment.
+
+## Function Logs
+
+Function logs provide logging output for your [Serverless Functions](/docs/v2/serverless-functions/introduction), this includes user introduced logging such as `console.log`, along with details of the request made to the function.
+
+**All function logs are generated on-demand**. This means that they are only sent to the function logs page while it is open in the browser and arrive as each Serverless Function is executed.
+
+Function logs are not stored and will be lost as soon as the functions logs page is navigated away from.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

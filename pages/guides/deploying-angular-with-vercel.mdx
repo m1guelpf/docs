@@ -1,0 +1,77 @@
+import Guide from '~/components/layout/guide'
+import { InlineCode } from '~/components/text/code'
+import Snippet from '~/components/snippet'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Create an Angular App That Builds and Deploys with ${PRODUCT_NAME}`,
+  description: `Deploy your Angular app with ${PRODUCT_NAME}.`,
+  published: '2019-02-27T03:00:00.860Z',
+  authors: ['unicodeveloper'],
+  url: '/guides/deploying-angular-with-vercel',
+  example: 'angular',
+  demo: 'https://angular.now-examples.now.sh',
+  image: `https://og-image.now.sh/**Deploy%20an%20Angular%20app**%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=90px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fangular.io%2Fassets%2Fimages%2Flogos%2Fangular%2Fangular.svg&heights=250&heights=300`,
+  name: 'Angular',
+  type: 'app',
+  editUrl: 'pages/guides/deploying-angular-with-vercel.mdx',
+  lastEdited: '2020-04-25T00:32:18.000Z'
+}
+
+Angular is a popular JavaScript framework for building apps across all platforms; web, mobile web, native mobile, and native desktop.
+
+In this guide, we will deploy an Angular app with [<ProductName />](/docs/v2) like the following: <https://angular.now-examples.now.sh/>
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-angular-with-vercel/tour-of-heroes.png`}
+  width={1522 / 2}
+  height={1334 / 2}
+  oversize
+/>
+
+## Step 1: Set Up Your Angular Project
+
+The most straightforward way to set up an Angular project is to use the [official Angular CLI tool](https://angular.io/cli). The CLI tool interactively generates an Angular app that works out of the box.
+
+If you don't have the Angular CLI installed globally, use the following command to install it:
+
+<Snippet dark text="npm i -g @angular/cli" />
+<Caption>Installing Angular CLI global to the system user with <Link href="https://www.npmjs.com/package/@angular/cli">npm</Link>.</Caption>
+
+Once the installation is complete, run the following command in your terminal to create a new Angular app:
+
+<Snippet dark text="ng new my-new-app" />
+<Caption>Creating a new Angular app within a terminal.</Caption>
+
+Once you run the command, the Angular CLI presents the following options:
+
+- Adding Angular Routing to the project.
+- The Stylesheet format to add to the project: `css`, `sass`, `less`, `stylus`.
+
+For the first option, if you choose `Yes`, the CLI tool adds [routing](https://angular.io/guide/router) automatically to the project. Then, you can select your preferred stylesheet format for the second option. Once selected, Angular CLI provides the selected stylesheet format for the project.
+
+After a successful scaffolding, `cd` into `my-new-app` directory and run the following command to serve your app in the browser:
+
+<Snippet dark text="ng serve --open" />
+<Caption>Running your Angular app locally</Caption>
+
+Your browser will automatically be launched with the served Angular app at <http://localhost:4200/>
+
+## Step 2: Deploy Your Angular Project with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

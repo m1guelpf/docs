@@ -17,7 +17,7 @@ export const meta = {
   type: 'app',
   url: '/guides/custom-next-js-server-to-routes',
   editUrl: 'pages/guides/custom-next-js-server-to-routes.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-04-16T01:25:09.000Z'
 }
 
 Next.js offers developers [a built-in routing system](https://nextjs.org/docs/#routing) that allows you to link to other pages whilst also giving those pages a custom URL. When a user refreshes the custom URL, however, the browser will not be able to load the link because the page was previously routed client-side. To resolve this, we need to also handle routing server-side.
@@ -50,13 +50,13 @@ server.get('/products/:name', (req, res) => {
 
 ### The New Routes Method
 
-With [<ProductName />](https://zeit.co/now) and the serverless approach, each [Next.js page](https://nextjs.org/docs/basic-features/pages) is a separate entry point, making the sole custom server entry point a thing of the past for the good of performance and stability. Fortunately, **<ProductName /> offers a solution**, handling the configuration of routes for you.
+With [<ProductName />](/now) and the serverless approach, each [Next.js page](https://nextjs.org/docs/basic-features/pages) is a separate entry point, making the sole custom server entry point a thing of the past for the good of performance and stability. Fortunately, **<ProductName /> offers a solution**, handling the configuration of routes for you.
 
 By making use of Next.js path segments with <ProductName />, [dynamic routing](https://nextjs.org/docs/routing/dynamic-routes) is achieved through the file structure. No longer are custom servers or additional configuration required, **simplifying the process of building your app significantly**.
 
 ## By Example
 
-If you are yet to set up routing for [your Next.js app](https://nextjs.org/docs/#setup), this brief example describes how to use Next.js routing with [<ProductName />](https://zeit.co/now) to support custom URLs.
+If you are yet to set up routing for [your Next.js app](https://nextjs.org/docs/#setup), this brief example describes how to use Next.js routing with [<ProductName />](/now) to support custom URLs.
 
 ### Step 1: Defining Pages
 

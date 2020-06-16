@@ -15,7 +15,7 @@ export const meta = {
   date: '25 June 2018',
   editUrl: 'pages/docs/v1/integrations/now-for-github.mdx',
   image: process.env.IMAGE_ASSETS_URL + '/docs/now-for-github/tw-card.png?v2',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-04-19T04:34:57.000Z'
 }
 
 ​<ProductShortV1Name /> for GitHub is an app for GitHub users or organizations that automatically deploys and aliases changes to repositories with <ProductShortV1Name />.
@@ -103,11 +103,11 @@ With the repository correctly configured, <ProductShortV1Name /> for GitHub will
 
 If [an alias is set within the `now.json` file](/docs/features/aliases), pushes and merges to the [default branch](https://help.github.com/articles/setting-the-default-branch/) (commonly "master") will be aliased automatically and made live to those aliases with the latest deployment made with a push.
 
-For example, the following `now.json` configuration will make <ProductShortV1Name /> for GitHub alias the most recent push to `my-zeit-website.com` by default.
+For example, the following `now.json` configuration will make <ProductShortV1Name /> for GitHub alias the most recent push to `example.com` by default.
 
 ```json
 {
-  "alias": ["my-zeit-website.com"]
+  "alias": ["example.com"]
 }
 ```
 
@@ -138,7 +138,7 @@ To stop <ProductShortV1Name /> from [automatically aliasing the default branch](
 
 ```
 {
-  "alias": ["my-zeit-website.com"],
+  "alias": ["example.com"],
   "github": {
     "autoAlias": false
   }

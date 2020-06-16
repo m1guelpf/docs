@@ -3,6 +3,7 @@ import { HelpLink } from '~/components/text/link'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
 import Caption from '~/components/text/caption'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/aliases.mdx',
@@ -55,7 +56,7 @@ This is the format of the `deployment` described above.
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v3/now/aliases" auth />
+<Request url={`${API_ENDPOINT}/v3/now/aliases`} auth />
 
 ##### Example Response
 
@@ -124,7 +125,7 @@ Get the information for a specific alias by passing either the alias `id` or `na
 
 <Request
   method="GET"
-  url="https://api.zeit.co/v2/now/aliases/2WjyKQmM8ZnGcJsPWMrHRHrE"
+  url={`${API_ENDPOINT}/v2/now/aliases/2WjyKQmM8ZnGcJsPWMrHRHrE`}
   auth
 />
 
@@ -159,7 +160,7 @@ You can obtain this id from the list of aliases.
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v2/now/aliases/2WjyKQmM8ZnGcJsPWMrHRHrE"
+  url={`${API_ENDPOINT}/v2/now/aliases/2WjyKQmM8ZnGcJsPWMrHRHrE`}
   auth
 />
 
@@ -183,7 +184,7 @@ Purges [the CDN](/docs/v2/domains-and-aliases/cdn) of content from the given ali
 
 ##### Example `PURGE` Request
 
-<Request method="PURGE" url="https://api.zeit.co/v2/now/aliases/:id" auth />
+<Request method="PURGE" url={`${API_ENDPOINT}/v2/now/aliases/:id`} auth />
 
 ##### Example Response
 
@@ -218,7 +219,7 @@ This is the format of each item in the `aliases` list.
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v2/now/deployments/7Npest0z1zW5QVFfNDBId4BW/aliases"
+  url={`${API_ENDPOINT}/v2/now/deployments/7Npest0z1zW5QVFfNDBId4BW/aliases`}
   auth
 />
 
@@ -263,7 +264,7 @@ If the desired alias was used before it will be removed from the old deployment 
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v2/now/deployments/7Npest0z1zW5QVFfNDBId4BW/aliases"
+  url={`${API_ENDPOINT}/v2/now/deployments/7Npest0z1zW5QVFfNDBId4BW/aliases`}
   headers={{
     'Content-Type': 'application/json'
   }}

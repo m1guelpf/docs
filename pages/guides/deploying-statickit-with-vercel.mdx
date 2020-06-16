@@ -1,0 +1,151 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import Caption from '~/components/text/caption'
+import { Image } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+import NameWrapper from '~/components/name/name-wrapper'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Gather Emails on Your Next.js Site with StaticKit and ${PRODUCT_NAME}`,
+  description: `Use StaticKit and Next.js to collect emails from a landing page deployed with ${PRODUCT_NAME}.`,
+  name: 'StaticKit + Next.js',
+  type: 'app',
+  published: '2019-08-22T12:00:00.860Z',
+  authors: ['mcsdev'],
+  url: '/guides/deploying-statickit-with-vercel',
+  editUrl: 'pages/guides/deploying-statickit-with-vercel.mdx',
+  image: `https://og-image.now.sh/**Deploy%20a%20StaticKit%20Project**%3Cbr%3Ewith%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=data%3Aimage%2Fsvg%2Bxml%2C%253Csvg+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27+width%3D%27124%27+height%3D%27175%27%253E%253Cg+fill%3D%27%252311151D%27+fill-rule%3D%27nonzero%27%253E%253Cpath+d%3D%27M20.889+113.2l87.555-93.89L88.379.598.824+94.489zM35.62+174.401l87.556-93.89L103.11+61.8l-87.555+93.89z%27%2F%253E%253C%2Fg%253E%253C%2Fsvg%253E`,
+  lastEdited: '2020-05-05T11:51:28.000Z'
+}
+
+[StaticKit](https://statickit.com/) provides configurable backend services for front-end developers.
+
+In this guide, you will discover how to create a simple [Next.js](https://nextjs.org/) landing page to gather email addresses using [StaticKit](https://statickit.com/). Before getting started, sign up for a free [StaticKit](https://statickit.com) account.
+
+## Step 1: Set Up Your Next.js Project
+
+Run the following command to create and enter into a [Next.js](https://nextjs.org/) project:
+
+<Snippet dark text="npm init next-app next-landing-page && cd next-landing-page" />
+<Caption>Bootstrapping a Next.js project with <InlineCode>create-next-app</InlineCode> and moving into the <InlineCode>/next-landing-page</InlineCode> directory.</Caption>
+
+## Step 2: Install StaticKit
+
+Run the following command to install the StaticKit CLI and React helper library:
+
+<Snippet dark text="npm install -g @statickit/cli && npm install @statickit/react" />
+<Caption>Installing the StaticKit CLI and adding <InlineCode>@statickit/react</InlineCode> to the project.</Caption>
+
+Then, create a `/pages/_app.js` file with the following contents and replace `{your-site-id}` with the ID from your Site Settings in [StaticKit](https://statickit.com):
+
+```jsx
+import { StaticKitProvider } from '@statickit/react'
+
+function App({ Component, pageProps }) {
+  return (
+    <StaticKitProvider site="{your-site-id}">
+      <Component {...pageProps} />
+    </StaticKitProvider>
+  )
+}
+
+export default App
+```
+
+<Caption>
+  An example <InlineCode>/pages/_app.js</InlineCode> file with the StaticKit
+  provider.
+</Caption>
+
+Finally, run the following command to create a `statickit.json` file (if it doesn't already exist):
+
+<Snippet dark text="statickit init" />
+<Caption>Initializing a StaticKit config file.</Caption>
+
+## Step 3: Configure Your StaticKit Function
+
+In your `statickit.json` file, add a function for handling the email opt-in. StaticKit currently integrates with [Mailchimp](https://statickit.com/docs/functions/mailchimp) and [ConvertKit](https://statickit.com/docs/functions/convertkit) for email marketing. Here's a function definition for adding a contact to Mailchimp:
+
+```json
+{
+  "functions": {
+    "addToMailchimp": {
+      "app": "mailchimp",
+      "type": "addOrUpdateListMember"
+    }
+  }
+}
+```
+
+<Caption>
+  A <InlineCode>statickit.json</InlineCode> file with a function for adding to
+  Mailchimp.
+</Caption>
+
+Then, deploy your changes to StaticKit. You'll be prompted with instructions on how to save your Mailchimp API key and audience:
+
+<Snippet dark text="statickit deploy -k <your-deploy-key>" /><Caption>
+  You can find your deploy key in your StaticKit settings.
+</Caption>
+
+## Step 4: Build Your Opt-In Form
+
+Here's an example of a simple `OptInForm` component that uses your StaticKit function:
+
+```jsx
+import React, { useState } from 'react'
+import { useStaticKit } from '@statickit/react'
+import { addToMailchimp } from '@statickit/functions'
+
+function OptInForm() {
+  const client = useStaticKit()
+  const [emailAddress, setEmailAddress] = useState('')
+  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const handleSubmit = async e => {
+    e.preventDefault
+    let { status } = await addToMailchimp(client, { emailAddress })
+    if (status === 'ok') setIsSubmitted(true)
+  }
+
+  if (isSubmitted) {
+    return <p>Thanks for signing up!</p>
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        onChange={e => setEmailAddress(e.target.value)}
+        value={emailAddress}
+        required
+      />
+      <button type="submit">Sign up</button>
+    </form>
+  )
+}
+
+export default OptInForm
+```
+
+<Caption>
+  An <InlineCode>OptInForm</InlineCode> React component that submits to
+  Mailchimp.
+</Caption>
+
+For a more advanced example (with validations and styling), check out the [`OptInForm`](https://github.com/statickit-projects/mailchimp-react/blob/master/components/OptInForm.tsx) component in the [Mailchimp React Example](https://github.com/statickit-projects/mailchimp-react) on GitHub.
+
+## Step 5: Deploying with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+For more information, you can find the [source code](https://github.com/statickit-projects/mailchimp-react) for this example on GitHub along with the [live example](https://mailchimp-react.statickit.now.sh/).
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

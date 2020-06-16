@@ -58,7 +58,7 @@ module.exports = withUiHook(({ payload }) => {
 ```js
 const { withUiHook, htm } = require('@zeit/integration-utils')
 
-const urls = ['https://zeit.co', 'https://google.com']
+const urls = ['https://example.com', 'https://google.com']
 
 module.exports = withUiHook(({ payload }) => {
   const name = 'Arunoda Susirpala'
@@ -84,7 +84,7 @@ As you can see by looking at the `htm` inside the `urls.map` function, you need 
 ```js
 const { withUiHook, htm } = require('@zeit/integration-utils')
 
-const urls = ['https://zeit.co', 'https://google.com']
+const urls = ['https://example.com', 'https://google.com']
 
 const URL = ({ href }) => htm`
   <LI><Link href=${href} target="_blank">${href}</Link></LI>

@@ -12,7 +12,7 @@ export const meta = {
   title: 'Supported Languages for Serverless Functions',
   description: `Learn how to deploy Serverless Functions with ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/serverless-functions/supported-languages.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-04-25T00:32:18.000Z'
 }
 
 Within the `/api` directory of your projects, <ProductName /> will automatically recognize the languages listed on this page, through their file extensions, and serve them as Serverless Function.
@@ -47,7 +47,7 @@ module.exports = (req, res) => {
 
 Example deployment: <https://node-api.now-examples.now.sh/api/hello?name=reader>
 
-<Image src={`https://assets.zeit.co/image/upload/v1545360454/front/docs/official-builders/serverless-node.png`}
+<Image src={`https://assets.vercel.com/image/upload/v1545360454/front/docs/official-builders/serverless-node.png`}
   width={1376/2}
   height={882/2}
 />
@@ -57,10 +57,10 @@ Example deployment: <https://node-api.now-examples.now.sh/api/hello?name=reader>
 
 Deploying a Node.js function with the `.ts` extension will automatically be recognized as a [TypeScript](https://www.typescriptlang.org/) file and compiled to a Serverless Function.
 
-As an example; a file called `hello.ts` in the `api` directory, and importing types for the <ProductName /> platform Request and Response objects from the `@now/node` module:
+As an example; a file called `hello.ts` in the `api` directory, and importing types for the <ProductName /> platform Request and Response objects from the `@vercel/node` module:
 
 ```ts
-import { NowRequest, NowResponse } from '@now/node'
+import { NowRequest, NowResponse } from '@vercel/node'
 
 export default (request: NowRequest, response: NowResponse) => {
   const { name = 'World' } = request.query
@@ -75,10 +75,10 @@ export default (request: NowRequest, response: NowResponse) => {
 
 Example deployment: <https://ts-api.now-examples.now.sh/api/hello?name=reader>
 
-You can install the `@now/node` module for type definitions through npm:
+You can install the `@vercel/node` module for type definitions through npm:
 
-<Snippet dark text="npm i -D @now/node" />
-<Caption>Installing the <InlineCode>@now/node</InlineCode> module for Type definitions of <InlineCode>NowRequest</InlineCode> and <InlineCode>NowResponse</InlineCode></Caption>
+<Snippet dark text="npm i -D @vercel/node" />
+<Caption>Installing the <InlineCode>@vercel/node</InlineCode> module for Type definitions of <InlineCode>NowRequest</InlineCode> and <InlineCode>NowResponse</InlineCode></Caption>
 
 You can also define a `tsconfig.json` to configure the <ProductName /> TypeScript compiler.
 
@@ -199,7 +199,7 @@ For more information on what to do next, we recommend the following articles:
   Functions introduction.
 </Card>
 
-<Card title="Introduction to <ProductName />" href="/docs/v2/introduction">
+<Card title={`Introduction to ${PRODUCT_NAME}`} href="/docs/v2/introduction">
   You've got your Serverless Function ready to go, now learn how to deploy it
   with a single-command and a first-class frontend with no extra configuration.
 </Card>

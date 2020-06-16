@@ -18,9 +18,11 @@ export const meta = {
 
 <Note type="alert">
   The <InlineCode>name</InlineCode> property has been deprecated in favor of{' '}
-  <Link href="/docs/now-cli#commands/now/project-linking">Project Linking</Link>
+  <Link href="/docs/cli#commands/overview/project-linking">
+    Project Linking
+  </Link>
   , which allows you to link a <ProductName /> Project to your local codebase when
-  you run <InlineCode>now</InlineCode>.
+  you run <InlineCode>vercel</InlineCode>.
 </Note>
 
 **Type**: `String`.
@@ -38,7 +40,7 @@ The prefix for all new deployment instances. The CLI usually generates this fiel
 The defined name is also used to organize the deployment into [a project](/docs/v2/platform/projects).
 
 <Code lang="json">{`{
-  "name": "zeit-chat"
+  "name": "example-app"
 }`}</Code>
 
 ## version
@@ -61,7 +63,7 @@ Specifies the [<ProductName /> Platform version](/docs/v2/platform/overview#vers
 
 **Limit**: A maximum of 64 aliases in the array.
 
-The alias or aliases are applied automatically using [<ProductName /> for GitHub](/docs/v2/git-integrations/zeit-now-for-github), [<ProductName /> for GitLab](/docs/v2/git-integrations/zeit-now-for-gitlab), or [<ProductName /> for Bitbucket](/docs/v2/git-integrations/zeit-now-for-bitbucket) when merging or pushing to the default branch.
+The alias or aliases are applied automatically using [<ProductName /> for GitHub](/docs/v2/git-integrations/vercel-for-github), [<ProductName /> for GitLab](/docs/v2/git-integrations/vercel-for-gitlab), or [<ProductName /> for Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket) when merging or pushing to the default branch.
 
 You can deploy to the defined aliases using [<ProductShortName /> CLI](/download) by setting the [production deployment environment target](/docs/v2/custom-domains#deploying-with-your-domain).
 
@@ -70,8 +72,8 @@ You can deploy to the defined aliases using [<ProductShortName /> CLI](/download
 }`}</Code>
 
 <Note>
-  Aliases from a <InlineCode>now.json</InlineCode> file will be <b>ignored</b>{' '}
-  when there are domains that have been{' '}
+  Aliases from a <InlineCode>vercel.json</InlineCode> file will be{' '}
+  <b>ignored</b> when there are domains that have been{' '}
   <Link href="/docs/v2/custom-domains/#deploying-with-your-domain">
     configured for the project through the dashboard
   </Link>
@@ -86,7 +88,7 @@ You can deploy to the defined aliases using [<ProductShortName /> CLI](/download
 
 This property determines the scope ([user or team](/docs/v2/platform/users-and-teams/)) under which the project will be deployed by [<ProductShortName /> CLI](/download).
 
-Furthermore, it also affects any other actions that the user takes within the directory that contains this configuration (e.g. listing [Environment Variables](/docs/v2/build-step#environment-variables) using `now secrets ls`).
+Furthermore, it also affects any other actions that the user takes within the directory that contains this configuration (e.g. listing [Environment Variables](/docs/v2/build-step#environment-variables) using `vercel secrets ls`).
 
 <Code lang="json">{`{
   "scope": "my-team"
@@ -263,6 +265,16 @@ For more information on Runtimes, see the documentation:
 
 ## routes
 
+<Note type="warning">
+  It is not possible to use <InlineCode>routes</InlineCode> in combination with
+  the following properties:{' '}
+  <Link href="/docs/configuration#project/cleanurls">cleanUrls</Link>,{' '}
+  <Link href="/docs/configuration#project/trailingslash">trailingSlash</Link>,{' '}
+  <Link href="/docs/configuration#project/redirects">redirects</Link>,{' '}
+  <Link href="/docs/configuration#project/rewrites">rewrites</Link>, and{' '}
+  <Link href="/docs/configuration#project/headers">headers</Link>.
+</Note>
+
 **Type:** `Array` of route `Object`.
 
 **Valid values:** a list of route definitions.
@@ -291,7 +303,7 @@ For more information on Runtimes, see the documentation:
     { "src": "/users/(?<id>[^/]*)", "dest": "/users-api.js?id=$id" },
     { "src": "/.*", "dest": "https://my-old-site.com"},
     { "src": "/legacy", "status": 404},
-    { "src": "/redirect", "status": 308, "headers": { "Location": "https://zeit.co/" } }
+    { "src": "/redirect", "status": 308, "headers": { "Location": "https://example.com/" } }
   ]
 }`}</Code>
 
@@ -305,11 +317,11 @@ For more information on routes, see the documentation:
 
 **Type:** `Array` of region identifier `String`.
 
-**Valid values:** a list of valid [region identifiers](/docs/v2/platform/regions-and-providers).
+**Valid values:** a list of valid [region identifiers](/docs/v2/platform/regions).
 
 By setting and modifying this value, you can decide the deployment **regions** of the [Serverless Functions](/docs/v2/serverless-functions/introduction/) that get created as a result of the [build steps](/docs/v2/build-step). By default, the closest region to the geographical location of the deployment is used, or if using a <ProductName /> for Git Integration, SFO is used by default.
 
-This value does not impact static files or edge caches, since deployments always have a [CDN layer](/docs/v2/network/caching/) in front.
+This value does not impact static files or edge caches, since deployments always have a [CDN layer](/docs/v2/edge-network/caching/) in front.
 
 The special value `all` can be used to target all available regions.
 
@@ -405,7 +417,7 @@ This is not recommended because it could lead to search engines indexing two dif
 
 - `source`: A pattern that matches each incoming pathname (excluding querystring).
 - `destination`: A location destination defined as an absolute pathname or external URL.
-- `statusCode`: An optional HTTP status code in the [301-308](https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections) range (default 308).
+- `permanent`: A boolean to toggle between permanent and temporary redirect (default true). When `true`, the status code is [308](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/308). When `false` the status code is [307](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/307).
 
 <P>
   This example configures custom redirects that map to static files,{' '}
@@ -417,10 +429,12 @@ This is not recommended because it could lead to search engines indexing two dif
 <Code lang="json">{`{
   "redirects": [
     { "source": "/me", "destination": "/profile.html" },
-    { "source": "/user", "destination": "/api/user", "statusCode": 307 },
-    { "source": "/view-source", "destination": "https://github.com/zeit/now" }
+    { "source": "/user", "destination": "/api/user", "permanent": false },
+    { "source": "/view-source", "destination": "https://github.com/vercel/vercel" }
   ]
 }`}</Code>
+
+In some rare cases, you might need to assign a custom status code for older HTTP Clients to properly redirect. In these cases, you can use the `statusCode` property instead of the `permanent` property, but not both.
 
 ## rewrites
 

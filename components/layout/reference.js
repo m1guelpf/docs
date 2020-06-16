@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { MDXProvider } from '@mdx-js/tag'
 import { withRouter } from 'next/router'
 import { useAmp } from 'next/amp'
@@ -45,9 +45,7 @@ function ReferencePage({
   const [activeEntry, setActiveEntry] = useState(null)
   const [activeSubEntry, setActiveSubEntry] = useState(null)
   const [navigationActive, setNavigationActive] = useState(false)
-  const [version, setVersion] = useState(
-    router.asPath.split(/(v[0-9])/)[1] || 'v2'
-  )
+  const [version] = useState(router.asPath.split(/(v[0-9])/)[1] || 'v2')
   const [sidebarNode, setSidebarNode] = useState(null)
 
   const updateActive = ({

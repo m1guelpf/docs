@@ -1,0 +1,35 @@
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+import ProductName from '~/components/name/product-name'
+
+export const meta = {
+  lastEdited: '2019-10-15T22:03:42.000Z'
+}
+
+## Init
+
+The `vercel init` command is used to initialize projects locally from the examples found in the [<ProductName /> repository](https://github.com/vercel/vercel/tree/master/examples).
+
+### Basic Usage
+
+<Snippet dark text="vercel init" />
+<Caption>Using the <InlineCode>vercel init</InlineCode> command to initialize a project locally.</Caption>
+
+### Extended Usage
+
+<Snippet dark text="vercel init [project-name]" />
+<Caption>Using the <InlineCode>vercel init</InlineCode> command to initialize a specific project locally.</Caption>
+
+<Snippet dark text="vercel init [project-name] [new-project-name]" />
+<Caption>Using the <InlineCode>vercel init</InlineCode> command to initialize a specific project locally and rename the directory.</Caption>
+
+### Global Options
+
+The following [global options](#options) can be passed when using the `vercel init` command:
+
+- `--debug`
+- `--help`
+- `--force`
+
+For more information on global options and their usage, refer to the [options section](#options).

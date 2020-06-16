@@ -1,0 +1,45 @@
+import Layout from '~/components/layout/knowledge'
+import Note from '~/components/text/note'
+
+export const meta = {
+  title: 'How do I choose which region to deploy my Serverless Functions in?',
+  description:
+    'Information on selecting a region to deploy your Serverless Functions to.',
+  editUrl: 'pages/knowledge/choosing-deployment-regions.mdx',
+  url: '/knowledge/choosing-deployment-regions',
+  published: '2020-05-25T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+The Vercel platform caches all static content at [the edge](/docs/v2/edge-network/overview) by default. This means that without any changes, your static files are immediately available from all [Vercel regions](docs/v2/edge-network/regions).
+
+[Serverless Functions](/docs/v2/serverless-functions/introduction) are deployed to the `SFO` region by default, this can be changed depending on the account plan.
+
+## Hobby
+
+For Hobby accounts, the default deployment region for Serverless Functions of `SFO` **cannot be changed**. As a result, it is recommended to locate your data source as close to this region as possible.
+
+## Pro Teams
+
+For Pro team accounts, the default deployment region for Serverless Functions is `SFO`.
+
+These accounts are able to change this by [selecting a **single region**](/docs/configuration#project/regions) for Serverless Functions to be deployed in.
+
+<Note type="warning">
+  For the best performance, deploy your Serverless Functions in the region
+  closest to your data source.
+</Note>
+
+## Enterprise Plans
+
+For Enterprise accounts, the default deployment region for Serverless Functions is `SFO`.
+
+These accounts are able to change this by [selecting **multiple regions**](/docs/configuration#project/regions) for Serverless Functions to be deployed in.
+
+If you believe your project requires an Enterprise plan, please contact our [Enterprise department](/contact/sales).
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

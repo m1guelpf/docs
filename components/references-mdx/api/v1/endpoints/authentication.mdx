@@ -12,6 +12,7 @@ import {
 } from '~/components/api/table'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/endpoints/authentication.mdx',
@@ -41,7 +42,7 @@ Request a new login for an user to get a token.
     <BooleanCell status={true} />
     <Cell>
       The desired name for the token. It will be displayed on the{' '}
-      <Link href="https://zeit.co/account/tokens">user account details</Link>.
+      <Link href="/account/tokens">user account details</Link>.
     </Cell>
   </Row>
 </InputTable>
@@ -69,7 +70,7 @@ Request a new login for an user to get a token.
 
 <Request
   method="POST"
-  url="https://api.zeit.co/now/registration"
+  url={`${API_ENDPOINT}/now/registration`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -109,7 +110,9 @@ Verify the user accepted the login request and get a authentication token. The u
 <Example>
   Example request:
 
-<Request url="https://api.zeit.co/now/registration/verify?email=user@mail.com&token=T1dmvPu36nmyYisXAs7IRzcR" />
+<Request
+  url={`${API_ENDPOINT}/now/registration/verify?email=user@mail.com&token=T1dmvPu36nmyYisXAs7IRzcR`}
+/>
 
 Example response:
 

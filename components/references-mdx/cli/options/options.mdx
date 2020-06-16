@@ -1,0 +1,93 @@
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+import ProductShortName from '~/components/name/product-short-name'
+
+export const meta = {
+  lastEdited: '2019-10-15T22:03:42.000Z'
+}
+
+# Options
+
+This section contains information about the two types of options available to pass when using [<ProductShortName /> CLI](/download) commands, [unique](#unique-options) and [global](#global-options).
+
+To understand which options can be used with a particular command, take a look at the specific command for more information.
+
+## Unique Options
+
+Unique options relate only to a single <ProductShortName /> CLI command and as such, are documented in full in the command section they relate to.
+
+When using unique options, some of the shorthands may conflict with those of [global options](#global-options), this only occurs when the particular global option is not available for that command.
+
+## Global Options
+
+Global options are commonly available to use with multiple <ProductShortName /> CLI commands.
+
+### Debug
+
+The `--debug` option, shorthand `-d`, can be used to provide a more verbose output when running <ProductShortName /> CLI commands.
+
+#### Usage Example
+
+<Snippet dark text="vercel --debug" />
+<Caption>Using the <InlineCode>vercel</InlineCode> command with the <InlineCode>--debug</InlineCode> option.</Caption>
+
+### Force
+
+The `--force` option, shorthand `-f`, is used either to force a deployment where there have been no changes or to forcibly replace an existing local directory.
+
+#### Usage Example
+
+<Snippet dark text="vercel --force" />
+<Caption>Using the <InlineCode>vercel</InlineCode> command with the <InlineCode>--force</InlineCode> option.</Caption>
+
+<Snippet dark text="vercel init gatsby my-project-directory --force" />
+<Caption>Using the <InlineCode>vercel init</InlineCode> command with the <InlineCode>--force</InlineCode> option.</Caption>
+
+### Global Config
+
+The `--global-config` option, shorthand `-Q`, can be used set the path to the global `/.vercel` directory.
+
+#### Usage Example
+
+<Snippet dark text="vercel --global-config /path-to/.vercel" />
+<Caption>Using the <InlineCode>vercel</InlineCode> command with the <InlineCode>--global-config</InlineCode> option.</Caption>
+
+### Help
+
+The `--help` option, shorthand `-h`, can be used to display more information about [<ProductShortName /> CLI](/downlaod) commands.
+
+#### Usage Example
+
+<Snippet dark text="vercel --help" />
+<Caption>Using the <InlineCode>vercel</InlineCode> command with the <InlineCode>--help</InlineCode> option.</Caption>
+
+<Snippet dark text="vercel secrets --help" />
+<Caption>Using the <InlineCode>vercel secrets</InlineCode> command with the <InlineCode>--help</InlineCode> option.</Caption>
+
+### Local Config
+
+The `--local-config` option, shorthand `-A`, can be used set the path to a local `vercel.json` file.
+
+#### Usage Example
+
+<Snippet dark text="vercel --local-config /path-to/vercel.json" />
+<Caption>Using the <InlineCode>vercel</InlineCode> command with the <InlineCode>--local-config</InlineCode> option.</Caption>
+
+### Scope
+
+The `--scope` option, shorthand `-S`, can be used to execute [<ProductShortName /> CLI](/download) commands from a different team or user account than is currently active.
+
+#### Usage Example
+
+<Snippet dark text="vercel --scope my-team-name" />
+<Caption>Using the <InlineCode>vercel</InlineCode> command with the <InlineCode>--scope</InlineCode> option.</Caption>
+
+### Token
+
+The `--token` option, shorthand `-t`, can be used to execute [<ProductShortName /> CLI](/download) commands with an [authorization token](/account/tokens).
+
+#### Usage Example
+
+<Snippet dark text="vercel --token iZJb2oftmY4ab12HBzyBXMkp" />
+<Caption>Using the <InlineCode>vercel</InlineCode> command with the <InlineCode>--token</InlineCode> option.</Caption>

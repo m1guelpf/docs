@@ -9,7 +9,7 @@ export const meta = {
   description: `Setting up environment variables to use in your deployed ${PRODUCT_SHORT_V1_NAME} apps`,
   date: '6 August 2017',
   editUrl: 'pages/docs/v1/getting-started/environment-variables.mdx',
-  lastEdited: '2020-04-14T06:26:07.000Z'
+  lastEdited: '2020-04-16T01:25:09.000Z'
 }
 
 Almost every app needs to get configurations at runtime. These configurations could be anything, including:
@@ -39,7 +39,7 @@ const { MONGO_URL, MY_API_TOKEN } = process.env
 
 ## Via `now.json`
 
-You can also expose these environment variables with [now.json](https://zeit.co/docs/features/configuration). For that, create a file named `now.json` inside your app root and add environment variables like this:
+You can also expose these environment variables with [now.json](/docs/features/configuration). For that, create a file named `now.json` inside your app root and add environment variables like this:
 
 ```
 {

@@ -1,6 +1,6 @@
 ---
 name: API Reference Report or Request
-about: Create a report or request for the API Reference (zeit.co/docs/api)
+about: Create a report or request for the API Reference (vercel.com/docs/api)
 title: ''
 labels: 'Section: API'
 assignees: ''
@@ -8,7 +8,7 @@ assignees: ''
 
 ## Documentation
 
-**Section** if applicable to existing section(s): <!--- e.g. https://zeit.co/docs/v2/deployments/basics/ -->
+**Section** if applicable to existing section(s): <!--- e.g. https://vercel.com/docs/v2/deployments/basics/ -->
 **Brief Summary**: <!--- A brief summary of the API reference report or request -->
 
 ## Additional Information

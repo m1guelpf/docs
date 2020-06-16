@@ -1,0 +1,55 @@
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+import Note from '~/components/text/note'
+
+export const meta = {
+  lastEdited: '2019-10-15T22:03:42.000Z'
+}
+
+## DNS
+
+The `vercel dns` command is used to manage DNS record for domains, providing functionality to list, add, remove, and import records.
+
+<Note type="warning">
+  This command is for <b>advanced use only</b>. When adding DNS records, please
+  wait up to 24 hours for new records to propagate.
+</Note>
+
+### Basic Usage
+
+<Snippet dark text="vercel dns ls" />
+<Caption>Using the <InlineCode>vercel dns</InlineCode> command to list all DNS records under an account.</Caption>
+
+### Extended Usage
+
+<Snippet dark text="vercel dns add [domain] [subdomain] [A || AAAA || ALIAS || CNAME || TXT] [value]" />
+<Caption>Using the <InlineCode>vercel dns</InlineCode> command to add an A record for a subdomain.</Caption>
+
+<Snippet dark text="vercel dns add [domain] '@' MX [record-value] [priority]" />
+<Caption>Using the <InlineCode>vercel dns</InlineCode> command to add an MX record for a domain.</Caption>
+
+<Snippet dark text="vercel dns add [domain] [name] SRV [priority] [weight] [port] [target]" />
+<Caption>Using the <InlineCode>vercel dns</InlineCode> command to add an SRV record for a domain.</Caption>
+
+<Snippet dark text={`vercel dns add [domain] [name] CAA '[flags] [tag] "[value]"'`} />
+<Caption>Using the <InlineCode>vercel dns</InlineCode> command to add a CAA record for a domain.</Caption>
+
+<Snippet dark text="vercel dns rm [record-id]" />
+<Caption>Using the <InlineCode>vercel dns</InlineCode> command to remove a record for a domain.</Caption>
+
+<Snippet dark text="vercel dns import [domain] [path-to-zonefile]" />
+<Caption>Using the <InlineCode>vercel dns</InlineCode> command to import a zonefile for a domain.</Caption>
+
+### Global Options
+
+The following [global options](#options) can be passed when using the `vercel dns` command:
+
+- `--debug`
+- `--global-config`
+- `--help`
+- `--local-config`
+- `--scope`
+- `--token`
+
+For more information on global options and their usage, refer to the [options section](#options).

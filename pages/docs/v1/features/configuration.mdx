@@ -2,13 +2,14 @@ import ProductShortV1Name from '~/components/name/product-short-v1-name'
 import Doc from '~/components/layout/docs'
 import CliV1Name from '~/components/name/cli-v1-name'
 import { PRODUCT_SHORT_V1_NAME } from '~/lib/constants'
+import ApiEndpoint from '~/components/name/api-endpoint'
 
 export const meta = {
   title: `Configuring ${PRODUCT_SHORT_V1_NAME}`,
   description: `Configuring ${PRODUCT_SHORT_V1_NAME} so that your deployments are exactly as you need them`,
   date: '22 Feb 2017',
   editUrl: 'pages/docs/v1/features/configuration.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-06-04T20:10:32.000Z'
 }
 
 This guide explains how to use these methods to configure and customize the default behavior of <CliV1Name />.
@@ -56,7 +57,7 @@ To explicitly use [version 1 of <ProductShortV1Name />](/blog/now-2), use the fo
 The prefix for all new deployment instances. The CLI usually generates this field automatically based on the name of the directory. But if you'd like to define it explicitly, this is the way to go.
 
 ```
-"name": "zeit-chat"
+"name": "example-app"
 ```
 
 #### `alias` (string|array)
@@ -64,10 +65,10 @@ The prefix for all new deployment instances. The CLI usually generates this fiel
 Aliases which will be assigned to the latest deployment when running `now alias` (with no arguments).
 
 ```
-"alias": "zeit.chat"
+"alias": "example.com"
 
 "alias": [
-  "zeit.chat"
+  "example.com"
 ]
 ```
 
@@ -194,17 +195,17 @@ For an example, this is how to use the latest version of Node.js 6 inside <Produ
 #### `static` (object)
 
 If you are creating a deployment of type `static`, this optional property can contain an
-object with any of [these properties](https://github.com/zeit/serve-handler#options).
+object with any of [these properties](https://github.com/vercel/serve-handler#options).
 
 For testing your static project locally (in development), we recommend
-using [serve](https://github.com/zeit/serve) as it will read your
+using [serve](https://github.com/vercel/serve) as it will read your
 local deployment configuration file and adapt its behavior accordingly.
 
 #### `api` (string)
 
 The URL of the <ProductShortV1Name /> API which <CliV1Name /> should interact with.
 
-By default, it's pointing to `https://api.zeit.co`, which always points to
+By default, it's pointing to <ApiEndpoint />, which always points to
 the right location depending on where you're connecting from (Anycast).
 
 This property takes precedence over `sh.api` in `config.json`.
@@ -242,7 +243,7 @@ canary updates:
 
 The URL of the <ProductShortV1Name /> API which <CliV1Name /> should interact with.
 
-By default, it's pointing to `https://api.zeit.co`, which always points to
+By default, it's pointing to <ApiEndpoint />, which always points to
 the right location depending on where you're connecting from (Anycast).
 
 **Important**: As indicated by the `sh.` prefix, this configuration

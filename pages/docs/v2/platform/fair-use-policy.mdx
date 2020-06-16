@@ -5,12 +5,13 @@ import CheckmarkInCircle from '~/components/icons/checkmark-in-circle'
 import CrossInCircle from '~/components/icons/cross-in-circle'
 import { LI, CheckList } from '~/components/list'
 import Note from '~/components/text/note'
+import Link from '~/components/text/link'
 
 export const meta = {
   title: 'Fair Use Policy',
   description: `Fair Use Policy for the ${PRODUCT_NAME} platform.`,
   editUrl: 'pages/docs/v2/platform/fair-use-policy.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-05-27T09:23:46.000Z'
 }
 
 All subscription plans include unlimited Bandwidth, Builds, and Serverless Function Execution subject to this Fair Use policy. Below is a rule-of-thumb for determining which projects fall within our definition of "Fair Use" and which do not.
@@ -51,8 +52,14 @@ As a guideline for our community, we expect most users to fall within the below 
 |                                 | Hobby           | Pro               |
 | ------------------------------- | --------------- | ----------------- |
 | Bandwidth                       | Up to 100GB     | Up to 1TB         |
-| Serverless Function Invocations | Up to 100GB/Hrs | Up to 1,000GB/Hrs |
+| Serverless Function Invocations | Up to 100GB-Hrs | Up to 1,000GB-Hrs |
 | Builds per Week                 | Up to 25        | Up to 100         |
+
+<Note>
+  If your project is likely to exceed these limits, please{' '}
+  <Link href="/support/request">contact Vercel Support</Link> to discuss an
+  increase.
+</Note>
 
 ### General Limits
 

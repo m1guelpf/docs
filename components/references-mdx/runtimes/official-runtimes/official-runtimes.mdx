@@ -16,7 +16,7 @@ export const meta = {
 
 # Official Runtimes
 
-Runtimes are modules that transform your source code into [Serverless Functions](/docs/v2/serverless-functions/introduction/), which are served by our [CDN at the edge](/docs/v2/network/caching/).
+Runtimes are modules that transform your source code into [Serverless Functions](/docs/v2/serverless-functions/introduction/), which are served by our [CDN at the edge](/docs/v2/edge-network/caching/).
 
 <Note type="warning">
   In most cases, advanced Runtimes usage with configuration is not necessary.
@@ -148,14 +148,14 @@ Each request to a Node.js Serverless Function gives access to Request and Respon
 
 &#8203;<ProductName /> additionally provides helper methods inside of the Request and Response objects passed to Node.js Serverless Functions. These methods are:
 
-| method             | description                                                                                                                                                                                    | object   |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| `req.query`        | An object containing the request's [query string](https://en.wikipedia.org/wiki/Query_string), or `{}` if the request does not have a query string.                                            | Request  |
-| `req.cookies`      | An object containing the cookies sent by the request, or `{}` if the request contains no cookies.                                                                                              | Request  |
-| `req.body`         | An object containing the body sent by the request, or `null` if no body is sent.                                                                                                               | Request  |
-| `res.status(code)` | A function to set the status code sent with the response where `code` must be a valid [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). Returns `res` for chaining. | Response |
-| `res.send(body)`   | A function to set the content of the response where `body` can be a `string`, an `object` or a `Buffer`.                                                                                       | Response |
-| `res.json(obj)`    | A function to send a JSON response where `obj` is the JSON object to send.                                                                                                                     | Response |
+| method                                                                                     | description                                                                                                                                                                                    | object   |
+| ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `req.query`                                                                                | An object containing the request's [query string](https://en.wikipedia.org/wiki/Query_string), or `{}` if the request does not have a query string.                                            | Request  |
+| `req.cookies`                                                                              | An object containing the cookies sent by the request, or `{}` if the request contains no cookies.                                                                                              | Request  |
+| [`req.body`](#official-runtimes/node-js/node-js-request-and-response-objects/request-body) | An object containing the body sent by the request, or `null` if no body is sent.                                                                                                               | Request  |
+| `res.status(code)`                                                                         | A function to set the status code sent with the response where `code` must be a valid [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). Returns `res` for chaining. | Response |
+| `res.send(body)`                                                                           | A function to set the content of the response where `body` can be a `string`, an `object` or a `Buffer`.                                                                                       | Response |
+| `res.json(obj)`                                                                            | A function to send a JSON response where `obj` is the JSON object to send.                                                                                                                     | Response |
 
 The following Node.js Serverless Function example showcases the use of `req.query`, `req.cookies` and `req.body` helpers:
 
@@ -206,6 +206,38 @@ We follow a set of rules on the `Content-type` header sent by the request to do 
 | `application/octet-stream`          | A [Buffer](https://nodejs.org/api/buffer.html) containing the data sent by the request. |
 
 With the `req.body` helper, you can build applications without extra dependencies or having to [parse the content of the request manually](https://nodejs.org/ja/docs/guides/anatomy-of-an-http-transaction/#request-body).
+
+<Note>
+  The <InlineCode>req.body</InlineCode> helper is set using a{' '}
+  <Link
+    tab
+    href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get"
+  >
+    JavaScript getter
+  </Link>
+  . In turn, it is only computed when it is accessed.
+</Note>
+
+When the request body contains malformed JSON, accessing `req.body` will throw an error. You can catch that error by wrapping `req.body` with [`try...catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch):
+
+```js
+try {
+  req.body
+} catch (error) {
+  return res.status(400).json({ error: 'My custom 400 error' })
+}
+```
+
+<Caption>
+  Catching the error thrown by <InlineCode>req.body</InlineCode> with{' '}
+  <Link
+    tab
+    href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch"
+  >
+    <InlineCode>try...catch</InlineCode>
+  </Link>
+  .
+</Caption>
 
 ---
 
@@ -370,8 +402,6 @@ gem "cowsay", "~> 0.3.0"
   An example <InlineCode>Gemfile</InlineCode> file that defines{' '}
   <InlineCode>cowsay</InlineCode> as a dependency.
 </Caption>
-
-For advanced usage, such as using a Rack Interface for your Ruby projects, see the [Advanced Ruby Usage section](#advanced-usage/advanced-ruby-usage).
 
 ### Ruby Version
 

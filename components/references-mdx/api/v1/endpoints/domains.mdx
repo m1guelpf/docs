@@ -13,6 +13,7 @@ import {
 } from '~/components/api/table'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/endpoints/domains.mdx',
@@ -98,7 +99,7 @@ manage DNS records for the domain.
   Example request:
 
 <Request
-  url="https://api.zeit.co/v2/domains"
+  url={`${API_ENDPOINT}/v2/domains`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -112,7 +113,7 @@ Example successful (**200**) response:
     "domains": [
       {
         "uid": "HVXAOskvQK8ILaF8d8gmwdRx",
-        "name": "zeit.rocks",
+        "name": "example.com",
         "created": "2017-09-03T19:48:50.120Z",
         "boughtAt": "2017-09-03T19:48:46.000Z",
         "expiresAt": "2018-09-03T19:48:46.555Z",
@@ -122,7 +123,7 @@ Example successful (**200**) response:
             "tyyBofjOQzbTS5Q8Orif6YS1"
         ],
         "certs": [
-            "zeit.rocks"
+            "example.com"
         ]
       }
     ]
@@ -136,7 +137,7 @@ Example successful (**200**) response:
 Register a new domain name with <ProductShortV1Name /> for the authenticating
 user. The field `serviceType` selects whether the domains is going to use
 zeit.world DNS or an external nameserver. In the latter case a `CNAME/ALIAS`
-record(s) are expected to point towards `alias.zeit.co`.
+record(s) are expected to point towards `cname.vercel-dns.com`.
 
 If an external nameserver is used the user must verify the domain name
 by creating a TXT record for `_now` subdomain containing a
@@ -203,7 +204,7 @@ been created, the user may retry the same POST and the endpoint shall return
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v2/domains"
+  url={`${API_ENDPOINT}/v2/domains`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -211,7 +212,7 @@ been created, the user may retry the same POST and the endpoint shall return
     'Content-Type': 'application/json'
   }}
   body={{
-    name: 'zeit.rocks',
+    name: 'example.com',
     serviceType: 'zeit.world'
   }}
 />
@@ -228,7 +229,7 @@ Example request adding a unverified external domain:
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v2/domains"
+  url={`${API_ENDPOINT}/v2/domains`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -273,7 +274,7 @@ Deleting a domain will automatically remove any associated aliases.
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v2/domains/zeit.rocks"
+  url={`${API_ENDPOINT}/v2/domains/example.com`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -308,7 +309,7 @@ Check if a domain name _may_ be available to buy or not. The response is a JSON 
   Example request:
 
 <Request
-  url="https://api.zeit.co/v2/domains/status?name=zeit.rocks"
+  url={`${API_ENDPOINT}/v2/domains/status?name=example.com`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -348,7 +349,7 @@ Check the price to purchase a domain and how long a single purchase period is. T
   Example request:
 
 <Request
-  url="https://api.zeit.co/v2/domains/price?name=zeit.rocks"
+  url={`${API_ENDPOINT}/v2/domains/price?name=example.com`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'
@@ -394,7 +395,7 @@ In case of a successful purchase the returns with code 200 and an empty body.
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v2/domains/buy"
+  url={`${API_ENDPOINT}/v2/domains/buy`}
   headers={{
     Authorization: `Bearer ${
       props.testingtoken ? props.testingtoken.token : '$token'
@@ -402,7 +403,7 @@ In case of a successful purchase the returns with code 200 and an empty body.
     'Content-Type': 'application/json'
   }}
   body={{
-    name: 'zeit.rocks'
+    name: 'example.com'
   }}
 />
 

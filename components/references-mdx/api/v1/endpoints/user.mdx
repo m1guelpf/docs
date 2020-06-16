@@ -12,6 +12,7 @@ import {
 } from '~/components/api/table'
 import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v1/api-docs-mdx/endpoints/user.mdx',
@@ -22,7 +23,7 @@ export const meta = {
 
 ### Get the authenticated user
 
-<Endpoint method="GET" url="https://api.zeit.co/www/user" />
+<Endpoint method="GET" url={`${API_ENDPOINT}/www/user`} />
 
 Retrieves information related to the authenticated user.
 
@@ -30,7 +31,7 @@ Retrieves information related to the authenticated user.
   Example request:
 
 <Request
-  url="https://api.zeit.co/www/user"
+  url={`${API_ENDPOINT}/www/user`}
   headers={{
     Authorization: `Bearer ${
       props.testingToken ? props.testingToken.token : '$TOKEN'

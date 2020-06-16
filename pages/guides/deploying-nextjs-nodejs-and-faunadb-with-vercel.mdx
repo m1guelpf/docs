@@ -1,0 +1,297 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Link from '~/components/text/link'
+import Card from '~/components/card'
+import { Code } from '~/components/code'
+import DeploySection from '~/components/guides/deploy-section'
+import ProductShortName from '~/components/name/product-short-name'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Create and Deploy a Next.js and FaunaDB-Powered Node.js App with ${PRODUCT_NAME}`,
+  description: `Create a Next.js and FaunaDB-Powered Node.js App and deploy it with ${PRODUCT_NAME}.`,
+  name: 'Next.js + FaunaDB',
+  type: 'app',
+  published: '2019-09-19T17:00:00.000Z',
+  authors: ['danieltodonnell', 'mcsdev'],
+  url: '/guides/deploying-nextjs-nodejs-and-faunadb-with-vercel',
+  image: `https://og-image.now.sh/**Deploy%20a%20FaunaDB-Powered%20Next.js%20app**%20%3Cbr%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=70px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fseeklogo.com%2Fimages%2FN%2Fnext-js-logo-7929BCD36F-seeklogo.com.png&images=https%3A%2F%2Fres-3.cloudinary.com%2Fcrunchbase-production%2Fimage%2Fupload%2Fc_lpad%2Ch_256%2Cw_256%2Cf_auto%2Cq_auto%3Aeco%2Fywnzi0pt0uw9klatmadc`,
+  editUrl: 'pages/guides/deploying-nextjs-nodejs-and-faunadb-with-vercel.mdx',
+  lastEdited: '2020-05-14T23:00:11.000Z'
+}
+
+[FaunaDB](https://fauna.com/) is a serverless cloud database that gives you low-latency access to your app data around the world.
+
+This guide walks you through creating a [Next.js app](https://nextjs-faunadb-nodejs.now-examples.now.sh/) that receives data from a [Node.js](https://nodejs.org/en/) API powered by [FaunaDB](https://fauna.com/), and how to deploy it with <ProductName />.
+
+## Step 1: Connecting to FaunaDB
+
+To start, you need to have [created a FaunaDB account](https://dashboard.fauna.com/accounts/register). Once logged in to FaunaDB, create a child database named `zeit` _(names are case sensitive)_.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-nextjs-nodejs-and-faunadb-with-vercel/fauna-create-vercel-db.png`}
+  width={2048 / 2.5}
+  height={1628 / 2.5}
+  oversize
+  shadow
+/>
+<Caption>Creating a new database in the FaunaDB dashboard.</Caption>
+
+After clicking **Save**, you will be taken to the **Database Overview** page.
+
+From here, the easiest way to create a demo schema with some data is to execute a _Fauna Query Language (FQL)_ script file.
+
+Select the **Shell** tab, then copy in [this FQL script](https://raw.githubusercontent.com/danieltodonnell/faunadb-zeit-fql-demo/master/fql-scripts/ecommerce.fql) and click **Run Query**.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-nextjs-nodejs-and-faunadb-with-vercel/fauna-vercel-db-shell.png`}
+  width={2048 / 2.5}
+  height={1536 / 2.5}
+  oversize
+  shadow
+/>
+<Caption>Adding data to a FaunaDB database from the dashboard using an FQL script.</Caption>
+
+After executing the script, the **Collections** page will present you with dummy data. You are now ready to create a connection to the database.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/deploying-nextjs-nodejs-and-faunadb-with-vercel/fauna-vercel-db-collections.png`}
+  width={2048 / 2.5}
+  height={1536 / 2.5}
+  oversize
+  shadow
+/>
+<Caption>The Collections page on the FaunaDB dashboard after adding data to the database.</Caption>
+
+## Step 2: Create an Access Key
+
+Go to the [**Security** page](https://dashboard.fauna.com/keys/@db/zeit) and create a new key. Enter the following data in the fields:
+
+- Database: `zeit`
+- Role: `Admin`
+- Key Name: `access`
+
+Once you have entered the required data, save. FaunaDB will then take you to the **Keys** page.
+
+On the **Keys** page, you will receive a unique hash called a **Secret**. The **Secret** is your method of securely identifying yourself to the database.
+
+<Note type="warning">
+  This is the only time you will see this hash, so record it somewhere private.
+  However, if the hash is lost, a new one can be created.
+</Note>
+
+Create a [Secret](/docs/cli#commands/secrets) to store the access key received, this will be used later when accessing the database.
+
+<Snippet dark text="vercel secrets add FAUNADB_SECRET_KEY [your-access-key]" />
+<Caption>
+  Adding the access key as a <strong>Secret</strong>.
+</Caption>
+
+## Step 3: Creating Your Next.js App
+
+Get started creating your [Next.js](https://nextjs.org) by making a project directory with the required structure and moving into it:
+
+<Snippet dark text="mkdir -p faunadb-demo/pages/api && mkdir faunadb-demo/components && cd faunadb-demo" />
+<Caption>
+  Creating and entering into the <InlineCode>/faunadb-demo</InlineCode>{' '}directory.
+</Caption>
+
+Next, [initialize](https://docs.npmjs.com/cli/init) the project:
+
+<Snippet dark text="npm init -y" />
+<Caption>
+  Initializing the project, this creates a <InlineCode>package.json</InlineCode>{' '}file.
+</Caption>
+
+Continue to install [the FaunaDB JavaScript client](https://github.com/fauna/faunadb-js) which allows you to connect to, and query, the database, along with the required dependencies for Next.js:
+
+<Snippet dark text="npm i faunadb next react react-dom" />
+<Caption>
+  Adding the <InlineCode>faunadb</InlineCode>, <InlineCode>next</InlineCode>, <InlineCode>react</InlineCode> and <InlineCode>react-dom</InlineCode> <Link href="https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file">dependencies</Link> to the project.
+</Caption>
+
+Inside of the `/pages` directory, create an `index.js` file with the code below:
+
+```jsx
+import { useEffect, useState } from 'react'
+import Head from 'next/head'
+import TableRow from '../components/TableRow'
+
+export default () => {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    async function getData() {
+      const res = await fetch('/api')
+      const newData = await res.json()
+      setData(newData)
+    }
+    getData()
+  }, [])
+  return (
+    <main>
+      <Head>
+        <title>Next.js, FaunaDB and Node.js</title>
+      </Head>
+      <h1>Next.js, FaunaDB and Node.js</h1>
+      <hr />
+      <div className="container-scroll">
+        <div className="container">
+          <h2>Customer Data</h2>
+          <div className="table">
+            <h4>name</h4>
+            <h4 className="telephone">telephone</h4>
+            <h4 className="credit-card">credit card</h4>
+          </div>
+          {data.length > 0 ? (
+            data.map(d => (
+              <TableRow
+                key={d.data.telephone}
+                creditCard={d.data.creditCard.number}
+                firstName={d.data.firstName}
+                lastName={d.data.lastName}
+                telephone={d.data.telephone}
+              />
+            ))
+          ) : (
+            <>
+              <TableRow loading />
+              <TableRow loading />
+              <TableRow loading />
+            </>
+          )}
+        </div>
+      </div>
+    </main>
+  )
+}
+```
+
+<Caption>
+  Adding a <InlineCode>/pages/index.js</InlineCode> file to the project.
+</Caption>
+
+Then, create a `TableRow.js` file inside of the `/components` directory with the code below:
+
+```jsx
+export default ({ creditCard, firstName, loading, lastName, telephone }) => (
+  <div className="table table-row">
+    <p className={loading ? 'loading' : ''}>
+      {firstName} {lastName}
+    </p>{' '}
+    <p className={`telephone ${loading ? 'loading' : ''}`}>{telephone}</p>
+    <p className={`credit-card credit-card-number ${loading ? 'loading' : ''}`}>
+      {creditCard && <img src="/icons/visa.svg" />}
+      {creditCard}
+    </p>
+  </div>
+)
+```
+
+<Caption>
+  Adding a <InlineCode>/components/TableRow.js</InlineCode> file to the project.
+</Caption>
+
+Add a build script to the `package.json` file which will tell <ProductName /> how to build your project:
+
+```json
+{
+  ...
+  "scripts": {
+    "build": "next build"
+  }
+}
+```
+
+<Caption>
+  Adding a <InlineCode>build</InlineCode> script to the{' '}
+  <InlineCode>package.json</InlineCode> file.
+</Caption>
+
+<Note>
+  If you wish to use the same styles as the{' '}
+  <Link href="https://nextjs-faunadb-nodejs.now-examples.now.sh/">
+    example app
+  </Link>
+  , you can find them <Link href="https://nextjs-faunadb-nodejs.now-examples.now.sh/styles/index.css">
+    here
+  </Link>.
+</Note>
+
+## Step 4: Writing the Serverless Function
+
+Create the Node.js API endpoint that will fetch the data from FaunaDB by adding an `index.js` file to the `/pages/api` directory.
+
+The `index.js` file will act as the default endpoint for getting information from your database. The file should contain the following code:
+
+```js
+const faunadb = require('faunadb')
+
+// your secret hash
+const secret = process.env.FAUNADB_SECRET_KEY
+const q = faunadb.query
+const client = new faunadb.Client({ secret })
+
+module.exports = async (req, res) => {
+  try {
+    const dbs = await client.query(
+      q.Map(
+        // iterate each item in result
+        q.Paginate(
+          // make paginatable
+          q.Match(
+            // query index
+            q.Index('all_customers') // specify source
+          )
+        ),
+        ref => q.Get(ref) // lookup each result by its reference
+      )
+    )
+    // ok
+    res.status(200).json(dbs.data)
+  } catch (e) {
+    // something went wrong
+    res.status(500).json({ error: e.message })
+  }
+}
+```
+
+<Caption>
+  An example <InlineCode>/pages/api/index.js</InlineCode> file that retrieves
+  information from the database.
+</Caption>
+
+Create a `vercel.json` at the root of the project directory, this is used to make the [Secret](/docs/cli#commands/secrets) defined in [step 2](#step-2:-create-an-access-key) available to the Serverless Function.
+
+```json
+{
+  "env": {
+    "FAUNADB_SECRET_KEY": "@faunadb_secret_key"
+  }
+}
+```
+
+<Caption>
+  An example <InlineCode>vercel.json</InlineCode> file that makes a{' '}
+  <strong>Secret</strong> available to the application.
+</Caption>
+
+## Step 5: Deploying
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

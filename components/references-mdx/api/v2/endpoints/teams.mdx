@@ -1,9 +1,11 @@
-import { Code, InlineCode } from '~/components/text/code'
-import { HelpLink } from '~/components/text/link'
-import Note from '~/components/text/note'
+import Router from 'next/router'
 import { P } from '~/components/text'
-import Endpoint from '~/components/api/endpoint'
+import Note from '~/components/text/note'
 import Request from '~/components/api/request'
+import { API_ENDPOINT } from '~/lib/constants'
+import Endpoint from '~/components/api/endpoint'
+import Link, { HelpLink } from '~/components/text/link'
+import { Code, InlineCode } from '~/components/text/code'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/teams.mdx',
@@ -28,7 +30,7 @@ Create a new team under your account. You need to send a `POST` request with the
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v1/teams"
+  url={`${API_ENDPOINT}/v1/teams`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -60,7 +62,7 @@ Delete a team under your account. You need to send a `DELETE` request with the d
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v1/teams/team_LLHUOMOoDlqOp8wPE4kFo9pE"
+  url={`${API_ENDPOINT}/v1/teams/team_LLHUOMOoDlqOp8wPE4kFo9pE`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -87,7 +89,7 @@ Get a list of all the team you belong to.
 
 ##### Example Request
 
-<Request url="https://api.zeit.co/v1/teams" auth />
+<Request url={`${API_ENDPOINT}/v1/teams`} auth />
 
 ##### Example Response
 
@@ -126,10 +128,7 @@ Get the information of a specific team, it could be used either passing the `:id
 
 ##### Example Request
 
-<Request
-  url="https://api.zeit.co/v1/teams/team_ofwUZockJlL53hINUGCc1ONW"
-  auth
-/>
+<Request url={`${API_ENDPOINT}/v1/teams/team_ofwUZockJlL53hINUGCc1ONW`} auth />
 
 ##### Example Response
 
@@ -163,7 +162,7 @@ Update the information of the team defined with the id. You need to send a `PATC
 
 <Request
   method="PATCH"
-  url="https://api.zeit.co/v1/teams/team_ofwUZockJlL53hINUGCc1ONW"
+  url={`${API_ENDPOINT}/v1/teams/team_ofwUZockJlL53hINUGCc1ONW`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -185,42 +184,48 @@ Update the information of the team defined with the id. You need to send a `PATC
 
 ### Get list of team members
 
-<Endpoint method="GET" url="/v1/teams/:id/members" />
+<Endpoint method="GET" url="/v2/teams/:id/members" />
 
 Get the list of team members of the team defined in the URL. The response is a list of maps with the following format.
 
 #### Response Parameters
 
-| Key          | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                |
-| ------------ | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| **uid**      | <HelpLink href="#api-basics/types">ID</HelpLink>           | The team member unique identifier.                         |
-| **role**     | <HelpLink href="#api-basics/types">Enum</HelpLink>         | The role inside the team, it could be `OWNER` or `MEMBER`. |
-| **email**    | <HelpLink href="#api-basics/types">String</HelpLink>       | The email address of the team member.                      |
-| **username** | <HelpLink href="#api-basics/types">String</HelpLink>       | The username of the team member.                           |
+| Key                   | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                                                                                                                            |
+| --------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **uid**               | <HelpLink href="#api-basics/types">ID</HelpLink>           | The team member unique identifier.                                                                                                                                     |
+| **role**              | <HelpLink href="#api-basics/types">Enum</HelpLink>         | The role inside the team, it could be `OWNER` or `MEMBER`.                                                                                                             |
+| **email**             | <HelpLink href="#api-basics/types">String</HelpLink>       | The email address of the team member.                                                                                                                                  |
+| **username**          | <HelpLink href="#api-basics/types">String</HelpLink>       | The username of the team member.                                                                                                                                       |
+| **confirmed**         | <HelpLink href="#api-basics/types">Boolean</HelpLink>      | If the member's request to join the team is still pending or if the member still needs to accept their invitation, the value will be false. Otherwise it will be true. |
+| **accessRequestedAt** | <HelpLink href="#api-basics/types">Number</HelpLink>       | Timestamp for when the user requested access to the team.                                                                                                              |
 
 ##### Example Request
 
 <Request
-  url="https://api.zeit.co/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/members"
+  url={`${API_ENDPOINT}/v2/teams/team_ofwUZockJlL53hINUGCc1ONW/members`}
   auth
 />
 
 ##### Example Response
 
-<Code lang="json">{`[
-  {
-    "uid": "2qDDuGFTWXBLDNnqZfWPDp1A",
-    "role": "OWNER",
-    "email": "user-emailgmail.com",
-    "username": "some-user"
-  },
-  {
-    "uid": "JJHkdv6NaPOTH88pXn8FEuGz",
-    "role": "OWNER",
-    "email": "another-user@mail.com",
-    "username": "another-user"
-  }
-]`}</Code>
+<Code lang="json">{`{
+  members: [
+    {
+      "uid": "2qDDuGFTWXBLDNnqZfWPDp1A",
+      "role": "OWNER",
+      "email": "user-emailgmail.com",
+      "username": "some-user",
+      "confirmed": true
+    },
+    {
+      "uid": "JJHkdv6NaPOTH88pXn8FEuGz",
+      "role": "OWNER",
+      "email": "another-user@mail.com",
+      "username": "another-user",
+      "confirmed": true
+    }
+  ]
+}`}</Code>
 
 ### Invite user to team
 
@@ -229,7 +234,17 @@ Get the list of team members of the team defined in the URL. The response is a l
 Invite a user to join the team specified in the URL. To use it send a `POST` request with the user email in the body.
 
 <Note>
-  You need to be <InlineCode>OWNER</InlineCode> to use it.
+  The authenticated user needs to be an <InlineCode>OWNER</InlineCode> in order
+  to be able to successfully invoke this endpoint.
+</Note>
+
+<br />
+
+<Note>
+  Users requesting access must be accepted instead of invited.{' '}
+  <Link href="/docs/v2/platform/frequently-asked-questions#inviting-users-to-team-who-requested-access">
+    Learn More
+  </Link>
 </Note>
 
 #### Request Parameters
@@ -250,7 +265,7 @@ Invite a user to join the team specified in the URL. To use it send a `POST` req
 
 <Request
   method="POST"
-  url="https://api.zeit.co/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/members"
+  url={`${API_ENDPOINT}/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/members`}
   headers={{
     'Content-Type': 'application/json'
   }}
@@ -279,25 +294,98 @@ Change the role or status of an user inside a team member. To change it send a `
 
 #### Request Parameters
 
-| Key          | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                                                       |
-| ------------ | ---------------------------------------------------------- | -------- | ----------------------------------------------------------------- |
-| **role**     | <HelpLink href="#api-basics/types">Enum</HelpLink>         | No       | The new role of the team member, it could be `OWNER` or `MEMBER`. |
-| **rejected** | <HelpLink href="#api-basics/types">Boolean</HelpLink>      | No       | Whether the team member is prevented from ever joining the team.  |
+| Key           | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                                                                                           |
+| ------------- | ---------------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------------------- |
+| **role**      | <HelpLink href="#api-basics/types">Enum</HelpLink>         | No       | The new role of the team member, it could be `OWNER` or `MEMBER`.                                     |
+| **confirmed** | <HelpLink href="#api-basics/types">Boolean</HelpLink>      | No       | If the user has requested access to the team, setting this field to `true` will accept their request. |
 
 ##### Example Request
 
 <Request
   method="PATCH"
-  url="https://api.zeit.co/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/members/kr1PsOIzqEL5Xg6M4VZcZosf"
+  url={`${API_ENDPOINT}/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/members/kr1PsOIzqEL5Xg6M4VZcZosf`}
   headers={{
     'Content-Type': 'application/json'
   }}
   auth
   body={{
-    role: 'OWNER',
-    rejected: true
+    role: 'OWNER'
   }}
 />
+
+### Request to join to a team
+
+<Endpoint method="POST" url="/v1/teams/:id/request" />
+
+Request to join a team as a <InlineCode>MEMBER</InlineCode>. An <InlineCode>OWNER</InlineCode> of the team can accept or decline this request.
+
+<Note>
+  Only 10 users can request access to a team at the same time.{' '}
+  <Link href="/docs/v2/platform/frequently-asked-questions#inviting-users-to-team-who-requested-access">
+    Learn More
+  </Link>
+</Note>
+
+#### Request Parameters
+
+| Key                     | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                                                                                                                                                                                                                                                                                    |
+| ----------------------- | ---------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **joinedFrom.origin**   | <HelpLink href="#api-basics/types">Enum</HelpLink>         | Yes      | Where the member has joined the team from. Either <InlineCode>mail</InlineCode>, <InlineCode>link</InlineCode>, <InlineCode>import</InlineCode>, <InlineCode>onboarding</InlineCode>, <InlineCode>github</InlineCode>, <InlineCode>gitlab</InlineCode>, or <InlineCode>bitbucket</InlineCode>. |
+| **joinedFrom.commitId** | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | This field is required for GitHub, GitLab, and Bitbucket. The SHA of the commit that will be deployed.                                                                                                                                                                                         |
+| **joinedFrom.repoId**   | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | This field is required for GitHub, GitLab, and Bitbucket. The ID of the repository that will be deployed.                                                                                                                                                                                      |
+
+##### Example Request
+
+<Request
+  method="POST"
+  url="https://api.zeit.co/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/request"
+  headers={{
+    'Content-Type': 'application/json'
+  }}
+  body={{
+    joinedFrom: 'import'
+  }}
+  auth
+/>
+
+### Check status of a join request
+
+<Endpoint method="GET" url="/v1/teams/:id/request" />
+
+Returns the status of a join request. It'll respond with a 404 if the request has been declined.
+
+#### Response Parameters
+
+| Key                     | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Description                                                                                                                                                                                                                                                                                    |
+| ----------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **confirmed**           | <HelpLink href="#api-basics/types">Boolean</HelpLink>      | The value is `true` for users that were already accepted. If they are in a pending state it'll be `false`.                                                                                                                                                                                     |
+| **accessRequestedAt**   | <HelpLink href="#api-basics/types">Date</HelpLink>         | Timestamp in milliseconds that indicates when the user requested access.                                                                                                                                                                                                                       |
+| **joinedFrom.origin**   | <HelpLink href="#api-basics/types">Enum</HelpLink>         | Where the member has joined the team from. Either <InlineCode>mail</InlineCode>, <InlineCode>link</InlineCode>, <InlineCode>import</InlineCode>, <InlineCode>onboarding</InlineCode>, <InlineCode>github</InlineCode>, <InlineCode>gitlab</InlineCode>, or <InlineCode>bitbucket</InlineCode>. |
+| **joinedFrom.commitId** | <HelpLink href="#api-basics/types">String</HelpLink>       | This field is set for GitHub, GitLab, and Bitbucket. The SHA of the commit that will be deployed.                                                                                                                                                                                              |
+| **joinedFrom.repoId**   | <HelpLink href="#api-basics/types">String</HelpLink>       | This field is set for GitHub, GitLab, and Bitbucket. The ID of the repository that will be deployed. For GitHub and Bitbucket it can be a number.                                                                                                                                              |
+
+##### Example Request
+
+<Request
+  method="GET"
+  url="https://api.zeit.co/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/request"
+  headers={{
+    'Content-Type': 'application/json'
+  }}
+  auth
+/>
+
+##### Example Response
+
+<Code lang="json">{`{
+  "confirmed": false,
+  "accessRequestedAt": 1591279968068,
+  "joinedFrom": {
+    "origin": "github",
+    "commitId": "9aef718917d938f51cbb031006ff5b943a55f774",
+    "repoId": 67753070
+  }
+}`}</Code>
 
 ### Remove user from team
 
@@ -314,6 +402,6 @@ Remove the specified user from a team.
 
 <Request
   method="DELETE"
-  url="https://api.zeit.co/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/members/kr1PsOIzqEL5Xg6M4VZcZosf"
+  url={`${API_ENDPOINT}/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/members/kr1PsOIzqEL5Xg6M4VZcZosf`}
   auth
 />

@@ -10,7 +10,7 @@ export const meta = {
   description:
     'The application recieved more traffic than the scale settings accomodate.',
   editUrl: 'pages/docs/error/application/V1_NO_SCALED_DEPLOYMENTS.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-05-08T23:58:00.000Z'
 }
 
 #### Application Error
@@ -21,7 +21,7 @@ An error occurred with the application because it received more traffic than the
 
 <Note type="warning">
   This error is from <ProductV1Name />.{' '}
-  <Link href="https://zeit.co/guides/migrate-to-zeit-now">
+  <Link href="/guides/migrate-to-zeit-now">
     Upgrade to the latest platform version
   </Link>{' '}
   to have automatic scaling for your applications along with many more benefits
@@ -45,7 +45,7 @@ An error occurred with the application because it received more traffic than the
   // scale up to 10 instances
   now scale my-deployment-my-username.now.sh 10
   ```
-- For more help try `now scale --help` or check out the [<ProductV1Name /> Scaling Documentation](/docs/v1/getting-started/scaling).
+- For more help try `vercel scale --help` or check out the [<ProductV1Name /> Scaling Documentation](/docs/v1/getting-started/scaling).
 
 export default ({ children }) => <Standard meta={meta}>{children}</Standard>
 

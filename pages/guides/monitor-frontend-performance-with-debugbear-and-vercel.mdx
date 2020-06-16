@@ -1,0 +1,145 @@
+import Guide from '~/components/layout/guide'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import DeploySection from '~/components/guides/deploy-section'
+import OrgName from '~/components/name/org-name'
+import ProductName from '~/components/name/product-name'
+import NameWrapper from '~/components/name/name-wrapper'
+import { PRODUCT_NAME, ORG_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Monitor Frontend Performance with DebugBear and ${PRODUCT_NAME}`,
+  description: `Automatically test each ${ORG_NAME} deployment and report performance changes to GitHub.`,
+  published: '2020-04-01T20:18:39.807Z',
+  authors: ['mattzeunert'],
+  url: '/guides/monitor-frontend-performance-with-debugbear-and-vercel',
+  image: `https://og-image.now.sh/**Track%20website%20performance**%20with%20DebugBear%20and%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=96px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fzeit.co%2Fdocs%2Fstatic%2Fguides%2Fmonitor-frontend-performance-with-debugbear-and-vercel%2Fdebubear-logo.png`,
+  editUrl:
+    'pages/guides/monitor-frontend-performance-with-debugbear-and-vercel.mdx',
+  lastEdited: '2020-04-25T00:32:18.000Z'
+}
+
+[DebugBear](https://www.debugbear.com/) is a website monitoring tool that helps developers keep track of site performance and [Lighthouse](https://developers.google.com/web/tools/lighthouse) scores.
+
+This guide walks you through setting up continuous monitoring for your production sites, as well as automatic testing of every [Preview Deployment](/docs/v2/platform/deployments#preview).
+
+## Step 1: Import and Deploy with <NameWrapper name={PRODUCT_NAME} />
+
+<DeploySection meta={meta} />
+
+## Step 2: Install the DebugBear <NameWrapper name={ORG_NAME} /> Integration
+
+With your project set up with <OrgName />, install the [DebugBear integration](/integrations/debugbear) from the [<OrgName /> Integrations Marketplace](/integrations) to add it to your account.
+
+Select the account or team your deployed project belongs to. You will then be redirected to DebugBear.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/monitor-frontend-performance-with-debugbear-and-vercel/install-zeit-integration.png`}
+  width={1608 / 2}
+  height={648 / 2}
+  oversize
+/>
+
+<Caption>
+  Add the DebugBear integration and grant it access to the account that your
+  project belongs to.
+</Caption>
+
+## Step 3: Set Up a DebugBear Account
+
+If you do not have a DebugBear account already, click **Create account** on DebugBear to automatically sign up with your <OrgName /> email address. Otherwise, you can continue with your existing account.
+
+When logged in with DebugBear, select which of your <OrgName /> projects you would like to monitor and click **Set up**.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/monitor-frontend-performance-with-debugbear-and-vercel/debugbear-signup.png`}
+  width={1456 / 2}
+  height={504 / 2}
+  oversize
+/>
+<Caption>Sign up to DebugBear and pick which <OrgName /> project you want to monitor.</Caption>
+
+DebugBear will automatically start monitoring your project's homepage and up to 3 other pages on your site.
+
+<Note>It may take a few minutes for reports to come in.</Note>
+
+By default these pages are tested once a day from a US-based server, but you can change these settings later. Additionally, you can add any extra pages you would like to monitor.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/monitor-frontend-performance-with-debugbear-and-vercel/continuous-monitoring.png`}
+  width={1067 / 2}
+  height={727 / 2}
+  oversize
+  shadow
+/>
+<Caption>The DebugBear dashboard showing daily monitoring data.</Caption>
+
+## Step 4: Push Changes on a Branch
+
+Make some changes to your project, then push the branch to your git repository. <OrgName /> will create a [Preview Deployment](/docs/v2/platform/deployments#preview), and DebugBear will test the performance of the deployed site.
+
+You can see test results for your deployment in any of these places:
+
+- The integration configuration page on <OrgName />
+- The project Builds tab on DebugBear
+- Posted to a [Slack](https://www.debugbear.com/docs/slack-integration#api-builds) channel
+- Or, on GitHub (described in [the next section](#option:-sending-reports-to-github))
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/monitor-frontend-performance-with-debugbear-and-vercel/zeit-builds.png`}
+  width={1330 / 2}
+  height={666 / 2}
+  oversize
+  shadow
+/>
+<Caption>Viewing build results on the <OrgName /> integration configuration page.</Caption>
+
+<Note type="success" label="hint">
+  If you see a drop in your SEO score, this may be because DebugBear is
+  comparing a preview deployment, that's blocked from indexing, to the
+  production site.
+</Note>
+
+### Selecting Pages to Test
+
+You can [configure](https://www.debugbear.com/docs/zeit#url-filter) which of your monitored pages should be tested after each deployment. Normally you don't need to change anything here, but if you use a custom deployment suffix other than `now.sh` you need to specify it.
+
+### Build Statuses
+
+By default, all DebugBear tests will finish in a `neutral` state. To get meaningful `pass` or `failure` results you need to set up a [performance budget](https://www.debugbear.com/docs/performance-budgets) that defines metric thresholds that shouldn't be exceeded.
+
+## Send Reports to GitHub
+
+If you use GitHub, DebugBear can report test results directly on your pull request. You need to [install the DebugBear GitHub app](https://www.debugbear.com/docs/github-integration).
+
+1. Go to the **Integrations** tab of your DebugBear project and connect your user account to GitHub.
+
+2. Click **Install Github integration** and grant access to the repository that contains your <OrgName /> site.
+
+After your next deployment, you will see one commit status on your GitHub pull request for each tested page.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/guides/monitor-frontend-performance-with-debugbear-and-vercel/github-statuses.png`}
+  width={1244 / 2}
+  height={648 / 2}
+  oversize
+  shadow
+/>
+<Caption>GitHub commit statuses for a <OrgName /> deployment.</Caption>
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

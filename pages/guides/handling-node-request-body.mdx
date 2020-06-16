@@ -13,10 +13,10 @@ export const meta = {
   title: `Handling Node.js Request Bodies with ${PRODUCT_NAME}`,
   description: `Parse Node.js request bodies for use inside Serverless Functions deployed with ${PRODUCT_NAME}.`,
   published: '2019-05-10T09:03:14.819Z',
-  authors: ['msweeneydev'],
+  authors: ['mcsdev'],
   url: '/guides/handling-node-request-body',
   editUrl: 'pages/guides/handling-node-request-body.mdx',
-  lastEdited: '2020-04-14T00:02:08.000Z'
+  lastEdited: '2020-05-08T23:58:00.000Z'
 }
 
 In this guide, we will show you how to parse a [Node.js request body](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/), for use inside a [Serverless Function](/docs/v2/serverless-functions/introduction/) deployed to [<ProductName />](/), without requiring a framework such as Express.
@@ -74,9 +74,9 @@ With the `req.body` helper, the incoming `request` is parsed automatically, remo
 
 Deploying your function to [<ProductName />](/) can be done with **a single command**:
 
-<Snippet dark text="now" />
+<Snippet dark text="vercel" />
 <Caption>
-  Deploying the app with the <InlineCode>now</InlineCode> command.
+  Deploying the app with the <InlineCode>vercel</InlineCode> command.
 </Caption>
 
 You have now created and deployed your project, all that's left to do is test that it works.

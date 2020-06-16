@@ -4,6 +4,7 @@ import Endpoint from '~/components/api/endpoint'
 import Request from '~/components/api/request'
 import { HelpLink } from '~/components/text/link'
 import OrgName from '~/components/name/org-name'
+import { API_ENDPOINT } from '~/lib/constants'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/oauth2.mdx',
@@ -22,7 +23,7 @@ You will need to register your app before getting started, you can do this by vi
 Your app should redirect users to the following URL:
 
 ```
-https://zeit.co/oauth/authorize
+https://vercel.com/oauth/authorize
 ```
 
 You will pass the following values as query parameters:
@@ -39,7 +40,7 @@ If the user grants your request, we redirect back to your site with a `code` par
 ##### Example Request
 
 <Code>
-  https://zeit.co/oauth/authorize?client_id=oac_s4cllbR9Ao8307IDSkluOQBS&state=t2eh4KHwNyGbo5g65VNvoFhl
+  https://vercel.com/oauth/authorize?client_id=oac_s4cllbR9Ao8307IDSkluOQBS&state=t2eh4KHwNyGbo5g65VNvoFhl
 </Code>
 
 ##### Example Redirect URL:
@@ -52,7 +53,7 @@ If the user grants your request, we redirect back to your site with a `code` par
 
 If all goes well, exchange the authorization code for an access token using the following API:
 
-<Endpoint method="POST" url="https://api.zeit.co/v2/oauth/access_token" />
+<Endpoint method="POST" url={`${API_ENDPOINT}/v2/oauth/access_token`} />
 
 You will pass the following values to request body in the form of `application/x-www-form-urlencoded`.
 
@@ -67,7 +68,7 @@ You'll receive a JSON response containing an `access_token`:
 
 ##### Example Request
 
-<Code>{`curl -X POST https://api.zeit.co/v2/oauth/access_token \\
+<Code>{`curl -X POST ${API_ENDPOINT}/v2/oauth/access_token \\
  -d "client_id=oac_s4cllbR9Ao8307IDSkluOQBS&client_secret=EOBPvZuBYAtb3SbYo8H1iWFP&code=jMIukZ1DBCKXHje3X14BCkU0&redirect_uri=https://example.com/oauth" \\
  -H "Content-Type: application/x-www-form-urlencoded"
 `}</Code>

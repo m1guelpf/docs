@@ -1,0 +1,27 @@
+import Layout from '~/components/layout/knowledge'
+
+export const meta = {
+  title: 'Why has my account or deployment been blocked?',
+  description:
+    'Information on why a Vercel account or deployment may have been blocked.',
+  editUrl: 'pages/knowledge/why-is-my-account-deployment-blocked.mdx',
+  url: '/knowledge/why-is-my-account-deployment-blocked',
+  published: '2020-05-13T18:54:36.000Z',
+  lastEdited: '2020-05-13T18:54:36.000Z'
+}
+
+As a hosting solution with a generous free offering, users may inadvertently breach our [Terms of Service](https://vercel.com/legal/terms) or [Fair Use Policy](https://vercel.com/docs/v2/platform/fair-use-policy). If you are the owner of a deployment blocked by our system and you believe this was a mistake, please reach out to us on [https://vercel.com/contact](https://vercel.com/contact) so we can discuss this with you.
+
+## Blocking Process
+
+If an account of deployment is blocked, the user will receive a message from a member of the Vercel Support team. In nearly all cases, a discussion will be had with the user well in advance of any action being taken.
+
+In certain situations, such as a deployment that breaches our [Terms of Service](https://vercel.com/legal/terms), we may be required to act immediately to block an account or deployment.
+
+Any account or deployment that is blocked can be appealed, to do so you should reply to the initial message sent from the Vercel Support team.
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}

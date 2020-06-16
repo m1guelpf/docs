@@ -1,0 +1,337 @@
+.geist-feedback-input {
+  --open-width: 339px;
+  --open-height: 213px;
+  --closed-width: 90px;
+  --closed-height: 32px;
+
+  padding: 0;
+  position: relative;
+  margin-right: var(--geist-gap-half);
+  height: var(--closed-height);
+  width: var(--closed-width);
+  display: inline-block;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.geist-feedback-input.email {
+  --open-height: 277px;
+}
+
+.geist-feedback-input .feedback-wrapper {
+  appearance: none;
+  border-width: 0;
+  background: var(--geist-background);
+  border: 1px solid var(--accents-2);
+  display: flex;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  border-radius: var(--geist-radius);
+  font-family: var(--font-sans);
+  width: var(--closed-width);
+  height: var(--closed-height);
+  resize: none;
+  /* fixes a bug in ff where the animation of the chat
+* counter appears on top of our input during its transition */
+  z-index: 100;
+  outline: 0;
+  color: var(--geist-foreground);
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: relative;
+  transition: all 200ms ease-in-out, border-radius 200ms step-start, border 200ms ease-in-out;
+
+  &.blur {
+    .input-wrapper, .controls {
+      display: none;
+    }
+  }
+}
+
+.geist-feedback-input.focused .feedback-wrapper {
+  width: var(--open-width);
+  height: var(--open-height);
+  border: none;
+  border-color: white;
+  box-shadow: var(--shadow-large);
+  background: var(--geist-background);
+  transition: all 0ms ease-in-out, border-radius 0ms step-start, border 100ms ease-in-out;
+}
+
+.geist-feedback-input:focus, .geist-feedback-input:active {
+  outline: 0;
+}
+
+.geist-feedback-input .feedback-wrapper .placeholder {
+  display: flex;
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  align-items: center;
+  justify-content: center;
+  width: var(--closed-width);
+  height: var(--closed-height);
+  border: 1px solid transparent;
+  flex-shrink: 0;
+  background: var(--geist-background);
+  color: var(--accents-5);
+  z-index: 1000;
+  transition: opacity 0.1s ease-out, color 0.1s, top 0.1s step-start, left 0.1s step-start;
+  transition-delay: 0.2s, 0s;
+  cursor: text;
+}
+
+.geist-feedback-input.focused .placeholder {
+  opacity: 0;
+  pointer-events: none;
+  top: 0px;
+  left: 0px;
+  color: var(--geist-foreground);
+  transition: opacity 0.005s linear;
+}
+
+.geist-feedback-input .input-wrapper {
+  padding: var(--geist-gap-half);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  position: relative;
+  height: 222px;
+}
+
+.geist-feedback-input.focused .input-wrapper {
+  opacity: 1;
+}
+
+.geist-feedback-input .input:not(:last-child) {
+  margin-bottom: var(--geist-gap-half)
+}
+
+.geist-feedback-input .input label {
+  margin: 0;
+  display: block;
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-top: 0px;
+  margin-bottom: 8px;
+  color: var(--accents-5);
+}
+
+.geist-feedback-input:hover .feedback-wrapper,
+.geist-feedback-input:focus .feedback-wrapper,
+.geist-feedback-input:active .feedback-wrapper {
+  border-color: var(--geist-foreground);
+}
+
+.geist-feedback-input:hover .input > *::placeholder,
+.geist-feedback-input:focus .input > *::placeholder,
+.geist-feedback-input:active .input > *::placeholder {
+  color: var(--geist-foreground);
+}
+
+.geist-feedback-input .input > *::placeholder {
+  color: var(--accents-5);
+  transition: color 0.2s ease-in-out;
+}
+
+.geist-feedback-input.error textarea,
+.geist-feedback-input.loading textarea,
+.geist-feedback-input.success textarea {
+  pointer-events: none;
+}
+
+.geist-feedback-input.error textarea,
+.geist-feedback-input.success textarea {
+  color: transparent;
+  user-select: none;
+}
+
+.geist-feedback-input.loading textarea {
+  color: var(--accents-3);
+}
+
+.geist-feedback-input .textarea-wrapper {
+  height: var(--closed-height);
+  width: var(--closed-width);
+  transition: all 150ms ease-in-out, border-radius 150ms step-start;
+}
+
+.geist-feedback-input .error-message,
+.geist-feedback-input .success-message {
+  z-index: 1001;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--open-width);
+  font-size: 0.875rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  flex-direction: column;
+}
+
+.geist-feedback-input .success-message p {
+  line-height: normal;
+  margin: 0;
+  opacity: 0;
+  animation: appear 500ms ease forwards;
+}
+
+.geist-feedback-input .success-message .checkmark {
+  opacity: 0;
+  animation: appear 200ms 100ms ease forwards;
+}
+
+.geist-feedback-input .success-message p:first-of-type {
+  margin-top: var(--geist-gap-half);
+  margin-bottom: var(--geist-gap-quarter);
+  animation-delay: 300ms;
+}
+
+.geist-feedback-input .success-message p:nth-of-type(2) {
+  animation-delay: 500ms;
+}
+
+.geist-feedback-input .error-message > span {
+  color: var(--geist-error);
+  margin-bottom: var(--geist-gap-half);
+}
+
+.geist-feedback-input .error-message a {
+  color: var(--geist-foreground);
+  text-decoration: none;
+}
+
+.geist-feedback-input .controls {
+  pointer-events: none;
+  width: var(--open-width);
+  height: 64px;
+  background-color: var(--geist-background);
+  display: flex;
+  align-items: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background: var(--accents-1);
+  border-top: 1px solid var(--accents-2);
+  padding: var(--geist-gap-half);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.geist-feedback-input.focused .controls {
+  pointer-events: inherit;
+  opacity: 1;
+}
+
+.geist-feedback-input .controls .emojis {
+  width: 160px;
+}
+
+.geist-feedback-input .controls .buttons {
+  flex: 1;
+  text-align: right;
+  transition: opacity 200ms ease;
+  margin-left: auto;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* At 951px the dots menu disappears and changes the width */
+@media (max-width: 951px) {
+  .geist-feedback-input {
+    --open-width: 300px;
+  }
+}
+
+/* Emoji selector */
+.geist-emoji-selector {
+  display: flex;
+  width: 210px;
+  pointer-events: none;
+}
+
+.geist-emoji-selector.loading {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  cursor: default;
+  pointer-events: none;
+}
+
+.geist-feedback-input.focused .geist-emoji-selector {
+  pointer-events: all;
+}
+
+.geist-emoji-selector > button {
+  outline: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  transition: all 0.12s ease-in-out;
+  border-radius: 50%;
+  border: 1px solid var(--accents-2);
+}
+
+.geist-emoji-selector > .option.active {
+  transform: scale(1.12);
+  border-color: var(--geist-warning);
+}
+
+.geist-emoji-selector > button:hover,
+.geist-emoji-selector > button:focus {
+  background: var(--geist-background);
+  transform: scale(1.08);
+}
+
+.geist-emoji-selector > button,
+.geist-emoji-selector > button .inner {
+  display: inline-flex;
+}
+
+.geist-emoji-selector > button {
+  cursor: pointer;
+  text-align: center;
+}
+
+.geist-emoji-selector button + button {
+  margin-left: var(--geist-gap-quarter);
+}
+
+.geist-emoji-selector.loading > button {
+  cursor: default;
+}
+
+.geist-emoji-selector > button:first-child {
+  outline: none;
+  pointer-events: all;
+}
+
+.geist-emoji-selector.loading > button:first-child {
+  outline: none;
+}
+
+.geist-emoji-selector > button .inner {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.geist-emoji-selector > button.option {
+  transition: all 200ms cubic-bezier(.5,-1,.5,2);
+}
