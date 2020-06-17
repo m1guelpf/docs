@@ -1,5 +1,29 @@
 [
   {
+    "title": "Can I Use My Domain on Vercel with A Records?",
+    "description": "Information on how to use A records with Vercel to verify a domain.",
+    "editUrl": "pages/knowledge/a-record-and-caa-with-vercel.mdx",
+    "url": "/knowledge/a-record-and-caa-with-vercel",
+    "published": "2020-06-17T13:46:54.155Z",
+    "lastEdited": "2020-06-15T13:46:54.155Z"
+  },
+  {
+    "title": "Can I Add Nameserver Records to Subdomains on Vercel?",
+    "description": "Information about subzone delegation when using Nameservers managed by Vercel.",
+    "editUrl": "pages/knowledge/can-i-add-nameservers-to-subdomains.mdx",
+    "url": "/knowledge/can-i-add-nameservers-to-subdomains",
+    "published": "2020-06-17T13:46:54.155Z",
+    "lastEdited": "2020-06-15T13:46:54.155Z"
+  },
+  {
+    "title": "How Can I Do a \"Zero Downtime\" DNS Migration to Vercel?",
+    "description": "Information about how to migrate your DNS records to Vercel without downtime.",
+    "editUrl": "pages/knowledge/zero-downtime-migration-for-dns.mdx",
+    "url": "/knowledge/zero-downtime-migration-for-dns.mdx",
+    "published": "2020-06-17T13:46:54.155Z",
+    "lastEdited": "2020-06-15T13:46:54.155Z"
+  },
+  {
     "title": "Can I Connect a Pro Team to a Personal Git Account?",
     "description": "Information on connecting personal Git accounts to a Vercel team.",
     "editUrl": "pages/knowledge/connecting-teams-with-personal-git-accounts.mdx",
