@@ -30,7 +30,7 @@ const Guides = () => (
               href="https://github.com/vercel/docs/issues/new?labels=Section%3A+Guides&template=guide-report-or-request.md"
               underlineOnHover={false}
             >
-              <Button secondary small>
+              <Button type="secondary" small>
                 Request a Guide
               </Button>
             </Link>

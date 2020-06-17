@@ -4,9 +4,7 @@ import { withRouter } from 'next/router'
 import { MDXProvider } from '@mdx-js/tag'
 
 import Head from '~/components/layout/head'
-import Main from '~/components/layout/main'
 import Heading from '~/components/text/linked-heading'
-import Content from '~/components/layout/content'
 import ContentFooter from '~/components/layout/content-footer'
 import components from '~/lib/mdx-components'
 import { H1, H2, H3, H4 } from '~/components/text'
@@ -72,7 +70,7 @@ const DocH4 = ({ children }) => (
 
 const NonAmpOnly = ({ children }) => (useAmp() ? null : children)
 
-class withStandard extends React.Component {
+class withStandard extends React.PureComponent {
   render() {
     const {
       meta = {
@@ -90,51 +88,65 @@ class withStandard extends React.Component {
           h4: DocH4
         }}
       >
-        <Head
-          titlePrefix=""
-          titleSuffix={` - ${ORG_NAME} Documentation`}
-          title={`${meta.title}`}
-          description={meta.description}
-          image={meta.image}
-          lastEdited={meta.lastEdited}
-        >
-          {meta.editUrl.includes('/docs/error/') && (
-            <meta name="robots" content="noindex" />
-          )}
-        </Head>
+        <>
+          <Head
+            titlePrefix=""
+            titleSuffix={` - ${ORG_NAME} Documentation`}
+            title={`${meta.title}`}
+            description={meta.description}
+            image={meta.image}
+            lastEdited={meta.lastEdited}
+          >
+            {meta.editUrl.includes('/docs/error/') && (
+              <meta name="robots" content="noindex" />
+            )}
+          </Head>
+          <header className="knowledge-heading">
+            <Wrapper width="900">
+              <SubHeader title="Knowledge">
+                <Link href="/knowledge" style={{ fontSize: 14 }}>
+                  View All Articles
+                </Link>
+              </SubHeader>
+              <div className="knowledge-title">
+                <DocH1>{meta.title}</DocH1>
+              </div>
+            </Wrapper>
+          </header>
+          <Wrapper width="768">
+            <section className="knowledge">
+              {this.props.children}
+              <NonAmpOnly>
+                <>
+                  <HR />
+                  <FooterFeedback />
+                </>
+              </NonAmpOnly>
+              <ContentFooter
+                lastEdited={meta.lastEdited}
+                editUrl={meta.editUrl}
+              />
+            </section>
+          </Wrapper>
+          <Footer />
+          <style jsx>{`
+            .knowledge-heading {
+              border-bottom: 1px solid #eaeaea;
+              margin-top: 36px;
+              padding-bottom: 44px;
+              text-align: center;
+            }
 
-        <div style={{ marginTop: 36 }} />
+            .knowledge-title {
+              padding-top: 15px;
+            }
 
-        <Wrapper width="1000" className="subheader">
-          <SubHeader title="Knowledge">
-            <Link href="/knowledge" style={{ fontSize: 14 }}>
-              View All Articles
-            </Link>
-          </SubHeader>
-        </Wrapper>
-
-        <Main>
-          <Content center small>
-            <div className="heading content-heading">
-              <DocH1>{meta.title}</DocH1>
-            </div>
-
-            <div className="content">{this.props.children}</div>
-
-            <NonAmpOnly>
-              <>
-                <HR />
-                <FooterFeedback />
-              </>
-            </NonAmpOnly>
-
-            <ContentFooter
-              lastEdited={meta.lastEdited}
-              editUrl={meta.editUrl}
-            />
-          </Content>
-        </Main>
-        <Footer />
+            .knowledge {
+              padding-bottom: 64px;
+              padding-top: 32px;
+            }
+          `}</style>
+        </>
       </MDXProvider>
     )
   }
