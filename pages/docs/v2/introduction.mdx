@@ -21,7 +21,7 @@ export const meta = {
   title: `Introduction to ${PRODUCT_NAME}`,
   description: `An introduction to the ${PRODUCT_NAME} platform and how to get started deploying any kind of application.`,
   editUrl: 'pages/docs/v2/introduction.mdx',
-  lastEdited: '2020-06-04T20:10:32.000Z'
+  lastEdited: '2020-06-17T13:39:34.000Z'
 }
 
 ​<ProductName /> is a cloud platform for **static sites** and **Serverless Functions** that fits perfectly with your workflow. It enables developers to host **Jamstack** websites and web services that **deploy instantly**, **scale automatically**, and requires **no supervision**, all with **no configuration**.
@@ -33,22 +33,12 @@ Once you have [signed up to <OrgName />](/signup), you can use our [Git Integrat
 Select a Git provider below to get started deploying your existing repositories and projects:
 
 <List columnsDesktop={3} columnsTablet={3} columnsMobile={1}>
-  <IconCard
-    label="GitHub"
-    icon={<GitHubIcon />}
-    href="/import/git?tab=github"
-    plus
-  />
-  <IconCard
-    label="GitLab"
-    icon={<GitLabIcon />}
-    href="/import/git?tab=gitlab"
-    plus
-  />
+  <IconCard label="GitHub" icon={<GitHubIcon />} href="/import/git" plus />
+  <IconCard label="GitLab" icon={<GitLabIcon />} href="/import/git" plus />
   <IconCard
     label="Bitbucket"
     icon={<BitbucketIcon />}
-    href="/import/git?tab=bitbucket"
+    href="/import/git"
     plus
   />
 </List>
