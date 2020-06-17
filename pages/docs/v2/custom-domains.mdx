@@ -2,6 +2,7 @@ import Doc from '~/components/layout/docs'
 import Snippet from '~/components/snippet'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
+import Link from '~/components/text/link'
 import Card from '~/components/card'
 import { Image } from '~/components/media'
 import { InlineCode } from '~/components/text/code'
@@ -13,7 +14,7 @@ export const meta = {
   title: 'Custom Domains',
   description: 'How to add and use a custom domain with your project.',
   editUrl: 'pages/docs/v2/custom-domains.mdx',
-  lastEdited: '2020-06-05T19:24:46.000Z'
+  lastEdited: '2020-06-17T14:31:21.000Z'
 }
 
 By default, all deployments are assigned a `.vercel.app` suffixed domain.
@@ -21,6 +22,14 @@ By default, all deployments are assigned a `.vercel.app` suffixed domain.
 This domain can be replaced with a **Custom Domain** of your choice. This Custom Domain can be purchased with <OrgName /> or a third-party.
 
 In this document, adding a domain to your <ProductName /> [projects](/docs/v2/platform/projects/) is explained in detail.
+
+<Note type="warning" label={false}>
+  If you want to migrate an <b>existing domain</b> to Vercel, read our guide on{' '}
+  <Link href="/knowledge/zero-downtime-migration-for-dns">
+    Zero-Downtime Domain Migration
+  </Link>
+  .
+</Note>
 
 ## Adding a Domain
 
