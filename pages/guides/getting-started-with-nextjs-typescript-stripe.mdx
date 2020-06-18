@@ -1,0 +1,231 @@
+import Guide from '~/components/layout/guide'
+import { YouTube } from '~/components/media'
+import DeploySection from '~/components/guides/deploy-section'
+
+export const meta = {
+  title: 'Getting started with Next.js, TypeScript, and Stripe Checkout',
+  description:
+    'Add payments functionality to your Next.js applications with Stripe and deploy to Vercel.',
+  published: '2020-06-07T13:00:32.000Z',
+  authors: ['thorwebdev'],
+  url: '/guides/getting-started-with-nextjs-typescript-stripe',
+  example:
+    'https://github.com/vercel/next.js/tree/canary/examples/with-stripe-typescript',
+  editUrl: 'pages/guides/getting-started-with-nextjs-typescript-stripe.mdx',
+  name: 'Next.js + Stripe Checkout',
+  type: 'site',
+  demo: 'https://nextjs-typescript-react-stripe-js.now.sh/',
+  lastEdited: '2020-06-18T12:07:45.000Z'
+}
+
+This guide walks you through setting up a Next.js project with TypeScript and adding payments functionality with Stripe Checkout.
+
+<YouTube videoid="sPUSu19tZHg" width={2048 / 2.5} height={1170 / 2.5} />
+
+## Step 1: Setting Up a TypeScript Project with Next.js
+
+Setting up a TypeScript project with Next.js is very convenient, as it automatically generates the [`tsconfig.json`](https://github.com/vercel/next.js/tree/canary/examples/with-stripe-typescript/tsconfig.json) configuration file for you. You can follow the setup steps in the [docs](https://nextjs.org/docs/basic-features/typescript) or start off with a more complete [example](https://github.com/vercel/next.js/tree/canary/examples/with-typescript). You can also find the full example that we're looking at in detail below, on [GitHub](https://github.com/vercel/next.js/tree/canary/examples/with-stripe-typescript).
+
+To create a pre-configured Next.js TypeScript project locally, execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/):
+
+```bash
+npx create-next-app --example with-typescript my-stripe-project && cd my-stripe-project
+# or
+yarn create next-app --example with-typescript my-stripe-project && cd my-stripe-project
+```
+
+### Managing API Keys with Next.js & Vercel
+
+When working with API keys and secrets, you need to make sure to keep them out of version control. That's why you should set these as environment variables. Find more details on how to organise your `.env` files in the [Next.js docs](https://nextjs.org/docs/basic-features/environment-variables).
+
+At the root of your project add a `.env.local` file and provide the Stripe API keys from your [Stripe Dashboard](https://stripe.com/docs/development#api-keys).
+
+```bash
+# Stripe keys
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_12345
+STRIPE_SECRET_KEY=sk_12345
+```
+
+The `NEXT_PUBLIC_` prefix automatically exposes this variable to the browser. Next.js will insert the value for these into the publicly viewable source code at build/render time. Therefore make sure to not use this prefix for secret values!
+
+Make sure to add `.env*.local` to your [`.gitignore` file](https://github.com/vercel/next.js/blob/canary/examples/with-stripe-typescript/.gitignore) to tell git to not track your secrets. If you created the project with `create-next-app`, the `.gitignore` file is already set up for you.
+
+### Loading Stripe.js
+
+Due to [PCI compliance requirements](https://stripe.com/docs/security), the Stripe.js library has to be loaded from Stripe's servers. This creates a challenge when working with server-side rendered apps, as the window object is not available on the server. To help you manage this, Stripe provides a [loading wrapper](https://github.com/stripe/stripe-js) that allows you to import Stripe.js as an ES module:
+
+```js
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+```
+
+Stripe.js is loaded as a side effect of the `import '@stripe/stripe-js';` statement. If you prefer to delay loading of Stripe.js until Checkout, you can `import {loadStripe} from '@stripe/stripe-js/pure';`. Find more details on the various options in the [Stripe docs](https://stripe.com/docs/disputes/prevention/advanced-fraud-detection#disabling-advanced-fraud-detection).
+
+To optimize your site's performance you can hold off instantiating Stripe until the first render of your checkout page. To make sure that you don't reinstate Stripe on every render, we recommend that you use the singleton pattern to create/retrieve the Stripe instance:
+
+```ts
+// ./utils/get-stripejs.ts
+import { Stripe, loadStripe } from '@stripe/stripe-js'
+
+let stripePromise: Promise<Stripe | null>
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+  }
+  return stripePromise
+}
+
+export default getStripe
+```
+
+## Step 2: Creating a CheckoutSession and Redirecting to Stripe Checkout
+
+[Stripe Checkout](https://stripe.com/checkout) is the fastest way to get started with Stripe and provides a stripe-hosted checkout page that comes with various payment methods and support for Apple Pay and Google Pay out of the box.
+
+In your `./pages/api` folder create a new [API route](https://nextjs.org/docs/api-routes/introduction): [`checkout_sessions/index.ts`](https://github.com/vercel/next.js/tree/canary/examples/with-stripe-typescript/pages/api/checkout_sessions/index.ts). In this function create a new [CheckoutSession](https://stripe.com/docs/api/checkout/sessions/create) and return the its id which is used to initiate the redirect to Stripe.
+
+```ts
+// Partial of ./pages/api/checkout_sessions/index.ts
+// ...
+// Create Checkout Sessions from body params.
+const params: Stripe.Checkout.SessionCreateParams = {
+  submit_type: 'donate',
+  payment_method_types: ['card'],
+  line_items: [
+    {
+      name: 'Custom amount donation',
+      amount: formatAmountForStripe(amount, CURRENCY),
+      currency: CURRENCY,
+      quantity: 1
+    }
+  ],
+  success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
+  cancel_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`
+}
+const checkoutSession: Stripe.Checkout.Session = await stripe.checkout.sessions.create(
+  params
+)
+// ...
+```
+
+Next, create a [CheckoutForm component](https://github.com/vercel/next.js/tree/canary/examples/with-stripe-typescript/components/CheckoutForm.tsx) that calls the above API route to create a CheckoutSession and facilitates the redirect to Stripe.
+
+```tsx
+// Partial of ./components/CheckoutForm.tsx
+// ...
+const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault()
+  // Create a Checkout Session.
+  const checkoutSession: Stripe.Checkout.Session = await fetchPostJSON(
+    '/api/checkout_sessions',
+    { amount: input.customDonation }
+  )
+
+  if ((checkoutSession as any).statusCode === 500) {
+    console.error((checkoutSession as any).message)
+    return
+  }
+
+  // Redirect to Checkout.
+  const stripe = await getStripe()
+  const { error } = await stripe!.redirectToCheckout({
+    // Make the id field from the Checkout Session creation API response
+    // available to this file, so you can provide it as parameter here
+    // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+    sessionId: checkoutSession.id
+  })
+  // If `redirectToCheckout` fails due to a browser or network
+  // error, display the localized error message to your customer
+  // using `error.message`.
+  console.warn(error.message)
+}
+// ...
+```
+
+Use this component in your [checkout page](https://github.com/vercel/next.js/blob/canary/examples/with-stripe-typescript/pages/donate-with-checkout.tsx) within the `./pages` directory.
+
+```tsx
+import { NextPage } from 'next'
+import Layout from '../components/Layout'
+
+import CheckoutForm from '../components/CheckoutForm'
+
+const DonatePage: NextPage = () => {
+  return (
+    <Layout title="Donate with Checkout | Next.js + TypeScript Example">
+      <div className="page-container">
+        <h1>Donate with Checkout</h1>
+        <p>Donate to our project 💖</p>
+        <CheckoutForm />
+      </div>
+    </Layout>
+  )
+}
+
+export default DonatePage
+```
+
+## Step 3: Handling Webhooks & Checking Their Signatures
+
+Webhook events allow you to get notified about events that happen on your Stripe account. This is especially useful for [asynchronous payments](https://stripe.com/docs/payments/payment-intents/verifying-status#webhooks), subscriptions with [Stripe Billing](https://stripe.com/docs/billing/webhooks), or building a marketplace with [Stripe Connect](https://stripe.com/docs/connect/webhooks).
+
+By default, Next.js API routes are same-origin only. To allow Stripe webhook event requests to reach your API route, add `micro-cors`:
+
+```ts
+// Partial of ./pages/api/webhooks/index.ts
+import Cors from 'micro-cors'
+
+const cors = Cors({
+  allowMethods: ['POST', 'HEAD']
+})
+// ...
+export default cors(webhookHandler as any)
+```
+
+This, however, means that now anyone can post requests to your API route. To make sure that a webhook event was sent by Stripe, not by a malicious third party, you need to [verify the webhook event signature](https://stripe.com/docs/webhooks/signatures#verify-official-libraries):
+
+```ts
+// Partial of ./pages/api/webhooks/index.ts
+// ...
+const webhookSecret: string = process.env.STRIPE_WEBHOOK_SECRET!
+
+// Stripe requires the raw body to construct the event.
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
+
+const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method === 'POST') {
+    const buf = await buffer(req)
+    const sig = req.headers['stripe-signature']!
+
+    let event: Stripe.Event
+
+    try {
+      event = stripe.webhooks.constructEvent(buf.toString(), sig, webhookSecret)
+    } catch (err) {
+      // On error, log and return the error message
+      console.log(`❌ Error message: ${err.message}`)
+      res.status(400).send(`Webhook Error: ${err.message}`)
+      return
+    }
+
+    // Successfully constructed event
+    console.log('✅ Success:', event.id)
+// ...
+```
+
+This way your API route is able to receive POST requests from Stripe but also makes sure, only requests sent by Stripe are being processed.
+
+## Step 4: Deploy with Vercel
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

@@ -174,7 +174,7 @@ export const meta = {
   title: 'The Title for the New Guide',
   description: 'The description for the new guide page.',
   published: '1 January 2019',
-  authors: ['your-zeit-username'],
+  authors: ['your-vercel-username'],
   url: '/guides/guide-url'
 }
 
@@ -189,7 +189,7 @@ export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 
 The meta object described above is not optional since the information is used to list the guide.
 
-When adding a new guide, make sure to import and export the meta of the guide in the `lib/data/guides.js` file. This enables the guide to be listed on the guides front-page.
+When adding a new guide, make sure to import and export the meta of the guide in the `lib/data/guides.json` file. This enables the guide to be listed on the guides front-page.
 
 ## API Reference
 
