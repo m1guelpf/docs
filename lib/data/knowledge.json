@@ -19,7 +19,7 @@
     "title": "How Can I Do a \"Zero Downtime\" DNS Migration to Vercel?",
     "description": "Information about how to migrate your DNS records to Vercel without downtime.",
     "editUrl": "pages/knowledge/zero-downtime-migration-for-dns.mdx",
-    "url": "/knowledge/zero-downtime-migration-for-dns.mdx",
+    "url": "/knowledge/zero-downtime-migration-for-dns",
     "published": "2020-06-17T13:46:54.155Z",
     "lastEdited": "2020-06-15T13:46:54.155Z"
   },
