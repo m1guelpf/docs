@@ -123,6 +123,10 @@ const guidesRedirects = [
     'monitor-frontend-performance-with-debugbear-and-vercel'
   ],
   [
+    'debugging-and-troubleshooting-zeit-now-logs-with-sematext',
+    'debugging-and-troubleshooting-vercel-logs-with-sematext'
+  ],
+  [
     'monitoring-performance-with-calibre-and-zeit-now',
     'monitoring-performance-with-calibre-and-vercel'
   ],
