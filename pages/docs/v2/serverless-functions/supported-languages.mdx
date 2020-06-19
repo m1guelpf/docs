@@ -12,7 +12,7 @@ export const meta = {
   title: 'Supported Languages for Serverless Functions',
   description: `Learn how to deploy Serverless Functions with ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/serverless-functions/supported-languages.mdx',
-  lastEdited: '2020-04-25T00:32:18.000Z'
+  lastEdited: '2020-06-19T17:41:00.000Z'
 }
 
 Within the `/api` directory of your projects, <ProductName /> will automatically recognize the languages listed on this page, through their file extensions, and serve them as Serverless Function.
@@ -171,7 +171,7 @@ For example, the following would live in `api/date.rb`:
 ```rb
 Handler = Proc.new do |req, res|
   res.status = 200
-  res['Content-Type'] = 'text/plain'
+  res['Content-Type'] = 'text/text; charset=utf-8'
   res.body = "Current Time: #{Time.new}"
 end
 ```
