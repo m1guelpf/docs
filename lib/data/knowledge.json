@@ -1,5 +1,13 @@
 [
   {
+    "title": "Why is my domain not automatically generating a SSL certificate?",
+    "description": "Information on why a domain is not automatically generating a SSL certificate.",
+    "editUrl": "pages/knowledge/domain-not-generating-ssl-certificate.mdx",
+    "url": "/knowledge/domain-not-generating-ssl-certificate",
+    "published": "2020-06-18T13:46:54.155Z",
+    "lastEdited": "2020-06-18T13:46:54.155Z"
+  },
+  {
     "title": "Can I Use My Domain on Vercel with A Records?",
     "description": "Information on how to use A records with Vercel to verify a domain.",
     "editUrl": "pages/knowledge/a-record-and-caa-with-vercel.mdx",

@@ -1,0 +1,44 @@
+import Layout from '~/components/layout/knowledge'
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import { InlineCode } from '~/components/text/code'
+import Note from '~/components/text/note'
+
+export const meta = {
+  title: 'Why Is My Domain Not Automatically Generating an SSL Certificate?',
+  description:
+    'Information on why a domain may not be automatically generating an SSL certificate.',
+  editUrl: 'pages/knowledge/domain-not-generating-ssl-certificate.mdx',
+  url: '/knowledge/domain-not-generating-ssl-certificate',
+  published: '2020-06-19T13:46:54.155Z',
+  lastEdited: '2020-06-18T13:46:54.155Z'
+}
+
+The main reason for Vercel not automatically generating an SSL certificate for your domain is because of an incorrect or conflicting **CAA** record. Domains with the correct **CAA** record will always have the value `0 issue "letsencrypt.org"` without any other **CAA** records being present.
+
+## Verifying the CAA Record
+
+You can verify your domain is using the correct **CAA** record by checking with [whatsmydns.net](https://www.whatsmydns.net/#CAA/).
+If your **CAA** record is incorrect, or another is present, we recommend you remove it and/or add the correct **CAA** record via our DNS UI. This can be accessed by clicking on your domain from your Vercel account [domain's dashboard](https://vercel.com/dashboard/domains).
+
+You may also use the [vercel-cli](https://vercel.com/docs/cli#commands/dns) to remove and add your **CAA** records.
+
+<Snippet dark text="vercel dns rm [record-id]" />
+<Caption>Using the <InlineCode>vercel dns rm</InlineCode> command to remove a record for a domain.</Caption>
+
+<Snippet dark text={`vercel dns add [domain] [name] CAA '0 issue "letsencrypt.org"'`} />
+<Caption>Using the <InlineCode>vercel dns add</InlineCode> command to add a CAA record for a domain.</Caption>
+
+If you have followed the instructions above successfully, your domain should now automatically generate a SSL certificate.
+
+<Note>To establish the <InlineCode>record-id</InlineCode>, use the <InlineCode>vercel dns ls</InlineCode> command.</Note>
+
+### Vercel Support
+
+For any further questions or concerns, please contact Vercel Support using the [support form](https://vercel.com/support/request) available from the Vercel dashboard. You can also directly email [support@vercel.com](mailto:support@vercel.com).
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
+
+export const config = {
+  amp: 'hybrid'
+}
