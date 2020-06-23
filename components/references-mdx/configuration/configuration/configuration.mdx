@@ -255,12 +255,12 @@ In order to use a runtime that is not [officially supported](/docs/v2/serverless
 <Code lang="json">{`{
   "functions": {
     "api/test.php": {
-      "runtime": "now-php"
+      "runtime": "vercel-php@0.1.0"
     }
   }
 }`}</Code>
 
-In the example above, the `api/test.php` Serverless Function does not use one of the [officially supported runtimes](/docs/v2/serverless-functions/supported-languages/). In turn, a `runtime` property was added in order to invoke the [now-php](https://www.npmjs.com/package/now-php) community runtime.
+In the example above, the `api/test.php` Serverless Function does not use one of the [officially supported runtimes](/docs/v2/serverless-functions/supported-languages/). In turn, a `runtime` property was added in order to invoke the [vercel-php](https://www.npmjs.com/package/vercel-php) community runtime.
 
 For more information on Runtimes, see the documentation:
 
