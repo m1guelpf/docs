@@ -154,12 +154,17 @@ Environment variables passed to the invoked [Serverless Functions](/docs/v2/serv
 
 ## builds
 
-<Note type="alert">
-  The <InlineCode>builds</InlineCode> property has been deprecated in favor of{' '}
-  <Link href="/docs/configuration#project/functions">functions</Link>. In the
-  majority of cases, you are no longer required to specify a{' '}
-  <InlineCode>build</InlineCode>, instead relying on the{' '}
-  <Link href="/docs/v2/build-step/">build step</Link>.
+<Note>
+  There's no need to use the <InlineCode>builds</InlineCode> property for
+  deploying your frontend. If you'd like to customize your Serverless Functions,
+  use the <Link href="/docs/configuration#project/functions">functions</Link>{' '}
+  property instead.
+  <br />
+  <br />
+  The only case in which the use of <InlineCode>builds</InlineCode> is still recommended
+  is if your Git repository contains multiple frontends that you would like to mount
+  to different paths in your URL. Mounting multiple frontends to different domains
+  is not currently supported.
 </Note>
 
 **Type:** `Array` of build `Object`.
