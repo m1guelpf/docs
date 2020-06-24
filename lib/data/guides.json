@@ -88,12 +88,12 @@
     "published": "2020-03-24T12:00:00.860Z",
     "authors": ["mcsdev"],
     "url": "/guides/deploying-takeshape-with-vercel",
-    "image": "https://og-image.now.sh/**Deploy%20a%20TakeShape%20Blog**%20%3Cbr%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fph-files.imgix.net%2F3799c380-ef0b-4ce0-946e-2731effd6fa4%3Fauto%3Dformat&widths=200&widths=350&heights=200&heights=350",
+    "image": "https://og-image.now.sh/**Deploy%20a%20TakeShape%20Blog**%20with%20Vercel%20%26%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fv1592998293%2Ffront%2Fguides%2Fogp%2Ftakeshape.svg",
     "name": "TakeShape",
     "type": "site",
     "demo": "https://next-blog-takeshape.now.sh/",
     "editUrl": "pages/guides/deploying-takeshape-with-vercel.mdx",
-    "lastEdited": "2020-06-04T20:10:32.000Z"
+    "lastEdited": "2020-06-24T11:36:18.000Z"
   },
   {
     "title": "Error Reports for Your Projects with URIports and Vercel",
