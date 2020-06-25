@@ -553,7 +553,7 @@
     "name": "MongoDB",
     "type": "API",
     "editUrl": "pages/guides/deploying-a-mongodb-powered-api-with-node-and-vercel.mdx",
-    "lastEdited": "2020-05-14T23:00:11.000Z"
+    "lastEdited": "2020-06-24T16:39:53.000Z"
   },
   {
     "title": "Handling Node.js Request Bodies with Vercel",
