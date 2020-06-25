@@ -155,16 +155,16 @@ Environment variables passed to the invoked [Serverless Functions](/docs/v2/serv
 ## builds
 
 <Note>
-  There's no need to use the <InlineCode>builds</InlineCode> property for
-  deploying your frontend. If you'd like to customize your Serverless Functions,
-  use the <Link href="/docs/configuration#project/functions">functions</Link>{' '}
-  property instead.
+  There's no need to use this property for deploying your frontend. If you'd
+  like to customize your Serverless Functions, use the{' '}
+  <Link href="/docs/configuration#project/functions">functions</Link> property
+  instead.
   <br />
   <br />
   The only case in which the use of <InlineCode>builds</InlineCode> is still recommended
-  is if your Git repository contains multiple frontends that you would like to mount
-  to different paths in your URL. Mounting multiple frontends to different domains
-  is not currently supported.
+  is if your Git repository contains multiple different frontends that you would
+  like to mount to different paths in your URL. True monorepos (mounting multiple
+  frontends to different domains) are currently not supported.
 </Note>
 
 **Type:** `Array` of build `Object`.
