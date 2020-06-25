@@ -59,7 +59,7 @@ Specifies the [<ProductName /> Platform version](/docs/v2/platform/overview#vers
 
 **Type**: `Array` or `String`.
 
-**Valid values**: [domain names](/docs/v2/custom-domains) (optionally including subdomains) added to the account, or a string for a suffixed URL using `.now.sh` or a Custom Deployment Suffix ([available on the Enterprise plan](/pricing)).
+**Valid values**: [domain names](/docs/v2/custom-domains) (optionally including subdomains) added to the account, or a string for a suffixed URL using `.vercel.app` or a Custom Deployment Suffix ([available on the Enterprise plan](/pricing)).
 
 **Limit**: A maximum of 64 aliases in the array.
 
@@ -188,9 +188,9 @@ Environment variables passed to the invoked [Serverless Functions](/docs/v2/serv
 
 <Code lang="json">{`{
   "builds": [
-    { "src": "*.html", "use": "@now/static" },
-    { "src": "*.py", "use": "@now/python" },
-    { "src": "*.js", "use": "@now/node" }
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "*.py", "use": "@vercel/python" },
+    { "src": "*.js", "use": "@vercel/node" }
   ]
 }`}</Code>
 
@@ -199,7 +199,7 @@ Environment variables passed to the invoked [Serverless Functions](/docs/v2/serv
   outputs of the build processes will be included in the resulting deployment as
   a security precaution. This is why we need to allowlist static files
   explicitly with
-  <InlineCode>@now/static</InlineCode>.
+  <InlineCode>@vercel/static</InlineCode>.
 </Note>
 
 ## functions

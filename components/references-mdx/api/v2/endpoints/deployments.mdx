@@ -75,13 +75,13 @@ They can be changed on the dashboard or through the projects API.
 
 | Key                 | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                                                                                            |
 | ------------------- | ---------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------ |
-| **framework**       | <HelpLink href="#api-basics/types">Enum</HelpLink>         | No       | Must be either a framework slug from `@now/frameworks` or `null`.                                      |
+| **framework**       | <HelpLink href="#api-basics/types">Enum</HelpLink>         | No       | Must be either a framework slug from `@vercel/frameworks` or `null`.                                   |
 | **devCommand**      | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | Either a command that is executed during development or `null` for auto detection.                     |
 | **buildCommand**    | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | Either a command that is executed during build time or `null` for auto detection.                      |
 | **outputDirectory** | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The name of a directory or relative path to the output of the build.                                   |
 | **rootDirectory**   | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The path of a directory that contains the source code if your deployment or `null` for auto detection. |
 
-If the `projectSettings` property is not set for the first deployment, the API will return an error containing information about the detected framework from <Link href="https://github.com/vercel/vercel/tree/master/packages/frameworks">`@now/frameworks`</Link>, which can be used for the next request to complete the deployment.
+If the `projectSettings` property is not set for the first deployment, the API will return an error containing information about the detected framework from <Link href="https://github.com/vercel/vercel/tree/master/packages/frameworks">`@vercel/frameworks`</Link>, which can be used for the next request to complete the deployment.
 
 <Code lang="json">{`{
   "error": {
@@ -743,7 +743,7 @@ Each Build is an object with the following keys:
 | **use**          | <HelpLink href="#api-basics/types">String</HelpLink>       | The Runtime the Build used to generate the output.                                                                                                                                                                   |
 | **config**       | <HelpLink href="#api-basics/types">Map</HelpLink>          | An object that contains the Build's configuration. For example, <InlineCode>{ "zeroConfig": true }</InlineCode>.                                                                                                     |
 | **output**       | <HelpLink href="#api-basics/types">List</HelpLink>         | A list of outputs for the Build. These can either be Serverless Functions or static files.                                                                                                                           |
-| **fingerprint**  | <HelpLink href="#api-basics/types">String</HelpLink>       | If the Build uses the `@now/static` Runtime, it contains a hashed string of all outputs.                                                                                                                             |
+| **fingerprint**  | <HelpLink href="#api-basics/types">String</HelpLink>       | If the Build uses the `@vercel/static` Runtime, it contains a hashed string of all outputs.                                                                                                                          |
 
 ##### Build Output Key
 
@@ -778,7 +778,7 @@ These are the keys of the `output` Map of the Build.
       "scheduledAt": 1567024756543,
       "createdAt": 1567071524208,
       "createdIn": "sfo1",
-      "use": "@now/node",
+      "use": "@vercel/node",
       "config": {
         "zeroConfig": true
       },
