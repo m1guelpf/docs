@@ -2,6 +2,7 @@ import Layout from '~/components/layout/knowledge'
 import { InlineCode } from '~/components/text/code'
 import Caption from '~/components/text/caption'
 import Snippet from '~/components/snippet'
+import { Image } from '~/components/media'
 
 export const meta = {
   title: 'How do I send and receive emails with my Vercel purchased domain?',
@@ -21,31 +22,50 @@ Because many domain providers do not offer a mail service, there are a number of
 
 Examples of this type of service include [ImproxMX](https://improvmx.com/) and [Forward Email](https://forwardemail.net/en), however there are many more options available. For each provider, different DNS records are required to be added.
 
-## ImprovMX
+## DNS Preset
 
-For ImprovMX, you need to add the following DNS records, replacing `example.com` with your domain:
+You can use the [DNS UI](https://vercel.com/blog/dns-records-ui) to add a preset for common mail services.
 
-<Snippet dark text="vercel dns add example.com '@' MX mx1.improvmx.com 10" />
-<Caption>Adding an MX record to a custom domain using the Vercel CLI.</Caption>
+<Image
+  src={`${
+    process.env.ASSETS
+  }/knowledge/dns-ui-preset.png`}
+  width={1079}
+  height={436}
+/>
+<Caption>The preset dropdown in the DNS UI.</Caption>
 
-<Snippet dark text="vercel dns add example.com '@' MX mx2.improvmx.com 20" />
-<Caption>Adding an MX record to a custom domain using the Vercel CLI.</Caption>
+If your email provider is not in the list of presets, you can proceed to next section where we will discuss adding records manually.
 
-<Snippet dark text="vercel dns add example.com '@' TXT 'v=spf1 include:spf.improvmx.com ~all'" />
-<Caption>Adding a TXT record to a custom domain using the Vercel CLI.</Caption>
+## Adding DNS Records
 
-## Forward Email
+While the DNS UI does have a preset for G Suite, it will serve as an example in this article. You can consult the documentation for G Suite [here](https://support.google.com/a/answer/140034?hl=en)
 
-For Forward Email, you need to add the following DNS records, replacing `example.com` with your domain:
+1. First you need to insert the MX records related to your service:
 
-<Snippet dark text="vercel dns add example.com '@' MX mx1.forwardemail.net 10" />
-<Caption>Adding an MX record to a custom domain using the Vercel CLI.</Caption>
+<Image
+  src={`${
+    process.env.ASSETS
+  }/knowledge/dns-ui-mx-record.png`}
+  width={1050}
+  height={345}
+/>
+<Caption>Adding a MX record to your domain.</Caption>
 
-<Snippet dark text="vercel dns add example.com '@' MX mx2.forwardemail.net 20" />
-<Caption>Adding an MX record to a custom domain using the Vercel CLI.</Caption>
+You will likely need to repeat this step multiple times, depending on the number of records your provider requires you to add.
 
-<Snippet dark text="vercel dns add example.com '@' TXT forward-email=example.com" />
-<Caption>Adding a TXT record to a custom domain using the Vercel CLI.</Caption>
+2. The second step is to verify the domain. G Suite is requiring a [TXT record](https://support.google.com/a/answer/183895?hl=en) so we can verify the domain.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/knowledge/dns-ui-txt-record.png`}
+  width={1043}
+  height={326}
+/>
+<Caption>Adding a TXT record to your domain.</Caption>
+
+In this case, the TXT should be in the root domain and that is why the `'name'` field is empty. You need to check the required arguments with your mail provider.
 
 export default ({ children }) => <Layout meta={meta}>{children}</Layout>
 

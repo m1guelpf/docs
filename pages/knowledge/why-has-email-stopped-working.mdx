@@ -3,6 +3,7 @@ import { InlineCode } from '~/components/text/code'
 import Caption from '~/components/text/caption'
 import Snippet from '~/components/snippet'
 import Note from '~/components/text/note'
+import { Image } from '~/components/media'
 
 export const meta = {
   title: 'Why am I no longer receiving email after verifying my Vercel domain?',
@@ -18,16 +19,50 @@ When adding a [custom domain](/docs/v2/custom-domains) to Vercel and [verifying 
 
 By adding MX records, you are providing Vercel with the instructions for where to send email sent to your domain. Your domain registrar will be able to provide you with a list of records that need to be added.
 
-## Adding MX Records
+## DNS Preset
 
-You can add MX records for your domain by using [Vercel CLI](/download) and the `vercel dns add` command.
+You can use the [DNS UI](https://vercel.com/blog/dns-records-ui) to add a preset for common mail services.
 
-To do this, amend the command below, replacing `example.com` with your domain, `mail.example.com` with the record value, and `10` with the priority value, these will be clearly labelled in the registrar instructions:
+<Image
+  src={`${
+    process.env.ASSETS
+  }/knowledge/dns-ui-preset.png`}
+  width={1079}
+  height={436}
+/>
+<Caption>The preset dropdown in the DNS UI.</Caption>
 
-<Snippet dark text="vercel dns add example.com '@' MX mail.example.com 10" />
-<Caption>Adding an MX record to a custom domain with a record value of <InlineCode>mail.vercel.rocks</InlineCode>.</Caption>
+If your email provider is not in the list of presets, you can proceed to next section where we will discuss adding records manually.
+
+## Adding DNS Records
+
+While the DNS UI does have a preset for G Suite, it will serve as an example in this article. You can consult the documentation for G Suite [here](https://support.google.com/a/answer/140034?hl=en)
+
+1. First you need to insert the MX records related to your service:
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/knowledge/dns-ui-mx-record.png`}
+  width={1050}
+  height={345}
+/>
+<Caption>Adding a MX record to your domain.</Caption>
 
 You will likely need to repeat this step multiple times, depending on the number of records your provider requires you to add.
+
+2. The second step is to verify the domain. G Suite is requiring a [TXT record](https://support.google.com/a/answer/183895?hl=en) so we can verify the domain.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/knowledge/dns-ui-txt-record.png`}
+  width={1043}
+  height={326}
+/>
+<Caption>Adding a TXT record to your domain.</Caption>
+
+In this case, the TXT should be in the root domain and that is why the `'name'` field is empty. You need to check the required arguments with your mail provider.
 
 <Note type="warning">
   It can take a few minutes for the added records to become globally available.
