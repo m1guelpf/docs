@@ -13,7 +13,7 @@ export const meta = {
   title: 'Frequently Asked Questions',
   description: 'A list of frequently asked questions relating to deployments.',
   editUrl: 'pages/docs/v2/platform/frequently-asked-questions.mdx',
-  lastEdited: '2020-06-24T19:46:32.000Z'
+  lastEdited: '2020-06-26T21:09:41.000Z'
 }
 
 ## Platform Version Detection
@@ -31,7 +31,7 @@ If you are yet to upgrade to the latest platform version, please read our [upgra
 
 ## Green Energy Policy
 
-​<OrgName /> works with multiple cloud partners in order to provide services to end users.
+<OrgName /> works with multiple cloud partners in order to provide services to end users.
 
 The Serverless approach is an energy-efficient alternative to traditional servers because your code runs only on-demand.
 
@@ -43,7 +43,7 @@ For more information on our cloud partners' Green energy policies, we recommend 
 
 ## What can I deploy with <NameWrapper name={PRODUCT_NAME} />?
 
-​<ProductName /> is best at deploying technologies that can be served over HTTP and distributed through our CDN network:
+<ProductName /> is best at deploying technologies that can be served over HTTP and distributed through our CDN network:
 
 - Static websites and static generators ([Next.js](/guides/deploying-nextjs-with-now), React, Vue, Angular, etc)
 - Code that renders HTML on the server-side
@@ -205,14 +205,14 @@ These conflicting configuration errors occur if:
 - Both `.vercelignore` and `.nowignore` files exist in your project.<br />**Solution:** Delete the `.nowignore` file.
 - Environment Variables that begin with `VERCEL_` have a conflicting Environment Variable that begins with `NOW_`.<br />**Solution:** Only define the `VERCEL_` prefixed Environment Variable.
 
-## Conflicting "functions" and "builds" configuration
+## Conflicting "functions" and "builds" Configuration
 
 There are two different ways to configure Serverless Functions in your project: [functions](/docs/configuration#project/functions) _or_ [builds](/docs/configuration#project/builds). However, only one of them may be used at a time - they cannot be used in conjuction.
 
 For most cases, it is recommended to use the `functions` property because it supports more features, such as:
 
-- Allows configuration of the amount of memory that the Serverless Function is given.
-- More stable because it requires a specific npm package version for the `runtime` property.
-- Supports "clean URLs" by default, so the file extension is not required in the URL.
+- Allows configuration of the amount of memory that the Serverless Function is provided with.
+- More reliable because it requires a specific npm package version for the `runtime` property.
+- Supports "clean URLs" by default, which means that the Serverless Functions are automatically accessible without their file extension in the URL.
 
-However, the `builds` property will remain supported for backwards compatibility purposes.
+However, the [`builds`](/docs/configuration#project/builds) property will remain supported for backwards compatibility purposes.
