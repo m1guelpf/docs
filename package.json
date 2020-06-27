@@ -42,7 +42,7 @@
     "lodash.debounce": "4.0.8",
     "md5": "2.2.1",
     "mitt": "1.1.2",
-    "next": "9.3.6-canary.15",
+    "next": "9.4.4",
     "nprogress": "0.2.0",
     "prop-types": "15.6.2",
     "qs": "6.6.0",
