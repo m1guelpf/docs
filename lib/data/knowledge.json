@@ -1,5 +1,13 @@
 [
   {
+    "title": "How can I use the Vercel CLI for custom workflows?",
+    "description": "Information about using the Vercel CLI in a custom workflow.",
+    "editUrl": "pages/knowledge/using-vercel-cli-for-custom-workflows.mdx",
+    "url": "/knowledge/using-vercel-cli-for-custom-workflows",
+    "published": "2020-06-28T14:54:36.000Z",
+    "lastEdited": "2020-06-28T14:54:36.000Z"
+  },
+  {
     "title": "Why Is My Domain Not Automatically Generating an SSL Certificate?",
     "description": "Information on why a domain may not be automatically generating an SSL certificate.",
     "editUrl": "pages/knowledge/domain-not-generating-ssl-certificate.mdx",
