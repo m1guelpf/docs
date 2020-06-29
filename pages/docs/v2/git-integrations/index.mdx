@@ -76,6 +76,12 @@ You can install any Git Integration directly from your dashboard by clicking ["I
 />
 <Caption>The "You own the Repository" section with a prompt to install <ProductName /> for GitHub.</Caption>
 
+## Deploying Private Repositories
+
+In order to deploy commits from a Private Repository, or a Fork of a Private Repository, under a team, the commit author has to be a member of the team on <ProductName />. If the commit author is not a member, the deployment will be cancelled and the commit author will automatically request access to the team. The owner's of the team will then be notified and can either accept or decline the request. A declined request will remove the user and leave the commit undeployed, should the user get accepted, their last commit will be deployed automatically.
+
+It's only possible to check if the commit author is already part of the team when the team member connected their Personal Account on <ProductName /> with their Git account. If this should not be the case, or if the commit author doesn't have a Personal Account on <ProductName /> , the Git account will be used instead. The Git account can be removed if the user joins the team with their Personal Account that is connected to this Git account.
+
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 
 export const config = {
