@@ -13,7 +13,7 @@ export const meta = {
   title: 'Frequently Asked Questions',
   description: 'A list of frequently asked questions relating to deployments.',
   editUrl: 'pages/docs/v2/platform/frequently-asked-questions.mdx',
-  lastEdited: '2020-06-26T21:09:41.000Z'
+  lastEdited: '2020-06-30T02:28:47.000Z'
 }
 
 ## Platform Version Detection
@@ -122,7 +122,7 @@ A [Project](/docs/v2/platform/projects) has several settings that can be found i
 
 However, the Build & Development Settings are only applied to [zero-configuration](/guides/upgrade-to-zero-configuration) Deployments.
 
-If a Deployment defines the [builds](/docs/configuration#project/builds) configuration property, the Build & Development Settings are ignored.
+If a Deployment defines the [`builds`](/docs/configuration#project/builds) configuration property, the Build & Development Settings are ignored.
 
 ## Invalid Route Source Pattern
 
@@ -188,7 +188,7 @@ Please double-check that the name and version of the Runtime you are requesting 
 
 ## Mixed Routing Properties
 
-If you have [rewrites](/docs/configuration#project/rewrites), [redirects](/docs/configuration#project/redirects), [headers](/docs/configuration#project/headers), [cleanUrls](/docs/configuration#project/cleanurls) or [trailingSlash](/docs/configuration#project/trailingslash) defined in your [configuration](/docs/configuration) file, then [routes](/docs/configuration#project/routes) cannot be defined.
+If you have [`rewrites`](/docs/configuration#project/rewrites), [`redirects`](/docs/configuration#project/redirects), [`headers`](/docs/configuration#project/headers), [`cleanUrls`](/docs/configuration#project/cleanurls) or [`trailingSlash`](/docs/configuration#project/trailingslash) defined in your [configuration](/docs/configuration) file, then [`routes`](/docs/configuration#project/routes) cannot be defined.
 
 This is a necessary limitation because `routes` is a lower-level primitive that contains all of the other types. Therefore, it cannot be merged safely with the new properties.
 
@@ -207,7 +207,7 @@ These conflicting configuration errors occur if:
 
 ## Conflicting "functions" and "builds" Configuration
 
-There are two different ways to configure Serverless Functions in your project: [functions](/docs/configuration#project/functions) _or_ [builds](/docs/configuration#project/builds). However, only one of them may be used at a time - they cannot be used in conjuction.
+There are two different ways to configure Serverless Functions in your project: [`functions`](/docs/configuration#project/functions) _or_ [`builds`](/docs/configuration#project/builds). However, only one of them may be used at a time - they cannot be used in conjuction.
 
 For most cases, it is recommended to use the `functions` property because it supports more features, such as:
 
