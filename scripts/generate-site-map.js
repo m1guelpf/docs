@@ -170,9 +170,15 @@ function generateSiteMap() {
   )
 
   const sortedGuides = guidesMeta.sort((a, b) => {
-    if (a.published === b.published) return a.url.localeCompare(b.url)
+    const aRank = a.rank || 999
+    const bRank = b.rank || 999
 
-    return new Date(b.published) - new Date(a.published)
+    if (aRank === bRank) {
+      if (a.published === b.published) return a.url.localeCompare(b.url)
+      return new Date(b.published) - new Date(a.published)
+    } else {
+      return aRank - bRank
+    }
   })
   const guidesJson = JSON.stringify(sortedGuides, null, 2)
 

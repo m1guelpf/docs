@@ -5,7 +5,6 @@ import Wrapper from '~/components/layout/wrapper'
 import { H1, H3, P } from '~/components/text'
 import { AvatarGroup } from '~/components/avatar'
 import Link from '~/components/text/link'
-import Button from '~/components/buttons'
 import guides from '~/lib/data/guides.json'
 import { PRODUCT_NAME } from '~/lib/constants'
 
@@ -23,18 +22,6 @@ const Guides = () => (
         <Wrapper>
           <H1>Guides</H1>
           <P>A list of guides for using {PRODUCT_NAME} with any project.</P>
-
-          <div className="actions">
-            <span className="caption">Sorted by Newest</span>
-            <Link
-              href="https://github.com/vercel/docs/issues/new?labels=Section%3A+Guides&template=guide-report-or-request.md"
-              underlineOnHover={false}
-            >
-              <Button type="secondary" small>
-                Request a Guide
-              </Button>
-            </Link>
-          </div>
         </Wrapper>
       </div>
 
@@ -109,20 +96,6 @@ const Guides = () => (
         font-size: 16px;
         margin-top: 8px;
         color: #444444;
-      }
-
-      .actions {
-        margin-top: 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .actions .caption {
-        text-transform: uppercase;
-        color: #666;
-        font-size: 12px;
-        margin-right: 5px;
       }
 
       .guide-list {

@@ -452,6 +452,16 @@ module.exports = withMDX({
           source: '/docs/now-cli/:path*',
           permanent: true,
           destination: '/docs/cli/:path*'
+        },
+        {
+          source: '/guides/setup-godaddy-domain-vercel',
+          permanent: true,
+          destination: '/docs/v2/custom-domains'
+        },
+        {
+          source: '/guides/setup-namecheap-domain-vercel',
+          permanent: true,
+          destination: '/docs/v2/custom-domains'
         }
       ]
     }
