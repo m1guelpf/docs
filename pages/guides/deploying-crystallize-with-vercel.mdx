@@ -24,20 +24,21 @@ export const meta = {
   lastEdited: '2020-05-14T23:00:11.000Z'
 }
 
-[Crystallize](https://crystallize.com/) is a super-fast GraphQL based headless e-commerce service with super structured product information management.
+[Crystallize](https://crystallize.com/) is a super-fast GraphQL based headless e-commerce service with super structured product information management (PIM).
 
-In this guide, you will discover how to create a [Crystallize e-commerce site](https://crystallize.now-examples.now.sh/), that uses [Stripe](https://stripe.com/) to process payments, and deploy it with [<ProductName />](/).
+In this guide, you will discover how to create a [Jamstack e-commerce site](https://furniture.superfast.shop/), powered by Crystallize and process payments using [Stripe](https://stripe.com/), and deploy it with [<ProductName />](/).
 
 <Image
-  src={`${
-    process.env.ASSETS
-  }/guides/deploying-crystallize-with-vercel/teddy-bear-shop.png`}
+  src={`https://media.crystallize.com/crystallize_marketing/20/6/8/2/@1920/jamstack-ecommerce-boilerplate-react-nextjs.png`}
   width={1350 / 2}
   height={735 / 2}
   oversize
   shadow
 />
+
 <Caption>A screenshot of the example app you will create with this guide.</Caption>
+
+You can also check out the [live e-commerce demo](https://furniture.superfast.shop/) running on [<ProductName />](/).
 
 ## Step 1: Creating Your API Keys
 
@@ -58,7 +59,7 @@ Once both sets of keys are available, you can move on to creating your Crystalli
 
 During the setup, you will be asked a series of questions that will customize the output. Select the following options:
 
-- Teddy bear shop
+- Furniture demo tenant
 - Next.js + React
 - **Both** <ProductName /> and a payment method
 - Stripe
