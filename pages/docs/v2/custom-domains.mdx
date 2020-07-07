@@ -63,8 +63,8 @@ Then, select the **Domains** menu item:
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/select-domains.png`}
-  width={318 / 2}
-  height={354 / 2}
+  width={384 / 2}
+  height={440 / 2}
   shadow
 />
 <Caption>Selecting the <b>Domains</b> menu item from the Project Settings page.</Caption>
@@ -75,8 +75,8 @@ From the **Domains** page, enter the domain you wish to add to the project:
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/enter-domain.png`}
-  width={1492 / 2}
-  height={474 / 2}
+  width={1566 / 2}
+  height={392 / 2}
   shadow
 />
 <Caption>Entering a domain for the project from the Domains page.</Caption>
@@ -85,28 +85,29 @@ From the **Domains** page, enter the domain you wish to add to the project:
 
 Once the domain has been added, you will be presented with different methods for configuring it, depending on whether it is an [**apex domain**](/docs/v2/platform/glossary#apex-domain) (example.com) or **subdomain** (docs.example.com).
 
-Both domain types can be configured using the **Nameservers** method. However, **apex domains** also allow for verification via the **ANAME** record, while **subdomains** allow for verification via the **CNAME** record.
+**Apex domains** can be configured with a **A** record, while **subdomains** can be configured with a **CNAME** record.
+Both domain types can also be configured using the **Nameservers** method.
 
 #### Apex Domains
 
-You can configure [apex domains](/docs/v2/platform/glossary#apex-domain) either through the **Nameservers** or **ANAME** methods.
+You can configure [apex domains](/docs/v2/platform/glossary#apex-domain) either with a **A** record or through the **Nameservers** method.
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/configure-apex-domain.png`}
-  width={1402 / 2}
-  height={1022 / 2}
+  width={1496 / 2}
+  height={658 / 2}
   shadow
 />
 <Caption>Instructions on configuring an <strong>apex domain</strong> from the Project Domains page.</Caption>
 
 #### Subdomains
 
-You can configure subdomains either through the **Nameservers** or **CNAME** methods.
+You can configure subdomains either with a **CNAME** record or through the **Nameservers** method.
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/configure-subdomain.png`}
-  width={1420 / 2}
-  height={1034 / 2}
+  width={1496 / 2}
+  height={658 / 2}
   shadow
 />
 <Caption>Instructions on configuring a <strong>subdomain</strong> from the Project Domains page.</Caption>
@@ -117,8 +118,8 @@ Once the domain has been configured, the card status will change to reflect this
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/configured-domain.png`}
-  width={1412 / 2}
-  height={212 / 2}
+  width={1496 / 2}
+  height={232 / 2}
   shadow
 />
 <Caption>A configured domain on the Project Domains page.</Caption>
