@@ -54,6 +54,10 @@ const External = props => {
             margin: 0 5px;
             display: inline-flex;
           }
+
+          a :global(> code) {
+            color: ${color ? 'var(--geist-link-color)' : 'inherit'};
+          }
         `}
       </style>
     </a>
@@ -90,6 +94,9 @@ const Internal = props => {
           }
           a:hover {
             text-decoration: ${underline ? 'underline' : 'none'};
+          }
+          a :global(> code) {
+            color: ${color ? 'var(--geist-link-color)' : 'inherit'};
           }
         `}
       </style>
@@ -158,6 +165,10 @@ const Anchor = props => {
               position: absolute;
               transform: translateX(-200%);
               display: inline-flex;
+            }
+
+            a :global(> code) {
+              color: ${color ? 'var(--geist-link-color)' : 'inherit'};
             }
           `}
         </style>
