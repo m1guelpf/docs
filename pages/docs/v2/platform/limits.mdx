@@ -41,36 +41,46 @@ To prevent abuse of our platform, we apply the following limits to all accounts.
   excluded from the count for "Serverless Functions per Deployment".
 </Note>
 
+### General Limit Examples
+
+Below are two examples that provide further information on how general limits work.
+
+#### Serverless Functions per Deployment (Hobby)
+
+You are able to deploy up to `12` unique [Serverless Functions](/docs/v2/serverless-functions/introduction/) per [Deployment](/docs/v2/platform/deployments). Should you exceed this general limit, you will receive an error telling you this.
+
+#### Serverless Functions per Month (Hobby)
+
+You are able to deploy a total of `160` unique [Serverless Functions](/docs/v2/serverless-functions/introduction/) per month. For each [Deployment](/docs/v2/platform/deployments), if a Serverless Function's code has changed since the last, it will detract 1 from the available limit as the function will need to be rebuilt. Should you exceed this general limit, you will need to wait till the current month ends before you can deploy more Serverless Functions.
+
 ## Logs
 
 All log types - **Build Time**, **Edge Network**, and **Runtime** - have differing behavior when it comes to storing logs.
 
 During the [Build Step](/docs/v2/platform/glossary#build-step), the last 2,000 log lines are stored and persisted.
 
-For [Edge Network requests](/docs/v2/edge-network/regions#automatic-edge-cdn), all logs are **not persisted**.
+For [Edge Network requests](/docs/v2/edge-network/regions#automatic-edge-cdn), all logs are not persisted.
 
-For [Serverless Functions](/docs/v2/serverless-functions/introduction/), only logs from failed requests are **persisted**.
+For [Serverless Functions](/docs/v2/serverless-functions/introduction/), only logs from failed requests are persisted.
 
-All other logs are stored in memory only and are **not persisted** between page views. Each log output is **limited to 4kb**. For log outputs greater than 4kb per Serverless Function invocation, only the last 4kb will be retained.
+All other logs are stored in memory only and are not persisted between page views. Each log output is limited to **4 KB**. For log outputs greater than **4 KB** per Serverless Function invocation, only the last **4 KB** will be retained.
 
 ## Environment Variables
 
-The maximum number of [Environment Variables](/docs/v2/build-step#environment-variables) per Environment per [Project](/docs/v2/platform/glossary#project)
-is **100**. For example, you can not have more than 100 Production Environment Variables.
+The maximum number of [Environment Variables](/docs/v2/build-step#environment-variables) per environment per [Project](/docs/v2/platform/glossary#project)
+is `100`. For example, you cannot have more than `100` Production Environment Variables.
 
-Moreover, the total size of [Environment Variables](/docs/v2/build-step#environment-variables) applied to a Deployment
-(including all the Environment Variables Names and Values) is **limited to 4kb**. [Deployments](/docs/v2/platform/deployments)
-made with Environment Variables exceeding the 4kb limit will fail during the [Build Step](/docs/v2/build-step/).
+Moreover, the total size of Environment Variables applied to a [Deployment](/docs/v2/platform/deployments), including all the Environment Variables names and values, is limited to **4 KB**. Deployments made with Environment Variables exceeding the **4 KB** limit will fail during the [Build Step](/docs/v2/build-step/).
 
 ## Domains
 
-The maximum amount of domains that can be applied to a single project is **50**. If your Project requires more than 50 domains, please <EmailLink type="sales">contact our enterprise team</EmailLink>.
+The maximum number of domains that can be applied to a single [project](/docs/v2/platform/glossary#project) is `50`. If your project requires more than `50` domains, please <EmailLink type="sales">contact our sales team</EmailLink>.
 
 ## Files
 
-The maximum number of files that can be uploaded when making a [deployment](/docs/v2/platform/deployments) is **10,000** for source files and **16,000** for build output files.
+The maximum number of files that can be uploaded when making a [Deployment](/docs/v2/platform/deployments) is `10,000` for source files and `16,000` for build output files.
 
-Deployments made that contain more files than the limit will fail at the [build step](/docs/v2/build-step/).
+Deployments that contain more files than the limit will fail at the [build step](/docs/v2/build-step/).
 
 ## HTTP/2 Push
 
@@ -88,7 +98,7 @@ If you need persistent connections to push data to the client, consider using th
 
 For security reasons, the <ProductName /> platform blocks outgoing SMTP connections.
 
-As a result of this, we recommend using a third-party service to enable email functionality for [deployments](/docs/v2/platform/deployments).
+As a result of this, we recommend using a third-party service to enable email functionality for [Deployments](/docs/v2/platform/deployments).
 
 ## Serverless Function Size
 
@@ -106,11 +116,11 @@ You can use the [functions](/docs/configuration#project/functions) property to a
 
 The maximum number of concurrent executions for a [Serverless Function](/docs/v2/serverless-functions/introduction/) is `1000`.
 
-If you require a limit above `1000`, you should <EmailLink type="sales">contact our enterprise team</EmailLink> to discuss custom limits available on an enterprise plan.
+If you require a limit above `1000`, you should <EmailLink type="sales">contact our sales team</EmailLink> to discuss custom limits available on an Enterprise plan.
 
 ## Serverless Function Payload Size Limit
 
-The maximum payload size for the request body or the response body of a [Serverless Function](/docs/v2/serverless-functions/introduction/) is **5MB**.
+The maximum payload size for the request body or the response body of a [Serverless Function](/docs/v2/serverless-functions/introduction/) is **5 MB**.
 
 If a Serverless Function receives a payload in excess of the limit it will return an error - **413: FUNCTION_PAYLOAD_TOO_LARGE**.
 
@@ -118,17 +128,17 @@ If a Serverless Function receives a payload in excess of the limit it will retur
 
 It is possible to deploy [Serverless Functions](/docs/v2/serverless-functions/introduction/) to multiple regions, however this featured is limited to [Enterprise plans](/pricing). See also the [FAQ section](/docs/v2/platform/frequently-asked-questions#deploying-serverless-functions-to-multiple-regions) for more details on the Pro plan.
 
-When attempting to deploy Serverless Functions to multiple regions on a non-Enterprise plan, the deployment will fail before entering the [build step](/docs/v2/build-step/).
+When attempting to deploy Serverless Functions to multiple regions on a non-Enterprise plan, the [Deployment](/docs/v2/platform/deployments) will fail before entering the [build step](/docs/v2/build-step/).
 
 ## Streaming Responses
 
-​<ProductName /> does not support streaming responses from Serverless Functions due to an upstream limitation from AWS.
+​<ProductName /> does not support streaming responses from [Serverless Functions](/docs/v2/serverless-functions/introduction/) due to an upstream limitation from AWS.
 
-This means that background tasks, also known as "fire-and-forget" is not supported. Once the function returns the response payload, it stops processing including any pending background tasks.
+This means that background tasks, also known as "fire-and-forget" is not supported. Once the Severless Function returns the response payload, it stops processing including any pending background tasks.
 
 ## Reserved Variables
 
-The following environment variable names are [reserved](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#lambda-environment-variables) and therefore unavailable for use:
+The following [Environment Variable](/docs/v2/build-step#environment-variables) names are [reserved](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#lambda-environment-variables) and therefore unavailable for use:
 
 - Names starting with `VERCEL_`
 - Names starting with `NOW_`
@@ -150,34 +160,48 @@ The following environment variable names are [reserved](https://docs.aws.amazon.
 - `LAMBDA_TASK_ROOT`
 - `LAMBDA_RUNTIME_DIR`
 
-[Deployments](/docs/v2/platform/deployments) made that use any of the reserved variable names will fail at the [build step](/docs/v2/build-step/).
+[Deployments](/docs/v2/platform/deployments) that use any of the reserved Environment Variable names will fail at the [build step](/docs/v2/build-step/).
 
 ## Rate Limits
 
-**Rate limits** are hard limits that apply to the platform when performing actions that require a response from an API.
+**Rate limits** are hard limits that apply to the platform when performing actions that require a response from our [API](/docs/api#getting-started).
 
 The **rate limits** table consists of the following four columns:
 
 - **Description** - A brief summary of the limit which, where relevant, will advise what type of plan it applies to.
 - **Limit** - The amount of actions permitted within the amount of time (**Duration**) specified.
 - **Duration** - The amount of time (seconds) in which you can perform the specified amount of actions. Once a rate limit is hit, it will be reset after the **Duration** has expired.
-- **Scope** - Who the limit applies to, `owner` refers to the account owner, `user` refers to an individual user on a **Team** account.
+- **Scope** - Who the limit applies to: `owner` refers to the account owner, `user` refers to an individual user on a **Team** account.
 
-## Examples
+### Rate Limit Examples
 
-Below are three examples that provide further information on how the rate limits work.
+Below are five examples that provide further information on how rate limits work.
 
-### Domain Deletion
+#### Domain Deletion
 
-Taking the domains deletion rate limit as an example, you are allowed to delete up to `60` domains every `60` seconds (1 minute). Should you hit the rate limit, you will need to wait another minute before deleting another domain.
+You are able to delete up to `60` domains every `60` seconds (1 minute). Should you hit the rate limit, you will need to wait another minute before you can delete another domain.
 
-### Team Deletion
+#### Team Deletion
 
-With the team deletion rate limit, you are able to delete up to `20` teams every `3600` seconds (1 hour). Should you hit the rate limit, you will need to wait another hour before deleting another team.
+You are able to delete up to `20` teams every `3600` seconds (1 hour). Should you hit the rate limit, you will need to wait another hour before you can delete another team.
 
-### Username Update
+#### Username Change
 
-For the username update rate limit, you are able to change your username up to `6` times every `604800` seconds (1 week). Should you hit the rate limit, you will need to wait another week before changing your username again.
+You are able to change your username up to `6` times every `604800` seconds (1 week). Should you hit the rate limit, you will need to wait another week before you can change your username again.
+
+#### Builds per Hour (Free)
+
+You are able to build `32` [Deployments](/docs/v2/platform/deployments) every `3600` seconds (1 hour). Shoulds you hit the rate limit, you will need to wait another hour before before you can build a deployment again.
+
+<Note>
+  Using Next.js or any similar framework to build your deployment is classed as
+  a build. Each Serverless Function is also classed as a build. Hosting static
+  files such as an index.html file is not classed as a build.
+</Note>
+
+#### Deployments per day (Free)
+
+You are able to deploy `100` times every `86400` seconds (1 day). Should you hit the rate limit, you will need to wait another day before you can deploy again.
 
 ---
 
