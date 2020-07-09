@@ -22,8 +22,8 @@ Only responses with HTTP status `200` to a `GET` or `HEAD` request are cached by
 - Responses that exceed `10MB` in content length.
 - Requests that contain the `Range` header.
 - Requests that contain the `Authorization` header.
-- Requests that contain a `_now_no_cache=1` cookie.
-- Requests that contain a `?_now_no_cache=1` request parameter.
+- Requests that contain a `_vercel_no_cache=1` cookie.
+- Requests that contain a `?_vercel_no_cache=1` request parameter.
 - Responses that contain the `no-cache` directive in their `Cache-Control` header.
 
 ## Static Files
@@ -78,9 +78,9 @@ Every deployment has a unique key used for caching based on the deployment url c
 
 The cache is **automatically purged** upon a new deployment being created. If you ever need to invalidate the CDN cache, you can always re-deploy.
 
-## X-Now-Cache
+## X-Vercel-Cache
 
-Responses include a header called `X-Now-Cache` that contain details about the state of the cache for the resource. Possible values are:
+Responses include a header called `X-Vercel-Cache` that contain details about the state of the cache for the resource. Possible values are:
 
 | Value         | Description                                                                                                                                                                                                           |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
