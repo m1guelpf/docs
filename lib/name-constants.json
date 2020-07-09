@@ -3,7 +3,7 @@
   "cdnShortName": "Edge Network",
   "productName": "Vercel",
   "productDomain": "vercel.com",
-  "deploymentSuffix": "now.sh",
+  "deploymentSuffix": "vercel.app",
   "orgName": "Vercel",
   "productShortName": "Vercel",
   "productV1Name": "ZEIT Now 1.0",
