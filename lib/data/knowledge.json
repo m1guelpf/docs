@@ -1,5 +1,13 @@
 [
   {
+    "title": "Why Doesn't A Git Push Trigger A New Deployment?",
+    "description": "Understand the conditions that trigger a new deployment from Git.",
+    "editUrl": "pages/knowledge/git-push-not-triggering-deploy.mdx",
+    "url": "/knowledge/git-push-not-triggering-deploy",
+    "published": "2020-07-08T13:46:54.155Z",
+    "lastEdited": "2020-07-08T13:46:54.155Z"
+  },
+  {
     "title": "How can I use the Vercel CLI for custom workflows?",
     "description": "Information about using the Vercel CLI in a custom workflow.",
     "editUrl": "pages/knowledge/using-vercel-cli-for-custom-workflows.mdx",
