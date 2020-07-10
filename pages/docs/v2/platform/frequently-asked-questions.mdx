@@ -13,7 +13,7 @@ export const meta = {
   title: 'Frequently Asked Questions',
   description: 'A list of frequently asked questions relating to deployments.',
   editUrl: 'pages/docs/v2/platform/frequently-asked-questions.mdx',
-  lastEdited: '2020-07-09T14:32:07.000Z'
+  lastEdited: '2020-07-10T18:29:01.000Z'
 }
 
 ## Platform Version Detection
@@ -224,3 +224,11 @@ It's possible to deploy Serverless Functions to multiple regions, but it's restr
 On the [Pro plan](/pricing), the limitation has been around since the [launch](/blog/simpler-pricing) of the current pricing model but was applied on **July 10, 2020**. For Projects created on or after the date, it's no longer possible to deploy to multiple regions.
 
 To select a single suitable region for your Serverless Functions, please read our [guide](/knowledge/choosing-deployment-regions).
+
+## Cannot Load Project Settings
+
+If the project configuration in `.vercel` belongs to a team you are not a member of, attempting to deploy the project will result in an error.
+
+This may happen if you clone a repository that includes the `.vercel` directory, or you are logged in to the wrong Vercel account.
+
+To fix it, remove the `.vercel` directory and deploy to link the project again.
