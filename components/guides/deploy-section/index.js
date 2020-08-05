@@ -5,7 +5,7 @@ import { DeployButton } from '~/components/buttons'
 export default function DeploySection({ meta }) {
   return (
     <>
-      <GitDeploy name={meta.name} type={meta.type} />
+      <GitDeploy env={meta.env} name={meta.name} type={meta.type} />
       {meta.demo && (
         <p>
           Once deployed, you will get a URL to see your {meta.type} live, such
@@ -19,7 +19,12 @@ export default function DeploySection({ meta }) {
             button, and create a Git repository for it in the process for
             automatic deployments for your updates.
           </p>
-          <DeployButton url={meta.example} />
+          <DeployButton
+            env={meta.env}
+            envDescription={meta.envDescription}
+            envLink={meta.envLink}
+            url={meta.example}
+          />
         </>
       )}
       <style jsx>{`

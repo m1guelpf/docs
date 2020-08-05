@@ -16,17 +16,17 @@ If you need a **long-lived token**, you can ask for a [OAuth2 token](/docs/integ
 
 You can access this property inside `payload.token`.
 
-When you use the `@zeit/integration-utils` utility, you **do not** need to extract this token manually. You will receive an instance called `zeitClient` which is initialized with the above token and account information. You can use that to consume the <OrgName /> token.
+When you use the `@vercel/integration-utils` utility, you **do not** need to extract this token manually. You will receive an instance called `vercelClient` which is initialized with the above token and account information. You can use that to consume the <OrgName /> token.
 
 This is how you can get that instance:
 
 ```js
-const { withUiHook } = require('@zeit/integration-utils')
+const { withUiHook } = require('@vercel/integration-utils')
 
-module.exports = withUiHook(({ payload, zeitClient }) => {
-  // Do something with the zeitClient and payload
+module.exports = withUiHook(({ payload, vercelClient }) => {
+  // Do something with the vercelClient and payload
   return `<Page>and return some JSX.</Page>`
 })
 ```
 
-You can inspect the [API and methods of `zeitClient`](https://github.com/vercel/integration-utils/blob/master/src/zeit-client.ts) to understand its capabilities.
+You can inspect the [API and methods of `vercelClient`](https://github.com/vercel/integration-utils/blob/master/src/vercel-client.ts) to understand its capabilities.

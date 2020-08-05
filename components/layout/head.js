@@ -28,9 +28,7 @@ if (global.document) {
   const info = [
     ...(process.env.NOW_GITHUB_COMMIT_SHA
       ? [
-          `Commit: https://github.com/vercel/docs/commit/${
-            process.env.NOW_GITHUB_COMMIT_SHA
-          }`
+          `Commit: https://github.com/vercel/docs/commit/${process.env.NOW_GITHUB_COMMIT_SHA}`
         ]
       : []),
     `Check out our code here: https://vercel.com/oss`,
@@ -205,9 +203,7 @@ class Head extends React.PureComponent {
           />
           <link
             rel="mask-icon"
-            href={`${
-              process.env.IMAGE_ASSETS_URL
-            }/favicon/round-2/safari-pinned-tab.svg`}
+            href={`${process.env.IMAGE_ASSETS_URL}/favicon/round-2/safari-pinned-tab.svg`}
             color="#000000"
           />
 
@@ -220,50 +216,52 @@ class Head extends React.PureComponent {
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{
-              __html: `
-            {
-              "@type": "WebPage",
-              "url": "${this.props.url ||
-                `https://vercel.com${this.props.router.asPath}` ||
-                'https://vercel.com/docs'}",
-              "headline": "${this.props.ogTitle ||
-                this.props.title ||
-                `${ORG_NAME} Documentation`}",
-              ${
-                this.props.description
-                  ? '"description": "' + this.props.description + '",'
-                  : null
-              }
-              "image": "${this.props.image ||
-                `${process.env.IMAGE_ASSETS_URL}/zeit/twitter-card.png`}",
-              "name": "${titlePrefix +
-                (this.props.ogTitle ||
-                  this.props.title ||
-                  `${ORG_NAME} Documentation`) +
-                titleSuffix}",
-              "dateModified": "${
-                this.props.lastEdited ? this.props.lastEdited : null
-              }",
-              "lastReviewed": "${
-                this.props.lastEdited ? this.props.lastEdited : null
-              }",
-              "author": {
-                "@type": "Person",
-                "name": "${ORG_NAME}"
-              },
-              "publisher": {
-                "@type": "Organization",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "${`${
-                    process.env.IMAGE_ASSETS_URL
-                  }/favicon/favicon-96x96.png`}"
-                },
-                "name": "${ORG_NAME}"
-              },
-              "@context": "http:\/\/schema.org"
-            }
-          `
+              __html: JSON.stringify(
+                Object.assign(
+                  {
+                    '@type': 'WebPage',
+                    url:
+                      this.props.url ||
+                      `https://vercel.com${this.props.router.asPath}` ||
+                      'https://vercel.com/docs',
+                    headline:
+                      this.props.ogTitle ||
+                      this.props.title ||
+                      `${ORG_NAME} Documentation`,
+                    image:
+                      this.props.image ||
+                      `${process.env.IMAGE_ASSETS_URL}/zeit/twitter-card.png`,
+                    name:
+                      titlePrefix +
+                      (this.props.ogTitle ||
+                        this.props.title ||
+                        `${ORG_NAME} Documentation`) +
+                      titleSuffix,
+                    dateModified: this.props.lastEdited
+                      ? this.props.lastEdited
+                      : null,
+                    lastReviewed: this.props.lastEdited
+                      ? this.props.lastEdited
+                      : null,
+                    author: {
+                      '@type': 'Person',
+                      name: ORG_NAME
+                    },
+                    publisher: {
+                      '@type': 'Organization',
+                      logo: {
+                        '@type': 'ImageObject',
+                        url: `${process.env.IMAGE_ASSETS_URL}/favicon/favicon-96x96.png`
+                      },
+                      name: ORG_NAME
+                    },
+                    '@context': 'http://schema.org'
+                  },
+                  this.props.description
+                    ? { description: this.props.description }
+                    : undefined
+                )
+              )
             }}
           />
 

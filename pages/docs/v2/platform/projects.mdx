@@ -14,7 +14,7 @@ export const meta = {
   title: 'Projects',
   description: `Setting up projects with a list of deployments on ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/platform/projects.mdx',
-  lastEdited: '2020-07-08T06:24:32.000Z'
+  lastEdited: '2020-07-24T14:16:01.000Z'
 }
 
 To deploy on <ProductName />, you need to create a **Project**. A Project is a logical structure that groups [deployments](/docs/v2/platform/deployments) and [custom domains](/docs/v2/custom-domains). Each project can be associated to a [GitHub](/docs/v2/git-integrations/vercel-for-github), [GitLab](/docs/v2/git-integrations/vercel-for-gitlab), or [Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket) repository.
@@ -86,8 +86,8 @@ To edit your project’s Git Integration settings, select the **Git Integration*
 
 <Image
   src={`${process.env.ASSETS}/docs/advanced/deploy-hooks/select-git.png`}
-  width={490 / 2}
-  height={420 / 2}
+  width={440 / 2}
+  height={536 / 2}
   shadow
 />
 <Caption>Selecting the <b>Git Integration</b> menu item from the project settings page.</Caption>
@@ -132,8 +132,8 @@ To edit your project’s security settings, select the **Security** menu item fr
 
 <Image
   src={`${process.env.ASSETS}/docs/platform/projects/security.png`}
-  width={522 / 2}
-  height={424 / 2}
+  width={440 / 2}
+  height={536 / 2}
   shadow
   borderRadius
 />
@@ -146,9 +146,16 @@ By default, the paths mentioned below can only be accessed by you and members of
 - `/_src`: Displays the source code and build output.
 - `/_logs`: Displays the build logs.
 
+This setting is overwritten when a Deployment is created using Vercel CLI with the [`--public` option](/docs/cli#commands/overview/unique-options/public) or the [`public` property](/docs/configuration#project/public) in `vercel.json`.
+
 <Note type="warning">
   Do not edit this setting if you don’t want your source code or logs to be
   publicly accessible.
+</Note>
+<br/>
+<Note>
+  Deployments created before July 8th, 2020 at 7:05 PM (UTC) have fixed
+  configuration and cannot be changed with this setting.
 </Note>
 
 ### Password Protection
@@ -229,6 +236,8 @@ To protect Production Deployments in addition to Preview Deployments, check **�
 - If you disable the protection, all existing deployments of the project will become unprotected.
 - If you disable the protection and then enable it, visitors who have the cookie set will continue to be able to access the deployments without re-entering the password.
 - You can use Password Protection in conjunction with [SSO Protection](#sso-protection).
+
+To bypass the protection programmatically, please read [this](/docs/v2/platform/frequently-asked-questions#bypassing-password-protection-programmatically).
 
 #### Disabling the Feature
 
@@ -355,8 +364,8 @@ Next, select **Advanced** from the menu.
 
 <Image
   src={`${process.env.ASSETS}/docs/platform/projects/advanced-menu.png`}
-  width={476 / 2}
-  height={418 / 2}
+  width={440 / 2}
+  height={536 / 2}
   shadow
   borderRadius
 />

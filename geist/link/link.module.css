@@ -1,0 +1,90 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Primary Links */
+.primary {
+  color: var(--geist-foreground);
+}
+
+.primary:hover,
+.primary:focus,
+.primary:active {
+  background-image: linear-gradient(
+    var(--geist-foreground),
+    var(--geist-foreground)
+  );
+  background-size: 100% 1px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+}
+
+/* Highlight Links */
+.highlight {
+  color: var(--geist-success);
+}
+
+.highlight:hover,
+.highlight:focus,
+.highlight:active {
+  background-image: linear-gradient(var(--geist-success), var(--geist-success));
+  background-size: 100% 1px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+}
+
+:global(.dark-theme) .highlight {
+  color: var(--geist-foreground);
+  background-image: linear-gradient(
+    var(--geist-foreground),
+    var(--geist-foreground)
+  );
+  background-size: 100% 1px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+
+  transition: color 0.1s ease;
+}
+
+:global(.dark-theme) .highlight:hover,
+:global(.dark-theme) .highlight:focus,
+:global(.dark-theme) .highlight:active {
+  color: var(--accents-5);
+  background-image: linear-gradient(var(--accents-5), var(--accents-5));
+}
+
+/* Secondary Links */
+.secondary {
+  color: var(--accents-5);
+  transition: color 0.1s ease;
+}
+
+.secondary:hover,
+.secondary:focus,
+.secondary:active {
+  color: var(--geist-foreground);
+}
+
+/* Blend links */
+
+.blend {
+  color: inherit;
+  transition: opacity 0.1s ease;
+  background-image: linear-gradient(
+    currentColor,
+    currentColor
+  );
+  background-size: 100% 1px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  font-weight: 500;
+}
+
+.blend:hover,
+.blend:focus,
+.blend:active {
+  opacity: 0.6;
+}

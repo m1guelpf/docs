@@ -11,6 +11,8 @@ import fontTheme from '../styles/themes/font'
 import withTypeStyles from '../styles/with-type'
 import nprogressStyles from '../styles/nprogress'
 
+import '../styles/global.css'
+
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState({})
   const [userLoaded, setUserLoaded] = useState(false)
@@ -37,7 +39,7 @@ function MyApp({ Component, pageProps }) {
               <script
                 async
                 dangerouslySetInnerHTML={{
-                  __html: fullStoryScript
+                  __html: fullStoryScript,
                 }}
               />
             )}

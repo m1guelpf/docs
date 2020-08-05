@@ -4,9 +4,11 @@ import formatDate from 'date-fns/format'
 const ContentFooter = ({ lastEdited, editUrl }) => (
   <footer>
     <span>Last Edited on {formatDate(lastEdited, 'MMMM Do YYYY')}</span>
-    <Link href={`https://github.com/vercel/docs/edit/master/${editUrl}`}>
-      Edit This Page on GitHub
-    </Link>
+    {editUrl && (
+      <Link href={`https://github.com/vercel/docs/edit/master/${editUrl}`}>
+        Edit This Page on GitHub
+      </Link>
+    )}
 
     <style jsx>{`
       footer {

@@ -20,7 +20,7 @@ export const meta = {
   example: 'scully',
   demo: 'https://scully.now-examples.now.sh',
   editUrl: 'pages/guides/deploying-scully-with-vercel.mdx',
-  lastEdited: '2020-05-05T11:51:28.000Z'
+  lastEdited: '2020-07-17T05:49:23.000Z'
 }
 
 [Scully](https://github.com/scullyio/scully/blob/master/README.md) is the best way to build the fastest Angular apps. Scully is a static site generator for Angular projects looking to embrace the Jamstack.
@@ -29,22 +29,22 @@ export const meta = {
 
 Set up an Angular app with [`npx`](https://www.npmjs.com/package/npx) and move into the project directory, selecting Angular routing and the CSS framework of your choice:
 
-<Snippet dark text="npx -p @angular/cli@next ng new my-scully-project && cd my-scully-project" />
+<Snippet width="100%"dark text="npx -p @angular/cli@next ng new my-scully-project && cd my-scully-project" />
 <Caption>Initializing an Angular app with <Link href="https://www.npmjs.com/package/npx">npx</Link> and moving into the project directory.</Caption>
 
 Add the `@scully/init` package to the project:
 
-<Snippet dark text="ng add @scullyio/init" />
+<Snippet width="100%"dark text="ng add @scullyio/init" />
 <Caption>Adding the <InlineCode>@scully/init</InlineCode> package to the project.</Caption>
 
 Next, use the `ng generate` command to initialize the blog module:
 
-<Snippet dark text="ng generate @scullyio/init:blog" />
+<Snippet width="100%"dark text="ng generate @scullyio/init:blog" />
 <Caption>Initializing the Scully blog module.</Caption>
 
 Then, use the `ng generate` command to initialize the post module:
 
-<Snippet dark text="ng generate @scullyio/init:post" />
+<Snippet width="100%"dark text="ng generate @scullyio/init:post" />
 <Caption>Initializing the Scully post module.</Caption>
 
 ## Step 2: Deploying Your Scully App with <NameWrapper name={PRODUCT_NAME} />

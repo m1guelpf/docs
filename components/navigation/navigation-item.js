@@ -7,13 +7,14 @@ const NavigationItem = ({
   className,
   href,
   onClick,
-  customLink
+  customLink,
+  as
 }) => (
   <span className={cn({ active }, className, 'navigation-item')}>
     {customLink ? (
       children
     ) : (
-      <Link href={href} as={href} onClick={onClick}>
+      <Link href={href} as={as} onClick={onClick}>
         {children}
       </Link>
     )}

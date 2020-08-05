@@ -16,7 +16,7 @@ To help you understand the benefits of `htm` and how it differs slightly from JS
 ### Variable Props
 
 ```js
-const { withUiHook, htm } = require('@zeit/integration-utils')
+const { withUiHook, htm } = require('@vercel/integration-utils')
 
 module.exports = withUiHook(({ payload }) => {
   const url = 'https://example.com'
@@ -36,7 +36,7 @@ module.exports = withUiHook(({ payload }) => {
 ### Variable Content
 
 ```js
-const { withUiHook, htm } = require('@zeit/integration-utils')
+const { withUiHook, htm } = require('@vercel/integration-utils')
 
 module.exports = withUiHook(({ payload }) => {
   const name = 'Arunoda Susirpala'
@@ -56,7 +56,7 @@ module.exports = withUiHook(({ payload }) => {
 ### Lists/Arrays
 
 ```js
-const { withUiHook, htm } = require('@zeit/integration-utils')
+const { withUiHook, htm } = require('@vercel/integration-utils')
 
 const urls = ['https://example.com', 'https://google.com']
 
@@ -82,7 +82,7 @@ As you can see by looking at the `htm` inside the `urls.map` function, you need 
 ### Using Shared Components
 
 ```js
-const { withUiHook, htm } = require('@zeit/integration-utils')
+const { withUiHook, htm } = require('@vercel/integration-utils')
 
 const urls = ['https://example.com', 'https://google.com']
 

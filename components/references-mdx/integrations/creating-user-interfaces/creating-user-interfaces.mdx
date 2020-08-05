@@ -18,7 +18,7 @@ The core component of a <OrgName /> Integration is the UIHook. It can render dif
 Here's what a typical user UIHook looks like:
 
 ```js
-const { withUiHook } = require('@zeit/integration-utils')
+const { withUiHook } = require('@vercel/integration-utils')
 const store = { secretId: '', secretKey: '' }
 
 module.exports = withUiHook(({ payload }) => {

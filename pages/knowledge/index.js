@@ -5,11 +5,15 @@ import Wrapper from '~/components/layout/wrapper'
 import { H1, H3, P } from '~/components/text'
 import Link from '~/components/text/link'
 import Button from '~/components/buttons'
-import knowledge from '~/lib/data/knowledge.json'
 import { PRODUCT_NAME } from '~/lib/constants'
 import Footer from '~/components/footer'
 
-const Knowledge = () => (
+import {
+  DATOCMS_KNOWLEDGE_API_KEY,
+  DATOCMS_KNOWLEDGE_API_ENDPOINT
+} from '~/lib/api/get-datocms-credentials'
+
+const Knowledge = ({ posts }) => (
   <>
     <Head
       titlePrefix=""
@@ -42,16 +46,20 @@ const Knowledge = () => (
 
       <Wrapper>
         <div className="knowledge-list">
-          {knowledge.map((k, i) => (
-            <Link href={k.url} key={`${k.title}.${i}`}>
-              <article className="guide">
+          {posts.map((post, i) => (
+            <Link
+              href="/knowledge/[slug]"
+              as={`/knowledge/${post.slug}`}
+              key={`${post.slug}.${i}`}
+            >
+              <article className="post">
                 <div className="titles">
-                  <H3>{k.title}</H3>
-                  <P>{k.description}</P>
+                  <H3>{post.title}</H3>
+                  <P style={{ color: '#444' }}>{post.description}</P>
                 </div>
                 <div className="meta">
                   <span className="date">
-                    Added on {formatDate(k.published, 'MMMM Do YYYY')}
+                    Published at {formatDate(post._publishedAt, 'MMMM Do YYYY')}
                   </span>
                 </div>
               </article>
@@ -114,7 +122,7 @@ const Knowledge = () => (
         padding-top: 8px;
       }
 
-      .knowledge-list > :global(*:not(:last-child)) .guide {
+      .knowledge-list > :global(a) > .post {
         border-bottom: 1px solid #eaeaea;
       }
 
@@ -122,45 +130,46 @@ const Knowledge = () => (
         text-decoration: none;
       }
 
-      .guide {
+      .post {
         width: 100%;
         display: flex;
         justify-content: space-between;
         padding: 24px 0;
         position: relative;
+        color: #000;
       }
 
-      .guide :global(h3) {
+      .post :global(h3) {
         color: #000;
         margin: 0;
         padding-right: 64px;
       }
 
-      .guide :global(p) {
+      .post :global(p) {
         margin-bottom: 0;
         color: #222;
         padding-right: 64px;
       }
 
-      .guide :global(.avatar-group) {
+      .post :global(.avatar-group) {
         width: auto;
       }
 
-      .guide:hover :global(h4) {
+      .post:hover :global(h4) {
         text-decoration: underline;
       }
 
-      .guide.contribute {
+      .post.contribute {
         margin-top: 24px;
       }
 
-      .guide.contribute :global(h4) {
+      .post.contribute :global(h4) {
       }
 
-      .guide.contribute :global(p) {
+      .post.contribute :global(p) {
       }
 
-      .guide.contribute .meta .avatar {
+      .post.contribute .meta .avatar {
         width: 24px;
         height: 24px;
         background: #000;
@@ -190,11 +199,11 @@ const Knowledge = () => (
       }
 
       @media (max-width: 768px) {
-        .guide {
+        .post {
           flex-direction: column;
         }
 
-        .guide :global(p) {
+        .post :global(p) {
           padding-right: 0;
         }
 
@@ -208,6 +217,43 @@ const Knowledge = () => (
 )
 
 export default Knowledge
+
+export async function getStaticProps() {
+  const res = await fetch(`${DATOCMS_KNOWLEDGE_API_ENDPOINT}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${DATOCMS_KNOWLEDGE_API_KEY}`
+    },
+    body: JSON.stringify({
+      query: `{
+        allKnowledgeBases(first: 100, orderBy: _publishedAt_DESC) {
+          title
+          slug
+          description
+          authors {
+            slug
+            isMemberOfVercelTeam
+            profilePicture {
+              url
+            }
+          }
+          _publishedAt
+          _updatedAt
+        }
+      }`
+    })
+  })
+
+  const posts = (await res.json()).data.allKnowledgeBases
+
+  return {
+    props: {
+      posts
+    }
+  }
+}
 
 export const config = {
   amp: 'hybrid'

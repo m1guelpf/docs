@@ -21,7 +21,7 @@ export const meta = {
   image: `https://og-image.now.sh/Deploy%20a%20**Next.js%20app%20with%20Fathom%20Analytics**.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fassets.usefathom.com%2Ffathom-analytics.svg`,
   editUrl:
     'pages/guides/deploying-nextjs-using-fathom-analytics-with-vercel.mdx',
-  lastEdited: '2020-07-02T06:29:55.000Z',
+  lastEdited: '2020-07-17T05:49:23.000Z',
   rank: 24
 }
 
@@ -35,12 +35,12 @@ Next.js is a framework, created by Vercel, for creating production-ready and lig
 
 To create your new Next.js application, run the following [npm](http://npmjs.com/) command, with [`create-next-app`](https://nextjs.org/blog/create-next-app), from your terminal and follow the installation steps:
 
-<Snippet dark text="npm init next-app my-next-app && cd my-next-app" />
+<Snippet width="100%"dark text="npm init next-app my-next-app && cd my-next-app" />
 <Caption>Initializing a Next.js project with create-next-app and npm, then moving into the project directory.</Caption>
 
 To run your new app locally, run the following command in your terminal, from your new project directory:
 
-<Snippet dark text="npm run dev" />
+<Snippet width="100%"dark text="npm run dev" />
 <Caption>Starting a local Next.js development server.</Caption>
 
 For more information on how to build your Next.js app and what you can do with it, see the [Next.js website](https://nextjs.org) and [documentation](https://nextjs.org/docs).
@@ -65,7 +65,7 @@ Click "Get site code" to then get the code for your app's analytics.
 
 Next, add the `fathom-client` package to your project using npm:
 
-<Snippet dark text="npm install fathom-client" />
+<Snippet width="100%"dark text="npm install fathom-client" />
 <Caption>Adding the <InlineCode>fathom-client</InlineCode> dependency to the app.</Caption>
 
 Create an `_app.js` file within the `/pages` directory of your app and add the following code as its contents. Use the site code you received previously and replace `YOUR_FATHOM_TRACKING_CODE` with it, then replace `YOUR_SITE_URL` with the Site URL that you chose.

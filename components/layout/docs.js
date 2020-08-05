@@ -17,6 +17,7 @@ import dataV1 from '~/lib/data/v1/docs'
 import dataV2 from '~/lib/data/v2/docs'
 import Note from '~/components/text/note'
 import { FooterFeedback } from '~/components/feedback-input'
+import Footer from '~/components/footer'
 import Sidebar from '~/components/layout/sidebar'
 import DocsNavbarDesktop from '~/components/layout/navbar/desktop'
 import VersionSwitcher from '~/components/layout/version-switcher'
@@ -171,6 +172,7 @@ function Doc({
             />
           </Content>
         </Main>
+        <Footer />
 
         <style jsx>{`
           ul {

@@ -2,7 +2,13 @@ import Note from '~/components/text/note'
 import { DeployButton } from '~/components/buttons'
 import Link from '~/components/text/link'
 
-export default function DeployBanner({ example, demo }) {
+export default function DeployBanner({
+  env,
+  envDescription,
+  envLink,
+  example,
+  demo
+}) {
   return (
     <div className="deploy-banner">
       <Note label={false}>
@@ -12,14 +18,19 @@ export default function DeployBanner({ example, demo }) {
             {demo}
           </Link>
         </span>
-        <DeployButton url={example} />
+        <DeployButton
+          env={env}
+          envDescription={envDescription}
+          envLink={envLink}
+          url={example}
+        />
       </Note>
       <style jsx>{`
         .deploy-banner {
           margin-bottom: 32px;
         }
 
-        .deploy-banner :global(.note) {
+        .deploy-banner :global(> div) {
           display: flex;
           width: 100%;
           align-items: center;

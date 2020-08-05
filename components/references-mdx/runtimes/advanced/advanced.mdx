@@ -90,19 +90,19 @@ Alternatively, define `NPM_RC` as a [build environment variable](/docs/configura
 
 ### Custom Build Step for Node.js
 
-You can run build tasks by creating a `now-build` script within a `package.json` file at the entry point's level or higher. For example:
+You can run build tasks by creating a `vercel-build` script within a `package.json` file at the entry point's level or higher. For example:
 
 ```json
 {
   "scripts": {
-    "now-build": "node ./build.js"
+    "vercel-build": "node ./build.js"
   }
 }
 ```
 
 <Caption>
   An example <InlineCode>package.json</InlineCode> file with a{' '}
-  <InlineCode>now-build</InlineCode> script to execute in the build step.
+  <InlineCode>vercel-build</InlineCode> script to execute in the build step.
 </Caption>
 
 Along with build script named `build.js`:

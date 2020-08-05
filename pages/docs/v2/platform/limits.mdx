@@ -10,7 +10,7 @@ export const meta = {
   title: 'Limits',
   description: `A list of limits and limitations that apply on the ${PRODUCT_NAME} platform.`,
   editUrl: 'pages/docs/v2/platform/limits.mdx',
-  lastEdited: '2020-07-06T10:44:52.000Z'
+  lastEdited: '2020-07-27T12:52:46.000Z'
 }
 
 This page outlines all relevant limits and limitations present when using the <ProductName /> platform.
@@ -78,7 +78,7 @@ The maximum number of domains that can be applied to a single [project](/docs/v2
 
 ## Files
 
-The maximum number of files that can be uploaded when making a [Deployment](/docs/v2/platform/deployments) is `10,000` for source files and `16,000` for build output files.
+The maximum number of files that can be uploaded when creating a [Deployment](/docs/v2/platform/deployments) is `10,000` for source files and `16,000` for build output files.
 
 Deployments that contain more files than the limit will fail at the [build step](/docs/v2/build-step/).
 
@@ -102,9 +102,10 @@ As a result of this, we recommend using a third-party service to enable email fu
 
 ## Serverless Function Size
 
-The maximum size for a [Serverless Function](/docs/v2/serverless-functions/introduction) is **50 MB**.
+The maximum size for a [Serverless Function](/docs/v2/serverless-functions/introduction) is **50 MB** and the maximum unzipped size is **250 MB**.
+These limits are [enforced by AWS](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html) to ensure you can't deploy Serverless Functions that take a long time to boot.
 
-You can configure [functions](/docs/configuration#project/functions) with `includeFiles` and `excludeFiles` which may affect the function size, however the limit cannot be configured.
+You can configure [functions](/docs/configuration#project/functions) with `includeFiles` and `excludeFiles` which may affect the function size, however the limits cannot be configured.
 
 ## Serverless Function Memory
 

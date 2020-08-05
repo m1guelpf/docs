@@ -1,0 +1,27 @@
+.background {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 100%;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid white;
+}
+
+.background[data-git-type="bitbucket"] {
+  background-color: #0052CC;
+}
+
+.background[data-git-type="bitbucket"] svg {
+  transform: scale(.65);
+  color: white;
+}
+
+.background[data-git-type="gitlab"] {
+  background-color: #6B4FBB;
+}
+
+.background[data-git-type="gitlab"] svg {
+  transform: scale(.75);
+}

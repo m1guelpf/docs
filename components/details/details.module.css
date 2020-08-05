@@ -1,0 +1,19 @@
+.details {
+  padding: var(--geist-gap-half);
+  border: 1px solid var(--accents-2);
+  border-radius: var(--geist-radius);
+  background: var(--accents-1);
+
+  summary {
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--accents-6);
+    margin: var(--geist-gap-half-negative);
+    padding: var(--geist-gap-half);
+  }
+
+  &[open] summary {
+    margin-bottom: var(--geist-gap-half);
+  }
+}

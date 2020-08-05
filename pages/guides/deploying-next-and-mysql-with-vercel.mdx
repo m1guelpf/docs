@@ -22,7 +22,7 @@ export const meta = {
   editUrl: 'pages/guides/deploying-next-and-mysql-with-vercel.mdx',
   name: 'Next.js + MySQL',
   type: 'app',
-  lastEdited: '2020-07-02T18:09:28.000Z'
+  lastEdited: '2020-07-17T05:49:23.000Z'
 }
 
 In this guide, we will walk you through creating and [deploying](/docs/v2/introduction) a [Next.js](https://nextjs.org/) app with the most popular open source database in the world, [MySQL](https://www.mysql.com/), on [<ProductName />](/docs/v2).
@@ -69,14 +69,14 @@ For brevity, we do not cover inserting records into a MySQL database. More infor
 
 Now that the database is populated, you can create a project directory and `cd` into it:
 
-<Snippet dark text="mkdir next-mysql && cd next-mysql" />
+<Snippet width="100%"dark text="mkdir next-mysql && cd next-mysql" />
 <Caption>
   Creating and entering into the <InlineCode>/next-mysql</InlineCode>{' '}directory.
 </Caption>
 
 Next, [initialize](https://docs.npmjs.com/cli/init) the project:
 
-<Snippet dark text="npm init" />
+<Snippet width="100%"dark text="npm init" />
 <Caption>
   Initializing the project, this creates a <InlineCode>package.json</InlineCode>{' '}file.
 </Caption>
@@ -88,7 +88,7 @@ Next, [initialize](https://docs.npmjs.com/cli/init) the project:
 
 When this is complete, add [`serverless-mysql`](https://github.com/jeremydaly/serverless-mysql) and [`sql-template-strings`](https://github.com/felixfbecker/node-sql-template-strings) as [dependencies](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file):
 
-<Snippet dark text="npm i serverless-mysql sql-template-strings" />
+<Snippet width="100%"dark text="npm i serverless-mysql sql-template-strings" />
 <Caption>
   Adding <InlineCode>serverless-mysql</InlineCode> and <InlineCode>sql-template-strings</InlineCode> as <Link href="https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file">dependencies</Link> to the project.
 </Caption>
@@ -125,7 +125,7 @@ Next, add a build script to your `package.json` file:
 
 Now, add your database credentials from [step 1](#step-1:-populating-your-mysql-database) to the project as [Secrets](/docs/cli#commands/secrets) using the [<ProductShortName /> CLI](/download) to keep them secure:
 
-<Snippet dark text="vercel secrets add MYSQL_HOST $database-hostname && vercel secrets add MYSQL_USER $database-username && vercel secrets add MYSQL_DATABASE $database-name && vercel secrets add MYSQL_PASSWORD $database-password" />
+<Snippet width="100%"dark text="vercel secrets add MYSQL_HOST $database-hostname && vercel secrets add MYSQL_USER $database-username && vercel secrets add MYSQL_DATABASE $database-name && vercel secrets add MYSQL_PASSWORD $database-password" />
 <Caption>
   Adding <Link href="/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets">secrets</Link> to the project.
 </Caption>
@@ -136,7 +136,7 @@ To ensure all your MySQL connections are managed by [`serverless-mysql`](https:/
 
 Create a `/lib` directory with a `db.js` file inside:
 
-<Snippet dark text="mkdir lib" />
+<Snippet width="100%"dark text="mkdir lib" />
 <Caption>
   Creating a <InlineCode>/lib</InlineCode>{' '}directory.
 </Caption>
@@ -186,7 +186,7 @@ Now you have a reusable database connection, perfectly suited for a [serverless]
 
 The next step is to create your API. Start off by creating an `/api` directory with a `/profiles` directory inside:
 
-<Snippet dark text="mkdir api && mkdir api/profiles" />
+<Snippet width="100%"dark text="mkdir api && mkdir api/profiles" />
 <Caption>
   Creating an <InlineCode>/api</InlineCode> directory with a <InlineCode>/profiles</InlineCode> directory inside it.
 </Caption>
@@ -275,14 +275,14 @@ You now have an API that will give you either all profiles or just a single one,
 
 To add [Next.js](https://nextjs.org/) to your project, you should install the following [dependencies](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file):
 
-<Snippet dark text="npm i isomorphic-unfetch next react react-dom" />
+<Snippet width="100%"dark text="npm i isomorphic-unfetch next react react-dom" />
 <Caption>
   Adding multiple dependencies to the project.
 </Caption>
 
 Next, create a `/pages` directory like so:
 
-<Snippet dark text="mkdir pages" />
+<Snippet width="100%"dark text="mkdir pages" />
 <Caption>
   Creating a <InlineCode>/pages</InlineCode> directory.
 </Caption>

@@ -1,0 +1,32 @@
+.settingsForm {
+  margin-top: 24px;
+}
+
+.settingsForm .settingsSection {
+  margin-bottom: 24px;
+}
+
+.settingsForm .settingsSection .settingsInput {
+  margin-top: 16px;
+}
+
+.urlTab {
+  margin-top: 24px;
+}
+
+.envRow {
+  display: flex;
+}
+
+.envInput {
+  width: 100%;
+}
+
+.envRow .envRemove {
+  width: 24px;
+  margin-left: 16px;
+}
+
+.learnMoreLink {
+  color: var(--accents-5)
+}

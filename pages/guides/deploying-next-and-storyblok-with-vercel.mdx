@@ -21,7 +21,7 @@ export const meta = {
   url: '/guides/deploying-next-and-storyblok-with-vercel',
   image: `https://vercel.com/docs/static/guides/deploying-next-storyblok-with-vercel/deploying-next-storyblok-with-vercel.png`,
   editUrl: 'pages/guides/deploying-next-and-storyblok-with-vercel.mdx',
-  lastEdited: '2020-07-02T18:09:28.000Z'
+  lastEdited: '2020-07-17T05:49:23.000Z'
 }
 
 In this guide, you will discover how to create a [Next.js](https://nextjs.org/) app that displays links to posts from the [<OrgName /> blog](/blog) by utilizing the [Storyblok](https://www.storyblok.com/) headless CMS, before deploying **with a single command** to [<ProductName />](/docs/v2).
@@ -105,12 +105,12 @@ At this point, return back to your **Content Dashboard** and click **Settings** 
 
 Firstly, create a project directory and `cd` into it like so:
 
-<Snippet dark text="mkdir my-nextjs-storyblok-project && cd my-nextjs-storyblok-project" />
+<Snippet width="100%"dark text="mkdir my-nextjs-storyblok-project && cd my-nextjs-storyblok-project" />
 <Caption>Creating and entering into the project directory.</Caption>
 
 Next, initialize your project, creating a `package.json` file in the process:
 
-<Snippet dark text="npm init -y" />
+<Snippet width="100%"dark text="npm init -y" />
 <Caption>Initializing your project with a <InlineCode>package.json</InlineCode> file.</Caption>
 
 <Note>
@@ -121,7 +121,7 @@ Next, initialize your project, creating a `package.json` file in the process:
 
 Next, add the project dependencies:
 
-<Snippet dark text="npm i next react react-dom" />
+<Snippet width="100%"dark text="npm i next react react-dom" />
 <Caption>Adding <InlineCode>next</InlineCode>, <InlineCode>react</InlineCode> and <InlineCode>react-dom</InlineCode> as dependencies to your project.</Caption>
 
 With the project initialized, create a `/pages` directory with a `index.js` file inside that uses the following code:
@@ -308,14 +308,14 @@ STORYBLOK_API_TOKEN=your-api-token
 
 Lastly, to make your API key available for [cloud deployment](/docs/v2/deployments/basics/), create a [Secret](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) with the command below:
 
-<Snippet dark text="vercel secrets add STORYBLOK_API_TOKEN your-api-token" />
+<Snippet width="100%"dark text="vercel secrets add STORYBLOK_API_TOKEN your-api-token" />
 <Caption>
   Adding the <InlineCode>STORYBLOK_API_TOKEN</InlineCode> secret to your project using <Link href="/docs/cli#commands/secrets">Secrets</Link>.
 </Caption>
 
 With those steps out the way you are now able to run your app. You can develop your app locally using the following command:
 
-<Snippet dark text="next dev" />
+<Snippet width="100%"dark text="next dev" />
 <Caption>
   Using the <InlineCode>next dev</InlineCode> command to run the app locally.
 </Caption>

@@ -6,21 +6,21 @@ export const meta = {
   lastEdited: '2019-10-15T22:03:42.000Z'
 }
 
-## Access via @zeit/integration-utils
+## Access via @vercel/integration-utils
 
-If you use the `@zeit/integration-utils` helper to create the UIHook, you can access the Metadata Store via the zeitClient instance, for example:
+If you use the `@vercel/integration-utils` helper to create the UIHook, you can access the Metadata Store via the vercelClient instance, for example:
 
 ```js
-const { withUiHook } = require('@zeit/integration-utils')
+const { withUiHook } = require('@vercel/integration-utils')
 
-module.exports = withUiHook(async ({ payload, zeitClient }) => {
+module.exports = withUiHook(async ({ payload, vercelClient }) => {
   // Get metadata
-  const metadata = await zeitClient.getMetadata()
+  const metadata = await vercelClient.getMetadata()
   metadata.count = metadata.count || 0
   metadata.count += 1
 
   // Set metadata
-  await zeitClient.setMetadata(metadata)
+  await vercelClient.setMetadata(metadata)
 
   return `
     <Page>

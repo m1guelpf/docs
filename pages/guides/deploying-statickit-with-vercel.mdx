@@ -18,7 +18,7 @@ export const meta = {
   url: '/guides/deploying-statickit-with-vercel',
   editUrl: 'pages/guides/deploying-statickit-with-vercel.mdx',
   image: `https://og-image.now.sh/**Deploy%20a%20StaticKit%20Project**%3Cbr%3Ewith%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=data%3Aimage%2Fsvg%2Bxml%2C%253Csvg+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27+width%3D%27124%27+height%3D%27175%27%253E%253Cg+fill%3D%27%252311151D%27+fill-rule%3D%27nonzero%27%253E%253Cpath+d%3D%27M20.889+113.2l87.555-93.89L88.379.598.824+94.489zM35.62+174.401l87.556-93.89L103.11+61.8l-87.555+93.89z%27%2F%253E%253C%2Fg%253E%253C%2Fsvg%253E`,
-  lastEdited: '2020-05-05T11:51:28.000Z'
+  lastEdited: '2020-07-17T05:49:23.000Z'
 }
 
 [StaticKit](https://statickit.com/) provides configurable backend services for front-end developers.
@@ -29,14 +29,14 @@ In this guide, you will discover how to create a simple [Next.js](https://nextjs
 
 Run the following command to create and enter into a [Next.js](https://nextjs.org/) project:
 
-<Snippet dark text="npm init next-app next-landing-page && cd next-landing-page" />
+<Snippet width="100%"dark text="npm init next-app next-landing-page && cd next-landing-page" />
 <Caption>Bootstrapping a Next.js project with <InlineCode>create-next-app</InlineCode> and moving into the <InlineCode>/next-landing-page</InlineCode> directory.</Caption>
 
 ## Step 2: Install StaticKit
 
 Run the following command to install the StaticKit CLI and React helper library:
 
-<Snippet dark text="npm install -g @statickit/cli && npm install @statickit/react" />
+<Snippet width="100%"dark text="npm install -g @statickit/cli && npm install @statickit/react" />
 <Caption>Installing the StaticKit CLI and adding <InlineCode>@statickit/react</InlineCode> to the project.</Caption>
 
 Then, create a `/pages/_app.js` file with the following contents and replace `{your-site-id}` with the ID from your Site Settings in [StaticKit](https://statickit.com):
@@ -62,7 +62,7 @@ export default App
 
 Finally, run the following command to create a `statickit.json` file (if it doesn't already exist):
 
-<Snippet dark text="statickit init" />
+<Snippet width="100%"dark text="statickit init" />
 <Caption>Initializing a StaticKit config file.</Caption>
 
 ## Step 3: Configure Your StaticKit Function
@@ -87,7 +87,7 @@ In your `statickit.json` file, add a function for handling the email opt-in. Sta
 
 Then, deploy your changes to StaticKit. You'll be prompted with instructions on how to save your Mailchimp API key and audience:
 
-<Snippet dark text="statickit deploy -k <your-deploy-key>" /><Caption>
+<Snippet width="100%"dark text="statickit deploy -k <your-deploy-key>" /><Caption>
   You can find your deploy key in your StaticKit settings.
 </Caption>
 

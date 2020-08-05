@@ -1,0 +1,20 @@
+.error {
+  font-size: 0.875rem;
+  color: var(--geist-error);
+  font-size: var(--geist-form-font);
+  line-height: var(--geist-form-line-height);
+  display: flex;
+}
+
+.text {
+  margin-left: var(--geist-gap-quarter);
+}
+
+.small {
+  font-size: var(--geist-form-small-font);
+}
+
+.large {
+  font-size: var(--geist-form-large-font);
+  line-height: var(--geist-form-large-line-height);
+}

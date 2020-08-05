@@ -18,27 +18,27 @@ The `vercel dns` command is used to manage DNS record for domains, providing fun
 
 ### Basic Usage
 
-<Snippet dark text="vercel dns ls" />
+<Snippet width="100%"dark text="vercel dns ls" />
 <Caption>Using the <InlineCode>vercel dns</InlineCode> command to list all DNS records under an account.</Caption>
 
 ### Extended Usage
 
-<Snippet dark text="vercel dns add [domain] [subdomain] [A || AAAA || ALIAS || CNAME || TXT] [value]" />
+<Snippet width="100%"dark text="vercel dns add [domain] [subdomain] [A || AAAA || ALIAS || CNAME || TXT] [value]" />
 <Caption>Using the <InlineCode>vercel dns</InlineCode> command to add an A record for a subdomain.</Caption>
 
-<Snippet dark text="vercel dns add [domain] '@' MX [record-value] [priority]" />
+<Snippet width="100%"dark text="vercel dns add [domain] '@' MX [record-value] [priority]" />
 <Caption>Using the <InlineCode>vercel dns</InlineCode> command to add an MX record for a domain.</Caption>
 
-<Snippet dark text="vercel dns add [domain] [name] SRV [priority] [weight] [port] [target]" />
+<Snippet width="100%"dark text="vercel dns add [domain] [name] SRV [priority] [weight] [port] [target]" />
 <Caption>Using the <InlineCode>vercel dns</InlineCode> command to add an SRV record for a domain.</Caption>
 
-<Snippet dark text={`vercel dns add [domain] [name] CAA '[flags] [tag] "[value]"'`} />
+<Snippet width="100%"dark text={`vercel dns add [domain] [name] CAA '[flags] [tag] "[value]"'`} />
 <Caption>Using the <InlineCode>vercel dns</InlineCode> command to add a CAA record for a domain.</Caption>
 
-<Snippet dark text="vercel dns rm [record-id]" />
+<Snippet width="100%"dark text="vercel dns rm [record-id]" />
 <Caption>Using the <InlineCode>vercel dns</InlineCode> command to remove a record for a domain.</Caption>
 
-<Snippet dark text="vercel dns import [domain] [path-to-zonefile]" />
+<Snippet width="100%"dark text="vercel dns import [domain] [path-to-zonefile]" />
 <Caption>Using the <InlineCode>vercel dns</InlineCode> command to import a zonefile for a domain.</Caption>
 
 ### Global Options

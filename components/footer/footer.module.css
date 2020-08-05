@@ -1,132 +1,36 @@
-.footer {
-  background: var(--accents-1);
-  left: 0;
-  right: 0;
-  position: absolute;
-  border-top: 1px solid var(--accents-2);
-}
-
-.footer.light {
-  background: none;
-}
-
 .wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--geist-gap) var(--geist-gap) var(--geist-gap-double);
+  padding: var(--geist-gap) 0 var(--geist-gap);
   width: var(--geist-page-width-with-margin);
   max-width: 100%;
   margin: auto;
-}
-
-.wrapper + .wrapper {
-  padding-top: 0;
 }
 
 .logotype {
   display: flex;
   text-align: center;
-  padding: var(--geist-gap-double) var(--geist-gap) 0;
+  padding-top: var(--geist-gap);
   width: var(--geist-page-width-with-margin);
   max-width: 100%;
   margin: auto;
 }
 
-.navigation {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.navigation:last-child {
-  margin: 0;
-}
-
-.navigation li {
-  white-space: nowrap;
-  height: 20px;
-  line-height: 20px;
-  margin-bottom: 10px;
-  vertical-align: middle;
-}
-
-.navigation li a,
-.navigation li span {
-  height: 20px;
-  display: inline-block;
-  overflow: auto;
-}
-
-.navigation li:last-child {
-  border-right: 0;
-  margin-right: 0;
-}
-
-.navigation li:last-child a {
-  margin-right: 0;
-}
-
-.social a,
-.navigation a,
-.navigation span {
+.social a {
   color: var(--accents-5);
   text-decoration: none;
   font-size: 14px;
   transition: all 0.2s ease;
 }
 
-.links {
-  display: flex;
-  justify-content: space-between;
-  padding: var(--geist-gap-double) var(--geist-gap) 0;
-  width: var(--geist-page-width-with-margin);
-  max-width: 100%;
-  margin: auto;
-}
-
-.links-title {
+.social a:hover {
   color: var(--geist-foreground);
-  font-size: 14px;
-}
-
-.left {
-  flex: 1;
-  display: flex;
-  align-self: flex-end;
-  align-items: center;
-}
-
-.social a:hover,
-.navigation a:hover,
-.right a:hover {
-  color: var(--geist-foreground);
-}
-
-.right {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  text-align: right;
-  color: var(--accents-5);
-  font-size: 14px;
-  flex-shrink: 0;
 }
 
 .copyright {
   color: var(--accents-5);
   font-size: 14px;
-}
-
-.right a {
-  color: var(--accents-5);
-  text-decoration: none;
-  font-size: 14px;
-  transition: all 0.2s ease;
-}
-
-.right .contact {
-  vertical-align: middle;
 }
 
 .status {
@@ -195,30 +99,5 @@
   .contact {
     order: 1;
     margin-left: 10px;
-  }
-
-  .left {
-    flex-direction: column;
-  }
-
-  .right {
-    flex-direction: column;
-    text-align: center;
-    line-height: 22px;
-  }
-
-  .links {
-    display: block;
-    padding: 30px;
-  }
-
-  .navigation {
-    margin: 0 0 20px 0;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--accents-2);
-  }
-
-  .left {
-    justify-content: center;
   }
 }

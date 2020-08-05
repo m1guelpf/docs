@@ -17,7 +17,7 @@ export const meta = {
   authors: ['mcsdev'],
   url: '/guides/transferring-domains-to-vercel',
   editUrl: 'pages/guides/transferring-domains-to-vercel.mdx',
-  lastEdited: '2020-07-02T06:29:55.000Z',
+  lastEdited: '2020-07-17T05:49:23.000Z',
   rank: 18
 }
 
@@ -65,7 +65,7 @@ Using the [<OrgName /> Dashboard](/dashboard/domains), you can perform a domain 
 
 With [<ProductShortName /> CLI](/download), you can run the following command from your terminal.
 
-<Snippet dark text="vercel domains transfer-in [your-domain]" />
+<Snippet width="100%"dark text="vercel domains transfer-in [your-domain]" />
 <Caption>Transferring in a Domain via <ProductShortName /> CLI.</Caption>
 
 You will be requested to provide an authorization code from your registrar after running this command. Once you get the authorization code from your registrar, paste it into the prompt and the transfer will begin.
@@ -83,7 +83,7 @@ After activating a domain `transfer-in`, you will be informed that the DNS setti
 
 You can import the zone file to <OrgName /> DNS by running the following command:
 
-<Snippet dark text="vercel dns import [your-domain] [zonefile]" />
+<Snippet width="100%"dark text="vercel dns import [your-domain] [zonefile]" />
 <Caption>Importing a DNS zone file with <ProductShortName /> CLI.</Caption>
 
 <Note>
@@ -97,7 +97,7 @@ You can deploy your app with [<ProductName />](/docs/v2/introduction) once the d
 
 By setting a production domain from your projects' **Domains** dashboard, you will be able to use the following command with [<ProductShortName /> CLI](/download):
 
-<Snippet dark text="vercel --prod" />
+<Snippet width="100%"dark text="vercel --prod" />
 <Caption>Deploying with a production domain using <ProductShortName /> CLI.</Caption>
 
 This command will deploy your project and make it accessible at the production domain that you have setup.

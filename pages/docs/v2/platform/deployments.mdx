@@ -15,7 +15,7 @@ export const meta = {
   title: 'Deployments',
   description: `Understanding and making deployments with ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/v2/platform/deployments.mdx',
-  lastEdited: '2020-05-30T04:40:07.000Z'
+  lastEdited: '2020-07-13T16:43:56.000Z'
 }
 
 A deployment is the result of building your [Project](/docs/v2/platform/projects/) and making it available through a live URL.
@@ -36,7 +36,7 @@ You can make deployments with Git by using either the [<ProductName /> for GitHu
 
 When using these integrations, every push to a branch will provide you with a [preview deployment](/docs/v2/platform/deployments/#preview) to view your changes.
 
-When merging to the default branch (commonly `master`), a [production deployment](/docs/v2/platform/deployments/#production) will be made.
+When merging to the [Production Branch](/docs/v2/git-integrations#production-branch) (commonly `main`), a [production deployment](/docs/v2/platform/deployments/#production) will be made.
 
 ### Deploy Hooks
 
@@ -59,7 +59,7 @@ By using [<ProductShortName /> CLI](/download), you can deploy [Projects](/docs/
 
 To make a [preview deployment](/docs/v2/platform/deployments/#preview), use the `vercel` command:
 
-<Snippet dark text="vercel" />
+<Snippet width="100%"dark text="vercel" />
 <Caption>Making a preview deployment with the <InlineCode>vercel</InlineCode> command.</Caption>
 
 <Note>
@@ -71,7 +71,7 @@ To make a [preview deployment](/docs/v2/platform/deployments/#preview), use the 
 
 To make a [production deployment](/docs/v2/platform/deployments/#preview), use the `vercel --prod` command:
 
-<Snippet dark text="vercel --prod" />
+<Snippet width="100%"dark text="vercel --prod" />
 <Caption>Making a production deployment with the <InlineCode>vercel</InlineCode> command.</Caption>
 
 ### <NameWrapper name={PRODUCT_SHORT_NAME} /> API
@@ -96,7 +96,7 @@ If you request a **preview URL**, the `X-Robots-Tag` HTTP header will be set as 
 
 ### Production
 
-**Production deployments** are made in two different circumstances. Each time you merge to the default branch (commonly `master`) or make a deployment using the `vercel --prod` command, this is a **production deployment**.
+**Production deployments** are made in two different circumstances. Each time you merge to the [Production Branch](/docs/v2/git-integrations#production-branch) (commonly `main`) or make a deployment using the `vercel --prod` command, this is a **production deployment**.
 
 By making a **production deployment**, the **production domain(s)** will be updated to reflect that of the latest deployment.
 

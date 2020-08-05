@@ -8,18 +8,18 @@ export const meta = {
   lastEdited: '2019-10-15T22:03:42.000Z'
 }
 
-## Utilities inside @zeit/integration-utils
+## Utilities inside @vercel/integration-utils
 
-If you are using `@zeit/integration-utils` to create your [UIHook](#creating-an-integration/step-2-creating-a-uihook), the following example shows how to use utilities within your Integration:
+If you are using `@vercel/integration-utils` to create your [UIHook](#creating-an-integration/step-2-creating-a-uihook), the following example shows how to use utilities within your Integration:
 
 ```js
-const { withUiHook } = require('@zeit/integration-utils')
+const { withUiHook } = require('@vercel/integration-utils')
 
-module.exports = withUiHook(async ({ payload, zeitClient }) => {
+module.exports = withUiHook(async ({ payload, vercelClient }) => {
   if (payload.action === 'add-env') {
     const mongo_url = 'this is your mongo url'
-    const secretName = await zeitClient.ensureSecret('mongo_url', mongo_url)
-    await zeitClient.upsertEnv(payload.projectId, 'MONGO_URL', secretName)
+    const secretName = await vercelClient.ensureSecret('mongo_url', mongo_url)
+    await vercelClient.upsertEnv(payload.projectId, 'MONGO_URL', secretName)
 
     return `
       <Page>
@@ -38,18 +38,18 @@ module.exports = withUiHook(async ({ payload, zeitClient }) => {
 ```
 
 <Caption>
-  An example UIHook that uses <InlineCode>@zeit/integration-utils</InlineCode>{' '}
+  An example UIHook that uses <InlineCode>@vercel/integration-utils</InlineCode>{' '}
   utilities.
 </Caption>
 
 Based on the example above:
 
-- `zeitClient.ensureSecret` will create a unique <OrgName /> secret based on the hash value of `mongo_url`, then returns the name of secret
+- `vercelClient.ensureSecret` will create a unique <OrgName /> secret based on the hash value of `mongo_url`, then returns the name of secret
 - If the secret already exists, it will not be duplicated for the given value
 - The value of `secretName` will be, for example; `mongo_url_s2kj23jh55`
-- The secret is added to the project (using `payload.projectId`) through the `zeitClient.upsertEnv` method
+- The secret is added to the project (using `payload.projectId`) through the `vercelClient.upsertEnv` method
 
-Some considerations when using `zeitClient.upsertEnv`:
+Some considerations when using `vercelClient.upsertEnv`:
 
 - In order to add a project level environment variable, there should be a `projectId`
 - You can get the projectId from the `payload` object if the user is accessing the Integration installation from within a project

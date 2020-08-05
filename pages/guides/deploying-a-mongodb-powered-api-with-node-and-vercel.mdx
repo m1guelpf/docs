@@ -21,7 +21,7 @@ export const meta = {
   type: 'API',
   editUrl:
     'pages/guides/deploying-a-mongodb-powered-api-with-node-and-vercel.mdx',
-  lastEdited: '2020-07-03T08:33:41.000Z'
+  lastEdited: '2020-07-17T05:49:23.000Z'
 }
 
 In this guide, we will walk you through creating and [deploying](/docs/v2/deployments/basics/) a [Node.js](https://nodejs.org/) API powered by [MongoDB](https://www.mongodb.com/), on [<ProductName />](/).
@@ -34,14 +34,14 @@ Make sure that the cluster has [allowlisted connections](https://docs.atlas.mong
 
 Get started by creating a project directory and `cd` into it:
 
-<Snippet dark text="mkdir my-mongodb-api && cd my-mongodb-api" />
+<Snippet width="100%"dark text="mkdir my-mongodb-api && cd my-mongodb-api" />
 <Caption>
   Creating and entering into the <InlineCode>my-mongodb-api</InlineCode>{' '}directory.
 </Caption>
 
 Next, [initialize](https://docs.npmjs.com/cli/init) the project:
 
-<Snippet dark text="npm init" />
+<Snippet width="100%"dark text="npm init" />
 <Caption>
   Initializing the project, this creates a <InlineCode>package.json</InlineCode>{' '}file.
 </Caption>
@@ -53,7 +53,7 @@ Next, [initialize](https://docs.npmjs.com/cli/init) the project:
 
 Next, install [the MongoDB Node.js client](https://mongodb.github.io/node-mongodb-native/), which you will use to connect to your MongoDB cluster and database:
 
-<Snippet dark text="npm i mongodb" />
+<Snippet width="100%"dark text="npm i mongodb" />
 <Caption>
   Adding the <InlineCode>mongodb</InlineCode> Node.js client as a <Link href="https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file">dependency</Link> to the project.
 </Caption>
@@ -74,7 +74,7 @@ You can get the connection string by clicking "Connect" on the Cluster Overview 
 
 To use your MongoDB connection string without hard-coding it in your project, you can add your connection string to the project as a [Secret](/docs/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets) using the [<ProductShortName /> CLI](/download) to keep them secure:
 
-<Snippet dark text="vercel secrets add my-mongodb-uri mongodb+srv://<user>:<password>@my-cluster-uf345.mongodb.net/<database-name>?retryWrites=true" />
+<Snippet width="100%"dark text="vercel secrets add my-mongodb-uri mongodb+srv://<user>:<password>@my-cluster-uf345.mongodb.net/<database-name>?retryWrites=true" />
 <Caption>
   Adding a <Link href="/v2/deployments/environment-variables-and-secrets#securing-environment-variables-using-secrets">secret</Link>, using the MongoDB connection string, to the project.
 </Caption>
@@ -216,7 +216,7 @@ This file allows the <ProductName /> development process to use the environment 
 
 Next, run the <ProductShortName /> CLI development command from the terminal:
 
-<Snippet dark text="vercel dev" />
+<Snippet width="100%"dark text="vercel dev" />
 <Caption>Starting <ProductShortName /> CLI's dev process from the terminal.</Caption>
 
 After starting the development process, <ProductShortName /> CLI will provide you with a localhost address for where your app is running. This is commonly <http://localhost:3000> unless the port is taken.

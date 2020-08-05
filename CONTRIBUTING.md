@@ -167,7 +167,6 @@ An example of a guides MDX file:
 
 ```js
 import Guide from '~/components/layout/guide'
-
 import Snippet from '~/components/snippet'
 
 export const meta = {
@@ -180,7 +179,7 @@ export const meta = {
 
 This is the content written in Markdown with MDX!.
 
-<TerminalInput># this is how we show the terminal input</TerminalInput>
+<Snippet dark text="# this is how we show the terminal input" />
 
 The following is to allow the content to be exported as a page with our layout.
 

@@ -17,7 +17,7 @@ export const meta = {
   authors: ['mcsdev'],
   url: '/guides/zero-downtime-domain-migration',
   editUrl: 'pages/guides/zero-downtime-domain-migration.mdx',
-  lastEdited: '2020-05-08T23:58:00.000Z'
+  lastEdited: '2020-07-10T15:00:57.000Z'
 }
 
 When migrating to another set of nameservers, there can often be downtime incurred. In this guide we will walk you through adding your domain to <OrgName /> and setting it up before migrating the nameservers, ensuring no downtime at any point.
@@ -35,7 +35,7 @@ When migrating to another set of nameservers, there can often be downtime incurr
 
 To get the process started, you will need to add your domain to your account or team by using the following command:
 
-<Snippet dark text="vercel domains add <domain>" />
+<Snippet width="100%"dark text="vercel domains add <domain>" />
 <Caption>Adding a domain to a <OrgName /> account using <Link href="/download"><ProductShortName /> CLI</Link>.</Caption>
 
 This command will add the domain to your account and output information you will need in order to verify the domain is yours.
@@ -67,7 +67,7 @@ With your domain provider, create the TXT record using the `name` (also known as
 
 [<ProductName />](/) periodically checks for whether or not the TXT record (or nameservers in another case) has been added and then mark the domain as verified when it detects them. You can force <ProductName /> to check for the verification by using the following command:
 
-<Snippet dark text="vercel domains verify <domain>" />
+<Snippet width="100%" dark text="vercel domains verify <domain>" />
 
 <Image
   src={`https://assets.vercel.com/image/upload/v1546863671/front/docs/domains/cli-verify-domain.png`}
@@ -84,7 +84,7 @@ Now that your domain is verified, you have more control over it with <ProductNam
 
 With [<ProductShortName /> CLI](/docs/v2/getting-started/installation), you can generate an SSL certificate for your domain and all subdomains, called common names (CNs), with the following command:
 
-<Snippet dark text="vercel certs issue \*.<domain> <domain> --challenge-only" />
+<Snippet width="100%"dark text="vercel certs issue \*.<domain> <domain> --challenge-only" />
 <Caption>Generating an SSL certificate for a domain and all subdomains with <Link href="/download"><ProductShortName /> CLI</Link>.</Caption>
 
 You will then be asked to solve a DNS challenge, required for the Certificate Authority (CA) to prove that <ProductName /> has sufficient permissions, consisting of two TXT records.
@@ -128,12 +128,16 @@ If the domain is **registered to your account and available for use** it will be
 
 When the domain is verified, you can deploy your project to production with <ProductShortName /> CLI:
 
-<Snippet dark text="vercel --prod" />
+<Snippet width="100%"dark text="vercel --prod" />
 <Caption>Deploying a project to production with <ProductShortName /> CLI.</Caption>
 
 <Note>
   Your projects will automatically use your custom domain when merging or
-  pushing to the default branch when using either{' '}
+  pushing to the{' '}
+  <Link href="/docs/v2/git-integrations#production-branch">
+    Production Branch
+  </Link>{' '}
+  when using either{' '}
   <Link href="/docs/v2/integrations/vercel-for-gitlab">
     <ProductName /> for GitHub
   </Link>

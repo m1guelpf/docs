@@ -180,23 +180,23 @@ Environment Variables are accessible during both **Build Step** and **Runtime**,
 
 This allows you to include values that you don't want to share in your code or to change the behavior of your code depending on its Environment.
 
-To declare an Environment Variable for your deployment, head to the **General** page of your **Project Settings** and locate the **Environment Variables** section.
+To declare an Environment Variable for your deployment, head to the **Environment Variables** page of your **Project Settings**.
 
 <Image
   src={`${process.env.ASSETS}/docs/build-step/env-vars-empty.png`}
-  width={1488 / 2}
-  height={824 / 2}
+  width={1610 / 2}
+  height={800 / 2}
   shadow
 />
 <Caption>The Environment Variables settings.</Caption>
 
 First, choose between the following **Environments**:
 
-| Environment     | Description                                                                                                                                                                                           |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Production**  | When selected, the Environment Variable will be applied to your next Production Deployment. To create a Production Deployment, push a commit to the default branch or run `vercel --prod`.            |
-| **Preview**     | The Environment Variable is applied to your next Preview Deployment. Preview Deployments are created when you push to a branch (for example, `my-new-feature`) or run `vercel`.                       |
-| **Development** | The Environment Variable is for use when running your project locally, with `vercel dev` or your preferred development command. To download Development Environment Variables, run `vercel env pull`. |
+| Environment     | Description                                                                                                                                                                                                                                  |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Production**  | When selected, the Environment Variable will be applied to your next Production Deployment. To create a Production Deployment, push a commit to the [Production Branch](/docs/v2/git-integrations#production-branch) or run `vercel --prod`. |
+| **Preview**     | The Environment Variable is applied to your next Preview Deployment. Preview Deployments are created when you push to a branch (for example, `my-new-feature`) or run `vercel`.                                                              |
+| **Development** | The Environment Variable is for use when running your project locally, with `vercel dev` or your preferred development command. To download Development Environment Variables, run `vercel env pull`.                                        |
 
 Enter the **Name** of the Environment Variable. For example, if you are using Node.js and you create an Environment Variable named `SENTRY_KEY`, it will be available under `process.env.SENTRY_KEY` in your code.
 
@@ -204,8 +204,8 @@ Then, enter the **Value** of the Environment Variable. The value is automaticall
 
 <Image
   src={`${process.env.ASSETS}/docs/build-step/env-vars-user.png`}
-  width={1488 / 2}
-  height={632 / 2}
+  width={1610 / 2}
+  height={630 / 2}
   shadow
 />
 <Caption>Adding an Environment Variable in the Project Settings.</Caption>
@@ -224,7 +224,7 @@ It can then be consumed during **Build Step** by the framework of your choice, o
 
 Environment Variables created for the Development Environment can be downloaded into a local development setup using the `vercel env pull` command provided by [<ProductShortName /> CLI](/download):
 
-<Snippet clipboard={false} dark text={`vercel env pull
+<Snippet width="100%"clipboard={false} dark text={`vercel env pull
 Downloading Development Environment Variables for project my-lovely-project
 ✅ Created .env file [510ms]`} />
 <Caption>Downloading Development Environment Variables with `vercel env pull`.</Caption>
@@ -241,8 +241,8 @@ In that case, the Integration Configuration that added it will be displayed:
 
 <Image
   src={`${process.env.ASSETS}/docs/build-step/env-vars-integration.png`}
-  width={1488 / 2}
-  height={728 / 2}
+  width={1610 / 2}
+  height={740 / 2}
   shadow
 />
 <Caption>Adding an Integration Environment Variable in the Project Settings.</Caption>
@@ -261,8 +261,8 @@ To apply a System Environment Variable to your Deployment, enter its **Name**, l
 
 <Image
   src={`${process.env.ASSETS}/docs/build-step/env-vars-system.png`}
-  width={1488 / 2}
-  height={632 / 2}
+  width={1610 / 2}
+  height={740 / 2}
   shadow
 />
 <Caption>Adding a System Environment Variable in the Project Settings.</Caption>
@@ -274,6 +274,12 @@ The following System Environment Variables are available:
 ### Reserved Environment Variables
 
 The <ProductName /> platform reserves the usage of some Environment Variable names by default. You can find a list of these names in the [limits documentation](/docs/v2/platform/limits/#reserved-variables).
+
+### Using a `.env` File
+
+We generally recommend only adding your Environment Variables in the [Project Settings](#environment-variables), as that's the only way to achieve different Environment Variables based on the Environment (Development, Preview or Production).
+
+Therefore, it's not necessary to use a `.env` file or configure Environment Variables within the `vercel.json` file.
 
 ## Ignored Files and Folders
 

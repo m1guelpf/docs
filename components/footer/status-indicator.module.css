@@ -1,0 +1,38 @@
+.content {
+  height: var(--geist-form-small-height);
+  width: 223px;
+  display: flex;
+  align-items: center;
+  max-width: 300px;
+  padding: 0 var(--geist-gap-half);
+  border: 1px solid var(--accents-2);
+  border-radius: var(--geist-radius);
+  background-color: var(--geist-background);
+  letter-spacing: -0.01em;
+}
+
+.content > * {
+  line-height: var(--geist-form-line-height);
+}
+
+.indicator {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: var(--geist-success);
+  margin: 0 7px;
+}
+
+.indicator.warning {
+  background-color: var(--geist-warning);
+}
+
+.indicator.error {
+  background-color: var(--geist-error);
+}
+
+.indicator.secondary {
+  background-color: var(--geist-secondary);
+}

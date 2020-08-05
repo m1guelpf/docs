@@ -19,7 +19,7 @@ export const meta = {
   url: '/guides/deploying-sanity-studio-with-vercel',
   image: `https://og-image.now.sh/Deploy%20Sanity%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F3do82whm%2Fproduction%2F32ad3bafc3c20872754ca164eece005c6827fac4-186x247.svg`,
   editUrl: 'pages/guides/deploying-sanity-studio-with-vercel.mdx',
-  lastEdited: '2020-07-02T06:29:55.000Z',
+  lastEdited: '2020-07-17T05:49:23.000Z',
   rank: 15
 }
 
@@ -42,17 +42,17 @@ This guide will walk you through how to deploy Sanity Studio with <ProductName /
 
 First, install the [Sanity CLI](https://www.npmjs.com/package/@sanity/cli):
 
-<Snippet dark text="npm i -g @sanity/cli" />
+<Snippet width="100%"dark text="npm i -g @sanity/cli" />
 <Caption>Adding the Sanity CLI as a global package to enable use of the <InlineCode>sanity</InlineCode> command.</Caption>
 
 To initiate a new project and download the Studio code to your computer, run the following in the command line:
 
-<Snippet dark text="sanity init" />
+<Snippet width="100%"dark text="sanity init" />
 <Caption>Initiating a new Sanity project.</Caption>
 
 The Sanity CLI will walk you through the necessary steps to set up a project, letting you choose a schema template. When you're done with these steps, the CLI will download the source code and configuration to get you started. To start a local development server, `cd` into the project folder and run the following command:
 
-<Snippet dark text="sanity start" />
+<Snippet width="100%"dark text="sanity start" />
 <Caption>Starting a local development server for Sanity Studio.</Caption>
 
 Check out [Sanity’s documentation](https://sanity.io/docs) to learn more about how to configure and customize the Studio.
@@ -104,7 +104,7 @@ Add the following scripts to the Studio’s `package.json` file:
 
 Lastly, add `@sanity/cli` as a [development dependency](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file), this will allow [<ProductName />](/) to build your project on deployment.
 
-<Snippet dark text="npm i -D @sanity/cli" />
+<Snippet width="100%"dark text="npm i -D @sanity/cli" />
 <Caption>
   Adding the Sanity CLI to the project as a development dependency.
 </Caption>
@@ -117,7 +117,7 @@ After saving your `package.json` file you will be ready to deploy your project.
 
 Once Sanity Studio is deployed, you will need to add it's URL to Sanity’s [CORS origins](https://www.sanity.io/docs/front-ends/cors) settings. You can do this from the command line:
 
-<Snippet dark text="sanity cors add https://your-url.now.sh --credentials" />
+<Snippet width="100%"dark text="sanity cors add https://your-url.now.sh --credentials" />
 <Caption>Adding CORS credentials to your Sanity project.</Caption>
 
 Alternatively, you can navigate to [manage.sanity.io](https://manage.sanity.io), find your project and under Settings > API, add the Studio URL to the CORS origins list. You should allow credentials as the Studio requires authentication for added security whereas most frontends do not.

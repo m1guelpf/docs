@@ -20,7 +20,7 @@ export const meta = {
   editUrl: 'pages/guides/deploying-next-and-contentful-with-vercel.mdx',
   name: 'Next.js + Contentful',
   type: 'app',
-  lastEdited: '2020-07-02T18:09:28.000Z'
+  lastEdited: '2020-07-17T05:49:23.000Z'
 }
 
 In this guide, you will discover how to create a [Next.js](https://nextjs.org/) app that displays links to posts from the [<OrgName /> blog](/blog) by utilizing the [Contentful](https://www.contentful.com/) client, before deploying **with a single command** to [<ProductName />](/docs/v2).
@@ -96,12 +96,12 @@ In the next step, you will create your [Next.js](https://nextjs.org/) app.
 
 Firstly, create a project directory and `cd` into it like so:
 
-<Snippet dark text="mkdir my-nextjs-contentful-project && cd my-nextjs-contentful-project" />
+<Snippet width="100%"dark text="mkdir my-nextjs-contentful-project && cd my-nextjs-contentful-project" />
 <Caption>Creating and entering into the project directory.</Caption>
 
 Next, initialize your project, creating a `package.json` file in the process:
 
-<Snippet dark text="npm init -y" />
+<Snippet width="100%"dark text="npm init -y" />
 <Caption>Initializing your project with a <InlineCode>package.json</InlineCode> file.</Caption>
 
 <Note>
@@ -112,7 +112,7 @@ Next, initialize your project, creating a `package.json` file in the process:
 
 Next, add the project dependencies:
 
-<Snippet dark text="npm i contentful next react react-dom" />
+<Snippet width="100%"dark text="npm i contentful next react react-dom" />
 <Caption>Adding <InlineCode>contentful</InlineCode>, <InlineCode>next</InlineCode>, <InlineCode>react</InlineCode> and <InlineCode>react-dom</InlineCode> as dependencies to your project.</Caption>
 
 With the project initialized, create a `/pages` directory with a `index.js` file inside that uses the following code:
@@ -295,12 +295,12 @@ NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=your-access-token
 
 Lastly, to make your API keys available for [cloud deployment](/docs/v2/deployments/basics/), create two [Secrets](/docs/cli#commands/secrets) with the commands below:
 
-<Snippet dark text="vercel secrets add contentful_space_id your-space-id" />
+<Snippet width="100%"dark text="vercel secrets add contentful_space_id your-space-id" />
 <Caption>
   Adding the <InlineCode>contentful_space_id</InlineCode> secret to your project using <Link href="/docs/cli#commands/secrets">Secrets</Link>.
 </Caption>
 
-<Snippet dark text="vercel secrets add contentful_access_token your-access-token" />
+<Snippet width="100%"dark text="vercel secrets add contentful_access_token your-access-token" />
 <Caption>
   Adding the <InlineCode>CONTENTFUL_ACCESS_TOKEN</InlineCode> secret to your project using <Link href="/docs/cli#commands/secrets">Secrets</Link>.
 </Caption>

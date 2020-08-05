@@ -7,7 +7,7 @@ const Caption = ({ children, ...props }) => (
           color: var(--accents-5);
           font-size: var(--font-size-small);
           line-height: var(--line-height-small);
-          margin: -24px 0 40px 0;
+          margin: 16px 0 40px 0;
           text-align: center;
         }
       `}

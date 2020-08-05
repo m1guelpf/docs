@@ -6,64 +6,276 @@ import Note from '~/components/text/note'
 import { Code } from '~/components/text/code'
 import Link from '~/components/text/link'
 import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
 import ProductName from '~/components/name/product-name'
+import Spacer from '~/components/spacer'
 import { PRODUCT_NAME } from '~/lib/constants'
 import OrgName from '~/components/name/org-name'
 import ProductShortName from '~/components/name/product-short-name'
+import DeployButtonGenerator from '~/components/deploy-button-generator'
 
 export const meta = {
   title: 'Deploy Button',
-  description: `The Deploy Button can be used to deploy GitHub repositories and GitLab projects to ${PRODUCT_NAME}.`,
+  description: `Learn how to integrate with Vercel's flow for deploying Git repositories.`,
   editUrl: 'pages/docs/v2/more/deploy-button.mdx',
-  lastEdited: '2020-06-04T20:10:32.000Z'
+  lastEdited: '2020-07-24T21:39:08.000Z',
+  image: `https://vercel.com${
+    process.env.ASSETS
+  }/docs/more/deploy-button/deploy-button.png`
 }
 
-Use the deploy button to create a <OrgName /> Project from any GitHub repository or GitLab project, including branches and subdirectories, and optionally create a copy of the original repository in your Git account.
+Deploy public Git projects with the Deploy Button, providing an easy-to-use flow to set up new projects with <OrgName /> and GitHub, GitLab, or Bitbucket.
 
-## Example
+<DeployButtonGenerator />
 
-The example below shows how the deploy button looks when rendered, clicking it allows you to deploy our [Gatsby example](https://github.com/vercel/vercel/tree/master/examples/gatsby).
+## How Does it Work?
 
-<Link href="/import/project?template=https://github.com/vercel/vercel/tree/master/examples/gatsby">
-  <Image src="https://vercel.com/button" width={104} height={36} align="left" />
-</Link>
+The Deploy Button allows users to deploy a new project through the <OrgName /> Import Flow, while cloning the source Git repository to GitHub, GitLab, or Bitbucket.
 
-## Usage
+You can [create your Deploy Button with the generator above](#generate-your-own).
 
-Consisting of an `.svg` asset and an associated link to a public GitHub repository or GitLab project, the deploy button can be used wherever its rendering is supported.
+### Import Flow
 
-When implementing the deploy button, provide a link with it to the `/import/project` endpoint and pass a GitHub repository or GitLab project as the template query parameter like so:
+The <OrgName /> Import Flow allows users to deploy a Git repository, create a project with Vercel, and clone the source repository into their GitHub, GitLab, or Bitbucket account.
 
-<Snippet dark text="https://vercel.com/import/project?template=https://github.com/vercel/vercel/tree/master/examples/gatsby" />
-<Caption>The URL for deploying GitHub repositories to <ProductName />.</Caption>
+<Image
+  src={`${
+    process.env.ASSETS
+  }/docs/more/deploy-button/import-flow.png`}
+  width={1280 / 2}
+  height={1594 / 2}
+  shadow
+/>
+<Caption>The <OrgName /> Import Flow deploying a <Link href="https://github.com/vercel/next.js/tree/canary/examples/cms-datocms#deploy-your-own">Next.js and DatoCMS project</Link>.</Caption>
 
-The template parameter can be either a repository URL, or alternatively, a URL for a folder within that repository, both are supported.
+## URL Parameter Reference
 
-By combining both the button and the `/import/project` endpoint, you can provide users with a way to deploy projects in seconds. Some common use cases are listed below.
+With the <OrgName /> Import Flow, you can add various URL query parameters to control the experience a user will have, depending on the requirements of your project.
 
-### Markdown
+The base of the Deploy Button URL is the <OrgName /> Git Import Flow, found at <https://vercel.com/import/git>.
 
-To render the deploy button in a [Markdown](https://en.wikipedia.org/wiki/Markdown) file, for example a Git `README.md`, use the following code, changing only the template parameter:
+<Note>
+  The following is a reference of what each parameter achieves within a Deploy
+  Button URL. Use the{' '}
+  <Link href="#generate-your-own">Deploy Button Generator</Link> to create your
+  own Deploy Button.
+</Note>
 
-```
-[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/vercel/tree/master/examples/gatsby)
-```
+### Repository URL
 
-<Caption>The code required to add a deploy button in Markdown.</Caption>
+**Parameter**: `s`<br />
+**Value**: The source Git repository URL.<br />
+**Type**: String
 
-### HTML
+The Repository URL parameter allows you to define a Git repository URL, optionally including the subdirectory within a repository, that users will clone into their GitHub, GitLab, or Bitbucket account when going through the <OrgName /> Import Flow.
 
-To use the Deploy to <ProductShortName /> button with HTML, add the button as an image and wrap it with a link to the endpoint, changing only the template parameter:
+<Snippet dark prompt={false} copyText="https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world" text={<span style={{color: "var(--accents-3)"}}>https://vercel.com/import/git?<b style={{color: "var(--geist-background)"}}>s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world</b></span>}/>
+<Caption>An example Deploy Button source URL using the <InlineCode>s</InlineCode> Repository URL parameter.</Caption>
 
-```html
-<a
-  href="https://vercel.com/import/project?template=https://github.com/vercel/vercel/tree/master/examples/gatsby"
->
-  <img src="https://vercel.com/button" alt="Deploy" />
-</a>
-```
+<Note>
+  The Repository URL parameter is required when sending a user to the{' '}
+  <OrgName /> Import Flow to set up a project from a GitHub, GitLab, or
+  Bitbucket repository.
+</Note>
 
-<Caption>The code required to add a deploy button to a website or app.</Caption>
+### Required Environment Variables
+
+**Parameter**: `env`<br />
+**Value**: A comma-separated list of required Environment Variable keys e.g., `TEST_KEY,TEST_API_KEY`.<br />
+**Type**: String \[]
+
+The Required Environment Variables parameter allows you to require users to fill in values of Environment Variables the new project needs to run successfully.
+
+<Snippet dark prompt={false} copyText="https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&env=PUBLIC_API_KEY,API_SECRET_KEY" text={<span style={{color: "var(--accents-3)"}}>https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&amp;<b style={{color: "var(--geist-background)"}}>env=PUBLIC_API_KEY,API_SECRET_KEY</b></span>}/>
+<Caption>An example Deploy Button source URL using the <InlineCode>env</InlineCode> parameter.</Caption>
+
+<Note>
+  You cannot pass Environment Variable values using this parameter due to the
+  URL being saved in the browser history, and thus not being a secure method.
+</Note>
+
+### Environment Variables Description
+
+**Parameter**: `envDescription`<br />
+**Value**: A short description of the [Required Environment Variables](#required-environment-variables).<br />
+**Type**: String
+
+The Environment Variables Description parameter allows you to define a URL encoded string that describes to a user what the [Required Environment Variables](#required-environment-variables) are used for.
+
+<Note>The description provided through this parameter will only show if Required Environment Variables are set.</Note>
+<Spacer />
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/docs/more/deploy-button/environment-variable-description.png`}
+  width={1232 / 2}
+  height={422 / 2}
+  shadow
+/>
+<Caption>An example Required Environment Variables section using the Environment Variable Description parameter to add context.</Caption>
+
+<Snippet
+  dark
+  prompt={false}
+  copyText="https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&env=PUBLIC_API_KEY&envDescription=Enter%20your%20public%20API%20Key."
+  text={
+    <span style={{ color: 'var(--accents-3)' }}>
+      https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&amp;env=PUBLIC_API_KEY,API_SECRET_KEY&amp;
+      <b style={{ color: 'var(--geist-background)' }}>envDescription=Enter%20your%20public%20API%20Key.</b>
+    </span>
+  }
+/>
+
+<Caption>
+  An example Deploy Button source URL using the{' '}
+  <InlineCode>envDescription</InlineCode> parameter.
+</Caption>
+
+### Environment Variables Link
+
+**Parameter**: `envLink`<br />
+**Value**: A link to an explanation of the [Required Environment Variables](#required-environment-variables).<br />
+**Type**: String
+
+The Environment Variable Link parameter allows you to attach a link to external documentation that helps the user find more information about where the values for the Environment Variables can be found and what they are for.
+
+<Note>The description provided through this parameter will only show if Required Environment Variables are set.</Note>
+<Spacer />
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/docs/more/deploy-button/environment-variable-link.png`}
+  width={1232 / 2}
+  height={442 / 2}
+  shadow
+/>
+<Caption>An example Required Environment Variables section using the Environment Variable Link parameter to add context.</Caption>
+
+<Snippet dark prompt={false} copyText="https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&env=PUBLIC_API_KEY&envDescription=Enter%20your%20public%20API%20Key.&envLink=https%3A%2F%2Fvercel.com%2Fdocs" text={<span style={{color: "var(--accents-3)"}}>https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&amp;env=PUBLIC_API_KEY,API_SECRET_KEY&amp;envDescription=Enter%20your%20public%20API%20Key.&amp;<b style={{color: "var(--geist-background)"}}>envLink=https%3A%2F%2Fvercel.com%2Fdocs</b></span>}/>
+<Caption>An example Deploy Button source URL using the <InlineCode>envLink</InlineCode> parameter.</Caption>
+
+<Note>
+  The snippet above is just an example of using a URL with the{' '}
+  <InlineCode>envLink</InlineCode> parameter. Please provide users with a
+  specific link instead of top-level documentation.
+</Note>
+
+### Redirect URL
+
+**Parameter**: `redirect-url`<br />
+**Value**: The URL to redirect the user to in the event of a successful deployment.<br />
+**Type**: String
+
+The Redirect URL parameter allows you to define a URL, other than the newly created <OrgName /> project, to send the user to after a successful deployment.
+
+This parameter is helpful if you are sending a user from an application, to deploy a project with <OrgName />, but want the user to continue with your application with a project created and deployed.
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/docs/more/deploy-button/redirect.jpg`}
+  width={1600 / 2}
+  height={500 / 2}
+  shadow
+/>
+<Caption>An example of the redirect UI when a Redirect URL parameter is used.</Caption>
+
+<Snippet dark prompt={false} copyText="https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&redirect-url=my-headless-application.com" text={<span style={{color: "var(--accents-3)"}}>https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&amp;<b style={{color: "var(--geist-background)"}}>redirect-url=my-headless-application.com</b></span>}/>
+<Caption>An example Deploy Button source URL using the <InlineCode>redirect-url</InlineCode> parameter.</Caption>
+
+<Note>
+  Provide a custom name and logo for the redirect UI by using the{' '}
+  <Link href="#developer-id">Developer ID</Link> parameter.
+</Note>
+
+#### Callback Parameters
+
+​<OrgName /> additionally attaches some "Callback Parameters" to the defined Redirect URL when the user is redirected. The following parameters give you access to information about the project the user has created and deployed, for you to integrate with <OrgName /> after the user is sent back to you.
+
+| Parameter                                                                                | Description                                                                                                                                                                                     |
+| ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <InlineCode noWrap>project-dashboard-url</InlineCode>                                    | This defines the <OrgName /> Project View URL of the project that was created through the import flow.                                                                                          |
+| <InlineCode noWrap>deployment-dashboard-url</InlineCode>                                 | This defines the <OrgName /> Deployment View URL of the deployment that was created through the import flow.                                                                                    |
+| <InlineCode noWrap>deployment-url</InlineCode>                                           | This defines the URL of the deployment that was created through the import flow. This contains the default production domain that was automatically generated for the project that was created. |
+| <InlineCode noWrap>repository-url</InlineCode>                                           | This defines the URL of the Git repository that was created through the Import Flow, within the user's selected Git account (GitHub, GitLab, or Bitbucket).                                     |
+| <InlineCode noWrap>production-deploy-hook-url</InlineCode> ([conditional](#deploy-hook)) | This defines the URL of a Deploy Hook. Requires [the `production-deploy-hook` parameter](#deploy-hook).                                                                                         |
+
+### Developer ID
+
+**Parameter**: `developer-id`<br />
+**Value**: [Integration](/docs/integrations) Client ID.<br />
+**Type**: String
+
+The Developer ID parameter allows you to define a [<OrgName /> Integration](/docs/integrations) Client ID which will then attach your logo and name to the UI when using the [Redirect URL](#redirect-url) parameter.
+
+You can find the Developer ID listed as "Client ID" in your [Integrations Developer Console](/dashboard/integrations/console).
+
+<Image
+  src={`${
+    process.env.ASSETS
+  }/docs/more/deploy-button/redirect-logo.jpg`}
+  width={1600 / 2}
+  height={500 / 2}
+  shadow
+/>
+<Caption>An example of the redirect UI with a Developer logo and name when the Redirect URL and Developer ID parameters are used.</Caption>
+
+<Note>This parameter requires the <Link href="#redirect-url">Redirect URL</Link> parameter to be set and also that the Integration website field matches the Redirect URL value.</Note>
+<Spacer />
+
+<Snippet dark prompt={false} copyText="https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&redirect-url=https%3A%2F%2Fmy-headless-application.com&developer-id=oac_7rUTiCMow23Gyfao9RQQ3Es2" text={<span style={{color: "var(--accents-3)"}}>https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&amp;redirect-url=https%3A%2F%2Fmy-headless-application.com&amp;<b style={{color: "var(--geist-background)"}}>developer-id=oac_7rUTiCMow23Gyfao9RQQ3Es2</b></span>} />
+<Caption>An example Deploy Button source URL using the <InlineCode>redirect-url</InlineCode> and the <InlineCode>developer-id</InlineCode> parameters.</Caption>
+
+### Deploy Hook
+
+**Parameter**: `production-deploy-hook`<br />
+**Value**: Name of the Deploy Hook to set up.<br />
+**Type**: String
+
+The Deploy Hook parameter allows you to receive [a URL](/docs/v2/more/deploy-hooks) when also using the Redirect URL parameter, which you can use to redeploy user's projects for them.
+
+This is useful if you are directing a user to deploy a project that works with your application, for example a headless CMS, and you need to redeploy the user's project in case of a content change that needs to be rebuilt.
+
+The value of this parameter should be the name of the [Deploy Hook](/docs/v2/more/deploy-hooks) you want to create for the user.
+
+When redirected back to your application upon a successful deployment for the user, you will get the `production-deploy-hook-url` callback parameter in addition to [the default callback parameters](#callback-parameters).
+
+<Note>This parameter requires the <Link href="#redirect-url">Redirect URL</Link> parameter to also be set.</Note>
+<Spacer />
+
+<Snippet dark prompt={false} copyText="https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&redirect-url=https%3A%2F%2Fmy-headless-application.com&production-deploy-hook=MyHeadlessProject" text={<span style={{color: "var(--accents-3)"}}>https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&amp;redirect-url=https%3A%2F%2Fmy-headless-application.com&amp;<b style={{color: "var(--geist-background)"}}>production-deploy-hook=MyHeadlessProject</b></span>} />
+<Caption>An example Deploy Button source URL using the <InlineCode>redirect-url</InlineCode> and the <InlineCode>production-deploy-hook</InlineCode> parameters.</Caption>
+
+### Project Name
+
+**Parameter**: `project-name`<br />
+**Value**: A default project name.<br />
+**Type**: String
+
+The Project Name parameter allows you to define a default project name.
+
+This parameter is useful for cases where already know what the user would like to name their project. For example, if you are sending the user to the Import Flow from an application that has already set up a project for the user that will connect to the created <OrgName /> project.
+
+<Note>If there is an existing project using the name passed with this parameter, the user will be required to define a new project name, and therefore the project is not guaranteed to have the specified name.</Note>
+<Spacer />
+
+<Snippet dark prompt={false} copyText="https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&project-name=my-awesome-project" text={<span style={{color: "var(--accents-3)"}}>https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&amp;<b style={{color: "var(--geist-background)"}}>project-name=my-awesome-project</b></span>}/>
+<Caption>An example Deploy Button source URL using the <InlineCode>project-name</InlineCode> parameter.</Caption>
+
+### Repository Name
+
+**Parameter**: `repository-name`<br />
+**Value**: A default repository name (no spaces).<br />
+**Type**: String
+
+The Repository Name parameter allows you to define a default project name.
+
+Similar to the [Project Name](#project-name) parameter, this parameter is useful in cases where you already know what the user wants to name their repository.
+
+<Snippet dark prompt={false} copyText="https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&repository-name=my-awesome-project" text={<span style={{color: "var(--accents-3)"}}>https://vercel.com/import/git?s=https://vercel.com/import/git?s=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world&amp;<b style={{color: "var(--geist-background)"}}>repository-name=my-awesome-project</b></span>}/>
+<Caption>An example Deploy Button source URL using the <InlineCode>repository-name</InlineCode> parameter.</Caption>
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 

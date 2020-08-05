@@ -11,7 +11,7 @@
     "demo": "https://nuxtjs.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploy%20Nuxt.js%20Apps**%20%3Cbr%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fnuxtjs.org%2Flogos%2Fnuxt-square.svg&widths=250&widths=300&heights=250&heights=300",
     "editUrl": "pages/guides/deploying-nuxtjs-with-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 3
   },
   {
@@ -26,7 +26,7 @@
     "demo": "https://nextjs.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploy%20Serverless%20Next.js**%20with%20Vercel.png?theme=light&md=1&fontSize=83px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg&heights=250&heights=350",
     "editUrl": "pages/guides/deploying-nextjs-with-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 5
   },
   {
@@ -37,10 +37,15 @@
     "url": "/guides/deploying-takeshape-with-vercel",
     "image": "https://og-image.now.sh/**Deploy%20a%20TakeShape%20Blog**%20with%20Next.js%20%26%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fv1592998293%2Ffront%2Fguides%2Fogp%2Ftakeshape.svg",
     "name": "TakeShape",
+    "env": [
+      "TAKESHAPE_API_KEY",
+      "TAKESHAPE_PROJECT_ID",
+      "TAKESHAPE_PREVIEW_SECRET"
+    ],
     "type": "site",
     "demo": "https://next-blog-takeshape.now.sh/",
     "editUrl": "pages/guides/deploying-takeshape-with-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 7
   },
   {
@@ -55,7 +60,7 @@
     "demo": "https://create-react-app.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploying%20React%20Apps**%20%3Cbr%20%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fcdn.svgporn.com%2Flogos%2Freact.svg&widths=250&widths=300&heights=250&heights=300",
     "editUrl": "pages/guides/deploying-react-with-vercel-cra.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 8
   },
   {
@@ -74,13 +79,20 @@
     "published": "2020-04-30T07:47:12.000Z",
     "authors": ["stefanoverna"],
     "url": "/guides/deploying-next-datocms-with-vercel",
+    "env": ["DATOCMS_API_TOKEN"],
+    "envDescription": [
+      "The DatoCMS API token, found in the DatoCMS settings tab."
+    ],
+    "envLink": [
+      "https://www.datocms.com/docs/content-management-api/authentication"
+    ],
     "example": "https://github.com/vercel/next.js/tree/canary/examples/cms-datocms",
     "image": "https://og-image.now.sh/**Create%20and%20Deploy%20a%20Blog**%20with%20Next.js%20and%20DatoCMS.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fwww.datocms.com%2Fimages%2Fbrand-assets%2Fsvg%2Ficon-text%2Fcolor%2Fcolor_full_logo.svg",
     "editUrl": "pages/guides/deploying-next-datocms-with-vercel.mdx",
     "name": "Next.js + DatoCMS",
     "type": "site",
     "demo": "https://next-blog-datocms.now.sh/",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-22T10:57:02.000Z",
     "rank": 12
   },
   {
@@ -90,7 +102,7 @@
     "authors": ["mcsdev"],
     "url": "/guides/handling-node-request-body",
     "editUrl": "pages/guides/handling-node-request-body.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 13
   },
   {
@@ -103,7 +115,7 @@
     "url": "/guides/deploying-sanity-studio-with-vercel",
     "image": "https://og-image.now.sh/Deploy%20Sanity%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F3do82whm%2Fproduction%2F32ad3bafc3c20872754ca164eece005c6827fac4-186x247.svg",
     "editUrl": "pages/guides/deploying-sanity-studio-with-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 15
   },
   {
@@ -128,7 +140,7 @@
     "demo": "https://vue.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploy%20a%20Vue.js%20App**%20with%20Vercel.png?theme=light&md=1&fontSize=96px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fv1551318573%2Ffront%2Fdocs%2Fogp%2Fvue-logo.svg",
     "editUrl": "pages/guides/deploying-vuejs-to-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 17
   },
   {
@@ -138,7 +150,7 @@
     "authors": ["mcsdev"],
     "url": "/guides/transferring-domains-to-vercel",
     "editUrl": "pages/guides/transferring-domains-to-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 18
   },
   {
@@ -151,7 +163,7 @@
     "type": "project",
     "image": "https://og-image.now.sh/**Deploy%20a%20FaunaDB-Powered%20Next.js%20app**%20%3Cbr%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=70px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fseeklogo.com%2Fimages%2FN%2Fnext-js-logo-7929BCD36F-seeklogo.com.png&images=https%3A%2F%2Fres-3.cloudinary.com%2Fcrunchbase-production%2Fimage%2Fupload%2Fc_lpad%2Ch_256%2Cw_256%2Cf_auto%2Cq_auto%3Aeco%2Fywnzi0pt0uw9klatmadc",
     "editUrl": "pages/guides/deploying-a-faunadb-powered-guestbook-with-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 19
   },
   {
@@ -164,7 +176,7 @@
     "url": "/guides/deploying-nextjs-nodejs-and-faunadb-with-vercel",
     "image": "https://og-image.now.sh/**Deploy%20a%20FaunaDB-Powered%20Next.js%20app**%20%3Cbr%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=70px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fseeklogo.com%2Fimages%2FN%2Fnext-js-logo-7929BCD36F-seeklogo.com.png&images=https%3A%2F%2Fres-3.cloudinary.com%2Fcrunchbase-production%2Fimage%2Fupload%2Fc_lpad%2Ch_256%2Cw_256%2Cf_auto%2Cq_auto%3Aeco%2Fywnzi0pt0uw9klatmadc",
     "editUrl": "pages/guides/deploying-nextjs-nodejs-and-faunadb-with-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 21
   },
   {
@@ -177,7 +189,7 @@
     "url": "/guides/deploying-pusher-channels-with-vercel",
     "image": "https://og-image.now.sh/**Deploy%20Pusher%20Channels%20Apps**%20with%20Vercel.png?theme=light&md=1&fontSize=96px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fpusher-icon.now-examples.now.sh&widths=250&widths=300&heights=250&heights=250",
     "editUrl": "pages/guides/deploying-pusher-channels-with-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 23
   },
   {
@@ -190,7 +202,7 @@
     "url": "/guides/deploying-nextjs-using-fathom-analytics-with-vercel",
     "image": "https://og-image.now.sh/Deploy%20a%20**Next.js%20app%20with%20Fathom%20Analytics**.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fassets.usefathom.com%2Ffathom-analytics.svg",
     "editUrl": "pages/guides/deploying-nextjs-using-fathom-analytics-with-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 24
   },
   {
@@ -205,8 +217,25 @@
     "demo": "https://svelte.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploy%20Svelte%20Apps**%20%3Cbr%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDciIGhlaWdo%250D%250AdD0iMTI4IiB2aWV3Qm94PSIwIDAgMTA3IDEyOCI%2BPHRpdGxlPnN2ZWx0ZS1sb2dvPC90aXRsZT48%250D%250AcGF0aCBkPSJNOTQuMTU2NiwyMi44MTg5Yy0xMC40LTE0Ljg4NTEtMzAuOTQtMTkuMjk3MS00NS43%250D%250AOTE0LTkuODM0OEwyMi4yODI1LDI5LjYwNzhBMjkuOTIzNCwyOS45MjM0LDAsMCwwLDguNzYzOSw0%250D%250AOS42NTA2YTMxLjUxMzYsMzEuNTEzNiwwLDAsMCwzLjEwNzYsMjAuMjMxOEEzMC4wMDYxLDMwLjAw%250D%250ANjEsMCwwLDAsNy4zOTUzLDgxLjA2NTNhMzEuODg4NiwzMS44ODg2LDAsMCwwLDUuNDQ3MywyNC4x%250D%250AMTU3YzEwLjQwMjIsMTQuODg2NSwzMC45NDIzLDE5LjI5NjYsNDUuNzkxNCw5LjgzNDhMODQuNzE2%250D%250ANyw5OC4zOTIxQTI5LjkxNzcsMjkuOTE3NywwLDAsMCw5OC4yMzUzLDc4LjM0OTMsMzEuNTI2Mywz%250D%250AMS41MjYzLDAsMCwwLDk1LjEzLDU4LjExN2EzMCwzMCwwLDAsMCw0LjQ3NDMtMTEuMTgyNCwzMS44%250D%250AOCwzMS44OCwwLDAsMC01LjQ0NzMtMjQuMTE1NyIgc3R5bGU9ImZpbGw6I2ZmM2UwMCIvPjxwYXRo%250D%250AIGQ9Ik00NS44MTcxLDEwNi41ODE1QTIwLjcxODIsMjAuNzE4MiwwLDAsMSwyMy41OCw5OC4zMzg5%250D%250AYTE5LjE3MzksMTkuMTczOSwwLDAsMS0zLjI3NjYtMTQuNTAyNSwxOC4xODg2LDE4LjE4ODYsMCww%250D%250ALDEsLjYyMzMtMi40MzU3bC40OTEyLTEuNDk3OCwxLjMzNjMuOTgxNWEzMy42NDQzLDMzLjY0NDMs%250D%250AMCwwLDAsMTAuMjAzLDUuMDk3OGwuOTY5NC4yOTQxLS4wODkzLjk2NzVhNS44NDc0LDUuODQ3NCww%250D%250ALDAsMCwxLjA1MiwzLjg3ODEsNi4yMzg5LDYuMjM4OSwwLDAsMCw2LjY5NTIsMi40ODUsNS43NDQ5%250D%250ALDUuNzQ0OSwwLDAsMCwxLjYwMjEtLjcwNDFMNjkuMjcsNzYuMjgxYTUuNDMwNiw1LjQzMDYsMCww%250D%250ALDAsMi40NTA2LTMuNjMxLDUuNzk0OCw1Ljc5NDgsMCwwLDAtLjk4NzUtNC4zNzEyLDYuMjQzNiw2%250D%250ALjI0MzYsMCwwLDAtNi42OTc4LTIuNDg2NCw1Ljc0MjcsNS43NDI3LDAsMCwwLTEuNi43MDM2bC05%250D%250ALjk1MzIsNi4zNDQ5YTE5LjAzMjksMTkuMDMyOSwwLDAsMS01LjI5NjUsMi4zMjU5LDIwLjcxODEs%250D%250AMjAuNzE4MSwwLDAsMS0yMi4yMzY4LTguMjQyNywxOS4xNzI1LDE5LjE3MjUsMCwwLDEtMy4yNzY2%250D%250ALTE0LjUwMjQsMTcuOTg4NSwxNy45ODg1LDAsMCwxLDguMTMtMTIuMDUxM0w1NS44ODMzLDIzLjc0%250D%250ANzJhMTkuMDAzOCwxOS4wMDM4LDAsMCwxLDUuMy0yLjMyODdBMjAuNzE4MiwyMC43MTgyLDAsMCwx%250D%250ALDgzLjQyLDI5LjY2MTFhMTkuMTczOSwxOS4xNzM5LDAsMCwxLDMuMjc2NiwxNC41MDI1LDE4LjQs%250D%250AMTguNCwwLDAsMS0uNjIzMywyLjQzNTdsLS40OTEyLDEuNDk3OC0xLjMzNTYtLjk4YTMzLjYxNzUs%250D%250AMzMuNjE3NSwwLDAsMC0xMC4yMDM3LTUuMWwtLjk2OTQtLjI5NDIuMDg5My0uOTY3NWE1Ljg1ODgs%250D%250ANS44NTg4LDAsMCwwLTEuMDUyLTMuODc4LDYuMjM4OSw2LjIzODksMCwwLDAtNi42OTUyLTIuNDg1%250D%250ALDUuNzQ0OSw1Ljc0NDksMCwwLDAtMS42MDIxLjcwNDFMMzcuNzMsNTEuNzE5YTUuNDIxOCw1LjQy%250D%250AMTgsMCwwLDAtMi40NDg3LDMuNjMsNS43ODYyLDUuNzg2MiwwLDAsMCwuOTg1Niw0LjM3MTcsNi4y%250D%250ANDM3LDYuMjQzNywwLDAsMCw2LjY5NzgsMi40ODY0LDUuNzY1Miw1Ljc2NTIsMCwwLDAsMS42MDIt%250D%250ALjcwNDFsOS45NTE5LTYuMzQyNWExOC45NzgsMTguOTc4LDAsMCwxLDUuMjk1OS0yLjMyNzgsMjAu%250D%250ANzE4MSwyMC43MTgxLDAsMCwxLDIyLjIzNjgsOC4yNDI3LDE5LjE3MjUsMTkuMTcyNSwwLDAsMSwz%250D%250ALjI3NjYsMTQuNTAyNCwxNy45OTc3LDE3Ljk5NzcsMCwwLDEtOC4xMywxMi4wNTMyTDUxLjExNjcs%250D%250AMTA0LjI1MjhhMTkuMDAzOCwxOS4wMDM4LDAsMCwxLTUuMywyLjMyODciIHN0eWxlPSJmaWxsOiNm%250D%250AZmYiLz48L3N2Zz4%3D&widths=250&widths=300&heights=250&heights=300",
     "editUrl": "pages/guides/deploying-svelte-with-vercel.mdx",
-    "lastEdited": "2020-07-02T06:29:55.000Z",
+    "lastEdited": "2020-07-17T05:49:23.000Z",
     "rank": 25
+  },
+  {
+    "title": "Deploy Next.js and Userbase with Vercel",
+    "description": "Create a Todo app with Next.js and Userbase and deploy it live with Vercel.",
+    "published": "2020-07-15T12:00:00.860Z",
+    "authors": ["coetry"],
+    "url": "/guides/deploying-next-and-userbase-with-vercel",
+    "env": ["NEXT_PUBLIC_USERBASE_APP_ID"],
+    "envDescription": ["The Userbase app ID, found in the Userbase dashboard."],
+    "envLink": ["https://v1.userbase.com/"],
+    "image": "https://og-image.now.sh/Deploy%20Next.js%20with%20Authentication%20using%20Vercel%20and%20Userbase.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fimg.stackshare.io%2Fservice%2F11745%2F_kS-kcm__400x400.png",
+    "editUrl": "pages/guides/deploying-next-and-userbase-with-vercel.mdx",
+    "example": "https://github.com/vercel/next.js/tree/canary/examples/with-userbase",
+    "demo": "https://next-userbase.vercel.app",
+    "name": "Next.js + Userbase",
+    "type": "app",
+    "lastEdited": "2020-07-15T14:35:40.000Z"
   },
   {
     "title": "Debug and Troubleshoot Logs with Vercel and Sematext",
@@ -240,7 +269,7 @@
     "demo": "https://ionic-angular.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploy%20Ionic%20Apps**%20%3Cbr%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fcdn.svgporn.com%2Flogos%2Fionic.svg",
     "editUrl": "pages/guides/deploying-ionic-angular-with-vercel.mdx",
-    "lastEdited": "2020-04-25T00:32:18.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Dojo Apps with Vercel",
@@ -253,7 +282,7 @@
     "editUrl": "pages/guides/deploying-dojo-with-vercel.mdx",
     "name": "Dojo",
     "type": "app",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Monitor Frontend Performance with DebugBear and Vercel",
@@ -273,7 +302,7 @@
     "image": "https://og-image.now.sh/**Error%20Reports**%20for%20Your%20Projects%20with%20URIports%20and%20Vercel.png?theme=light&md=1&fontSize=90px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fzeit.co%2Fdocs%2Fstatic%2Fguides%2Fclient-side-error-reports-with-uriports-vercel%2Flogo.svg",
     "url": "/guides/client-side-error-reports-with-uriports-vercel",
     "editUrl": "pages/guides/client-side-error-reports-with-uriports-vercel.mdx",
-    "lastEdited": "2020-05-27T11:30:01.000Z"
+    "lastEdited": "2020-07-10T15:00:57.000Z"
   },
   {
     "title": "Monitor Performance with Calibre and Vercel",
@@ -283,7 +312,7 @@
     "url": "/guides/monitoring-performance-with-calibre-and-vercel",
     "image": "https://og-image.now.sh/**Performance%20Monitoring**%20for%20Vercel%20Deployments%20with%20Calibre.png?theme=light&md=1&fontSize=88px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1103494136768847873%2FM6AGVCx4_400x400.png",
     "editUrl": "pages/guides/monitoring-performance-with-calibre-and-vercel.mdx",
-    "lastEdited": "2020-04-25T00:32:18.000Z"
+    "lastEdited": "2020-07-13T16:43:56.000Z"
   },
   {
     "title": "Create and Deploy Vue.js Forms using Formcarry with Vercel",
@@ -296,7 +325,7 @@
     "image": "https://og-image.now.sh/Create%20**Vue.js%20Forms**%20with%20Formcarry%20and%20Vercel.png?theme=light&md=1&fontSize=90px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fzeit.co%2Fdocs%2Fstatic%2Fguides%2Fvue-js-html-forms-with-formcarry-vercel%2Flogo.png",
     "url": "/guides/vue-js-html-forms-with-formcarry-vercel",
     "editUrl": "pages/guides/vue-js-html-forms-with-formcarry-vercel.mdx",
-    "lastEdited": "2020-04-25T00:32:18.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Scully with Vercel",
@@ -309,7 +338,7 @@
     "example": "scully",
     "demo": "https://scully.now-examples.now.sh",
     "editUrl": "pages/guides/deploying-scully-with-vercel.mdx",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Foundation with Vercel",
@@ -322,7 +351,7 @@
     "editUrl": "pages/guides/deploying-foundation-with-vercel.mdx",
     "name": "Foundation",
     "type": "app",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create and Deploy a Crystallize E-commerce Site with Vercel",
@@ -334,7 +363,7 @@
     "name": "Crystallize",
     "type": "site",
     "editUrl": "pages/guides/deploying-crystallize-with-vercel.mdx",
-    "lastEdited": "2020-05-14T23:00:11.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Ionic React with Vercel",
@@ -348,7 +377,7 @@
     "editUrl": "pages/guides/deploying-ionic-react-with-vercel.mdx",
     "name": "Ionic",
     "type": "app",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Polymer with Vercel",
@@ -362,7 +391,7 @@
     "demo": "https://polymer.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploy%20Polymer%20Apps**%20%3Cbr%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fcdn.svgporn.com%2Flogos%2Fpolymer.svg",
     "editUrl": "pages/guides/deploying-polymer-with-vercel.mdx",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Stencil with Vercel",
@@ -376,7 +405,7 @@
     "demo": "https://stencil.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploy%20Stencil%20Apps**%20%3Cbr%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAclBMVEX%2F%2F%2F8AAACTk5PBwcEiIiL6%2Bvrq6up0dHTz8%2FNjY2NNTU04ODjFxcXf39%2FT09MfHx%2BKioqenp6ysrLNzc24uLh%2Ff39qamrl5eWsrKwICAibm5sxMTE%2FPz9dXV3a2toZGRlWVlZGRkYrKys7Ozt3d3eEhIQ8LwBQAAAD4UlEQVR4nO2dW1YqURBDQWjFB4Ig4gMUUOc%2FxTuA%2BivuNmSt7BkkX5WunK7R6C8ZPhZTiPHTnyr5bwynMcZGLa7JkbPkVq2tyS1nyZ1aW5MbzpJ7tbYmS86SxaAW1%2BOJs2R8rRbXYwVaMleL6%2FEAWvKoFtfjEbRkohbXYwtaslKL6zEDLXlXi%2BsxvHGW%2FKrFNfngLLlRa2tyx1lyUGtr8sJZslNra7LhLJmaTvRXnCXjmVpcj1fQkq1aXI9n0BLTiX4NWvKgFtfjE7TEdKK%2FBi1x%2FUYPTvRLtbgmU84S14l%2Bx1myV2trsucsOaq1NQHXFie1tibg2sJ1os%2FaokCuLT7V4nqQa4u1WlwPcm3xrBbXg1xbvKrF9SDXFldqcT2GBWfJj1pcE3Bt4VpEAtcWrkUkcG3xodbWBFxbfJlO9OTawnSiJ9cWpkWkCWiJ6URPri1MJ3pybWE60ZNrC9Mi0uyLs8T1aQH42uJFra0JuLY4qLU1AdcW32ptTcC1hevTgqwtCuTawrSIRIYc0yLSaMJhuskJIYQQQgiXy3x5ZcuSiQzXYEMah%2FlwNwMb0jhMO2G4V%2Bs6A6idAPYpcO6ZD3fgv25wFsyHO%2FDrKw%2FTTiC%2FvuIw7YR3taxzYAYTsjSOwzyqJEvjOExhgyyN4zCPKudqWefAPKq0DjnMo8qEnEJCTiUhp%2BAccqYJOQUm5PyqZZ1DQk4hIaeQkFNIyCkk5BSgkKOWdQ4JOYWEnEJCTiEhp5BNTiWbnAITcsgePU5CTiEhp5CQU0jIKWSTU0jIKSTkFBJyCgk5hYScSkJOISGnwIQc8moBTkJOISGnkJBTYK56JeQUEnIKCTmVhJzCQa3rDKC62tr5GajpH0NDCCGEEMLlAv7kb6LW1oRcAph6Qi4BTP%2FuTi4BTC%2BwkjcATO81kTcATO81kW8XTO81zcAlgOm9pgG86uV6rwn84u36d3ew1vNm%2BvX1h7PE9V4TedXL9O%2Fu5A%2FvmYoJDjnRr9TiepATvWnIITssTI8eh5zomYoJDnnVa68W1wTssBzV2pqAE71ryAHv9LoepQXv9LqGHPL%2FQqYhJyesCuSdXtNNDtlKNw05W9AS05AzAy1hevQ4w4KzxDTkkEdpXUMOWMHeqbU1ASf6k1pbE%2FCPodBjYRyyYmIacsif6ZheYCXfma7V4nqQFRPTkEN%2BkH5Vi%2BtBTvTvanE9hhNniWnIGR05S5gDfjx7zpKDWlsT8M8xriEHLI27hhxwonfd5JAVE9OQQ1ZMTEMOOdGbhhxyojcNOWTFxDTkjMDSuGnIISsmG7W2JmBp3DXk%2FI6nEF8X9ibnH2mNa2xGXo7jAAAAAElFTkSuQmCC",
     "editUrl": "pages/guides/deploying-stencil-with-vercel.mdx",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Saber with Vercel",
@@ -390,7 +419,7 @@
     "demo": "https://saber.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploy%20Saber%20Apps**%20%3Cbr%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3%250D%250ALnczLm9yZy8yMDAwL3N2ZyI%2BPHBhdGggZD0iTTI1IDQ5YzEzLjI1NSAwIDI0LTEwLjc0NSAyNC0y%250D%250ANFMzOC4yNTUgMSAyNSAxIDEgMTEuNzQ1IDEgMjVzMTAuNzQ1IDI0IDI0IDI0eiIgZmlsbD0iIzAw%250D%250AODM4RiIgc3Ryb2tlPSIjMDA4MzhGIiBzdHJva2Utd2lkdGg9Ii4zMDgiLz48cGF0aCBmaWxsLXJ1%250D%250AbGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE5LjM1NSAyOC44Nmw2LjA2NC0u%250D%250ANTA4IDEuMTQgMi42MzMtMy45MTMgMy44ODItMy4yOSA0LjYyNi40MzMgNS42MTdjLTMuMjE4LS43%250D%250AODYtNS4zNjEtMS41Ni02LjQzLTIuMzI0LTEuMDY4LS43NjMtMi4yMTUtMS44NjEtMy40NDEtMy4y%250D%250AOTNsNS43NDUtNi44NDNoMi41MTRsMS4xNzgtMy43OXoiIGZpbGw9IiNGQkI1MjYiLz48cGF0aCBm%250D%250AaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTI1LjM2IDcuNDA0YTIu%250D%250AOTkzIDIuOTkzIDAgMCAwLTEuOTE2IDUuMjkydjQuMDQ1aDMuOTV2LTQuMTVhMi45OTMgMi45OTMg%250D%250AMCAwIDAtMi4wMzUtNS4xODd6bS0xLjMxOCAyLjk5MmExLjMxNyAxLjMxNyAwIDEgMSAyLjYzNCAw%250D%250AIDEuMzE3IDEuMzE3IDAgMCAxLTIuNjM0IDB6IiBmaWxsPSIjZmZmIi8%2BPHBhdGggZD0iTTI3LjM3%250D%250AMyAzNy4yNjVsLTIuOTUzIDIuODMgMS4xNiAxLjIxIDIuMDgzLTEuOTk3IDEuODY2Ljk3OCA1LjAx%250D%250ALjY4LjIyNS0xLjY2MS00LjcxOC0uNjQtMi42NzMtMS40eiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGZp%250D%250AbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMi43MzYgMjVDMi43MzYg%250D%250AMTIuNzA0IDEyLjcwNCAyLjczNiAyNSAyLjczNlM0Ny4yNjQgMTIuNzA0IDQ3LjI2NCAyNSAzNy4y%250D%250AOTYgNDcuMjY0IDI1IDQ3LjI2NCAyLjczNiAzNy4yOTYgMi43MzYgMjV6TTI1IDQuNDFDMTMuNjMg%250D%250ANC40MTEgNC40MSAxMy42MyA0LjQxIDI1YTIwLjUxIDIwLjUxIDAgMCAwIDUuMSAxMy41NjVsNS40%250D%250AMTgtNy4yMmgzLjA4NmwuMjU1LTIuNjkgMy4yNTktLjYxOHYtOS42MmgtMy4zNTJWMTYuNzRoMTQu%250D%250AMzY0djEuNjc1SDI5LjMxVjMwLjUybDIuMTcuMjIyIDEuNzYxIDIuMzI4aDEuNjI5bDUuNjUzIDUu%250D%250ANDU3QTIwLjUxIDIwLjUxIDAgMCAwIDQ1LjU5IDI1YzAtMTEuMzctOS4yMTgtMjAuNTg5LTIwLjU5%250D%250ALTIwLjU4OXptNy40MyAzMC4zNjRsLS4wMjMtLjAzaC0yLjI5M3YtMS42NzZoMS4wMjRsLS41NTYt%250D%250ALjczNS00LjQwNC0uNDUtLjk3NCAyLjU4Ny0yLjUyIDEuNTQ1LS44NzUtMS40MyAyLjAzLTEuMjQz%250D%250AIDEuMjI1LTMuMjU3Ljg0Ny4wODYtLjY5NC0xLjEyOS01LjM5OCAxLjAyNC0uNjMgNi42MzktMi45%250D%250ANzcgMi41ODEtMS4wOTgtMS4yNjYgMi40Ny0yLjE0Mi4yNzEtMi44NmgtMi4wODhsLTUuMDgzIDYu%250D%250ANzc3QTIwLjUyIDIwLjUyIDAgMCAwIDI1IDQ1LjU5YTIwLjUyIDIwLjUyIDAgMCAwIDE0LjM3LTUu%250D%250AODQ2bC01LjE3OC00Ljk5OGgtMS43MjNsLS4wNC4wM3ptLTcuOTA5LTcuMzA2bC0xLjU1Ni4yOTZ2%250D%250ALTkuMzQ5aDQuOTA4djExLjc0OGwtMS44MzQtMi45ODMtLjA4Mi4wMTZ2LTMuOTkzaC0xLjQzNnY0%250D%250ALjI2NXoiIGZpbGw9IiNmZmYiLz48L3N2Zz4%3D&widths=300&widths=300&heights=300&heights=300",
     "editUrl": "pages/guides/deploying-saber-with-vercel.mdx",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy UmiJS with Vercel",
@@ -404,7 +433,7 @@
     "demo": "https://umijs.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploy%20UmiJS%20Apps**%20%3Cbr%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fgithub.com%2Fumijs.png%3Fsize%3D200&widths=300&widths=300&heights=300&heights=300",
     "editUrl": "pages/guides/deploying-umijs-with-vercel.mdx",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Aurelia with Vercel",
@@ -417,7 +446,7 @@
     "editUrl": "pages/guides/deploying-aurelia-with-vercel.mdx",
     "name": "Aurelia",
     "type": "app",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Hexo with Vercel",
@@ -431,7 +460,7 @@
     "editUrl": "pages/guides/deploying-hexo-with-vercel.mdx",
     "name": "Hexo",
     "type": "site",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Eleventy with Vercel",
@@ -445,7 +474,7 @@
     "editUrl": "pages/guides/deploying-eleventy-with-vercel.mdx",
     "name": "Eleventy",
     "type": "site",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploying MDX Deck with Vercel",
@@ -458,7 +487,7 @@
     "name": "MDX Deck",
     "type": "app",
     "editUrl": "pages/guides/deploying-mdx-deck-with-vercel.mdx",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create an Ember App and Deploy It with Vercel",
@@ -472,7 +501,7 @@
     "editUrl": "pages/guides/deploying-ember-with-vercel.mdx",
     "name": "Ember",
     "type": "app",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Docusaurus Sites with Vercel",
@@ -486,7 +515,7 @@
     "editUrl": "pages/guides/deploying-docusaurus-with-vercel.mdx",
     "name": "Docusaurus",
     "type": "site",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploying React Forms Using Formspree with Vercel",
@@ -498,7 +527,7 @@
     "url": "/guides/deploying-react-forms-using-formspree-with-vercel",
     "image": "https://og-image.now.sh/**Deploying%20React%20and%20Formspree%20Forms**%20%3Cbr%20%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fformspree-icon.msweeneydev.now.sh%2Fformspree.svg&widths=250&widths=250&heights=200&heights=250",
     "editUrl": "pages/guides/deploying-react-forms-using-formspree-with-vercel.mdx",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Deploy Gridsome Sites with Vercel",
@@ -512,7 +541,7 @@
     "editUrl": "pages/guides/deploying-gridsome-with-vercel.mdx",
     "name": "Gridsome",
     "type": "site",
-    "lastEdited": "2020-04-25T00:32:18.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Gather Emails on Your Next.js Site with StaticKit and Vercel",
@@ -524,7 +553,7 @@
     "url": "/guides/deploying-statickit-with-vercel",
     "editUrl": "pages/guides/deploying-statickit-with-vercel.mdx",
     "image": "https://og-image.now.sh/**Deploy%20a%20StaticKit%20Project**%3Cbr%3Ewith%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=data%3Aimage%2Fsvg%2Bxml%2C%253Csvg+xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27+width%3D%27124%27+height%3D%27175%27%253E%253Cg+fill%3D%27%252311151D%27+fill-rule%3D%27nonzero%27%253E%253Cpath+d%3D%27M20.889+113.2l87.555-93.89L88.379.598.824+94.489zM35.62+174.401l87.556-93.89L103.11+61.8l-87.555+93.89z%27%2F%253E%253C%2Fg%253E%253C%2Fsvg%253E",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create a Svelte Component Library Using Storybook and Deploy It with Vercel",
@@ -537,7 +566,7 @@
     "demo": "https://storybook.now-examples.now.sh",
     "editUrl": "pages/guides/deploying-storybook-with-vercel.mdx",
     "image": "https://og-image.now.sh/**Deploy%20a%20Storybook%20Library**%20%3Cbr%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1100804485616566273%2FsOct-Txm_400x400.png",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create and Deploy a Preact App with Vercel",
@@ -551,7 +580,7 @@
     "example": "preact",
     "demo": "https://preact.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploy%20a%20Preact%20App**%20%3Cbr%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fwww.stickpng.com%2Fassets%2Fimages%2F584815e7cef1014c0b5e4978.png",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Zero-Downtime Domain Migration with Vercel",
@@ -560,7 +589,7 @@
     "authors": ["mcsdev"],
     "url": "/guides/zero-downtime-domain-migration",
     "editUrl": "pages/guides/zero-downtime-domain-migration.mdx",
-    "lastEdited": "2020-05-08T23:58:00.000Z"
+    "lastEdited": "2020-07-10T15:00:57.000Z"
   },
   {
     "title": "Create and Deploy a Next.js and Prismic App with Vercel",
@@ -572,7 +601,7 @@
     "url": "/guides/deploying-next-and-prismic-with-vercel",
     "image": "https://vercel.com/docs/static/guides/deploying-next-prismic-with-vercel/deploying-next-prismic-with-vercel.png",
     "editUrl": "pages/guides/deploying-next-and-prismic-with-vercel.mdx",
-    "lastEdited": "2020-07-02T18:09:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create a Next.js and Storyblok App That Builds and Deploys with Vercel",
@@ -584,7 +613,7 @@
     "url": "/guides/deploying-next-and-storyblok-with-vercel",
     "image": "https://vercel.com/docs/static/guides/deploying-next-storyblok-with-vercel/deploying-next-storyblok-with-vercel.png",
     "editUrl": "pages/guides/deploying-next-and-storyblok-with-vercel.mdx",
-    "lastEdited": "2020-07-02T18:09:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create a Next.js and ButterCMS App That Builds and Deploys with Vercel",
@@ -596,7 +625,7 @@
     "editUrl": "pages/guides/deploying-next-and-buttercms-with-vercel.mdx",
     "name": "Next.js + ButterCMS",
     "type": "app",
-    "lastEdited": "2020-07-02T18:09:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create a Next.js App with Contentful and Deploy It with Vercel",
@@ -608,7 +637,7 @@
     "editUrl": "pages/guides/deploying-next-and-contentful-with-vercel.mdx",
     "name": "Next.js + Contentful",
     "type": "app",
-    "lastEdited": "2020-07-02T18:09:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create and Deploy a MongoDB-Powered Node.js API with Vercel",
@@ -620,7 +649,7 @@
     "name": "MongoDB",
     "type": "API",
     "editUrl": "pages/guides/deploying-a-mongodb-powered-api-with-node-and-vercel.mdx",
-    "lastEdited": "2020-07-03T08:33:41.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create a Next.js App with a MySQL Database That Builds and Deploys with Vercel",
@@ -632,7 +661,7 @@
     "editUrl": "pages/guides/deploying-next-and-mysql-with-vercel.mdx",
     "name": "Next.js + MySQL",
     "type": "app",
-    "lastEdited": "2020-07-02T18:09:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create a Charge App That Builds and Deploys with Vercel",
@@ -645,7 +674,7 @@
     "editUrl": "pages/guides/deploying-charge-with-vercel.mdx",
     "name": "Charge",
     "type": "app",
-    "lastEdited": "2020-05-08T23:58:00.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Automatic Deployments with Vercel for GitLab",
@@ -654,7 +683,7 @@
     "authors": ["arunoda", "timothy"],
     "url": "/guides/getting-started-with-vercel-for-gitlab",
     "editUrl": "pages/guides/getting-started-with-vercel-for-gitlab.mdx",
-    "lastEdited": "2020-04-16T03:34:45.000Z"
+    "lastEdited": "2020-07-10T15:00:57.000Z"
   },
   {
     "title": "How to Update Vercel CLI",
@@ -663,7 +692,7 @@
     "authors": ["mcsdev", "timothy"],
     "url": "/guides/updating-vercel-cli",
     "editUrl": "pages/guides/updating-vercel-cli.mdx",
-    "lastEdited": "2020-05-05T11:51:28.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create an Angular App That Builds and Deploys with Vercel",
@@ -677,7 +706,7 @@
     "name": "Angular",
     "type": "app",
     "editUrl": "pages/guides/deploying-angular-with-vercel.mdx",
-    "lastEdited": "2020-04-25T00:32:18.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create a Hugo Website and Deploy It with Vercel",
@@ -691,7 +720,7 @@
     "editUrl": "pages/guides/deploying-hugo-with-vercel.mdx",
     "name": "Hugo",
     "type": "site",
-    "lastEdited": "2020-06-04T20:10:32.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Create a Gatsby Website and Deploy It with Vercel",
@@ -705,7 +734,7 @@
     "editUrl": "pages/guides/deploying-gatsby-with-vercel.mdx",
     "name": "Gatsby",
     "type": "app",
-    "lastEdited": "2020-04-25T00:32:18.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Creating and Deploying a VuePress App with Vercel",
@@ -718,7 +747,7 @@
     "demo": "https://vuepress.now-examples.now.sh",
     "image": "https://og-image.now.sh/**Deploying%20VuePress%20Sites**%20%3Cbr%20%2F%3E%20with%20Vercel.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fvuepress.vuejs.org%2Fhero.png&widths=250&widths=300&heights=250&heights=300",
     "editUrl": "pages/guides/deploying-vuepress-to-vercel.mdx",
-    "lastEdited": "2020-04-25T00:32:18.000Z"
+    "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
     "title": "Prevent Uploading Source Paths with .vercelignore on Vercel",

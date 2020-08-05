@@ -4,13 +4,8 @@ import Snippet from '~/components/snippet'
 import Link from '~/components/text/link'
 import Caption from '~/components/text/caption'
 import Note from '~/components/text/note'
-import Quickstarts, { Quickstart } from '~/components/quickstarts'
+import Quickstarts, { Quickstart, GitImports } from '~/components/quickstarts'
 import { UserContext } from '~/lib/user-context'
-import { IconCard } from '~/components/card'
-import { List } from '~/components/list'
-import BitbucketIcon from '~/components/icons/bitbucket'
-import GitLabIcon from '~/components/icons/gitlab'
-import GitHubIcon from '~/components/icons/github'
 import ProductName from '~/components/name/product-name'
 import { PRODUCT_NAME } from '~/lib/constants'
 import OrgName from '~/components/name/org-name'
@@ -21,7 +16,7 @@ export const meta = {
   title: `Introduction to ${PRODUCT_NAME}`,
   description: `An introduction to the ${PRODUCT_NAME} platform and how to get started deploying any kind of application.`,
   editUrl: 'pages/docs/v2/introduction.mdx',
-  lastEdited: '2020-06-17T13:39:34.000Z'
+  lastEdited: '2020-07-24T06:15:54.000Z'
 }
 
 ​<ProductName /> is a cloud platform for **static sites** and **Serverless Functions** that fits perfectly with your workflow. It enables developers to host **Jamstack** websites and web services that **deploy instantly**, **scale automatically**, and requires **no supervision**, all with **no configuration**.
@@ -32,16 +27,7 @@ Once you have [signed up to <OrgName />](/signup), you can use our [Git Integrat
 
 Select a Git provider below to get started deploying your existing repositories and projects:
 
-<List columnsDesktop={3} columnsTablet={3} columnsMobile={1}>
-  <IconCard label="GitHub" icon={<GitHubIcon />} href="/import/git" plus />
-  <IconCard label="GitLab" icon={<GitLabIcon />} href="/import/git" plus />
-  <IconCard
-    label="Bitbucket"
-    icon={<BitbucketIcon />}
-    href="/import/git"
-    plus
-  />
-</List>
+<GitImports />
 
 Connect through the ["Import Project"](/import) page under the "From an existing project" section, and then from the same place, set up a project using your Git Integration.
 

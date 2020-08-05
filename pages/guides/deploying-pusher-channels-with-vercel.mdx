@@ -20,7 +20,7 @@ export const meta = {
   url: '/guides/deploying-pusher-channels-with-vercel',
   image: `https://og-image.now.sh/**Deploy%20Pusher%20Channels%20Apps**%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=96px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fpusher-icon.now-examples.now.sh&widths=250&widths=300&heights=250&heights=250`,
   editUrl: 'pages/guides/deploying-pusher-channels-with-vercel.mdx',
-  lastEdited: '2020-07-02T06:29:55.000Z',
+  lastEdited: '2020-07-17T05:49:23.000Z',
   rank: 23
 }
 
@@ -91,7 +91,7 @@ Next, click the **App Keys** tab. Copy these values so that you can save them as
 
 With your [Pusher Channels](https://pusher.com/channels) account and app set up, the next step is to create your project to deploy, with only a root directory for static files, and an `/api` directory for Serverless Functions.
 
-<Snippet dark text="mkdir -p pusher-channels/api && cd pusher-channels" />
+<Snippet width="100%"dark text="mkdir -p pusher-channels/api && cd pusher-channels" />
 <Caption>Creating and entering into a <InlineCode>/pusher-channels</InlineCode> directory that contains an <InlineCode>/api</InlineCode> folder.</Caption>
 
 Create an `index.html` file in your project with the code below.
@@ -163,12 +163,12 @@ async function pushData(data) {
 
 Using [<ProductShortName /> CLI](/download), add the following [Secrets](/docs/cli#commands/secrets) to your account and expose them as environment variables.
 
-<Snippet dark text={`vercel secrets add channels-app-id [Your Channel's app ID]`} />
+<Snippet width="100%"dark text={`vercel secrets add channels-app-id [Your Channel's app ID]`} />
 <Caption>
   Adding the <InlineCode>channels-app-id</InlineCode> as a Secret.
 </Caption>
 
-<Snippet dark text={`vercel secrets add channels-app-secret [Your Channel's app Secret]`} />
+<Snippet width="100%"dark text={`vercel secrets add channels-app-secret [Your Channel's app Secret]`} />
 <Caption>
   Adding the <InlineCode>channels-app-secret</InlineCode> as a Secret.
 </Caption>
@@ -200,7 +200,7 @@ Next, create a minimal `vercel.json` file to expose your secrets as environment 
 
 Add the dependencies for the Serverless Function from inside the `/api` directory.
 
-<Snippet dark text="cd api && npm init -y && npm i pusher" />
+<Snippet width="100%"dark text="cd api && npm init -y && npm i pusher" />
 <Caption>Entering the <InlineCode>/api</InlineCode> directory, initializing the <InlineCode>package.json</InlineCode> file and installing the <InlineCode>pusher</InlineCode> dependency.</Caption>
 
 Create a `channels-event.js` file inside the `/api` directory that initializes a new Channels object and receives data from the [`req.body` helper method](/docs/v2/serverless-functions/supported-languages/#node.js-request-and-response-objects), before invoking [`channels.trigger`](https://github.com/pusher/pusher-http-node#publishing-events) to register the event.

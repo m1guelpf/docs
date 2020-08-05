@@ -20,7 +20,7 @@ export const meta = {
   editUrl: 'pages/guides/deploying-next-and-buttercms-with-vercel.mdx',
   name: 'Next.js + ButterCMS',
   type: 'app',
-  lastEdited: '2020-07-02T18:09:28.000Z'
+  lastEdited: '2020-07-17T05:49:23.000Z'
 }
 
 In this guide, you will discover how to create a [Next.js](https://nextjs.org/) app that displays links to posts from the [<OrgName /> blog](/blog) by utilizing the [ButterCMS](https://buttercms.com/) content management system, before deploying **with a single command** to [<ProductName />](/docs/v2).
@@ -84,12 +84,12 @@ Next, select **Settings** from the account dropdown menu at the top left of the 
 
 Firstly, create a project directory and `cd` into it like so:
 
-<Snippet dark text="mkdir my-nextjs-buttercms-project && cd my-nextjs-buttercms-project" />
+<Snippet width="100%"dark text="mkdir my-nextjs-buttercms-project && cd my-nextjs-buttercms-project" />
 <Caption>Creating and entering into the project directory.</Caption>
 
 Next, initialize your project, creating a `package.json` file in the process:
 
-<Snippet dark text="npm init -y" />
+<Snippet width="100%"dark text="npm init -y" />
 <Caption>Initializing your project with a <InlineCode>package.json</InlineCode> file.</Caption>
 
 <Note>
@@ -100,7 +100,7 @@ Next, initialize your project, creating a `package.json` file in the process:
 
 Next, add the project dependencies:
 
-<Snippet dark text="npm i next react react-dom" />
+<Snippet width="100%"dark text="npm i next react react-dom" />
 <Caption>Adding <InlineCode>next</InlineCode>, <InlineCode>react</InlineCode> and <InlineCode>react-dom</InlineCode> as dependencies to your project.</Caption>
 
 With the project initialized, create a `/pages` directory with a `index.js` file inside that uses the following code:
@@ -288,14 +288,14 @@ BUTTER_API_TOKEN=your-api-token
 
 Lastly, to make your API key available for [cloud deployment](/docs/v2/deployments/basics/), create a [Secret](/docs/cli#commands/secrets) with the command below:
 
-<Snippet dark text="vercel secrets add BUTTER_API_TOKEN your-space-id" />
+<Snippet width="100%"dark text="vercel secrets add BUTTER_API_TOKEN your-space-id" />
 <Caption>
   Adding the <InlineCode>BUTTER_API_TOKEN</InlineCode> secret to your project using <Link href="/docs/cli#commands/secrets">Secrets</Link>.
 </Caption>
 
 With those steps out the way you are now able to run your app. You can develop your app locally using the following command:
 
-<Snippet dark text="next dev" />
+<Snippet width="100%"dark text="next dev" />
 <Caption>
   Using the <InlineCode>next dev</InlineCode> command to run the app locally.
 </Caption>

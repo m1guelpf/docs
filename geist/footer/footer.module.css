@@ -1,0 +1,97 @@
+.footer {
+  font-size: 0.875rem;
+  background: var(--accents-1);
+  border-top: 1px solid var(--accents-2);
+  padding: calc(1.5 * var(--geist-gap)) var(--geist-gap) var(--geist-gap);
+}
+
+.footer.light {
+  background: var(--geist-background);
+}
+
+.footer nav {
+  max-width: var(--geist-page-width);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.footer section {
+  max-width: var(--geist-page-width);
+  margin: 0 auto;
+  margin-top: var(--geist-gap);
+}
+
+.group:not(:last-of-type) {
+  margin-right: var(--geist-gap);
+}
+
+.column .group + .group {
+  margin-top: var(--geist-gap);
+}
+
+.group h3 {
+  font-weight: normal;
+  font-size: 0.875rem;
+  margin: var(--geist-gap-half) 0;
+}
+
+.hidden {
+  composes: visuallyHidden from '../utils/reset.module.css'
+}
+
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  color: var(--accents-5);
+  padding: var(--geist-gap-quarter) 0;
+}
+
+@media (max-width: 960px) {
+  .footer nav {
+    flex-direction: column;
+  }
+
+  .footer .group {
+    margin-right: 0;
+    border-bottom: 1px solid var(--accents-2);
+  }
+
+  .column .group + .group {
+    margin-top: unset;
+  }
+
+  .group h3 {
+    cursor: pointer;
+  }
+
+  .group h3::after {
+    content: '+';
+    float: right;
+    transition: transform 0.15s ease;
+  }
+
+  .group input:focus:global(.focus-visible) ~ label h3::after {
+    border-radius: var(--geist-radius);
+    box-shadow: 0 0 0 2px var(--geist-success);
+  }
+
+  .group input:checked ~ label h3::after {
+    transform: rotate(45deg);
+  }
+
+  .list {
+    padding-left: var(--geist-gap-half);
+    padding-bottom: var(--geist-gap-half);
+    display: none;
+  }
+
+  .group input:checked ~ .list {
+    display: block;
+  }
+}

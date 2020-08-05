@@ -22,12 +22,38 @@ const AmpImg = ({
   height,
   width,
   alt,
+  title,
+  margin,
   layout = 'responsive'
 }) => {
   const isAmp = useAmp()
 
+  const hasDimension = typeof width === 'number' && typeof height === 'number'
+
   if (isAmp)
-    return <amp-img layout={layout} {...{ src, srcSet, height, width, alt }} />
+    return hasDimension ? (
+      <amp-img
+        layout={layout}
+        {...{ src, srcSet, height, width, alt, title }}
+      />
+    ) : (
+      <div className="amp-img-fixed-container">
+        <amp-img layout="fill" {...{ src, srcSet, alt, title }} />
+        <style jsx>{`
+          .amp-img-fixed-container {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin: ${margin}px 0;
+          }
+
+          .amp-img-fixed-container amp-img :global(img),
+          .amp-img-fixed-container amp-img {
+            object-fit: contain;
+          }
+        `}</style>
+      </div>
+    )
   return children
 }
 
@@ -41,8 +67,8 @@ class Image extends Component {
   }
 
   static propTypes = {
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired
+    width: PropTypes.number,
+    height: PropTypes.number
   }
 
   state = {
@@ -70,18 +96,31 @@ class Image extends Component {
       children,
       shadow,
       align = 'center',
-      layout
+      layout,
+      title,
+      alt
     } = this.props
 
-    const aspectRatio = String((height / width) * 100) + '%'
-    const classes = width > 768 && oversize ? 'oversize' : ''
+    const hasDimension = typeof width === 'number' && typeof height === 'number'
+
+    const aspectRatio = hasDimension
+      ? String((height / width) * 100) + '%'
+      : undefined
+    const classes =
+      width > 768 && oversize ? 'oversize' : !hasDimension ? 'contained' : ''
 
     if (video || videoSrc) {
       return <VideoComponent src={videoSrc} {...this.props} />
     }
 
     return (
-      <AmpImg layout={layout} {...this.props}>
+      <AmpImg
+        layout={layout}
+        {...this.props}
+        width={hasDimension ? width : undefined}
+        height={hasDimension ? height : undefined}
+        margin={margin}
+      >
         <IObserver
           once
           onIntersect={this.handleIntersect}
@@ -89,13 +128,15 @@ class Image extends Component {
           disabled={!lazy}
         >
           <figure className={cn(classes, { 'has-shadow': shadow })}>
-            <main style={{ width }}>
+            <main style={{ width: hasDimension ? width : undefined }}>
               <div className="container" style={{ paddingBottom: aspectRatio }}>
                 {this.state.src ? (
                   <img
                     src={this.state.src || null}
-                    width={width}
-                    height={height}
+                    width={hasDimension ? width : undefined}
+                    height={hasDimension ? height : undefined}
+                    title={title}
+                    alt={alt}
                   />
                 ) : (
                   children
@@ -171,6 +212,17 @@ class Image extends Component {
                   margin: ${margin}px 0 ${margin}px
                     calc(((${width}px - 768px) / 2) * -1);
                 }
+              }
+
+              figure.contained {
+              }
+
+              figure.contained main .container {
+              }
+
+              figure.contained main .container img {
+                position: relative;
+                height: auto;
               }
             `}</style>
           </figure>

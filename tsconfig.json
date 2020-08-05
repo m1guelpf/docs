@@ -27,9 +27,15 @@
     "isolatedModules": true,
     "paths": {
       "~/components/*": ["components/*"],
+      "@components/*": ["components/*"],
+      "@geist/*": ["geist/*"],
+      "~/geist/*": ["geist/*"],
       "~/lib/*": ["lib/*"],
-      "~/pages/*": ["pages/*"]
+      "@lib/*": ["lib/*"],
+      "~/pages/*": ["pages/*"],
+      "@swr/*": ["swr/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
+  "exclude": ["node_modules"]
 }

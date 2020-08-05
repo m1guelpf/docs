@@ -1,0 +1,84 @@
+import Guide from '~/components/layout/guide'
+import { Code, InlineCode } from '~/components/code'
+import Snippet from '~/components/snippet'
+import Caption from '~/components/text/caption'
+import Link from '~/components/text/link'
+import { Image } from '~/components/media'
+import Note from '~/components/text/note'
+import DeploySection from '~/components/guides/deploy-section'
+import ProductName from '~/components/name/product-name'
+import { PRODUCT_NAME } from '~/lib/constants'
+
+export const meta = {
+  title: `Deploy Next.js and Userbase with ${PRODUCT_NAME}`,
+  description: `Create a Todo app with Next.js and Userbase and deploy it live with ${PRODUCT_NAME}.`,
+  published: '2020-07-15T12:00:00.860Z',
+  authors: ['coetry'],
+  url: '/guides/deploying-next-and-userbase-with-vercel',
+  env: ['NEXT_PUBLIC_USERBASE_APP_ID'],
+  envDescription: ['The Userbase app ID, found in the Userbase dashboard.'],
+  envLink: ['https://v1.userbase.com/'],
+  image:
+    'https://og-image.now.sh/Deploy%20Next.js%20with%20Authentication%20using%20Vercel%20and%20Userbase.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fimg.stackshare.io%2Fservice%2F11745%2F_kS-kcm__400x400.png',
+  editUrl: 'pages/guides/deploying-next-and-userbase-with-vercel.mdx',
+  example:
+    'https://github.com/vercel/next.js/tree/canary/examples/with-userbase',
+  demo: 'https://next-userbase.vercel.app',
+  name: 'Next.js + Userbase',
+  type: 'app',
+  lastEdited: '2020-07-15T14:35:40.000Z'
+}
+
+[Userbase](https://userbase.com/) is the easiest way to add user accounts and data persistence to your static site.
+
+All Userbase features are accessible through a [JavaScript SDK](https://userbase.com/docs/sdk/), directly from the browser, without requiring a backend.
+
+## Step 1: Create A Userbase Account
+
+First, you'll need to create a Userbase account. If you don't already have one, you can create one [here](https://v1.userbase.com/#create-admin).
+
+After creating your account, make a note of your _App ID_. You'll store it later as an environment variable for your project.
+
+## Step 2: Set up a New Next.js Project
+
+Set up a Next.js and Userbase project by initializing the [project template](https://github.com/zeit/next.js/tree/canary/examples/with-userbase) and moving into the project directory:
+
+<Snippet dark text="npm init next-app --example with-userbase userbase-todo-app && cd userbase-todo-app" />
+<Caption>Initializing a Next.js + Userbase app and entering into the project directory.</Caption>
+
+## Step 3: Adding an Environment Variable
+
+For your app to function correctly, you will need to provide it with an environment variable.
+
+<Note>
+  You will need to set this environment variable when importing the project into
+  Vercel as well.
+</Note>
+
+The scaffolded template provides you with a `.env.local.example` file. Rename the file to `.env.local` and set the value of the environment variable inside `.env.local` to your Userbase _App ID_ from [Step 1](#step-1:-create-a-userbase-account).
+
+Your `.env.local` file will look like this:
+
+```bash
+ NEXT_PUBLIC_USERBASE_APP_ID=YOUR_APP_ID
+```
+
+<Caption>
+  Updating the <InlineCode>.env.local</InlineCode> file to provide an
+  environment variable to the app during development.
+</Caption>
+
+You are now able to run and develop your Next.js + Userbase app locally with the following command:
+
+<Snippet dark text="yarn dev" />
+<Caption>Running the app locally with the <InlineCode>yarn dev</InlineCode> command.</Caption>
+
+## Step 4: Deploying to Production
+
+<DeploySection meta={meta} />
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid'
+}

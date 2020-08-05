@@ -14,7 +14,7 @@ export const meta = {
   title: 'Custom Domains',
   description: 'How to add and use a custom domain with your project.',
   editUrl: 'pages/docs/v2/custom-domains.mdx',
-  lastEdited: '2020-07-07T13:47:40.000Z'
+  lastEdited: '2020-07-22T09:07:43.000Z'
 }
 
 By default, all deployments are assigned a `.vercel.app` suffixed domain.
@@ -63,8 +63,8 @@ Then, select the **Domains** menu item:
 
 <Image
   src={`${process.env.ASSETS}/docs/custom-domains/select-domains.png`}
-  width={384 / 2}
-  height={440 / 2}
+  width={440 / 2}
+  height={532 / 2}
   shadow
 />
 <Caption>Selecting the <b>Domains</b> menu item from the Project Settings page.</Caption>
@@ -204,7 +204,7 @@ Once the domain has been added to your project and configured, it is **automatic
   subsequently assigned with your custom domain automatically.
 </Note>
 
-When a custom domain is assigned to a project with an enabled [<ProductName /> for Git Integration](/docs/v2/git-integrations), each push (including merges) to the default branch (commonly `master`) will trigger a deployment to the defined domain.
+When a custom domain is assigned to a project with an enabled [<ProductName /> for Git Integration](/docs/v2/git-integrations), each push (including merges) to the [Production Branch](/docs/v2/git-integrations#production-branch) (commonly `main`) will trigger a deployment to the defined domain.
 
 Reverts take effect immediately, assigning the custom domain to the deployment made prior to the point the revert is effective from.
 
@@ -265,7 +265,7 @@ To confirm the change, select **Move**. The domains will be transferred to the n
 
 ## Assigning a Domain to a Git Branch
 
-Every commit pushed to the default branch of your Git repository using our [Git Integration](/docs/v2/git-integrations) will be assigned the Domains [configured in your project](#adding-a-domain).
+Every commit pushed to the [Production Branch](/docs/v2/git-integrations#production-branch) of your Git repository using our [Git Integration](/docs/v2/git-integrations) will be assigned the Domains [configured in your project](#adding-a-domain).
 
 In order to automatically assign a Domain to a different branch, you can enter it in the **Git Branch** field of your Domain:
 

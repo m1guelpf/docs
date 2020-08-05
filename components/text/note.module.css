@@ -1,0 +1,23 @@
+.note {
+  padding: var(--geist-gap-half) var(--geist-gap);
+  border-radius: var(--geist-radius);
+  color: var(--themed-fg);
+  background: var(--themed-bg);
+  border: 1px solid var(--themed-border, var(--accents-2));
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.note.fill {
+  color: var(--themed-fg, var(--geist-background));
+  background: var(--themed-bg, var(--geist-foreground));
+  border: 1px solid var(--themed-border, var(--geist-foreground));
+}
+
+.note.small {
+  padding: 5px var(--geist-gap-half);
+}
+
+.note.center {
+  text-align: center;
+}

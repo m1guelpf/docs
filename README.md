@@ -15,6 +15,7 @@ This repository is broken down into several sections, these include:
 - [Components](https://github.com/vercel/docs/tree/master/components) - a collection of reusable components to be used when creating documentation
 - [Documentation](https://github.com/vercel/docs/tree/master/pages/docs) - the documentation for Vercel
 - [Guides](https://github.com/vercel/docs/tree/master/pages/guides) - guides created to show how to use Vercel in a variety of ways
+- [Knowledge](https://github.com/vercel/docs/tree/master/pages/knowledge) - CMS driven knowledge base created to address frequently asked questions of users
 - [Static Assets](https://github.com/vercel/docs/tree/master/public/static/guides) - the location for static assets, such as images, to be used in guides
 - [Code of Conduct](https://github.com/vercel/docs/blob/master/CODE_OF_CONDUCT.md) - our Code of Conduct, adapted from the [Contributor Covenant](http://contributor-covenant.org)
 - [Contributing Guidelines](https://github.com/vercel/docs/blob/master/CONTRIBUTING.md) - a guide on how to contribute to the Vercel documentation

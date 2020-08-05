@@ -22,7 +22,7 @@ export const meta = {
   url: '/guides/deploying-next-and-prismic-with-vercel',
   image: `https://vercel.com/docs/static/guides/deploying-next-prismic-with-vercel/deploying-next-prismic-with-vercel.png`,
   editUrl: 'pages/guides/deploying-next-and-prismic-with-vercel.mdx',
-  lastEdited: '2020-07-02T18:09:28.000Z'
+  lastEdited: '2020-07-17T05:49:23.000Z'
 }
 
 In this guide, you will create a [Next.js](https://nextjs.org/) blog site from scratch that will show you how to; source the content you have in a Prismic repository, create pages programmatically, handle dynamic routing, and deploy it with [<ProductName />](/docs/v2).
@@ -44,10 +44,10 @@ For this guide, you will start with **installing a boilerplate Next.js project t
 
 This process clones the codebase and guides you through setting up the repository that will be used as your blog's content source.
 
-<Snippet dark text="npm i -g prismic-cli" />
+<Snippet width="100%"dark text="npm i -g prismic-cli" />
 <Caption>Installing the <InlineCode>prismic-cli</InlineCode> command line tool.</Caption>
 
-<Snippet dark text="prismic theme https://github.com/raulg/prismic-next-blog" />
+<Snippet width="100%"dark text="prismic theme https://github.com/raulg/prismic-next-blog" />
 <Caption>Quickstarting your Prismic boilerplate project.</Caption>
 
 Navigate to the folder you have created and inspect the files and folders that are included in this barebones project. You will find the following:
@@ -61,7 +61,7 @@ You will notice that for now it is only a simple index page, as defined in `/pag
 
 Continue by installing the required packages to integrate your Next.js web app with Prismic.
 
-<Snippet dark text="npm i prismic-javascript prismic-reactjs" />
+<Snippet width="100%"dark text="npm i prismic-javascript prismic-reactjs" />
 <Caption>Adding the <InlineCode>prismic-javascript</InlineCode> and <InlineCode>prismic-reactjs</InlineCode> dependencies to fetch and render documents.</Caption>
 
 If you open the `prismic-configuration.js` file, you might notice that the API endpoint has **already been set up according to the repository you created during the installation process**.

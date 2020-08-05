@@ -64,7 +64,7 @@ This is the [recommended configuration from Mozilla](https://wiki.mozilla.org/Se
 
 ## Support for HSTS
 
-The `.now.sh` domain (and therefore all of its sub domains, which are the unique URLs set when creating a deployment) support HSTS automatically and are preloaded.
+The `.vercel.app` domain (and therefore all of its sub domains, which are the unique URLs set when creating a deployment) support HSTS automatically and are preloaded.
 
 ```
 Strict-Transport-Security: max-age=63072000; includeSubDomains; preload;
@@ -72,7 +72,7 @@ Strict-Transport-Security: max-age=63072000; includeSubDomains; preload;
 
 <Caption>
   The default <InlineCode>Strict-Transport-Security</InlineCode> header for
-  *.now.sh
+  *.vercel.app
 </Caption>
 
 Custom domains use HSTS, but only for the particular subdomain.
@@ -102,7 +102,7 @@ Theoretically, you could set the `max-age` parameter to a different value (it 
 
 ## How Certificates Are Handled
 
-The unique URLs generated when creating a deployment are handled using a wildcard certificate issued for the `.now.sh` domain. The **<ProductName />** platform generates wildcard certificates using [LetsEncrypt](https://letsencrypt.org/) and keeps them updated automatically.
+The unique URLs generated when creating a deployment are handled using a wildcard certificate issued for the `.vercel.app` domain. The **<ProductName />** platform generates wildcard certificates using [LetsEncrypt](https://letsencrypt.org/) and keeps them updated automatically.
 
 When custom certificates are generated using `vercel certs issue`, however, their keys are placed in our database and [encrypted at rest](https://en.wikipedia.org/wiki/Data_at_rest#Encryption) within the Network layer.
 

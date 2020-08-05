@@ -24,6 +24,7 @@ import ToggleGroup, { ToggleItem } from '~/components/toggle-group'
 import withPermalink from '~/lib/api/with-permalink'
 import HR from '~/components/text/hr'
 import { FooterFeedback } from '~/components/feedback-input'
+import Footer from '~/components/footer'
 
 const NonAmpOnly = ({ children }) => (useAmp() ? null : children)
 
@@ -143,7 +144,7 @@ function ReferencePage({
               <Sidebar
                 active={navigationActive}
                 innerRef={handleSidebarRef}
-                fixed
+                sticky
               >
                 <div className="toggle-group-wrapper">
                   <ToggleGroup>
@@ -312,8 +313,17 @@ function ReferencePage({
             </Main>
           )}
         </DocsRuntime>
+        <Footer />
 
         <style jsx>{`
+          :global(.sidebar) {
+            position: sticky;
+            align-self: flex-start;
+            top: 64px;
+            max-height: calc(100vh - 64px);
+            overflow: auto;
+          }
+
           ul {
             list-style: none;
             margin: 0;

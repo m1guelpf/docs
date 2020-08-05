@@ -21,7 +21,7 @@ export const meta = {
   name: 'Crystallize',
   type: 'site',
   editUrl: 'pages/guides/deploying-crystallize-with-vercel.mdx',
-  lastEdited: '2020-05-14T23:00:11.000Z'
+  lastEdited: '2020-07-17T05:49:23.000Z'
 }
 
 [Crystallize](https://crystallize.com/) is a super-fast GraphQL based headless e-commerce service with super structured product information management (PIM).
@@ -36,7 +36,9 @@ In this guide, you will discover how to create a [Jamstack e-commerce site](http
   shadow
 />
 
-<Caption>A screenshot of the example app you will create with this guide.</Caption>
+<Caption>
+  A screenshot of the example app you will create with this guide.
+</Caption>
 
 You can also check out the [live e-commerce demo](https://furniture.superfast.shop/) running on [<ProductName />](/).
 
@@ -54,7 +56,7 @@ Once both sets of keys are available, you can move on to creating your Crystalli
 
 [Set up a Crystallize project](https://crystallize.com/developers) with [`npx`](https://www.npmjs.com/package/npx) and move into the project directory:
 
-<Snippet dark text="npx @crystallize/cli my-crystallize-project && cd my-crystallize-project" />
+<Snippet width="100%"dark text="npx @crystallize/cli my-crystallize-project && cd my-crystallize-project" />
 <Caption>Initializing a Crystallize project with <Link href="https://www.npmjs.com/package/npx">npx</Link> and moving into the project directory.</Caption>
 
 During the setup, you will be asked a series of questions that will customize the output. Select the following options:
@@ -76,22 +78,22 @@ Once you have selected these options, you will be asked to enter the API keys ob
 
 Using [<ProductShortName /> CLI](/download), create [Secrets](/docs/cli#commands/secrets) to securely store the API keys received. You can find these in the `.env` file created by the project setup in [Step 2](#step-2:set-up-your-crystallize-project).
 
-<Snippet dark text="vercel secrets add CRYSTALLIZE-ACCESS-TOKEN-ID [your-crystallize-access-token-id]" />
+<Snippet width="100%"dark text="vercel secrets add CRYSTALLIZE-ACCESS-TOKEN-ID [your-crystallize-access-token-id]" />
 <Caption>
   Adding the <InlineCode>crystallize-access-token-id</InlineCode> as a <strong>Secret</strong>.
 </Caption>
 
-<Snippet dark text="vercel secrets add CRYSTALLIZE-ACCESS-TOKEN-SECRET [your-crystallize-access-token-secret]" />
+<Snippet width="100%"dark text="vercel secrets add CRYSTALLIZE-ACCESS-TOKEN-SECRET [your-crystallize-access-token-secret]" />
 <Caption>
   Adding the <InlineCode>crystallize-access-token-secret</InlineCode> as a <strong>Secret</strong>.
 </Caption>
 
-<Snippet dark text="vercel secrets add STRIPE-PUBLISHABLE-KEY [your-stripe-publishable-key]" />
+<Snippet width="100%"dark text="vercel secrets add STRIPE-PUBLISHABLE-KEY [your-stripe-publishable-key]" />
 <Caption>
   Adding the <InlineCode>stripe-publishable-key</InlineCode> as a <strong>Secret</strong>.
 </Caption>
 
-<Snippet dark text="vercel secrets add STRIPE-SECRET-KEY [your-stripe-publishable-key]" />
+<Snippet width="100%"dark text="vercel secrets add STRIPE-SECRET-KEY [your-stripe-publishable-key]" />
 <Caption>
   Adding the <InlineCode>stripe-secret-key</InlineCode> as a <strong>Secret</strong>.
 </Caption>

@@ -40,20 +40,28 @@ class AutoComplete extends Component {
   }
 
   onKeyUp(event) {
-      switch (event.key) {
-          case '/':
-              this.input.focus()
-              break;
-          case 'Escape':
-              this.input.blur()
-              break;
-      }
+    const el = document.activeElement
+
+    // Don't focus the autocomplete if focus is inside an input
+    if (
+      el &&
+      (el.contentEditable === 'true' ||
+        el.tagName === 'INPUT' ||
+        el.tagName === 'TEXTAREA' ||
+        el.tagName === 'SELECT')
+    ) {
+      return
+    }
+
+    if (event.key == 'Escape') {
+      this.input.blur()
+    }
   }
 
   storeInputReference = autosuggest => {
-      if (autosuggest !== null) {
-          this.input = autosuggest.input;
-      }
+    if (autosuggest !== null) {
+      this.input = autosuggest.input
+    }
   }
 
   onChange = (_, { newValue }) => {
@@ -121,7 +129,12 @@ class AutoComplete extends Component {
             </span>
           )}
           <span className="suggestion__content">
-            <Snippet hit={hit} attribute="content" tagName="mark" />
+            <Snippet
+              width="100%"
+              hit={hit}
+              attribute="content"
+              tagName="mark"
+            />
           </span>
         </a>
       </NextLink>

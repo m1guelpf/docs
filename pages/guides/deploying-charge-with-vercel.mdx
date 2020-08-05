@@ -21,7 +21,7 @@ export const meta = {
   editUrl: 'pages/guides/deploying-charge-with-vercel.mdx',
   name: 'Charge',
   type: 'app',
-  lastEdited: '2020-05-08T23:58:00.000Z'
+  lastEdited: '2020-07-17T05:49:23.000Z'
 }
 
 [Charge](https://charge.js.org/) is an opinionated, zero-config static site generator written in JavaScript. Charge is fast, simple and behaves the way you expect it to.
@@ -41,14 +41,14 @@ In this guide, we will walk you through creating and [deploying](/docs/v2/deploy
 
 [Charge](https://charge.js.org/) focuses on simplicity and provides no boilerplate as a result. To get started with Charge create your project directory, let's call it `charge-app`, and `cd` into it:
 
-<Snippet dark text="mkdir charge-app && cd charge-app" />
+<Snippet width="100%"dark text="mkdir charge-app && cd charge-app" />
 <Caption>
   Creating and entering into the <InlineCode>/charge-app</InlineCode>{' '}directory.
 </Caption>
 
 Next, [initialize](https://docs.npmjs.com/cli/init) the project:
 
-<Snippet dark text="npm init" />
+<Snippet width="100%"dark text="npm init" />
 <Caption>
   Initializing the project, this creates a <InlineCode>package.json</InlineCode>{' '}file.
 </Caption>
@@ -60,7 +60,7 @@ Next, [initialize](https://docs.npmjs.com/cli/init) the project:
 
 When this is complete, add Charge as a [development dependency](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file):
 
-<Snippet dark text="npm i -D @static/charge" />
+<Snippet width="100%"dark text="npm i -D @static/charge" />
 <Caption>
   Adding Charge as a development dependency to our project.
 </Caption>
@@ -89,7 +89,7 @@ The following example content setup demonstrates a few of Charge's key features,
 
 Firstly, create two directories, `/src` and `/src/pages` within your project directory:
 
-<Snippet dark text="mkdir src && mkdir src/pages" />
+<Snippet width="100%"dark text="mkdir src && mkdir src/pages" />
 <Caption>
   Creating a <InlineCode>/src</InlineCode>{' '}directory with a <InlineCode>/pages</InlineCode>{' '} directory inside of it.
 </Caption>
@@ -137,7 +137,7 @@ export default ({ children }) => {
 
 If, at any point, you want to see how your changes look, you can serve them locally with the script you added in the first step:
 
-<Snippet dark text="npm run dev" />
+<Snippet width="100%"dark text="npm run dev" />
 <Caption>
   Starting up a local development server using a <InlineCode>package.json</InlineCode> script.
 </Caption>

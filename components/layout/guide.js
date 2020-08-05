@@ -11,6 +11,7 @@ import { H1, H2, H3, H4, H5, P } from '~/components/text'
 import { Avatar } from '~/components/avatar'
 import HR from '~/components/text/hr'
 import { FooterFeedback } from '~/components/feedback-input'
+import Footer from '~/components/footer'
 import DeployBanner from '~/components/deploy-banner'
 import { PRODUCT_NAME } from '~/lib/constants'
 
@@ -93,7 +94,13 @@ class Guide extends React.PureComponent {
             <Wrapper width="768">
               <section className="guide content">
                 {meta.example && meta.demo && (
-                  <DeployBanner example={meta.example} demo={meta.demo} />
+                  <DeployBanner
+                    env={meta.env}
+                    envDescription={meta.envDescription}
+                    envLink={meta.envLink}
+                    example={meta.example}
+                    demo={meta.demo}
+                  />
                 )}
                 {this.props.children}
                 <NonAmpOnly>
@@ -126,6 +133,7 @@ class Guide extends React.PureComponent {
                 />
               </section>
             </Wrapper>
+            <Footer />
           </article>
 
           <style jsx>{`

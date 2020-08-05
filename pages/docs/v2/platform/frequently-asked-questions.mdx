@@ -8,12 +8,13 @@ import OrgName from '~/components/name/org-name'
 import NameWrapper from '~/components/name/name-wrapper'
 import { PRODUCT_NAME } from '~/lib/constants'
 import ProductShortName from '~/components/name/product-short-name'
+import Snippet from '~/components/snippet'
 
 export const meta = {
   title: 'Frequently Asked Questions',
   description: 'A list of frequently asked questions relating to deployments.',
   editUrl: 'pages/docs/v2/platform/frequently-asked-questions.mdx',
-  lastEdited: '2020-07-10T18:29:01.000Z'
+  lastEdited: '2020-08-03T15:21:30.000Z',
 }
 
 ## Platform Version Detection
@@ -31,7 +32,8 @@ If you are yet to upgrade to the latest platform version, please read our [upgra
 
 ## Green Energy Policy
 
-<OrgName /> works with multiple cloud partners in order to provide services to end users.
+<OrgName /> works with multiple cloud partners in order to provide services to
+end users.
 
 The Serverless approach is an energy-efficient alternative to traditional servers because your code runs only on-demand.
 
@@ -43,7 +45,8 @@ For more information on our cloud partners' Green energy policies, we recommend 
 
 ## What can I deploy with <NameWrapper name={PRODUCT_NAME} />?
 
-<ProductName /> is best at deploying technologies that can be served over HTTP and distributed through our CDN network:
+<ProductName /> is best at deploying technologies that can be served over HTTP
+and distributed through our CDN network:
 
 - Static websites and static generators ([Next.js](/guides/deploying-nextjs-with-now), React, Vue, Angular, etc)
 - Code that renders HTML on the server-side
@@ -54,7 +57,7 @@ In general, most popular technologies and languages already have [quickstarts](/
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 
 export const config = {
-  amp: 'hybrid'
+  amp: 'hybrid',
 }
 
 ## Missing Public Directory
@@ -225,10 +228,109 @@ On the [Pro plan](/pricing), the limitation has been around since the [launch](/
 
 To select a single suitable region for your Serverless Functions, please read our [guide](/knowledge/choosing-deployment-regions).
 
+## Unmatched Function Pattern
+
+The [`functions`](/docs/configuration#project/functions) property uses a glob pattern for each key. This pattern must match Serverless Function source files within the `api` directory.
+
+If you are using Next.js, Serverless Functions source files can be created in the following:
+
+- `pages/api` directory
+- `src/pages/api` directory
+- `pages` directory when the module exports [getServerSideProps](https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering)
+- `src/pages` directory when the module exports [getServerSideProps](https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering)
+
+Additionally, if you'd like to use a Serverless Function that isn't written with Node.js in combination with Next.js, you can place it in the `api` directory (provided by the platform), since `pages/api` (provided by Next.js) only supports JavaScript.
+
+**Not Allowed**
+
+```json
+{
+  "functions": {
+    "users/**/*.js": {
+      "maxDuration": 30
+    }
+  }
+}
+```
+
+**Allowed**
+
+```json
+{
+  "functions": {
+    "api/users/**/*.js": {
+      "maxDuration": 30
+    }
+  }
+}
+```
+
+**Allowed (Next.js)**
+
+```json
+{
+  "functions": {
+    "pages/api/users/**/*.js": {
+      "maxDuration": 30
+    }
+  }
+}
+```
+
 ## Cannot Load Project Settings
 
-If the project configuration in `.vercel` belongs to a team you are not a member of, attempting to deploy the project will result in an error.
+If the Project configuration in `.vercel` belongs to a Team you are not a member of, attempting to deploy the Project will result in an error.
 
-This may happen if you clone a repository that includes the `.vercel` directory, or you are logged in to the wrong Vercel account.
+This may happen if you clone a Git repository that includes the `.vercel` directory, or you are logged in to the wrong Vercel Account.
 
-To fix it, remove the `.vercel` directory and deploy to link the project again.
+To fix it, remove the `.vercel` directory and deploy to link the Project again by running these commands.
+
+On macOS and Linux:
+
+<Snippet text={['rm -rf .vercel', 'vercel']} dark />
+
+On Windows:
+
+<Snippet text={['rmdir /s /q .vercel', 'vercel']} dark />
+
+## Project Name Validation
+
+Project names can only consist of up to 100 alphanumeric lowercase characters. Hyphens can be used in between the name, but never at the start or end.
+
+## Repository Connection Limitation
+
+A Git Repository cannot be connected to more than 20 Projects on Vercel (not including deleted Projects) so that Pull Requests will have a reasonable number of comments and deployments.
+
+If you have reached the limitation and would like to connect a new Project to the repository, you will need to disconnect an existing Project from the same repository.
+
+If you would like to increase this limit, please [contact Vercel Support](/support/request).
+
+## Bypassing Password Protection Programmatically
+
+When [Password Protection](/docs/v2/platform/projects#password-protection) is enabled on your Project,
+you can bypass the protection programmatically with the following steps:
+
+- Send a `POST` request to your Deployment with the password in the request body (`_vercel_password=<password>`).
+- Parse the `Set-Cookie` response header and extract the cookie `_vercel_jwt` from the response.
+- Set the cookie to the `Cookie` request header when you access the Deployment.
+
+**Example Request**
+
+```shell
+cookie="$(curl -s -D - -o /dev/null -X POST -d "_vercel_password=<password>" https://example.vercel.app | grep -i Set-Cookie | grep _vercel_jwt | awk {'print $2'})"
+curl -H "Cookie: $cookie" https://example.vercel.app
+```
+
+These steps are required for every URL and cookie values cannot be shared across Deployments.
+
+## Domain Verification via CLI
+
+It is no longer required to manually verify domains via TXT records anymore.
+
+Instead, a domain's DNS settings must be configured after the domain is added to a Project. See the <Link href="/docs/v2/custom-domains#step-4:-configuring-the-domain">Custom Domains</Link> section for more information.
+
+## Leaving The Team
+
+You can't leave a team if you are the last remaining owner or the last confirmed member. In order to leave it, you first have to designate a different confirmed member to be an owner of the team.
+
+If you are the only remaining member, you should delete the team instead.

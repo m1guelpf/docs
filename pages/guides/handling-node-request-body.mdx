@@ -16,7 +16,7 @@ export const meta = {
   authors: ['mcsdev'],
   url: '/guides/handling-node-request-body',
   editUrl: 'pages/guides/handling-node-request-body.mdx',
-  lastEdited: '2020-07-02T06:29:55.000Z',
+  lastEdited: '2020-07-17T05:49:23.000Z',
   rank: 13
 }
 
@@ -28,10 +28,10 @@ This guide assumes the request is sent with a [`Content-Type`](https://developer
 
 To get started, create a project directory with an `/api` directory inside and `cd` into it:
 
-<Snippet dark text="mkdir req-body && mkdir req-body/api" />
+<Snippet width="100%"dark text="mkdir req-body && mkdir req-body/api" />
 <Caption>Creating an <InlineCode>/api</InlineCode> directory inside of a <InlineCode>/req-body</InlineCode> project.</Caption>
 
-<Snippet dark text="cd req-body" />
+<Snippet width="100%"dark text="cd req-body" />
 <Caption>Moving into the <InlineCode>/req-body</InlineCode> project directory.</Caption>
 
 To illustrate the parsing of a request body, create an `index.js` file inside your `/api` directory with the following code:
@@ -39,7 +39,7 @@ To illustrate the parsing of a request body, create an `index.js` file inside yo
 ```js
 module.exports = async (req, res) => {
   const { body } = req
-  res.end(`Hello ${body.name}, you just parsed the request body!`)
+  res.send(`Hello ${body.name}, you just parsed the request body!`)
 }
 ```
 
@@ -75,7 +75,7 @@ With the `req.body` helper, the incoming `request` is parsed automatically, remo
 
 Deploying your function to [<ProductName />](/) can be done with **a single command**:
 
-<Snippet dark text="vercel" />
+<Snippet width="100%"dark text="vercel" />
 <Caption>
   Deploying the app with the <InlineCode>vercel</InlineCode> command.
 </Caption>

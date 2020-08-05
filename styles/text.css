@@ -1,0 +1,139 @@
+.geist-text {
+  line-height: 1.5;
+  font-family: var(--font-sans);
+
+  &.geist-text-no-margin {
+    margin: 0;
+  }
+
+  &.geist-text-mono {
+    font-family: var(--font-mono);
+  }
+
+  &.geist-text-upper {
+    text-transform: uppercase;
+  }
+
+  &.geist-text-capitalize {
+    text-transform: capitalize;
+  }
+
+  &.geist-text-center {
+    text-align: center;
+  }
+
+  &.geist-themed {
+    color: var(--themed-fg);
+  }
+
+  /* Text elements */
+
+  &.h1 {
+    font-size: 3rem;
+    letter-spacing: -0.066875rem;
+    font-weight: 700;
+  }
+
+  &.h2 {
+    font-size: 2.25rem;
+    letter-spacing: -0.049375rem;
+    font-weight: 600;
+  }
+
+  &.h3 {
+    font-size: 1.5rem;
+    letter-spacing: -0.029375rem;
+    font-weight: 600;
+  }
+
+  &.h4 {
+    font-size: 1.25rem;
+    letter-spacing: -0.020625rem;
+    font-weight: 600;
+  }
+
+  &.h5 {
+    font-size: 1rem;
+    letter-spacing: -0.01125rem;
+    font-weight: 600;
+  }
+
+  &.h6 {
+    font-size: 0.875rem;
+    letter-spacing: -0.005625rem;
+    font-weight: 600;
+  }
+
+  &.p {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  &.body-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  &.body-1 {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  &.body-2 {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  &.small {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  &.label {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* Font Weights */
+  /* These come after element styles so they override the weights */
+
+  &.w-100 {
+    font-weight: 100;
+  }
+
+  &.w-200 {
+    font-weight: 200;
+  }
+
+  &.w-300 {
+    font-weight: 300;
+  }
+
+  &.w-400 {
+    font-weight: 400;
+  }
+
+  &.w-500 {
+    font-weight: 500;
+  }
+
+  &.w-600 {
+    font-weight: 600;
+  }
+
+  &.w-700 {
+    font-weight: 700;
+  }
+
+  &.w-800 {
+    font-weight: 800;
+  }
+
+  &.w-900 {
+    font-weight: 900;
+  }
+}

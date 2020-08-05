@@ -19,10 +19,15 @@ export const meta = {
   url: '/guides/deploying-takeshape-with-vercel',
   image: `https://og-image.now.sh/**Deploy%20a%20TakeShape%20Blog**%20with%20Next.js%20%26%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fv1592998293%2Ffront%2Fguides%2Fogp%2Ftakeshape.svg`,
   name: 'TakeShape',
+  env: [
+    'TAKESHAPE_API_KEY',
+    'TAKESHAPE_PROJECT_ID',
+    'TAKESHAPE_PREVIEW_SECRET'
+  ],
   type: 'site',
   demo: 'https://next-blog-takeshape.now.sh/',
   editUrl: 'pages/guides/deploying-takeshape-with-vercel.mdx',
-  lastEdited: '2020-07-02T06:29:55.000Z',
+  lastEdited: '2020-07-17T05:49:23.000Z',
   rank: 7
 }
 
@@ -106,33 +111,44 @@ Next, create multiple **Post** records, completing the fields where prompted. Ma
 
 Set up a Next.js project by Initializing the [project template](https://github.com/vercel/next.js/tree/canary/examples/cms-takeshape) and moving into the project directory:
 
-<Snippet dark text="yarn create next-app --example cms-takeshape my-takeshape-app && cd my-takeshape-app" />
+<Snippet width="100%"dark text="yarn create next-app --example cms-takeshape my-takeshape-app && cd my-takeshape-app" />
 <Caption>Initializing a Next.js + TakeShape project and moving into the project directory.</Caption>
 
-## Step 4: Adding Your API Keys
+## Step 4: Creating Your API Keys
 
-From the TakeShape Dashboard, create an API Key with the **Read** permission.
+For your app to function correctly, you will need to provide it with 3 environment variables.
 
-Using [<ProductShortName /> CLI](/download), create [Secrets](/docs/cli#commands/secrets) to securely store the API key, the project `id` from the TakeShape dashboard, and a preview secret.
+<Note>
+  You will need to set these environment variables when importing the project
+  into Vercel as well.
+</Note>
 
-<Snippet dark text="vercel secrets add next_example_cms_takeshape_api_key [your-takeshape-api-key]" />
+Create an `.env.local` file at the root of the project and add the key values using the instructions below, replacing the placeholders with the values and removing the brackets.
+
+Your `.env.local` file will look like this:
+
+```bash
+TAKESHAPE_API_KEY=[API_KEY]
+TAKESHAPE_PROJECT_ID=[PROJECT_ID]
+TAKESHAPE_PREVIEW_SECRET=[PREVIEW_SECRET]
+```
+
 <Caption>
-  Adding the <InlineCode>next_example_cms_takeshape_api_key</InlineCode> as a <strong>Secret</strong>.
+  Creating an <InlineCode>.env.local</InlineCode> file to provide environment
+  variables to the app during development.
 </Caption>
+
+### `TAKESHAPE_API_Key`
+
+From the TakeShape Dashboard, create an API with the **Read** permission.
+
+### `TAKESHAPE_PROJECT_ID`
 
 You can find your project `id` in the URL from the TakeShape dashboard, it will look similar to `a17a8efa-372e-4969-9267-55a9c35a0907`.
 
-<Snippet dark text="vercel secrets add next_example_cms_takeshape_project_id [your-takeshape-project-id]" />
-<Caption>
-  Adding the <InlineCode>next_example_cms_takeshape_project_id</InlineCode> as a <strong>Secret</strong>.
-</Caption>
+### `TAKESHAPE_PREVIEW_SECRET`
 
-Create a random string that can be used as a preview secret and add it using <ProductShortName /> CLI. You can use a string similar to `MY_SECRET`, but remember to change it to make it unique.
-
-<Snippet dark text="vercel secrets add next_example_cms_takeshape_preview_secret [your-random-string]" />
-<Caption>
-  Adding the <InlineCode>next_example_cms_takeshape_preview_secret</InlineCode> as a <strong>Secret</strong>.
-</Caption>
+Create a random string that can be used as a preview secret. You can use a string similar to `MY_SECRET`, but remember to change it to make it unique.
 
 ## Step 5: Deploying Your Blog with <NameWrapper name={PRODUCT_NAME} />
 

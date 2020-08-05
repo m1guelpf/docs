@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
 import cn from 'classnames'
+import titlize from 'title'
 
 import LoadingDots from '~/components/loading-dots'
 import Animation from './button-animation'
@@ -18,6 +19,8 @@ const ButtonBase = ({
   iconAutoSize,
   iconRight,
   iconPush,
+  iconOffset,
+  textOffset,
   iconNoColorOverride,
   iconNoStrokeOverride = true,
   loading,
@@ -28,7 +31,7 @@ const ButtonBase = ({
   width,
   children,
   onClick,
-  capitalize = true,
+  disableEvents,
   normalStyle = {},
   hoverStyle = {},
   innerRef,
@@ -39,18 +42,17 @@ const ButtonBase = ({
   inputSize,
   ...props
 }) => {
-  const [animationStartAt, setAnimationStartAt] = useState(null)
-  const [animationX, setAnimationX] = useState(null)
-  const [animationY, setAnimationY] = useState(null)
+  const [
+    { animationStartAt, animationX, animationY },
+    setAnimationData
+  ] = useState({
+    animationStartAt: null,
+    animationX: null,
+    animationY: null
+  })
   const buttonRef = useRef(null)
   const disabledContext = useDisabled()
   const animation = !(_animation === false) && shadow !== true
-
-  const onAnimationComplete = () => {
-    setAnimationStartAt(null)
-    setAnimationX(null)
-    setAnimationY(null)
-  }
 
   const onButtonClick = ev => {
     if (disabled || disabledContext) return
@@ -59,9 +61,11 @@ const ButtonBase = ({
       const ref = innerRef || buttonRef
       if (ref.current) {
         const rect = buttonRef.current.getBoundingClientRect()
-        setAnimationStartAt(Date.now())
-        setAnimationX(ev.clientX - rect.left)
-        setAnimationY(ev.clientY - rect.top)
+        setAnimationData({
+          animationStartAt: Date.now(),
+          animationX: ev.clientX - rect.left,
+          animationY: ev.clientY - rect.top
+        })
       }
     }
 
@@ -91,7 +95,7 @@ const ButtonBase = ({
           'icon-stroke': !iconNoStrokeOverride,
           loading,
           'auto-size': iconAutoSize,
-          capitalize
+          'geist-no-events': disableEvents
         },
         className
       )}
@@ -102,7 +106,9 @@ const ButtonBase = ({
 
       {/* Always show the text to ensure the width is correct.
           The text will be visbility: hidden when in loading state */}
-      <span className="text">{children}</span>
+      <span className="text">
+        {typeof children === 'string' ? titlize(children) : children}
+      </span>
 
       {loading && (
         <span className="loading-dots">
@@ -115,7 +121,13 @@ const ButtonBase = ({
           key={animationStartAt}
           x={animationX}
           y={animationY}
-          onComplete={onAnimationComplete}
+          onComplete={() => {
+            setAnimationData({
+              animationStartAt: null,
+              animationX: null,
+              animationY: null
+            })
+          }}
         />
       )}
 
@@ -146,12 +158,16 @@ const ButtonBase = ({
               'var(--geist-foreground)'};
         }
 
-        .button:hover {
+        .button:hover,
+        .button:focus,
+        .button:active {
           /* Use -hover variables here for the same reason */
           --button-fg-hover: ${type
             ? 'var(--button-bg)'
             : themeColor || hoverStyle.color || 'var(--geist-foreground)'};
-          --button-bg-hover: ${hoverStyle.backgroundColor || 'transparent'};
+          --button-bg-hover: ${type
+            ? 'transparent'
+            : hoverStyle.backgroundColor};
           --button-border-hover: ${type
             ? 'var(--button-bg)'
             : themeColor ||
@@ -175,6 +191,7 @@ const ButtonBase = ({
           line-height: ${inputSize ? '34px' : '38px'};
           white-space: nowrap;
           font-weight: 500;
+          font-family: var(--font-sans);
 
           /* size */
           min-width: ${width
@@ -185,7 +202,7 @@ const ButtonBase = ({
           height: ${large
             ? '50px;'
             : inputSize
-            ? 'calc(1.688 * var(--geist-gap))'
+            ? 'calc(9 * var(--geist-space))'
             : '40px'};
           padding: 0 ${icon && iconPush && iconRight ? 55 : 25}px 0
             ${icon && iconPush && !iconRight ? 55 : 25}px;
@@ -205,13 +222,16 @@ const ButtonBase = ({
           cursor: pointer;
           overflow: hidden;
           outline: none;
+          box-sizing: border-box;
+          -webkit-tap-highlight-color: transparent;
+          -webkit-touch-callout: none;
         }
 
         /* Ghost buttons break the rules */
         .button.geist-themed.geist-ghost {
           --button-fg-hover: var(--geist-foreground);
-          --button-bg-hover: var(--geist-background);
-          --button-border-hover: var(--geist-background);
+          --button-bg-hover: transparent;
+          --button-border-hover: transparent;
         }
 
         /* Secondary buttons break the rules */
@@ -223,14 +243,18 @@ const ButtonBase = ({
         .button.geist-themed.geist-secondary.shadow {
           --button-border: transparent;
         }
-        .button.geist-themed.geist-secondary:not(.shadow):hover {
+        .button.geist-themed.geist-secondary:not(.shadow):hover,
+        .button.geist-themed.geist-secondary:not(.shadow):focus,
+        .button.geist-themed.geist-secondary:not(.shadow):active {
           --button-fg-hover: var(--geist-foreground);
           --button-bg-hover: var(--geist-background);
           --button-border-hover: var(--geist-foreground);
         }
 
         /* Shadow hover styles should be the same as non-hovered */
-        .button.shadow:hover {
+        .button.shadow:hover,
+        .button.shadow:focus,
+        .button.shadow:active {
           --button-fg-hover: var(--button-fg);
           --button-bg-hover: var(--button-bg);
           --button-border-hover: var(--button-border);
@@ -245,7 +269,12 @@ const ButtonBase = ({
             : 'auto'};
           height: 24px;
           line-height: 22px;
-          padding: 0 10px;
+          padding: 0 ${icon && iconPush && iconRight ? 15 : 10}px 0
+            ${icon && iconPush && !iconRight ? 15 : 10}px;
+        }
+        .button.small .icon {
+          left: ${iconRight ? 'auto' : '11px'};
+          right: ${iconRight ? '12px' : 'auto'};
         }
         .button.medium {
           min-width: ${width
@@ -256,7 +285,14 @@ const ButtonBase = ({
           height: 32px;
           line-height: 0;
           font-size: 0.875rem;
-          padding: 6px 12px;
+          padding: 6px ${icon && iconPush && iconRight ? 45 : 12}px 6px
+            ${icon && iconPush && !iconRight ? 45 : 12}px;
+        }
+        // we match input height on mobile devices (inputs are higher on mobile)
+        @media only screen and (max-device-width: 780px) and (-webkit-min-device-pixel-ratio: 0) {
+          button {
+            ${inputSize ? 'height: calc(2 * var(--geist-gap));' : ''}
+          }
         }
 
         /* Shadow modifier */
@@ -269,10 +305,7 @@ const ButtonBase = ({
         .button .text {
           position: relative;
           z-index: 1;
-        }
-
-        .button.capitalize {
-          text-transform: capitalize;
+          margin-left: ${textOffset ? `${textOffset}px` : '0'};
         }
 
         /* Button icon */
@@ -283,8 +316,13 @@ const ButtonBase = ({
           top: 0;
           bottom: 0;
           z-index: 1;
-          left: ${iconRight ? 'auto' : '22px'};
-          right: ${iconRight ? '22px' : 'auto'};
+          left: ${iconRight ? 'auto' : `${iconOffset || 22}px`};
+          right: ${iconRight ? `${iconOffset || 22}px` : 'auto'};
+          color: var(--button-fg);
+        }
+        .button.medium .icon {
+          left: ${iconRight ? 'auto' : `${iconOffset || 15}px`};
+          right: ${iconRight ? `${iconOffset || 15}px` : 'auto'};
         }
         .button.auto-size .icon :global(svg) {
           height: 20px;
@@ -292,37 +330,57 @@ const ButtonBase = ({
         }
         .button.icon-color .icon :global(path) {
           fill: var(--button-fg);
-          transition: fill 0.2s ease;
+          transition: fill 0.2s ease, color 0.2s ease;
         }
         .button.icon-stroke .icon :global(path) {
           stroke: var(--button-fg);
-          transition: stroke 0.2s ease;
+          transition: stroke 0.2s ease, color 0.2s ease;
         }
 
         /* Hover style */
-        .button:hover {
+        .button:hover,
+        .button:focus,
+        .button:active,
+        .button:focus-within {
           color: var(--button-fg-hover);
           background-color: var(--button-bg-hover);
           border-color: var(--button-border-hover);
         }
-        .button.icon-color:hover .icon :global(path) {
+
+        .button:hover .icon,
+        .button:focus .icon,
+        .button:active .icon,
+        .button:focus-within .icon {
+          color: var(--button-fg-hover);
+        }
+
+        .button.icon-color:hover .icon :global(path),
+        .button.icon-color:focus .icon :global(path),
+        .button.icon-color:active .icon :global(path) {
           fill: var(--button-fg-hover);
         }
-        .button.icon-stroke:hover .icon :global(path) {
+        .button.icon-stroke:hover .icon :global(path),
+        .button.icon-stroke:focus .icon :global(path),
+        .button.icon-stroke:active .icon :global(path) {
           stroke: var(--button-fg-hover);
         }
-        .button.shadow:hover {
+        .button.shadow:hover,
+        .button.shadow:focus,
+        .button.shadow:active {
           box-shadow: var(--shadow-medium);
           transform: translate3d(0px, -1px, 0px);
         }
 
         /* Disabled style */
         .button.disabled {
+          cursor: not-allowed;
           background: var(--accents-1);
           border-color: var(--accents-2);
           color: var(--accents-4);
-          cursor: not-allowed;
           filter: grayscale(1);
+        }
+        .button.disabled .icon {
+          color: var(--accents-4);
         }
         .button.disabled .icon :global(svg) {
           opacity: 0.4;
@@ -333,7 +391,9 @@ const ButtonBase = ({
         .button.disabled.stroke-color .icon :global(path) {
           stroke: var(--accents-4);
         }
-        .button.disabled.shadow:hover {
+        .button.disabled.shadow:hover,
+        .button.disabled.shadow:focus,
+        .button.disabled.shadow:active {
           box-shadow: var(--shadow-medium);
           transform: unset;
         }
@@ -386,9 +446,7 @@ const Button = (props, ref) => {
   return <ButtonBase {...props} innerRef={ref} />
 }
 
-export default React.forwardRef(
-  withType(React.forwardRef(Button), {
-    defaultFill: true,
-    hasFill: false
-  })
-)
+export default withType(React.forwardRef(Button), {
+  defaultFill: true,
+  hasFill: false
+})

@@ -9,22 +9,23 @@ import { Code, InlineCode } from '~/components/text/code'
 
 export const meta = {
   editUrl: 'pages/docs/api/v2/api-docs-mdx/endpoints/teams.mdx',
-  lastEdited: '2019-10-17T14:44:04.000Z'
+  lastEdited: '2019-10-17T14:44:04.000Z',
 }
 
 ## Teams
 
-### Create a team
+### Create a Team
 
 <Endpoint method="POST" url="/v1/teams" />
 
-Create a new team under your account. You need to send a `POST` request with the desired team slug.
+Create a new Team under your account. You need to send a `POST` request with the desired Team slug, and optionally the Team name.
 
 #### Request Parameters
 
 | Key      | <HelpLink href="#api-basics/types" hasIcon>Type</HelpLink> | Required | Description                    |
 | -------- | ---------------------------------------------------------- | -------- | ------------------------------ |
-| **slug** | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The desired slug for the team. |
+| **slug** | <HelpLink href="#api-basics/types">String</HelpLink>       | Yes      | The desired slug for the Team. |
+| **name** | <HelpLink href="#api-basics/types">String</HelpLink>       | No       | The desired name for the Team. |
 
 ##### Example Request
 
@@ -32,11 +33,12 @@ Create a new team under your account. You need to send a `POST` request with the
   method="POST"
   url={`${API_ENDPOINT}/v1/teams`}
   headers={{
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }}
   auth
   body={{
-    slug: 'a-random-team'
+    slug: 'a-random-team',
+    name: 'a-random-team-name',
   }}
 />
 
@@ -64,7 +66,7 @@ Delete a team under your account. You need to send a `DELETE` request with the d
   method="DELETE"
   url={`${API_ENDPOINT}/v1/teams/team_LLHUOMOoDlqOp8wPE4kFo9pE`}
   headers={{
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }}
   auth
 />
@@ -164,11 +166,11 @@ Update the information of the team defined with the id. You need to send a `PATC
   method="PATCH"
   url={`${API_ENDPOINT}/v1/teams/team_ofwUZockJlL53hINUGCc1ONW`}
   headers={{
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }}
   auth
   body={{
-    name: 'My Cool Team'
+    name: 'My Cool Team',
   }}
 />
 
@@ -267,11 +269,11 @@ Invite a user to join the team specified in the URL. To use it send a `POST` req
   method="POST"
   url={`${API_ENDPOINT}/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/members`}
   headers={{
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }}
   auth
   body={{
-    email: 'user@mail.com'
+    email: 'user@mail.com',
   }}
 />
 
@@ -305,11 +307,11 @@ Change the role or status of an user inside a team member. To change it send a `
   method="PATCH"
   url={`${API_ENDPOINT}/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/members/kr1PsOIzqEL5Xg6M4VZcZosf`}
   headers={{
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }}
   auth
   body={{
-    role: 'OWNER'
+    role: 'OWNER',
   }}
 />
 
@@ -340,10 +342,10 @@ Request to join a team as a <InlineCode>MEMBER</InlineCode>. An <InlineCode>OWNE
   method="POST"
   url="https://api.zeit.co/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/request"
   headers={{
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }}
   body={{
-    joinedFrom: 'import'
+    joinedFrom: 'import',
   }}
   auth
 />
@@ -370,7 +372,7 @@ Returns the status of a join request. It'll respond with a 404 if the request ha
   method="GET"
   url="https://api.zeit.co/v1/teams/team_ofwUZockJlL53hINUGCc1ONW/request"
   headers={{
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }}
   auth
 />

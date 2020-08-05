@@ -22,7 +22,7 @@ export const meta = {
   url: '/guides/deploying-nextjs-nodejs-and-faunadb-with-vercel',
   image: `https://og-image.now.sh/**Deploy%20a%20FaunaDB-Powered%20Next.js%20app**%20%3Cbr%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=70px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fseeklogo.com%2Fimages%2FN%2Fnext-js-logo-7929BCD36F-seeklogo.com.png&images=https%3A%2F%2Fres-3.cloudinary.com%2Fcrunchbase-production%2Fimage%2Fupload%2Fc_lpad%2Ch_256%2Cw_256%2Cf_auto%2Cq_auto%3Aeco%2Fywnzi0pt0uw9klatmadc`,
   editUrl: 'pages/guides/deploying-nextjs-nodejs-and-faunadb-with-vercel.mdx',
-  lastEdited: '2020-07-02T06:29:55.000Z',
+  lastEdited: '2020-07-17T05:49:23.000Z',
   rank: 21
 }
 
@@ -94,7 +94,7 @@ On the **Keys** page, you will receive a unique hash called a **Secret**. The **
 
 Create a [Secret](/docs/cli#commands/secrets) to store the access key received, this will be used later when accessing the database.
 
-<Snippet dark text="vercel secrets add FAUNADB_SECRET_KEY [your-access-key]" />
+<Snippet width="100%"dark text="vercel secrets add FAUNADB_SECRET_KEY [your-access-key]" />
 <Caption>
   Adding the access key as a <strong>Secret</strong>.
 </Caption>
@@ -103,21 +103,21 @@ Create a [Secret](/docs/cli#commands/secrets) to store the access key received, 
 
 Get started creating your [Next.js](https://nextjs.org) by making a project directory with the required structure and moving into it:
 
-<Snippet dark text="mkdir -p faunadb-demo/pages/api && mkdir faunadb-demo/components && cd faunadb-demo" />
+<Snippet width="100%"dark text="mkdir -p faunadb-demo/pages/api && mkdir faunadb-demo/components && cd faunadb-demo" />
 <Caption>
   Creating and entering into the <InlineCode>/faunadb-demo</InlineCode>{' '}directory.
 </Caption>
 
 Next, [initialize](https://docs.npmjs.com/cli/init) the project:
 
-<Snippet dark text="npm init -y" />
+<Snippet width="100%"dark text="npm init -y" />
 <Caption>
   Initializing the project, this creates a <InlineCode>package.json</InlineCode>{' '}file.
 </Caption>
 
 Continue to install [the FaunaDB JavaScript client](https://github.com/fauna/faunadb-js) which allows you to connect to, and query, the database, along with the required dependencies for Next.js:
 
-<Snippet dark text="npm i faunadb next react react-dom" />
+<Snippet width="100%"dark text="npm i faunadb next react react-dom" />
 <Caption>
   Adding the <InlineCode>faunadb</InlineCode>, <InlineCode>next</InlineCode>, <InlineCode>react</InlineCode> and <InlineCode>react-dom</InlineCode> <Link href="https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file">dependencies</Link> to the project.
 </Caption>

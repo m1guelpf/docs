@@ -22,7 +22,7 @@ export const meta = {
   type: 'project',
   image: `https://og-image.now.sh/**Deploy%20a%20FaunaDB-Powered%20Next.js%20app**%20%3Cbr%2F%3E%20with%20${PRODUCT_NAME}.png?theme=light&md=1&fontSize=70px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg&images=https%3A%2F%2Fseeklogo.com%2Fimages%2FN%2Fnext-js-logo-7929BCD36F-seeklogo.com.png&images=https%3A%2F%2Fres-3.cloudinary.com%2Fcrunchbase-production%2Fimage%2Fupload%2Fc_lpad%2Ch_256%2Cw_256%2Cf_auto%2Cq_auto%3Aeco%2Fywnzi0pt0uw9klatmadc`,
   editUrl: 'pages/guides/deploying-a-faunadb-powered-guestbook-with-vercel.mdx',
-  lastEdited: '2020-07-02T06:29:55.000Z',
+  lastEdited: '2020-07-17T05:49:23.000Z',
   rank: 19
 }
 
@@ -46,19 +46,19 @@ Make a note of the secret when it is shown as you will need this for Step 2.
 
 Set up your bootstrapped Next.js app with [`npx`](https://www.npmjs.com/package/npx) and move into the project directory:
 
-<Snippet dark text="npx create-next-app --example with-graphql-faunadb my-nextjs-guestbook && cd my-nextjs-guestbook" />
+<Snippet width="100%"dark text="npx create-next-app --example with-graphql-faunadb my-nextjs-guestbook && cd my-nextjs-guestbook" />
 <Caption>Initializing a Next.js, GraphQL, and FaunaDB app with <Link href="https://www.npmjs.com/package/npx">npx</Link> and moving into the project directory.</Caption>
 
 By including the `with-graphql-faunadb` argument, `create-next-app` bootstraps an app based off of a template found in the [Next.js examples repository](https://github.com/vercel/next.js/tree/canary/examples).
 
 Install the project dependencies:
 
-<Snippet dark text="npm i" />
+<Snippet width="100%"dark text="npm i" />
 <Caption>Installing the dependencies for your project with <Link href="https://www.npmjs.com">npm</Link>.</Caption>
 
 Then, start the setup script, providing your FaunaDB secret obtained in [Step 1](#step-1-creating-a-faunadb-database) when prompted:
 
-<Snippet dark text="npm run setup" />
+<Snippet width="100%"dark text="npm run setup" />
 <Caption>Running the setup script provided for your project.</Caption>
 
 This script achieves the following:

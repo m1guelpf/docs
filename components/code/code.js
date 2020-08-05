@@ -23,7 +23,7 @@ const Code = ({ children, lang }, { darkBg } = {}) => (
         pre {
           border: 1px solid #eaeaea;
           padding: 20px;
-          margin: 24px 0 40px;
+          margin: 24px 0 16px;
           white-space: pre;
           overflow: auto;
           -webkit-overflow-scrolling: touch;
