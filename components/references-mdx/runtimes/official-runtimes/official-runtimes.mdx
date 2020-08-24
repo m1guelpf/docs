@@ -159,6 +159,8 @@ Each request to a Node.js Serverless Function gives access to Request and Respon
 | `res.status(code)`                                                                         | A function to set the status code sent with the response where `code` must be a valid [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes). Returns `res` for chaining. | Response |
 | `res.send(body)`                                                                           | A function to set the content of the response where `body` can be a `string`, an `object` or a `Buffer`.                                                                                       | Response |
 | `res.json(obj)`                                                                            | A function to send a JSON response where `obj` is the JSON object to send.                                                                                                                     | Response |
+| `res.redirect(url)`                                                                        | A function to redirect to the URL derived from the specified path with status code "307 Temporary Redirect".                                                                                   | Response |
+| `res.redirect(statusCode, url)`                                                            | A function to redirect to the URL derived from the specified path, with specified [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).                                 | Response |
 
 The following Node.js Serverless Function example showcases the use of `req.query`, `req.cookies` and `req.body` helpers:
 
