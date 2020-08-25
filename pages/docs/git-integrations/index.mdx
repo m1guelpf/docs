@@ -17,7 +17,7 @@ export const meta = {
   description: `How to use the ${PRODUCT_NAME} Git Integrations for GitHub, GitLab, or Bitbucket to automatic deploy from your project's repository for each push and ship to production on merge to the main branch.`,
   image: `${process.env.ASSETS}/docs/git-integrations/git-push.png`,
   editUrl: 'pages/docs/git-integrations/index.mdx',
-  lastEdited: '2020-08-23T15:00:33.000Z',
+  lastEdited: '2020-08-25T18:42:43.000Z',
 }
 
 ​​<ProductName /> provides integrations for your [GitHub](/docs/v2/git-integrations/vercel-for-github), [GitLab](/docs/v2/git-integrations/vercel-for-gitlab), and [Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket) projects, allowing for **automatic deployments on every branch push** and merge to the [Production Branch](#production-branch).
@@ -121,6 +121,43 @@ Whenever a new commit is then pushed to the branch you configured here, a [Produ
   borderRadius
 />
 <Caption>Configuring the Production Branch of your Project.</Caption>
+
+## Monorepos
+
+If you'd like to deploy multiple different directories within the same Git repository,
+you can do so by creating a separate [Project](/docs/platform/projects) for each directory and configuring the [Root Directory setting](/docs/build-step?query=root%20directory#root-directory) for it.
+
+The easiest way to achieve this is by [importing your Git repository](/docs/v2/git-integrations#quick-installation) multiple times and selecting a different
+Root Directory every time – until one Project was created for each of the relevant directories.
+
+<Image
+  src={`${process.env.ASSETS}/docs/common/monorepo-import.png`}
+  width={1284 / 2}
+  height={966 / 2}
+  shadow
+  borderRadius
+/>
+<Caption>Selecting a Root Directory for one of your new Projects.</Caption>
+
+Once you've created a separate Project for each of the directories within your Git repository,
+every commit will issue a Deployment for all connected Projects and display the resulting URLs on your pull requests and commits:
+
+<Image
+  src={`${process.env.ASSETS}/docs/common/monorepo-pr.png`}
+  width={1809 / 2}
+  height={920 / 2}
+/>
+<Caption>An example of Deployment URLs provided by a Git Integration.</Caption>
+
+The amount of Vercel Projects that can be connected with the same Git repository is [limited depending on your plan](/docs/platform/limits#general-limits). To increase this limit, please [contact our Sales Team](/contact/sales).
+
+### Using Monorepos with Vercel CLI
+
+Because it's only possible to link a single Vercel Project when running the `vercel` command, we recommend cloning your Git repository multiple times and then running `vercel` for each one to deploy them.
+
+The same applies to the `vercel dev` command (local Development).
+
+In the future, this workflow piece will be improved drastically. In the meantime, we strongly suggest using one of our [Git Integrations](/docs/git-integrations) instead of Vercel CLI.
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 

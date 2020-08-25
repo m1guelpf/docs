@@ -157,10 +157,10 @@ Environment variables passed to the invoked [Serverless Functions](/docs/v2/serv
   We recommend against using this property.
   <br />
   <br />
-  The only case in which the use of <InlineCode>builds</InlineCode> is still recommended
-  is if your Git repository contains multiple different frontends that you would
-  like to mount to different paths in your URL. True monorepos (mounting multiple
-  frontends to different domains) are currently not supported.
+  If you'd like to customize your Serverless Functions, use the <Link href="/docs/configuration#project/functions">
+    functions
+  </Link> property instead. If you'd like to deploy a monorepo, learn more about
+  how to do it <Link href="/docs/v2/git-integrations#monorepos">here</Link>.
 </Note>
 
 **Type:** `Array` of build `Object`.
@@ -215,8 +215,7 @@ A [glob](https://github.com/isaacs/node-glob#glob-primer) pattern that matches t
 - `excludeFiles` (optional): A [glob](https://github.com/isaacs/node-glob#glob-primer) pattern to match files that should be excluded from your Serverless Function. If you’re using a Community Runtime, the behavior might vary. Please consult its documentation for more details.
 
 <Note type="warning">
-  When using Next.js, only <InlineCode>memory</InlineCode> and{' '}
-  <InlineCode>maxDuration</InlineCode> can be used.
+  When using Next.js, only <InlineCode>memory</InlineCode> and <InlineCode>maxDuration</InlineCode> can be used.
 </Note>
 
 **Description:**
