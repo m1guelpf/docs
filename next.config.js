@@ -199,17 +199,17 @@ module.exports = withMDX({
       {
         source: '/docs/github',
         permanent: true,
-        destination: '/docs/git-integrations/zeit-now-for-github',
+        destination: '/docs/git-integrations/vercel-for-github',
       },
       {
         source: '/docs/gitlab',
         permanent: true,
-        destination: '/docs/git-integrations/zeit-now-for-gitlab',
+        destination: '/docs/git-integrations/vercel-for-gitlab',
       },
       {
         source: '/docs/bitbucket',
         permanent: true,
-        destination: '/docs/git-integrations/zeit-now-for-bitbucket',
+        destination: '/docs/git-integrations/vercel-for-bitbucket',
       },
       {
         source: '/docs/v2/git-integration',
@@ -219,17 +219,17 @@ module.exports = withMDX({
       {
         source: '/docs/v2/more/now-for-github',
         permanent: true,
-        destination: '/docs/git-integrations/zeit-now-for-github',
+        destination: '/docs/git-integrations/vercel-for-github',
       },
       {
         source: '/docs/v2/more/now-for-gitlab',
         permanent: true,
-        destination: '/docs/git-integrations/zeit-now-for-gitlab',
+        destination: '/docs/git-integrations/vercel-for-gitlab',
       },
       {
         source: '/docs/v2/more/now-for-bitbucket',
         permanent: true,
-        destination: '/docs/git-integrations/zeit-now-for-bitbucket',
+        destination: '/docs/git-integrations/vercel-for-bitbucket',
       },
       {
         source: '/docs/:name(integrations|now-cli)/v2/:path*',
@@ -250,17 +250,17 @@ module.exports = withMDX({
       {
         source: '/docs/v2/integrations/now-for-github',
         permanent: true,
-        destination: '/docs/git-integrations/zeit-now-for-github',
+        destination: '/docs/git-integrations/vercel-for-github',
       },
       {
         source: '/docs/v2/integrations/now-for-gitlab',
         permanent: true,
-        destination: '/docs/git-integrations/zeit-now-for-gitlab',
+        destination: '/docs/git-integrations/vercel-for-gitlab',
       },
       {
         source: '/docs/v2/integrations/now-for-bitbucket',
         permanent: true,
-        destination: '/docs/git-integrations/zeit-now-for-bitbucket',
+        destination: '/docs/git-integrations/vercel-for-bitbucket',
       },
       {
         source: '/docs/aliasing',
