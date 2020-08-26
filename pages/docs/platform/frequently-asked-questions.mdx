@@ -14,7 +14,7 @@ export const meta = {
   title: 'Frequently Asked Questions',
   description: 'A list of frequently asked questions relating to deployments.',
   editUrl: 'pages/docs/platform/frequently-asked-questions.mdx',
-  lastEdited: '2020-08-26T07:14:20.000Z',
+  lastEdited: '2020-08-26T23:04:13.000Z',
 }
 
 ## Platform Version Detection
@@ -28,30 +28,18 @@ export const meta = {
 
 It is possible to opt out of this behavior by creating a `vercel.json` file with a `version` property.
 
-If you are yet to upgrade to the latest platform version, please read our [upgrade guide](/guides/migrate-to-zeit-now/).
-
-## Green Energy Policy
-
-<OrgName /> works with multiple cloud partners in order to provide services to
-end users.
-
-The Serverless approach is an energy-efficient alternative to traditional servers because your code runs only on-demand.
-
-For more information on our cloud partners' Green energy policies, we recommend viewing their documentation:
-
-- [AWS Sustainability Timeline](https://aws.amazon.com/about-aws/sustainability/sustainability-timeline/)
-- [Microsoft Environmental Sustainability](https://www.microsoft.com/en-us/corporate-responsibility/sustainability)
+If you are yet to upgrade to the latest platform version, please read our [upgrade guide](/guides/migrate-to-vercel/).
 
 ## What can I deploy with <NameWrapper name={PRODUCT_NAME} />?
 
 <ProductName /> is best at deploying technologies that can be served over HTTP
 and distributed through our CDN network:
 
-- Static websites and static generators ([Next.js](/guides/deploying-nextjs-with-now), React, Vue, Angular, etc)
+- Static websites and static generators ([Next.js](/guides/deploying-nextjs-with-vercel), React, Vue, Angular, etc)
 - Code that renders HTML on the server-side
 - API endpoints that query databases or web APIs and return dynamic data
 
-In general, most popular technologies and languages already have [quickstarts](/docs/v2/introduction#quickstarts) or [guides](/guides) you can start taking advantage of today.
+In general, most popular technologies and languages already have [quickstarts](/docs/introduction#quickstarts) or [guides](/guides) you can start taking advantage of today.
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 
@@ -63,8 +51,8 @@ export const config = {
 
 The [build step](/docs/v2/build-step) will result in an error if the output directory is missing, empty, or invalid (if it’s actually not a directory). To resolve this error, you can try the following steps:
 
-- Make sure that the output directory is specified correctly in project settings. [Here’s the documentation](/docs/v2/build-step#output-directory).
-- If the output directory is correct, double check the Build Command ([documentation](/docs/v2/build-step#build-command)) or the root directory ([documentation](/docs/v2/build-step#root-directory)).
+- Make sure that the output directory is specified correctly in project settings. [Here’s the documentation](/docs/build-step#output-directory).
+- If the output directory is correct, double check the Build Command ([documentation](/docs/build-step#build-command)) or the root directory ([documentation](/docs/build-step#root-directory)).
 - Try running the Build Command locally and make sure that the files are correctly generated in the specified output directory.
 
 ## Missing Build Script
@@ -120,7 +108,7 @@ This ensures no requests are accidentally accepted.
 
 ## Unused Build & Development Settings
 
-A [Project](/docs/v2/platform/projects) has several settings that can be found in the dashboard. One of those sections is called "Build & Development Settings" and is used to change the way a Project is built.
+A [Project](/docs/platform/projects) has several settings that can be found in the dashboard. One of those sections is called "Build & Development Settings" and is used to change the way a Project is built.
 
 However, the Build & Development Settings are only applied to [zero-configuration](/guides/upgrade-to-zero-configuration) Deployments.
 
@@ -221,7 +209,7 @@ However, the [`builds`](/docs/configuration#project/builds) property will remain
 
 ## Unsupported Functions Configuration with Next.js
 
-When using Next.js, only `memory` and `maxDuration` can be configured within the [functions](https://vercel.com/docs/configuration#project/functions) property. Next.js automatically handles the other configuration values for you.
+When using Next.js, only `memory` and `maxDuration` can be configured within the [functions](/docs/configuration#project/functions) property. Next.js automatically handles the other configuration values for you.
 
 ## Deploying Serverless Functions to Multiple Regions
 
@@ -310,7 +298,7 @@ To increase this limit, please [contact our Sales Team](/contact/sales).
 
 ## Bypassing Password Protection Programmatically
 
-When [Password Protection](/docs/v2/platform/projects#password-protection) is enabled on your Project,
+When [Password Protection](/docs/platform/projects#password-protection) is enabled on your Project,
 you can bypass the protection programmatically with the following steps:
 
 - Send a `POST` request to your Deployment with the password in the request body (`_vercel_password=<password>`).
