@@ -16,7 +16,7 @@ export const meta = {
   url: '/guides/migrate-to-vercel',
   editUrl: 'pages/guides/migrate-to-vercel.mdx',
   lastEdited: '2020-07-02T06:29:55.000Z',
-  rank: 9
+  rank: 9,
 }
 
 ## Frontend Frameworks
@@ -28,7 +28,7 @@ export const meta = {
 To migrate your domains to <ProductName />, refer to the following documentation:
 
 - [Custom Domains](/docs/v2/custom-domains)
-- [Zero-Downtime Domain Migration with <ProductName />](/guides/zero-downtime-domain-migration)
+- [Zero-Downtime Domain Migration with <ProductName />](/knowledge/zero-downtime-migration-for-dns)
 
 ## Serverful vs. Serverless APIs
 
@@ -37,15 +37,15 @@ Serverful apps need to run consistently, watching for requests. Then, when reque
 In serverful monolith style apps, routing is commonly handled by a single file. Let's look at an Express.js example to illustrate this:
 
 ```js
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.send('GET homepage.')
 })
 
-app.post('/teams', function(req, res) {
+app.post('/teams', function (req, res) {
   res.send('POST teams data.')
 })
 
-app.get('/teams/data', function(req, res) {
+app.get('/teams/data', function (req, res) {
   res.send('GET teams data.')
 })
 ```
@@ -128,7 +128,7 @@ module.exports = (req, res) => {
 Using route parameters with your Serverless Functions is made easy with <ProductName />. Let's first take a look at another serverful Express.js example that uses a dynamic route.
 
 ```js
-app.get('/teams/:member', function(req, res) {
+app.get('/teams/:member', function (req, res) {
   res.send(`GET details about the ${req.query.member}.`)
 })
 ```
@@ -170,5 +170,5 @@ module.exports = (req, res) => {
 export default ({ children }) => <Guide meta={meta}>{children}</Guide>
 
 export const config = {
-  amp: 'hybrid'
+  amp: 'hybrid',
 }

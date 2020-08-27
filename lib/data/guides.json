@@ -618,15 +618,6 @@
     "lastEdited": "2020-07-17T05:49:23.000Z"
   },
   {
-    "title": "Zero-Downtime Domain Migration with Vercel",
-    "description": "Migrate your domain from an external service to Vercel with no downtime, in just a few steps.",
-    "published": "2019-07-11T17:00:00.860Z",
-    "authors": ["mcsdev"],
-    "url": "/guides/zero-downtime-domain-migration",
-    "editUrl": "pages/guides/zero-downtime-domain-migration.mdx",
-    "lastEdited": "2020-07-10T15:00:57.000Z"
-  },
-  {
     "title": "Create and Deploy a Next.js and Prismic App with Vercel",
     "description": "Create a Next.js and Prismic app that is deployed with Vercel.",
     "name": "Next.js + Prismic",

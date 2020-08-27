@@ -466,6 +466,11 @@ module.exports = withMDX({
         destination: '/docs/custom-domains/#redirecting-domains',
       },
       {
+        source: '/guides/zero-downtime-domain-migration',
+        permanent: true,
+        destination: '/knowledge/zero-downtime-migration-for-dns',
+      },
+      {
         source: '/docs/v2/upgrade-to-2-0',
         permanent: true,
         destination: '/guides/migrate-to-vercel',
