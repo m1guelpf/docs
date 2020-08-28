@@ -14,7 +14,7 @@ export const meta = {
   title: 'Projects',
   description: `Setting up projects with a list of deployments on ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/platform/projects.mdx',
-  lastEdited: '2020-08-11T06:54:44.000Z',
+  lastEdited: '2020-08-28T17:51:48.000Z',
 }
 
 To deploy on <ProductName />, you need to create a **Project**. A Project is a logical structure that groups [deployments](/docs/v2/platform/deployments) and [custom domains](/docs/v2/custom-domains). Each project can be associated to a [GitHub](/docs/v2/git-integrations/vercel-for-github), [GitLab](/docs/v2/git-integrations/vercel-for-gitlab), or [Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket) repository.
@@ -148,6 +148,28 @@ To edit your project’s security settings, select the **Security** menu item fr
 <Caption>
   Selecting the <b>Security</b> menu item from the Project Settings page.
 </Caption>
+
+### Ignored Build Step
+
+By default, <ProductName /> will issue a new [Deployment](/docs/platform/deployments) with Build (unless the Build Step is [skipped](/docs/build-step#build-command)) for every commit to your connected Git repository.
+
+If the SHA of the commit was already deployed in the past, however, no new Deployment is created. In that case, the last Deployment matching that SHA is returned instead.
+
+To customize the behavior for your Git repositories, you can enter a command in the **Ignored Build Step** section of the **Git Integration** page, which will then determine whether or not a new Build needs to be issued:
+
+<Image
+  src={`${process.env.ASSETS}/docs/platform/projects/ignored-build-step.png`}
+  width={1488 / 2}
+  height={616 / 2}
+  shadow
+/>
+<Caption>Specify the Git repository for your project.</Caption>
+
+If the SHA of your commit wasn't deployed before, a regular Deployment is issued in the `QUEUED` state, which then moves into the `BUILDING` state once it starts building.
+
+While the Deployment is in the `BUILDING` state, the command you've entered in the **Ignored Build Step** section will be run. If the command exits with code `1`, the Build will continue as usual. If the command exits with code `0`, however, the Build is immediately aborted and the Deployment state is set to `CANCELED`.
+
+The command is executed within the [Root Directory](/docs/build-step#root-directory).
 
 ### Logs and Source Protection
 

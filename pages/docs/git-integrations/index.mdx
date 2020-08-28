@@ -18,7 +18,7 @@ export const meta = {
   description: `How to use the ${PRODUCT_NAME} Git Integrations for GitHub, GitLab, or Bitbucket to automatic deploy from your project's repository for each push and ship to production on merge to the main branch.`,
   image: `${process.env.ASSETS}/docs/git-integrations/git-push.png`,
   editUrl: 'pages/docs/git-integrations/index.mdx',
-  lastEdited: '2020-08-28T00:30:13.000Z',
+  lastEdited: '2020-08-28T14:49:51.000Z',
 }
 
 ​​<ProductName /> provides integrations for your [GitHub](/docs/v2/git-integrations/vercel-for-github), [GitLab](/docs/v2/git-integrations/vercel-for-gitlab), and [Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket) projects, allowing for **automatic deployments on every branch push** and merge to the [Production Branch](#production-branch).
@@ -160,6 +160,12 @@ The same applies to the `vercel dev` command (local Development).
 
 In the future, this workflow piece will be improved drastically. In the meantime, we strongly suggest using one of our [Git Integrations](/docs/git-integrations) instead of Vercel CLI.
 
+### Ignoring the Build Step
+
+Pushing a commit to your monorepo will create a Deployment for each of the connected Vercel projects.
+
+If you want to abort the Build Step for certain projects if their files didn't change, you can do so with the [Ignored Build Step](/docs/platform/projects#ignored-build-step) project setting.
+
 ### Monorepo FAQ
 
 <br />
@@ -212,24 +218,6 @@ In the future, this workflow piece will be improved drastically. In the meantime
       Pushing a commit to a Git repository that is connected with multiple
       Vercel projects will result in multiple deployments being created and
       built in parallel for each.
-    </p>
-  </Collapse>
-  <Collapse
-    size="small"
-    title="Can I prevent certain projects from being deployed when pushing?"
-  >
-    <div style={{ height: 10 }} />
-    <p>
-      At the moment, every commit will issue a deployment for all projects that
-      are connected with your Git repository at that time.
-    </p>
-    <p>
-      In the future, you will be able to select which paths should be considered
-      by the{' '}
-      <Link color href="/docs/git-integrations">
-        Git Integration
-      </Link>{' '}
-      when deciding whether to deploy a project.
     </p>
   </Collapse>
   <Collapse

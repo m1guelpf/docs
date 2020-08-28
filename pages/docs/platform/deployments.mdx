@@ -15,7 +15,7 @@ export const meta = {
   title: 'Deployments',
   description: `Understanding and making deployments with ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/platform/deployments.mdx',
-  lastEdited: '2020-08-04T23:22:45.000Z',
+  lastEdited: '2020-08-28T14:03:24.000Z',
 }
 
 A deployment is the result of building your [Project](/docs/v2/platform/projects/) and making it available through a live URL.
@@ -190,6 +190,10 @@ The URL structure of each preview deployment contains the name of the applicatio
 ​<ProductName /> ensures that the digest is computed [deterministically](https://en.wikipedia.org/wiki/Deterministic_algorithm) by sorting and ordering all the inputs involved in the algorithm.
 
 Our lookup excludes deployments that are in an `ERROR` state – if a previous deployment matches the digest but failed to build correctly.
+
+#### Deduplication for Git Deployments
+
+Learn more about how deduplication works when creating Deployments through a Git repository and how to customize the behavior [here](/docs/platform/projects#ignored-build-step).
 
 #### Skipping Deduplication
 
