@@ -256,6 +256,20 @@
     "lastEdited": "2020-08-21T12:36:40.000Z"
   },
   {
+    "title": "Build and Deploy a Next.js Voting App with Lambda Store and Vercel",
+    "description": "Create a Lambda Store backed Next.js app and deploy it with Vercel.",
+    "published": "2020-08-21T07:47:12.000Z",
+    "authors": ["mcsdev"],
+    "url": "/guides/deploying-next-and-lambda-store-with-vercel",
+    "example": "https://github.com/vercel/next.js/tree/canary/examples/with-redis",
+    "image": "https://og-image.now.sh/**Build%20and%20deploy%20a%20Next.js%20blog**%20%3Cbr%2F%3Ewith%20Cosmic%20and%20Vercel.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fweb-assets.cosmicjs.com%2Fimages%2Flogo.svg",
+    "editUrl": "pages/guides/deploying-next-and-lambda-store-with-vercel.mdx",
+    "name": "Next.js + Lambda Store",
+    "type": "app",
+    "demo": "https://roadmap-voting-demo.vercel.app/",
+    "lastEdited": "2020-08-21T23:34:49.000Z"
+  },
+  {
     "title": "Deploy Next.js and Userbase with Vercel",
     "description": "Create a Todo app with Next.js and Userbase and deploy it live with Vercel.",
     "published": "2020-07-15T12:00:00.860Z",

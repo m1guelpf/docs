@@ -1,0 +1,80 @@
+import Guide from '~/components/layout/guide'
+import Snippet from '~/components/snippet'
+import { InlineCode } from '~/components/text/code'
+import { Image } from '~/components/media'
+import Caption from '~/components/text/caption'
+import Note from '~/components/text/note'
+import Link from '~/components/text/link'
+import DeploySection from '~/components/guides/deploy-section'
+
+export const meta = {
+  title: 'Build and Deploy a Next.js Voting App with Lambda Store and Vercel',
+  description:
+    'Create a Lambda Store backed Next.js app and deploy it with Vercel.',
+  published: '2020-08-21T07:47:12.000Z',
+  authors: ['mcsdev'],
+  url: '/guides/deploying-next-and-lambda-store-with-vercel',
+  example: 'https://github.com/vercel/next.js/tree/canary/examples/with-redis',
+  image:
+    'https://og-image.now.sh/**Build%20and%20deploy%20a%20Next.js%20blog**%20%3Cbr%2F%3Ewith%20Cosmic%20and%20Vercel.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg&images=https%3A%2F%2Fweb-assets.cosmicjs.com%2Fimages%2Flogo.svg',
+  editUrl: 'pages/guides/deploying-next-and-lambda-store-with-vercel.mdx',
+  name: 'Next.js + Lambda Store',
+  type: 'app',
+  demo: 'https://roadmap-voting-demo.vercel.app/',
+  lastEdited: '2020-08-21T23:34:49.000Z',
+}
+
+[Lambda Store](https://lambda.store/) is a service that provides a managed Redis instance, providing high performance, low latency persistence for your app.
+
+This guides showcases how to use Lambda Store with [Next.js](https://nextjs.org/) to create a roadmap voting app, making use of the [Lambda Store integration](https://vercel.com/integrations/lambdastore) on Vercel, for a seamless setup and management experience.
+
+## Step 1: Initialize the App Locally
+
+To get started, initialize the application locally with following command:
+
+<Snippet dark text="npx create-next-app --example with-redis with-redis-app" />
+<Caption>Initializing a Next.js + Lambda Store app locally.</Caption>
+
+After initializing the app you can run it locally with the following command:
+
+<Snippet dark text="yarn dev" />
+<Caption>Running the Next.js + Lambda Store app locally.</Caption>
+
+While your app will function well locally, there will be no persistence in the data. In [step 2](#step-2:-creating-an-api-key), you will create an API key which is required to connect the Lambda Store integration in [step 4](#step-4:-install-the-lambda-store-integration). This will enable data persistence for your app.
+
+## Step 2: Creating an API Key
+
+To create an API key, first create a new Lambda Store account [here](https://console.lambda.store/login) if you do not have one already.
+
+After creating an account, select "Account" from the menu and click "API Keys" follwed by "Create An API Key".
+
+Give your API key a name and confirm the creation - **make a note of this key when shown** as it will not visible again after this point.
+
+<Note>
+  If you lose your API key, you can always create another from the Lambda Store
+  dashboard.
+</Note>
+
+In the next step, you will deploy the application initialized before shortly connecting it to the Lambda Store integration on Vercel.
+
+## Step 3: Deploy the App with Vercel
+
+<DeploySection meta={meta} />
+
+## Step 4: Install the Lambda Store Integration
+
+With your deployment made, install the [Lambda Store integration](/integrations/lambdastore) from the Vercel Dashboard, adding a configuration for the account you imported your project to.
+
+When prompted, enter the email address associated with your Lambda Store account along with your API key from [step 2](#step-2:-creating-an-api-key) and click "Setup".
+
+Select the [Project](/docs/platform/projects) to add the database for and click "+ Add Database".
+
+Provide a database name, type, and region before clicking "Create". Once the database has been created, click "Link to project" to provide the `REDIS_URL` environment variable value to the Project.
+
+From the next deployment created, the environment variable will be supplied to the app and you will have persistence provided by Lambda Store.
+
+export default ({ children }) => <Guide meta={meta}>{children}</Guide>
+
+export const config = {
+  amp: 'hybrid',
+}
