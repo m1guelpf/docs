@@ -10,6 +10,7 @@ import BitbucketIcon from '~/components/icons/bitbucket'
 import GitLabIcon from '~/components/icons/gitlab'
 import GitHubIcon from '~/components/icons/github'
 import ProductName from '~/components/name/product-name'
+import Link from '~/geist/link'
 import { PRODUCT_NAME } from '~/lib/constants'
 
 export const meta = {
@@ -17,7 +18,7 @@ export const meta = {
   description: `How to use the ${PRODUCT_NAME} Git Integrations for GitHub, GitLab, or Bitbucket to automatic deploy from your project's repository for each push and ship to production on merge to the main branch.`,
   image: `${process.env.ASSETS}/docs/git-integrations/git-push.png`,
   editUrl: 'pages/docs/git-integrations/index.mdx',
-  lastEdited: '2020-08-25T18:42:43.000Z',
+  lastEdited: '2020-08-28T00:30:13.000Z',
 }
 
 ​​<ProductName /> provides integrations for your [GitHub](/docs/v2/git-integrations/vercel-for-github), [GitLab](/docs/v2/git-integrations/vercel-for-gitlab), and [Bitbucket](/docs/v2/git-integrations/vercel-for-bitbucket) projects, allowing for **automatic deployments on every branch push** and merge to the [Production Branch](#production-branch).
@@ -158,6 +159,112 @@ Because it's only possible to link a single Vercel Project when running the `ver
 The same applies to the `vercel dev` command (local Development).
 
 In the future, this workflow piece will be improved drastically. In the meantime, we strongly suggest using one of our [Git Integrations](/docs/git-integrations) instead of Vercel CLI.
+
+### Monorepo FAQ
+
+<br />
+
+<CollapseGroup>
+  <Collapse size="small" title="How can I speed up builds?">
+    <div style={{ height: 10 }} />
+    <p>
+      Whether or not your deployments are queued depends on the amount of
+      Concurrent Builds you have available. Personal accounts are limited to 1
+      Concurrent Build, while teams can customize the amount on the "Billing"
+      page in the team settings.
+    </p>
+    <p>
+      Learn more about how to adjust your Concurrent Builds{' '}
+      <Link
+        color
+        href="https://vercel.com/knowledge/why-are-my-vercel-builds-queued"
+      >
+        here
+      </Link>
+      .
+    </p>
+  </Collapse>
+  <Collapse
+    size="small"
+    title="How can I make my projects available on different paths under the same domain?"
+  >
+    <div style={{ height: 10 }} />
+    <p>
+      After having set up your monorepo as described above, each of the
+      directories will be a separate Vercel project, and therefore be available
+      on a separate domain.
+    </p>
+    <p>
+      If you'd like to host multiple projects under a single domain, you can
+      create a new project, assign the domain in the project settings, and proxy
+      requests to the other upstream projects. The proxy can be implemented
+      using a `vercel.json` file with the{' '}
+      <Link color href="https://vercel.com/docs/configuration#project/rewrites">
+        rewrites
+      </Link>{' '}
+      property, where each `source` is the path under the main domain and each
+      `destination` is the upstream project domain.
+    </p>
+  </Collapse>
+  <Collapse size="small" title="How are projects built after I push?">
+    <div style={{ height: 10 }} />
+    <p>
+      Pushing a commit to a Git repository that is connected with multiple
+      Vercel projects will result in multiple deployments being created and
+      built in parallel for each.
+    </p>
+  </Collapse>
+  <Collapse
+    size="small"
+    title="Can I prevent certain projects from being deployed when pushing?"
+  >
+    <div style={{ height: 10 }} />
+    <p>
+      At the moment, every commit will issue a deployment for all projects that
+      are connected with your Git repository at that time.
+    </p>
+    <p>
+      In the future, you will be able to select which paths should be considered
+      by the{' '}
+      <Link color href="/docs/git-integrations">
+        Git Integration
+      </Link>{' '}
+      when deciding whether to deploy a project.
+    </p>
+  </Collapse>
+  <Collapse
+    size="small"
+    title="Can I share source files between projects? Are Yarn & Lerna Workspaces supported?"
+  >
+    <div style={{ height: 10 }} />
+    <p>
+      To access source files outside the Root Directory (which enables Yarn &
+      Lerna Workspaces), enable the "
+      <i>
+        Include source files outside of the Root Directory in the Build Step
+      </i>
+      " option in the Root Directory section within the project settings.
+    </p>
+    <p>
+      Vercel projects created after August 27th 2020 23:50 UTC have this option
+      enabled by default.
+    </p>
+    <p>If you're using Vercel CLI, at least version 20.1.0 is required.</p>
+  </Collapse>
+  <Collapse size="small" title="How can I use monorepos with Vercel CLI?">
+    <div style={{ height: 10 }} />
+    <p>
+      Because Vercel CLI only allows for linking a single Vercel project, you
+      currently need to clone your Git repository multiple times (once per
+      directory you want to deploy or develop) and then link a project for each.
+    </p>
+    <p>
+      Use at least version 20.1.0 of Vercel CLI to ensure you can take advantage
+      of the option for accessing source files outside the Root Directory
+      (mentioned in a section above).
+    </p>
+  </Collapse>
+</CollapseGroup>
 
 export default ({ children }) => <Doc meta={meta}>{children}</Doc>
 

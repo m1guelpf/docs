@@ -9,7 +9,7 @@ import Text from '../text'
 import { useCollapse } from './collapse-context'
 import useMediaQuery from '~/lib/use-media-query'
 
-const Collapse = ({ title, subtitle, id, onToggle, card, children }) => {
+const Collapse = ({ title, subtitle, id, onToggle, card, size, children }) => {
   const [ref, { height }] = useMeasure({ polyfill: ResizeObserver })
   const [active, setActive] = useState(false)
   const collapseContext = useCollapse()
@@ -48,7 +48,7 @@ const Collapse = ({ title, subtitle, id, onToggle, card, children }) => {
   const props = useSpring({
     height: open ? height : 0,
     immediate: immediateAnimation.current,
-    config: { tension: 250, friction: 32, clamp: true }
+    config: { tension: 250, friction: 32, clamp: true },
   })
 
   useEffect(() => {
@@ -71,18 +71,25 @@ const Collapse = ({ title, subtitle, id, onToggle, card, children }) => {
     }
   }, [])
 
+  const small = size === 'small'
+
   return (
-    <div className={cn('collapse', { card })} id={id}>
+    <div className={cn('collapse', { card, small })} id={id}>
       <div
         role="button"
         tabIndex="0"
         className="collapse-title"
         aria-expanded={open}
         onClick={_toggle}
-        onKeyPress={ev => onKeyPress(ev, _toggle)}
+        onKeyPress={(ev) => onKeyPress(ev, _toggle)}
       >
         <div className="top">
-          <Text h3 weight={600} noMargin>
+          <Text
+            h3
+            preset={small ? 'h5' : undefined}
+            weight={small ? 500 : 600}
+            noMargin
+          >
             {title}
           </Text>
           <span className={cn('icon', { open })}>
@@ -100,7 +107,7 @@ const Collapse = ({ title, subtitle, id, onToggle, card, children }) => {
       <animated.div
         style={{
           overflow: 'hidden',
-          ...props
+          ...props,
         }}
       >
         <div ref={ref} className={cn('collapse-content', { open })}>
@@ -116,6 +123,10 @@ const Collapse = ({ title, subtitle, id, onToggle, card, children }) => {
             : '1px solid var(--accents-2)'};
           border-bottom: 1px solid var(--accents-2);
           padding: var(--geist-gap) 0;
+        }
+
+        .collapse.small {
+          padding: var(--geist-gap-half) 0;
         }
 
         .collapse.card {
