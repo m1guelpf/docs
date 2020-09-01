@@ -90,7 +90,9 @@ Alternatively, define `NPM_RC` as a [build environment variable](/docs/configura
 
 ### Custom Build Step for Node.js
 
-You can run build tasks by creating a `vercel-build` script within a `package.json` file at the entry point's level or higher. For example:
+In some cases, you may wish to include build outputs inside your Serverless Function. You can run a build task by adding a `vercel-build` script within your `package.json` file, in the same directory as your Serverless Function or any parent directory. The `package.json` nearest to the Serverless Function will be preferred and used for both Installing and Building.
+
+For example:
 
 ```json
 {
