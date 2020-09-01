@@ -13,7 +13,7 @@ export const meta = {
   title: 'Serverless Functions',
   description: `Learn how to deploy Serverless Functions with ${PRODUCT_NAME}.`,
   editUrl: 'pages/docs/serverless-functions/introduction.mdx',
-  lastEdited: '2020-08-04T21:21:17.000Z',
+  lastEdited: '2020-09-01T02:35:38.000Z',
 }
 
 With <ProductName />, you can deploy Serverless Functions, which are pieces of code written with [backend languages](/docs/v2/serverless-functions/supported-languages/#supported-languages) that take an HTTP request and provide a response.
@@ -84,13 +84,13 @@ module.exports = (req, res) => {
 <Caption>
   An example Node.js Serverless Function using Express.js-like helper methods
   from the{' '}
-  <Link href="/docs/v2/serverless-functions/supported-languages#node.js-request-and-response-objects">
+  <Link href="/docs/runtimes#official-runtimes/node-js/node-js-request-and-response-objects">
     Request and Response objects
   </Link>
   .
 </Caption>
 
-The above example echoes the `body`, path `query`, and `cookies`, passed with the request object, as a JSON object using helper methods provided through the [Request and Response](/docs/v2/serverless-functions/supported-languages/#node.js-request-and-response-objects).
+The above example echoes the `body`, path `query`, and `cookies`, passed with the request object, as a JSON object using helper methods provided through the [Request and Response](/docs/runtimes#official-runtimes/node-js/node-js-request-and-response-objects).
 
 Then, all you need to do, to have a live API, is push to your connected Git repository using a [<ProductName /> for Git Integration](/docs/v2/git-integrations) to receive a deployment automatically.
 
